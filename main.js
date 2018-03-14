@@ -56,7 +56,7 @@ function usage(msg) {
     var adminServer = ti.createServer();
 
 
-    server.listen((opt.port?opt.port:9001), function onListening() {
+    server.listen((opt.port?opt.port:8001), function onListening() {
         server.get('/',restify.serveStatic({
             directory: './public/docs',
             default: 'index.html',
