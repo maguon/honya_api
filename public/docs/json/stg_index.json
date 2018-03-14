@@ -1,16 +1,16 @@
 {
   "swagger": "2.0",
   "info": {
-    "description": "This is a api docs for `logistics`.  ",
+    "description": "This is a api docs for honya`logistics and finance`.  ",
     "version": "1.0.0",
-    "title": "Log API Docs",
+    "title": "Honya API Docs",
     "termsOfService": "http://myxxjs.com",
     "contact": {
       "email": "info@myxxjs.com"
     },
     "license": {
       "name": "Github.com",
-      "url": "https://github.com/maguon/log_api/blob/master/LICENSE"
+      "url": "https://github.com/maguon/honya_api/blob/master/LICENSE"
     }
   },
   "host": "stg.myxxjs.com:8001",
