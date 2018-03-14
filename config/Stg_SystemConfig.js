@@ -3,9 +3,9 @@
 
 
 var mysqlConnectOptions ={
-    user: 'log',
-    password: 'log_base',
-    database:'log_base',
+    user: 'honya',
+    password: 'honya_base',
+    database:'honya_base',
     host: '47.93.121.1' ,
     charset : 'utf8mb4',
     //,dateStrings : 'DATETIME'
@@ -23,7 +23,7 @@ function getMysqlConnectOptions (){
 }
 
 var mongoConfig = {
-    connect : 'mongodb://127.0.0.1:27017/honya'
+    connect : 'mongodb://127.0.0.1:27017/log'
 }
 
 var hosts = {
