@@ -1,7 +1,4 @@
 
-
-
-
 var mysqlConnectOptions ={
     user: 'honya',
     password: 'honya_base',
