@@ -113,8 +113,23 @@ function updateStorageParking(req,res,next){
     })
 }
 
+function queryStorageParkingMakeStat(req,res,next){
+    var params = req.params ;
+    storageParkingDAO.getStorageMakeStat(params,function(error,result){
+        if (error) {
+            logger.error(' queryStorageParkingMakeStat ' + error.message);
+            throw sysError.InternalError(error.message,sysMsg.SYS_INTERNAL_ERROR_MSG);
+        } else {
+            logger.info(' queryStorageParkingMakeStat ' + 'success');
+            resUtil.resetQueryRes(res,result,null);
+            return next();
+        }
+    })
+}
+
 
 module.exports = {
     queryStorageParking : queryStorageParking,
-    updateStorageParking : updateStorageParking
+    updateStorageParking : updateStorageParking,
+    queryStorageParkingMakeStat : queryStorageParkingMakeStat
 }

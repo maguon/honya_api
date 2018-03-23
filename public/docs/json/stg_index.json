@@ -2326,6 +2326,42 @@
         }
       }
     },
+    "/storage/{storageId}/makeStat": {
+      "get": {
+        "tags": [
+          "storage"
+        ],
+        "summary": "query  storageParking make list",
+        "description": "query storageParking make",
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "storageId",
+            "in": "path",
+            "description": "storage id",
+            "required": false,
+            "type": "integer"
+
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "successful operation",
+            "schema": {
+              "type": "object",
+              "items": {
+                "$ref": "#/definitions/storageParking"
+              }
+            }
+          },
+          "400": {
+            "description": "Invalid token value or invalid storage id"
+          }
+        }
+      }
+    },
     "/user/{userId}/storageParking/{parkingId}": {
       "put": {
         "tags": [

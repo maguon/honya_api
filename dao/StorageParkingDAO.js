@@ -79,10 +79,25 @@ function updateStorageParkingOut(params,callback){
     });
 }
 
+function getStorageMakeStat (params,callback){
+    var query = " select count(car_id) car_count ,cm.id,cm.make_name " +
+        " from storage_parking sp left join car_info ci on sp.car_id = ci.id  " +
+        " left join car_make cm on ci.make_id = cm.id " +
+        " where storage_id = ? group by cm.id " ;
+    var paramsArray=[],i=0;
+    paramsArray[i]=params.storageId;
+    db.dbQuery(query,paramsArray,function(error,rows){
+        logger.debug(' getStorageMakeStat ');
+        return callback(error,rows);
+    });
+}
+
+
 module.exports ={
     addStorageParking : addStorageParking,
     getStorageParking : getStorageParking,
     updateStorageParking : updateStorageParking,
     updateStorageParkingMove : updateStorageParkingMove,
-    updateStorageParkingOut : updateStorageParkingOut
+    updateStorageParkingOut : updateStorageParkingOut,
+    getStorageMakeStat : getStorageMakeStat
 }
