@@ -3695,6 +3695,14 @@
         ],
         "parameters": [
           {
+            "name": "appId",
+            "in": "query",
+            "description": "app id",
+            "required": false,
+            "type": "integer"
+
+          },
+          {
             "name": "app",
             "in": "query",
             "description": "app name :1-storage app",
@@ -3707,6 +3715,22 @@
             "description": "app type : 1-android,2-ios",
             "required": false,
             "type": "integer"
+          },
+          {
+            "name": "start",
+            "in": "query",
+            "description": " list start pos",
+            "required": false,
+            "type": "integer"
+
+          },
+          {
+            "name": "size",
+            "in": "query",
+            "description": "list size for pagination",
+            "required": false,
+            "type": "integer"
+
           }
         ],
         "responses": {

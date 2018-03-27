@@ -5,6 +5,10 @@ var logger = serverLogger.createLogger('AppDAO.js');
 function queryApp(params,callback){
     var query = " select id,app,type,version,version_number,floor_version_number,force_update,url,remark,created_on,updated_on from app_version where id is not null ";
     var paramsArray=[],i=0;
+    if(params.appId){
+        query = query + " and id = ? ";
+        paramsArray[i++]=params.appId;
+    }
     if(params.type){
         query = query + " and type = ? ";
         paramsArray[i++]=params.type;
