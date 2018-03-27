@@ -17,6 +17,10 @@ function queryApp(params,callback){
         query = query + " and app = ? ";
         paramsArray[i++]=params.app;
     }
+    if(params.forceUpdate){
+        query = query + " and force_update = ? ";
+        paramsArray[i++]=params.forceUpdate;
+    }
     query = query + '  order by id desc ';
     if (params.start && params.size) {
         paramsArray[i++] = parseInt(params.start);

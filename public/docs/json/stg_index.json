@@ -13,7 +13,7 @@
       "url": "https://github.com/maguon/honya_api/blob/master/LICENSE"
     }
   },
-  "host": "stg.myxxjs.com:8001",
+  "host": "stg.myxxjs.com:9001",
   "basePath": "/api",
   "tags": [
     {
@@ -3713,6 +3713,13 @@
             "name": "type",
             "in": "query",
             "description": "app type : 1-android,2-ios",
+            "required": false,
+            "type": "integer"
+          },
+          {
+            "name": "forceUpdate",
+            "in": "query",
+            "description": "app type : 0-no,1-yes",
             "required": false,
             "type": "integer"
           },
