@@ -13,7 +13,7 @@
       "url": "https://github.com/maguon/honya_api/blob/master/LICENSE"
     }
   },
-  "host": "stg.myxxjs.com:8001",
+  "host": "stg.myxxjs.com:9001",
   "basePath": "/api",
   "tags": [
     {
@@ -3724,6 +3724,105 @@
           }
         }
       }
+    },
+    "/user/{userId}/app": {
+      "post": {
+        "tags": [
+          "app"
+        ],
+        "summary": "user create app version ",
+        "description": "user create app",
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "userId",
+            "in": "path",
+            "description": "user id",
+            "required": true,
+            "type": "integer"
+
+          },
+          {
+            "name": "appVersion",
+            "in": "body",
+            "description": "app version  info",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/app"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "successful operation",
+            "schema": {
+              "type": "object",
+              "items": {
+                "$ref": "#/definitions/ApiResponse"
+              }
+            }
+          },
+          "400": {
+            "description": "Invalid token value or invalid repairStation id"
+          }
+        }
+      }
+    },
+    "/user/{userId}/app/{appId}": {
+      "put": {
+        "tags": [
+          "app"
+        ],
+        "summary": "update app version info",
+        "description": "update app version",
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "userId",
+            "in": "path",
+            "description": "user Id",
+            "required": true,
+            "type": "integer"
+
+          },
+          {
+            "name": "appId",
+            "in": "path",
+            "description": "app verion id",
+            "required": true,
+            "type": "integer"
+
+          },
+          {
+            "name": "appVersion",
+            "in": "body",
+            "description": "app version info",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/app"
+            }
+
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "successful operation",
+            "schema": {
+              "type": "object",
+              "items": {
+                "$ref": "#/definitions/ApiResponse"
+              }
+            }
+          },
+          "400": {
+            "description": "Invalid token value or invalid repairStation id"
+          }
+        }
+      }
     }
   },
   "securityDefinitions": {
@@ -3750,14 +3849,20 @@
         "app": {
           "type": "integer"
         },
-        "type": {
-          "type": "integer"
-        },
-        "force_update": {
+        "appType": {
           "type": "integer"
         },
         "version": {
           "type": "string"
+        },
+        "versionNumber": {
+          "type": "integer"
+        },
+        "floorVersionNumber": {
+          "type": "integer"
+        },
+        "forceUpdate": {
+          "type": "integer"
         },
         "url": {
           "type": "string"
@@ -3767,7 +3872,7 @@
         }
       },
       "xml": {
-        "name": "department"
+        "name": "app"
       }
     },
     "admin": {

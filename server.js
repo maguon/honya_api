@@ -241,6 +241,8 @@ function createServer() {
      * App Module
      */
     server.get('/api/app',app.queryApp);
+    server.post({path:'/api/user/:userId/app',contentType: 'application/json'},app.createAppVersion);
+    server.put({path:'/api/user/:userId/app/:appId',contentType: 'application/json'} ,app.updateAppVersion);
 
     server.on('NotFound', function (req, res, next) {
         logger.warn(req.url + " not found");
