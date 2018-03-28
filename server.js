@@ -23,6 +23,7 @@ var car = require('./bl/Car.js');
 var carStorageRel = require('./bl/CarStorageRel.js');
 var carMake = require('./bl/CarMake.js');
 var carModel = require('./bl/CarModel.js');
+var entrust = require('./bl/Entrust.js');
 var app = require('./bl/App.js');
 var sysRecord = require('./bl/SysRecord.js');
 
@@ -140,7 +141,6 @@ function createServer() {
     server.put({path:'/api/user/:userId/password',contentType: 'application/json'} ,user.changeUserPassword);
     server.get('/api/user/:userId/token/:token' , user.changeUserToken);
 
-
     /**
      * Truck Module
      */
@@ -236,6 +236,13 @@ function createServer() {
     server.put({path:'/api/user/:userId/carModel/:modelId',contentType: 'application/json'} ,carModel.updateCarModel);
     server.put({path:'/api/admin/:adminId/carModel/:modelId/modelStatus/:modelStatus',contentType: 'application/json'} ,carModel.updateModelStatus);
     server.put({path:'/api/user/:userId/carModel/:modelId/modelStatus/:modelStatus',contentType: 'application/json'} ,carModel.updateModelStatus);
+
+    /**
+     * Entrust Module
+     */
+    server.get('/api/entrust',entrust.queryEntrust);
+    server.post({path:'/api/user/:userId/entrust',contentType: 'application/json'},entrust.createEntrust);
+    server.put({path:'/api/user/:userId/entrust/:entrustId',contentType: 'application/json'} ,entrust.updateEntrust);
 
     /**
      * App Module

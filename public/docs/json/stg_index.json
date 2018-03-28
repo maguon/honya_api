@@ -49,6 +49,10 @@
       "description":"Car of log api"
     },
     {
+      "name":"entrust",
+      "description":"Entrust of log api"
+    },
+    {
       "name":"app",
       "description":"app version"
     }
@@ -3683,6 +3687,181 @@
         }
       }
     },
+    "/entrust": {
+      "get": {
+        "tags": [
+          "entrust"
+        ],
+        "summary": "query entrust list",
+        "description": "query entrust",
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "entrustId",
+            "in": "query",
+            "description": "entrust id",
+            "required": false,
+            "type": "integer"
+
+          },
+          {
+            "name": "entrustType",
+            "in": "query",
+            "description": "entrust type",
+            "required": false,
+            "type": "integer"
+
+          },
+          {
+            "name": "shortName",
+            "in": "query",
+            "description": "short name",
+            "required": false,
+            "type": "string"
+
+          },
+          {
+            "name": "entrustName",
+            "in": "query",
+            "description": "entrust name",
+            "required": false,
+            "type": "string"
+
+          },
+          {
+            "name": "start",
+            "in": "query",
+            "description": " list start pos",
+            "required": false,
+            "type": "integer"
+
+          },
+          {
+            "name": "size",
+            "in": "query",
+            "description": "list size for pagination",
+            "required": false,
+            "type": "integer"
+
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "successful operation",
+            "schema": {
+              "type": "object",
+              "items": {
+                "$ref": "#/definitions/entrust"
+              }
+            }
+          },
+          "400": {
+            "description": "Invalid token value or invalid entrust id"
+          }
+        }
+      }
+    },
+    "/user/{userId}/entrust": {
+      "post": {
+        "tags": [
+          "entrust"
+        ],
+        "summary": "user create entrust",
+        "description": "user create entrust",
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "userId",
+            "in": "path",
+            "description": "user id",
+            "required": true,
+            "type": "integer"
+
+          },
+          {
+            "name": "entrust",
+            "in": "body",
+            "description": "entrust info",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/entrust"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "successful operation",
+            "schema": {
+              "type": "object",
+              "items": {
+                "$ref": "#/definitions/ApiResponse"
+              }
+            }
+          },
+          "400": {
+            "description": "Invalid token value or invalid entrust id"
+          }
+        }
+      }
+    },
+    "/user/{userId}/entrust/{entrustId}": {
+      "put": {
+        "tags": [
+          "entrust"
+        ],
+        "summary": "update entrust info",
+        "description": "update entrust info",
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "userId",
+            "in": "path",
+            "description": "user id",
+            "required": true,
+            "type": "integer"
+
+          },
+          {
+            "name": "entrustId",
+            "in": "path",
+            "description": "entrust id",
+            "required": true,
+            "type": "integer"
+
+          },
+          {
+            "name": "entrust",
+            "in": "body",
+            "description": "entrust info",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/entrust"
+            }
+
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "successful operation",
+            "schema": {
+              "type": "object",
+              "items": {
+                "$ref": "#/definitions/ApiResponse"
+              }
+            }
+          },
+          "400": {
+            "description": "Invalid token value or invalid entrust id"
+          }
+        }
+      }
+    },
     "/app": {
       "get": {
         "tags": [
@@ -4304,6 +4483,36 @@
       },
       "xml": {
         "name": "carModel"
+      }
+    },
+    "entrust": {
+      "type": "object",
+      "properties": {
+
+        "shortName": {
+          "type": "string"
+        },
+        "entrustName": {
+          "type": "string"
+        },
+        "entrustType": {
+          "type": "integer"
+        },
+        "contactsName": {
+          "type": "string"
+        },
+        "tel": {
+          "type": "string"
+        },
+        "address": {
+          "type": "string"
+        },
+        "remark": {
+          "type": "string"
+        }
+      },
+      "xml": {
+        "name": "entrust"
       }
     }
   },
