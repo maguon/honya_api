@@ -7,7 +7,7 @@ var serverLogger = require('../util/ServerLogger.js');
 var logger = serverLogger.createLogger('CarKeyDAO.js');
 
 function addCarKey(params,callback){
-    var query = " insert into car_key (key_name,remark) values ( ? , ? )";
+    var query = " insert into car_key_info (key_name,remark) values ( ? , ? )";
     var paramsArray=[],i=0;
     paramsArray[i++]=params.keyName;
     paramsArray[i]=params.remark;
@@ -18,7 +18,7 @@ function addCarKey(params,callback){
 }
 
 function getCarKey(params,callback) {
-    var query = " select * from car_key where id is not null ";
+    var query = " select * from car_key_info where id is not null ";
     var paramsArray=[],i=0;
     if(params.carKeyId){
         paramsArray[i++] = params.carKeyId;
@@ -44,7 +44,7 @@ function getCarKey(params,callback) {
 }
 
 function updateCarKey(params,callback){
-    var query = " update car_key set key_name = ?,remark = ? where id = ? " ;
+    var query = " update car_key_info set key_name = ?,remark = ? where id = ? " ;
     var paramsArray=[],i=0;
     paramsArray[i++]=params.keyName;
     paramsArray[i++]=params.remark;
