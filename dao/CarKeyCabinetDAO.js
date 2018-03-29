@@ -18,20 +18,22 @@ function addCarKeyCabinet(params,callback){
 }
 
 function getCarKeyCabinet(params,callback) {
-    var query = " select * from car_key_cabinet_info where id is not null ";
+    var query = " select ckc.*,count(ckca.id) as area_count,sum(ckca.row*ckca.col) as position_count from car_key_cabinet_info ckc " +
+        " left join car_key_cabinet_area ckca on ckc.id = ckca.car_key_cabinet_id where ckc.id is not null ";
     var paramsArray=[],i=0;
     if(params.carKeyCabinetId){
         paramsArray[i++] = params.carKeyCabinetId;
-        query = query + " and id = ? ";
+        query = query + " and ckc.id = ? ";
     }
     if(params.keyCabinetName){
         paramsArray[i++] = params.keyCabinetName;
-        query = query + " and key_cabinet_name = ? ";
+        query = query + " and ckc.key_cabinet_name = ? ";
     }
     if(params.keyCabinetStatus){
         paramsArray[i++] = params.keyCabinetStatus;
-        query = query + " and key_cabinet_status = ? ";
+        query = query + " and ckc.key_cabinet_status = ? ";
     }
+    query = query + ' group by ckc.id ';
     if (params.start && params.size) {
         paramsArray[i++] = parseInt(params.start);
         paramsArray[i++] = parseInt(params.size);
