@@ -3687,39 +3687,39 @@
         }
       }
     },
-    "/carKey": {
+    "/carKeyCabinet": {
       "get": {
         "tags": [
           "car"
         ],
-        "summary": "query carKey list",
-        "description": "query carKey",
+        "summary": "query carKeyCabinet list",
+        "description": "query carKeyCabinet",
         "produces": [
           "application/json"
         ],
         "parameters": [
           {
-            "name": "carKeyId",
+            "name": "carKeyCabinetId",
             "in": "query",
-            "description": "carKey id",
+            "description": "carKeyCabinet id",
             "required": false,
             "type": "integer"
 
           },
           {
-            "name": "keyName",
+            "name": "keyCabinetName",
             "in": "query",
-            "description": "key name",
+            "description": "keyCabinet name",
             "required": false,
             "type": "string"
 
           },
           {
-            "name": "keyStatus",
+            "name": "keyCabinetStatus",
             "in": "query",
-            "description": "key status",
+            "description": "keyCabinet status",
             "required": false,
-            "type": "string"
+            "type": "integer"
 
           },
           {
@@ -3745,23 +3745,23 @@
             "schema": {
               "type": "object",
               "items": {
-                "$ref": "#/definitions/carKey"
+                "$ref": "#/definitions/carKeyCabinet"
               }
             }
           },
           "400": {
-            "description": "Invalid token value or invalid carKey id"
+            "description": "Invalid token value or invalid carKeyCabinet id"
           }
         }
       }
     },
-    "/user/{userId}/carKey": {
+    "/user/{userId}/carKeyCabinet": {
       "post": {
         "tags": [
           "car"
         ],
-        "summary": "user create carKey",
-        "description": "user create carKey",
+        "summary": "user create carKeyCabinet",
+        "description": "user create carKeyCabinet",
         "produces": [
           "application/json"
         ],
@@ -3775,12 +3775,12 @@
 
           },
           {
-            "name": "carKey",
+            "name": "carKeyCabinet",
             "in": "body",
-            "description": "carKey info",
+            "description": "carKeyCabinet info",
             "required": true,
             "schema": {
-              "$ref": "#/definitions/carKey"
+              "$ref": "#/definitions/carKeyCabinet"
             }
           }
         ],
@@ -3795,18 +3795,18 @@
             }
           },
           "400": {
-            "description": "Invalid token value or invalid carKey id"
+            "description": "Invalid token value or invalid carKeyCabinet id"
           }
         }
       }
     },
-    "/user/{userId}/carKey/{carKeyId}": {
+    "/user/{userId}/carKeyCabinet/{carKeyCabinetId}": {
       "put": {
         "tags": [
           "car"
         ],
-        "summary": "update carKey info",
-        "description": "update carKey info",
+        "summary": "update carKeyCabinet info",
+        "description": "update carKeyCabinet info",
         "produces": [
           "application/json"
         ],
@@ -3820,20 +3820,20 @@
 
           },
           {
-            "name": "carKeyId",
+            "name": "carKeyCabinetId",
             "in": "path",
-            "description": "carKey id",
+            "description": "carKeyCabinet id",
             "required": true,
             "type": "integer"
 
           },
           {
-            "name": "carKey",
+            "name": "carKeyCabinet",
             "in": "body",
-            "description": "carKey info",
+            "description": "carKeyCabinet info",
             "required": true,
             "schema": {
-              "$ref": "#/definitions/carKey"
+              "$ref": "#/definitions/carKeyCabinet"
             }
 
           }
@@ -3849,7 +3849,7 @@
             }
           },
           "400": {
-            "description": "Invalid token value or invalid carKey id"
+            "description": "Invalid token value or invalid carKeyCabinet id"
           }
         }
       }
@@ -4835,11 +4835,11 @@
         "name": "carModel"
       }
     },
-    "carKey": {
+    "carKeyCabinet": {
       "type": "object",
       "properties": {
 
-        "keyName": {
+        "keyCabinetName": {
           "type": "string"
         },
         "remark": {
@@ -4847,7 +4847,7 @@
         }
       },
       "xml": {
-        "name": "carKey"
+        "name": "carKeyCabinet"
       }
     },
     "carKeyArea": {

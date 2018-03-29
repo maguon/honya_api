@@ -7,48 +7,48 @@ var sysError = require('../util/SystemError.js');
 var resUtil = require('../util/ResponseUtil.js');
 var encrypt = require('../util/Encrypt.js');
 var listOfValue = require('../util/ListOfValue.js');
-var carKeyDAO = require('../dao/CarKeyDAO.js');
+var carKeyCabinetDAO = require('../dao/CarKeyCabinetDAO.js');
 var oAuthUtil = require('../util/OAuthUtil.js');
 var Seq = require('seq');
 var serverLogger = require('../util/ServerLogger.js');
-var logger = serverLogger.createLogger('CarKey.js');
+var logger = serverLogger.createLogger('CarKeyCabinet.js');
 
-function createCarKey(req,res,next){
+function createCarKeyCabinet(req,res,next){
     var params = req.params ;
-    carKeyDAO.addCarKey(params,function(error,result){
+    carKeyCabinetDAO.addCarKeyCabinet(params,function(error,result){
         if (error) {
-            logger.error(' createCarKey ' + error.message);
+            logger.error(' createCarKeyCabinet ' + error.message);
             throw sysError.InternalError(error.message,sysMsg.SYS_INTERNAL_ERROR_MSG);
         } else {
-            logger.info(' createCarKey ' + 'success');
+            logger.info(' createCarKeyCabinet ' + 'success');
             resUtil.resetCreateRes(res,result,null);
             return next();
         }
     })
 }
 
-function queryCarKey(req,res,next){
+function queryCarKeyCabinet(req,res,next){
     var params = req.params ;
-    carKeyDAO.getCarKey(params,function(error,result){
+    carKeyCabinetDAO.getCarKeyCabinet(params,function(error,result){
         if (error) {
-            logger.error(' queryCarKey ' + error.message);
+            logger.error(' queryCarKeyCabinet ' + error.message);
             throw sysError.InternalError(error.message,sysMsg.SYS_INTERNAL_ERROR_MSG);
         } else {
-            logger.info(' queryCarKey ' + 'success');
+            logger.info(' queryCarKeyCabinet ' + 'success');
             resUtil.resetQueryRes(res,result,null);
             return next();
         }
     })
 }
 
-function updateCarKey(req,res,next){
+function updateCarKeyCabinet(req,res,next){
     var params = req.params ;
-    carKeyDAO.updateCarKey(params,function(error,result){
+    carKeyCabinetDAO.updateCarKeyCabinet(params,function(error,result){
         if (error) {
-            logger.error(' updateCarKey ' + error.message);
+            logger.error(' updateCarKeyCabinet ' + error.message);
             throw sysError.InternalError(error.message,sysMsg.SYS_INTERNAL_ERROR_MSG);
         } else {
-            logger.info(' updateCarKey ' + 'success');
+            logger.info(' updateCarKeyCabinet ' + 'success');
             resUtil.resetUpdateRes(res,result,null);
             return next();
         }
@@ -57,7 +57,7 @@ function updateCarKey(req,res,next){
 
 
 module.exports = {
-    createCarKey : createCarKey,
-    queryCarKey : queryCarKey,
-    updateCarKey : updateCarKey
+    createCarKeyCabinet : createCarKeyCabinet,
+    queryCarKeyCabinet : queryCarKeyCabinet,
+    updateCarKeyCabinet : updateCarKeyCabinet
 }
