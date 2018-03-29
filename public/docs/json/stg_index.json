@@ -3687,6 +3687,173 @@
         }
       }
     },
+    "/carKey": {
+      "get": {
+        "tags": [
+          "car"
+        ],
+        "summary": "query carKey list",
+        "description": "query carKey",
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "carKeyId",
+            "in": "query",
+            "description": "carKey id",
+            "required": false,
+            "type": "integer"
+
+          },
+          {
+            "name": "keyName",
+            "in": "query",
+            "description": "key name",
+            "required": false,
+            "type": "string"
+
+          },
+          {
+            "name": "keyStatus",
+            "in": "query",
+            "description": "key status",
+            "required": false,
+            "type": "string"
+
+          },
+          {
+            "name": "start",
+            "in": "query",
+            "description": " list start pos",
+            "required": false,
+            "type": "integer"
+
+          },
+          {
+            "name": "size",
+            "in": "query",
+            "description": "list size for pagination",
+            "required": false,
+            "type": "integer"
+
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "successful operation",
+            "schema": {
+              "type": "object",
+              "items": {
+                "$ref": "#/definitions/carKey"
+              }
+            }
+          },
+          "400": {
+            "description": "Invalid token value or invalid carKey id"
+          }
+        }
+      }
+    },
+    "/user/{userId}/carKey": {
+      "post": {
+        "tags": [
+          "car"
+        ],
+        "summary": "user create carKey",
+        "description": "user create carKey",
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "userId",
+            "in": "path",
+            "description": "user id",
+            "required": true,
+            "type": "integer"
+
+          },
+          {
+            "name": "carKey",
+            "in": "body",
+            "description": "carKey info",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/carKey"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "successful operation",
+            "schema": {
+              "type": "object",
+              "items": {
+                "$ref": "#/definitions/ApiResponse"
+              }
+            }
+          },
+          "400": {
+            "description": "Invalid token value or invalid carKey id"
+          }
+        }
+      }
+    },
+    "/user/{userId}/carKey/{carKeyId}": {
+      "put": {
+        "tags": [
+          "car"
+        ],
+        "summary": "update carKey info",
+        "description": "update carKey info",
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "userId",
+            "in": "path",
+            "description": "user id",
+            "required": true,
+            "type": "integer"
+
+          },
+          {
+            "name": "carKeyId",
+            "in": "path",
+            "description": "carKey id",
+            "required": true,
+            "type": "integer"
+
+          },
+          {
+            "name": "carKey",
+            "in": "body",
+            "description": "carKey info",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/carKey"
+            }
+
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "successful operation",
+            "schema": {
+              "type": "object",
+              "items": {
+                "$ref": "#/definitions/ApiResponse"
+              }
+            }
+          },
+          "400": {
+            "description": "Invalid token value or invalid carKey id"
+          }
+        }
+      }
+    },
     "/entrust": {
       "get": {
         "tags": [
@@ -4483,6 +4650,21 @@
       },
       "xml": {
         "name": "carModel"
+      }
+    },
+    "carKey": {
+      "type": "object",
+      "properties": {
+
+        "keyName": {
+          "type": "string"
+        },
+        "remark": {
+          "type": "string"
+        }
+      },
+      "xml": {
+        "name": "carKey"
       }
     },
     "entrust": {
