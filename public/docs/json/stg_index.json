@@ -3854,6 +3854,58 @@
         }
       }
     },
+    "/user/{userId}/carKeyCabinet/{carKeyCabinetId}/keyCabinetStatus/{keyCabinetStatus}": {
+      "put": {
+        "tags": [
+          "car"
+        ],
+        "summary": "update keyCabinet status",
+        "description": "update keyCabinet status",
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "userId",
+            "in": "path",
+            "description": "user Id",
+            "required": true,
+            "type": "integer"
+
+          },
+          {
+            "name": "carKeyCabinetId",
+            "in": "path",
+            "description": "carKeyCabinet id",
+            "required": true,
+            "type": "integer"
+
+          },
+          {
+            "name": "keyCabinetStatus",
+            "in": "path",
+            "description": "keyCabinet status",
+            "required": true,
+            "type": "integer"
+
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "successful operation",
+            "schema": {
+              "type": "object",
+              "items": {
+                "$ref": "#/definitions/ApiResponse"
+              }
+            }
+          },
+          "400": {
+            "description": "Invalid token value or invalid keyCabinet id"
+          }
+        }
+      }
+    },
     "/carKeyCabinetArea": {
       "get": {
         "tags": [
@@ -4018,6 +4070,58 @@
             "schema": {
               "$ref": "#/definitions/carKeyCabinetArea"
             }
+
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "successful operation",
+            "schema": {
+              "type": "object",
+              "items": {
+                "$ref": "#/definitions/ApiResponse"
+              }
+            }
+          },
+          "400": {
+            "description": "Invalid token value or invalid carKeyCabinetArea id"
+          }
+        }
+      }
+    },
+    "/user/{userId}/carKeyCabinetArea/{areaId}/areaStatus/{areaStatus}": {
+      "put": {
+        "tags": [
+          "car"
+        ],
+        "summary": "update carKeyCabinetArea status",
+        "description": "update carKeyCabinetArea status",
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "userId",
+            "in": "path",
+            "description": "user Id",
+            "required": true,
+            "type": "integer"
+
+          },
+          {
+            "name": "areaId",
+            "in": "path",
+            "description": "area id",
+            "required": true,
+            "type": "integer"
+
+          },
+          {
+            "name": "areaStatus",
+            "in": "path",
+            "description": "area status",
+            "required": true,
+            "type": "integer"
 
           }
         ],

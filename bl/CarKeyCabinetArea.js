@@ -105,9 +105,42 @@ function updateCarKeyCabinetArea(req,res,next){
     })
 }
 
+function updateCarKeyCabinetAreaStatus(req,res,next){
+    var params = req.params;
+    Seq().seq(function(){
+        var that = this;
+        carKeyPositionDAO.getCarKeyPositionBase(params,function(error,rows){
+            if (error) {
+                logger.error(' getCarKeyPositionBase ' + error.message);
+                throw sysError.InternalError(error.message,sysMsg.SYS_INTERNAL_ERROR_MSG);
+            } else{
+                if(rows&&rows.length >0){
+                    logger.warn(' getCarKeyPositionBase ' + 'failed');
+                    resUtil.resetFailedRes(res,"还有未清空的位置，禁止停用");
+                    return next();
+                }else{
+                    that();
+                }
+            }
+        })
+    }).seq(function () {
+        carKeyCabinetAreaDAO.updateCarKeyCabinetAreaStatus(params,function(error,result){
+            if (error) {
+                logger.error(' updateCarKeyCabinetAreaStatus ' + error.message);
+                throw sysError.InternalError(error.message,sysMsg.SYS_INTERNAL_ERROR_MSG);
+            } else {
+                logger.info(' updateCarKeyCabinetAreaStatus ' + 'success');
+                resUtil.resetUpdateRes(res,result,null);
+                return next();
+            }
+        })
+    })
+}
+
 
 module.exports = {
     createCarKeyCabinetArea : createCarKeyCabinetArea,
     queryCarKeyCabinetArea : queryCarKeyCabinetArea,
-    updateCarKeyCabinetArea : updateCarKeyCabinetArea
+    updateCarKeyCabinetArea : updateCarKeyCabinetArea,
+    updateCarKeyCabinetAreaStatus : updateCarKeyCabinetAreaStatus
 }

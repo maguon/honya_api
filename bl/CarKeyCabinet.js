@@ -8,6 +8,7 @@ var resUtil = require('../util/ResponseUtil.js');
 var encrypt = require('../util/Encrypt.js');
 var listOfValue = require('../util/ListOfValue.js');
 var carKeyCabinetDAO = require('../dao/CarKeyCabinetDAO.js');
+var carKeyPositionDAO = require('../dao/CarKeyPositionDAO.js');
 var oAuthUtil = require('../util/OAuthUtil.js');
 var Seq = require('seq');
 var serverLogger = require('../util/ServerLogger.js');
@@ -55,9 +56,42 @@ function updateCarKeyCabinet(req,res,next){
     })
 }
 
+function updateCarKeyCabinetStatus(req,res,next){
+    var params = req.params;
+    Seq().seq(function(){
+        var that = this;
+        carKeyPositionDAO.getCarKeyPositionBase(params,function(error,rows){
+            if (error) {
+                logger.error(' getCarKeyPositionBase ' + error.message);
+                throw sysError.InternalError(error.message,sysMsg.SYS_INTERNAL_ERROR_MSG);
+            } else{
+                if(rows&&rows.length >0){
+                    logger.warn(' getCarKeyPositionBase ' + 'failed');
+                    resUtil.resetFailedRes(res,"还有未清空的位置，禁止停用");
+                    return next();
+                }else{
+                    that();
+                }
+            }
+        })
+    }).seq(function () {
+        carKeyCabinetDAO.updateCarKeyCabinetStatus(params,function(error,result){
+            if (error) {
+                logger.error(' updateCarKeyCabinetStatus ' + error.message);
+                throw sysError.InternalError(error.message,sysMsg.SYS_INTERNAL_ERROR_MSG);
+            } else {
+                logger.info(' updateCarKeyCabinetStatus ' + 'success');
+                resUtil.resetUpdateRes(res,result,null);
+                return next();
+            }
+        })
+    })
+}
+
 
 module.exports = {
     createCarKeyCabinet : createCarKeyCabinet,
     queryCarKeyCabinet : queryCarKeyCabinet,
-    updateCarKeyCabinet : updateCarKeyCabinet
+    updateCarKeyCabinet : updateCarKeyCabinet,
+    updateCarKeyCabinetStatus : updateCarKeyCabinetStatus
 }

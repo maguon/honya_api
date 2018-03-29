@@ -245,6 +245,7 @@ function createServer() {
     server.get('/api/carKeyCabinet',carKeyCabinet.queryCarKeyCabinet);
     server.post({path:'/api/user/:userId/carKeyCabinet',contentType: 'application/json'},carKeyCabinet.createCarKeyCabinet);
     server.put({path:'/api/user/:userId/carKeyCabinet/:carKeyCabinetId',contentType: 'application/json'} ,carKeyCabinet.updateCarKeyCabinet);
+    server.put({path:'/api/user/:userId/carKeyCabinet/:carKeyCabinetId/keyCabinetStatus/:keyCabinetStatus',contentType: 'application/json'} ,carKeyCabinet.updateCarKeyCabinetStatus);
 
     /**
      * CarKeyCabinetArea Module
@@ -252,6 +253,7 @@ function createServer() {
     server.get('/api/carKeyCabinetArea',carKeyCabinetArea.queryCarKeyCabinetArea);
     server.post({path:'/api/user/:userId/carKeyCabinet/:carKeyCabinetId/carKeyCabinetArea',contentType: 'application/json'},carKeyCabinetArea.createCarKeyCabinetArea);
     server.put({path:'/api/user/:userId/carKeyCabinetArea/:areaId',contentType: 'application/json'} ,carKeyCabinetArea.updateCarKeyCabinetArea);
+    server.put({path:'/api/user/:userId/carKeyCabinetArea/:areaId/areaStatus/:areaStatus',contentType: 'application/json'} ,carKeyCabinetArea.updateCarKeyCabinetAreaStatus);
 
     /**
      * Entrust Module

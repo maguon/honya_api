@@ -55,9 +55,21 @@ function updateCarKeyCabinet(params,callback){
     });
 }
 
+function updateCarKeyCabinetStatus(params,callback){
+    var query = " update car_key_cabinet_info set key_cabinet_status = ? where id = ?";
+    var paramsArray=[],i=0;
+    paramsArray[i++] = params.keyCabinetStatus;
+    paramsArray[i] = params.carKeyCabinetId;
+    db.dbQuery(query,paramsArray,function(error,rows){
+        logger.debug(' updateCarKeyCabinetStatus ');
+        return callback(error,rows);
+    });
+}
+
 
 module.exports ={
     addCarKeyCabinet : addCarKeyCabinet,
     getCarKeyCabinet : getCarKeyCabinet,
-    updateCarKeyCabinet : updateCarKeyCabinet
+    updateCarKeyCabinet : updateCarKeyCabinet,
+    updateCarKeyCabinetStatus : updateCarKeyCabinetStatus
 }

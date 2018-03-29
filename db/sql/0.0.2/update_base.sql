@@ -59,7 +59,7 @@ CREATE TABLE `car_key_position` (
   `car_key_cabinet_area_id` int(10) NOT NULL COMMENT '钥匙柜分区ID',
   `row` int(10) NOT NULL COMMENT '行',
   `col` int(10) NOT NULL COMMENT '列',
-  `car_key_id` int(10) NOT NULL DEFAULT '0' COMMENT '钥匙ID',
+  `car_id` int(10) NOT NULL DEFAULT '0' COMMENT '商品车ID',
   `created_on` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP COMMENT '创建时间',
   `updated_on` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP COMMENT '更新时间',
   PRIMARY KEY (`id`)

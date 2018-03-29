@@ -61,9 +61,21 @@ function updateCarKeyCabinetArea(params,callback){
     });
 }
 
+function updateCarKeyCabinetAreaStatus(params,callback){
+    var query = " update car_key_cabinet_area set area_status = ? where id = ?";
+    var paramsArray=[],i=0;
+    paramsArray[i++] = params.areaStatus;
+    paramsArray[i] = params.areaId;
+    db.dbQuery(query,paramsArray,function(error,rows){
+        logger.debug(' updateCarKeyCabinetAreaStatus ');
+        return callback(error,rows);
+    });
+}
+
 
 module.exports ={
     addCarKeyCabinetArea : addCarKeyCabinetArea,
     getCarKeyCabinetArea : getCarKeyCabinetArea,
-    updateCarKeyCabinetArea : updateCarKeyCabinetArea
+    updateCarKeyCabinetArea : updateCarKeyCabinetArea,
+    updateCarKeyCabinetAreaStatus : updateCarKeyCabinetAreaStatus
 }

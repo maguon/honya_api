@@ -19,7 +19,25 @@ function addCarKeyPosition(params,callback){
     });
 }
 
+function getCarKeyPositionBase(params,callback) {
+    var query = " select * from car_key_position where car_id >0 and id is not null ";
+    var paramsArray=[],i=0;
+    if(params.carKeyCabinetId){
+        paramsArray[i++] = params.carKeyCabinetId;
+        query = query + " and car_key_cabinet_id = ? ";
+    }
+    if(params.areaId){
+        paramsArray[i++] = params.areaId;
+        query = query + " and car_key_cabinet_area_id = ? ";
+    }
+    db.dbQuery(query,paramsArray,function(error,rows){
+        logger.debug(' getCarKeyPositionBase ');
+        return callback(error,rows);
+    });
+}
+
 
 module.exports ={
-    addCarKeyPosition : addCarKeyPosition
+    addCarKeyPosition : addCarKeyPosition,
+    getCarKeyPositionBase : getCarKeyPositionBase
 }
