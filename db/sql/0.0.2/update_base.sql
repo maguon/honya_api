@@ -34,3 +34,18 @@ CREATE TABLE `car_key` (
   `updated_on` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP COMMENT '更新时间',
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+-- ----------------------------
+-- Table structure for car_key_area
+-- ----------------------------
+DROP TABLE IF EXISTS `car_key_area`;
+CREATE TABLE `car_key_area` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `car_key_id` int(10) NOT NULL COMMENT '钥匙柜ID',
+  `area_name` varchar(50) COLLATE utf8mb4_unicode_ci NOT NULL COMMENT '分区名称',
+  `row` int(10) NOT NULL COMMENT '行',
+  `col` int(10) NOT NULL COMMENT '列',
+  `area_status` tinyint(1) NOT NULL DEFAULT '1' COMMENT '钥匙扇区状态(0-停用,1-可用)',
+  `created_on` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP COMMENT '创建时间',
+  `updated_on` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP COMMENT '更新时间',
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;

@@ -24,6 +24,7 @@ var carStorageRel = require('./bl/CarStorageRel.js');
 var carMake = require('./bl/CarMake.js');
 var carModel = require('./bl/CarModel.js');
 var carKey = require('./bl/CarKey.js');
+var carKeyArea = require('./bl/CarKeyArea.js');
 var entrust = require('./bl/Entrust.js');
 var app = require('./bl/App.js');
 var sysRecord = require('./bl/SysRecord.js');
@@ -244,6 +245,13 @@ function createServer() {
     server.get('/api/carKey',carKey.queryCarKey);
     server.post({path:'/api/user/:userId/carKey',contentType: 'application/json'},carKey.createCarKey);
     server.put({path:'/api/user/:userId/carKey/:carKeyId',contentType: 'application/json'} ,carKey.updateCarKey);
+
+    /**
+     * CarKeyArea Module
+     */
+    server.get('/api/carKeyArea',carKeyArea.queryCarKeyArea);
+    server.post({path:'/api/user/:userId/carKey/:carKeyId/carKeyArea',contentType: 'application/json'},carKeyArea.createCarKeyArea);
+    server.put({path:'/api/user/:userId/carKeyArea/:areaId',contentType: 'application/json'} ,carKeyArea.updateCarKeyArea);
 
     /**
      * Entrust Module
