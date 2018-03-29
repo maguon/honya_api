@@ -22,29 +22,44 @@ CREATE TABLE `entrust_info` (
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 -- ----------------------------
--- Table structure for car_key
+-- Table structure for car_key_cabinet_info
 -- ----------------------------
-DROP TABLE IF EXISTS `car_key`;
-CREATE TABLE `car_key` (
+DROP TABLE IF EXISTS `car_key_cabinet_info`;
+CREATE TABLE `car_key_cabinet_info` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
-  `key_name` varchar(50) COLLATE utf8mb4_unicode_ci NOT NULL COMMENT '钥匙柜名称',
-  `key_status` tinyint(1) NOT NULL DEFAULT '1' COMMENT '钥匙柜状态(0-停用,1-可用)',
+  `key_cabinet_name` varchar(50) COLLATE utf8mb4_unicode_ci NOT NULL COMMENT '钥匙柜名称',
+  `key_cabinet_status` tinyint(1) NOT NULL DEFAULT '1' COMMENT '钥匙柜状态(0-停用,1-可用)',
   `remark` varchar(200) COLLATE utf8mb4_unicode_ci DEFAULT NULL COMMENT '备注',
   `created_on` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP COMMENT '创建时间',
   `updated_on` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP COMMENT '更新时间',
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 -- ----------------------------
--- Table structure for car_key_area
+-- Table structure for car_key_cabinet_area
 -- ----------------------------
-DROP TABLE IF EXISTS `car_key_area`;
-CREATE TABLE `car_key_area` (
+DROP TABLE IF EXISTS `car_key_cabinet_area`;
+CREATE TABLE `car_key_cabinet_area` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
-  `car_key_id` int(10) NOT NULL COMMENT '钥匙柜ID',
+  `car_key_cabinet_id` int(10) NOT NULL COMMENT '钥匙柜ID',
   `area_name` varchar(50) COLLATE utf8mb4_unicode_ci NOT NULL COMMENT '分区名称',
   `row` int(10) NOT NULL COMMENT '行',
   `col` int(10) NOT NULL COMMENT '列',
   `area_status` tinyint(1) NOT NULL DEFAULT '1' COMMENT '钥匙扇区状态(0-停用,1-可用)',
+  `created_on` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP COMMENT '创建时间',
+  `updated_on` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP COMMENT '更新时间',
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+-- ----------------------------
+-- Table structure for car_key_position
+-- ----------------------------
+DROP TABLE IF EXISTS `car_key_position`;
+CREATE TABLE `car_key_position` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `car_key_cabinet_id` int(10) NOT NULL COMMENT '钥匙柜ID',
+  `car_key_cabinet_area_id` int(10) NOT NULL COMMENT '钥匙柜分区ID',
+  `row` int(10) NOT NULL COMMENT '行',
+  `col` int(10) NOT NULL COMMENT '列',
+  `car_key_id` int(10) NOT NULL DEFAULT '0' COMMENT '钥匙ID',
   `created_on` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP COMMENT '创建时间',
   `updated_on` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP COMMENT '更新时间',
   PRIMARY KEY (`id`)

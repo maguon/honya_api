@@ -7,29 +7,29 @@ var sysError = require('../util/SystemError.js');
 var resUtil = require('../util/ResponseUtil.js');
 var encrypt = require('../util/Encrypt.js');
 var listOfValue = require('../util/ListOfValue.js');
-var carKeyAreaDAO = require('../dao/CarKeyAreaDAO.js');
+var carKeyCabinetAreaDAO = require('../dao/CarKeyCabinetAreaDAO.js');
 var carKeyPositionDAO = require('../dao/CarKeyPositionDAO.js');
 var oAuthUtil = require('../util/OAuthUtil.js');
 var Seq = require('seq');
 var serverLogger = require('../util/ServerLogger.js');
-var logger = serverLogger.createLogger('CarKeyArea.js');
+var logger = serverLogger.createLogger('CarKeyCabinetArea.js');
 
-function createCarKeyArea(req,res,next){
+function createCarKeyCabinetArea(req,res,next){
     var params = req.params ;
     var areaId = 0;
     Seq().seq(function(){
         var that = this;
-        carKeyAreaDAO.addCarKeyArea(params,function(error,result){
+        carKeyCabinetAreaDAO.addCarKeyCabinetArea(params,function(error,result){
             if (error) {
-                logger.error(' createCarKeyArea ' + error.message);
+                logger.error(' createCarKeyCabinetArea ' + error.message);
                 throw sysError.InternalError(error.message,sysMsg.SYS_INTERNAL_ERROR_MSG);
             } else {
                 if(result&&result.insertId>0){
-                    logger.info(' createCarKeyArea ' + 'success');
+                    logger.info(' createCarKeyCabinetArea ' + 'success');
                     areaId = result.insertId;
                     that();
                 }else{
-                    resUtil.resetFailedRes(res,"create CarKeyArea failed");
+                    resUtil.resetFailedRes(res,"create carKeyCabinetArea failed");
                     return next();
                 }
             }
@@ -44,7 +44,7 @@ function createCarKeyArea(req,res,next){
             Seq(colArray).seqEach(function(colObj,j){
                 var that = this;
                 var subParams ={
-                    carKeyId : params.carKeyId,
+                    carKeyCabinetId : params.carKeyCabinetId,
                     areaId : areaId,
                     row : i+1,
                     col : j+1,
@@ -70,35 +70,35 @@ function createCarKeyArea(req,res,next){
         })
 
     }).seq(function(){
-        logger.info(' createCarKeyArea ' + 'success');
+        logger.info(' createCarKeyCabinetArea ' + 'success');
         resUtil.resetCreateRes(res,{insertId:areaId},null);
         return next();
     })
 
 }
 
-function queryCarKeyArea(req,res,next){
+function queryCarKeyCabinetArea(req,res,next){
     var params = req.params ;
-    carKeyAreaDAO.getCarKeyArea(params,function(error,result){
+    carKeyCabinetAreaDAO.getCarKeyCabinetArea(params,function(error,result){
         if (error) {
-            logger.error(' queryCarKeyArea ' + error.message);
+            logger.error(' queryCarKeyCabinetArea ' + error.message);
             throw sysError.InternalError(error.message,sysMsg.SYS_INTERNAL_ERROR_MSG);
         } else {
-            logger.info(' queryCarKeyArea ' + 'success');
+            logger.info(' queryCarKeyCabinetArea ' + 'success');
             resUtil.resetQueryRes(res,result,null);
             return next();
         }
     })
 }
 
-function updateCarKeyArea(req,res,next){
+function updateCarKeyCabinetArea(req,res,next){
     var params = req.params ;
-    carKeyAreaDAO.updateCarKeyArea(params,function(error,result){
+    carKeyCabinetAreaDAO.updateCarKeyCabinetArea(params,function(error,result){
         if (error) {
-            logger.error(' updateCarKeyArea ' + error.message);
+            logger.error(' updateCarKeyCabinetArea ' + error.message);
             throw sysError.InternalError(error.message,sysMsg.SYS_INTERNAL_ERROR_MSG);
         } else {
-            logger.info(' updateCarKeyArea ' + 'success');
+            logger.info(' updateCarKeyCabinetArea ' + 'success');
             resUtil.resetUpdateRes(res,result,null);
             return next();
         }
@@ -107,7 +107,7 @@ function updateCarKeyArea(req,res,next){
 
 
 module.exports = {
-    createCarKeyArea : createCarKeyArea,
-    queryCarKeyArea : queryCarKeyArea,
-    updateCarKeyArea : updateCarKeyArea
+    createCarKeyCabinetArea : createCarKeyCabinetArea,
+    queryCarKeyCabinetArea : queryCarKeyCabinetArea,
+    updateCarKeyCabinetArea : updateCarKeyCabinetArea
 }

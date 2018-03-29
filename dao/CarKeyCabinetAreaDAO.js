@@ -4,24 +4,24 @@
 
 var db=require('../db/connection/MysqlDb.js');
 var serverLogger = require('../util/ServerLogger.js');
-var logger = serverLogger.createLogger('CarKeyAreaDAO.js');
+var logger = serverLogger.createLogger('CarKeyCabinetAreaDAO.js');
 
-function addCarKeyArea(params,callback){
-    var query = " insert into car_key_area (car_key_id,area_name,row,col) values (? , ? , ? , ?)";
+function addCarKeyCabinetArea(params,callback){
+    var query = " insert into car_key_cabinet_area (car_key_cabinet_id,area_name,row,col) values (? , ? , ? , ?)";
     var paramsArray=[],i=0;
-    paramsArray[i++]=params.carKeyId;
+    paramsArray[i++]=params.carKeyCabinetId;
     paramsArray[i++]=params.areaName;
     paramsArray[i++]=params.row;
     paramsArray[i++]=params.col;
     db.dbQuery(query,paramsArray,function(error,rows){
-        logger.debug(' addCarKeyArea ');
+        logger.debug(' addCarKeyCabinetArea ');
         return callback(error,rows);
     });
 }
 
-function getCarKeyArea(params,callback) {
-    var query = " select cka.*,ck.key_name from car_key_area cka " +
-        " left join car_key_info ck on cka.car_key_id = ck.id where cka.id is not null ";
+function getCarKeyCabinetArea(params,callback) {
+    var query = " select cka.*,ckc.key_cabinet_name from car_key_cabinet_area cka " +
+        " left join car_key_cabinet_info ckc on cka.car_key_cabinet_id = ckc.id where cka.id is not null ";
     var paramsArray=[],i=0;
     if(params.areaId){
         paramsArray[i++] = params.areaId;
@@ -35,9 +35,9 @@ function getCarKeyArea(params,callback) {
         paramsArray[i++] = params.areaStatus;
         query = query + " and cka.area_status = ? ";
     }
-    if(params.carKeyId){
-        paramsArray[i++] = params.carKeyId;
-        query = query + " and cka.car_key_id = ? ";
+    if(params.carKeyCabinetId){
+        paramsArray[i++] = params.carKeyCabinetId;
+        query = query + " and cka.car_key_cabinet_id = ? ";
     }
     if (params.start && params.size) {
         paramsArray[i++] = parseInt(params.start);
@@ -45,25 +45,25 @@ function getCarKeyArea(params,callback) {
         query += " limit ? , ? "
     }
     db.dbQuery(query,paramsArray,function(error,rows){
-        logger.debug(' getCarKeyArea ');
+        logger.debug(' getCarKeyCabinetArea ');
         return callback(error,rows);
     });
 }
 
-function updateCarKeyArea(params,callback){
-    var query = " update car_key_area set area_name = ? where id = ? " ;
+function updateCarKeyCabinetArea(params,callback){
+    var query = " update car_key_cabinet_area set area_name = ? where id = ? " ;
     var paramsArray=[],i=0;
     paramsArray[i++]=params.areaName;
     paramsArray[i]=params.areaId;
     db.dbQuery(query,paramsArray,function(error,rows){
-        logger.debug(' updateCarKeyArea ');
+        logger.debug(' updateCarKeyCabinetArea ');
         return callback(error,rows);
     });
 }
 
 
 module.exports ={
-    addCarKeyArea : addCarKeyArea,
-    getCarKeyArea : getCarKeyArea,
-    updateCarKeyArea : updateCarKeyArea
+    addCarKeyCabinetArea : addCarKeyCabinetArea,
+    getCarKeyCabinetArea : getCarKeyCabinetArea,
+    updateCarKeyCabinetArea : updateCarKeyCabinetArea
 }

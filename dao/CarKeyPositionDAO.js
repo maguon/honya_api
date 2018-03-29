@@ -7,9 +7,9 @@ var serverLogger = require('../util/ServerLogger.js');
 var logger = serverLogger.createLogger('CarKeyPositionDAO.js');
 
 function addCarKeyPosition(params,callback){
-    var query = " insert into car_key_position (car_key_id,car_key_area_id,row,col) values (? , ? , ? , ?) ";
+    var query = " insert into car_key_position (car_key_cabinet_id,car_key_cabinet_area_id,row,col) values (? , ? , ? , ?) ";
     var paramsArray=[],i=0;
-    paramsArray[i++]=params.carKeyId;
+    paramsArray[i++]=params.carKeyCabinetId;
     paramsArray[i++]=params.areaId;
     paramsArray[i++]=params.row;
     paramsArray[i]=params.col;

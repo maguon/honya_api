@@ -3854,13 +3854,13 @@
         }
       }
     },
-    "/carKeyArea": {
+    "/carKeyCabinetArea": {
       "get": {
         "tags": [
           "car"
         ],
-        "summary": "query  carKeyArea list",
-        "description": "query carKeyArea",
+        "summary": "query  carKeyCabinetArea list",
+        "description": "query carKeyCabinetArea",
         "produces": [
           "application/json"
         ],
@@ -3890,9 +3890,9 @@
 
           },
           {
-            "name": "carKeyId",
+            "name": "carKeyCabinetId",
             "in": "query",
-            "description": "carKey id",
+            "description": "carKeyCabinet id",
             "required": false,
             "type": "integer"
 
@@ -3920,23 +3920,23 @@
             "schema": {
               "type": "object",
               "items": {
-                "$ref": "#/definitions/carKeyArea"
+                "$ref": "#/definitions/carKeyCabinetArea"
               }
             }
           },
           "400": {
-            "description": "Invalid token value or invalid carKeyArea id"
+            "description": "Invalid token value or invalid carKeyCabinetArea id"
           }
         }
       }
     },
-    "/user/{userId}/carKey/{carKeyId}/carKeyArea": {
+    "/user/{userId}/carKeyCabinet/{carKeyCabinetId}/carKeyCabinetArea": {
       "post": {
         "tags": [
           "car"
         ],
-        "summary": "create carKeyArea",
-        "description": "create carKeyArea",
+        "summary": "create carKeyCabinetArea",
+        "description": "create carKeyCabinetArea",
         "produces": [
           "application/json"
         ],
@@ -3950,20 +3950,20 @@
 
           },
           {
-            "name": "carKeyId",
+            "name": "carKeyCabinetId",
             "in": "path",
-            "description": "carKey Id",
+            "description": "carKeyCabinet Id",
             "required": true,
             "type": "integer"
 
           },
           {
-            "name": "carKeyArea",
+            "name": "carKeyCabinetArea",
             "in": "body",
-            "description": "carKeyArea info",
+            "description": "carKeyCabinetArea info",
             "required": true,
             "schema": {
-              "$ref": "#/definitions/carKeyArea"
+              "$ref": "#/definitions/carKeyCabinetArea"
             }
           }
         ],
@@ -3978,18 +3978,18 @@
             }
           },
           "400": {
-            "description": "Invalid token value or invalid carKeyArea id"
+            "description": "Invalid token value or invalid carKeyCabinetArea id"
           }
         }
       }
     },
-    "/user/{userId}/carKeyArea/{areaId}": {
+    "/user/{userId}/carKeyCabinetArea/{areaId}": {
       "put": {
         "tags": [
           "car"
         ],
-        "summary": "update carKeyArea info",
-        "description": "update carKeyArea info",
+        "summary": "update carKeyCabinetArea info",
+        "description": "update carKeyCabinetArea info",
         "produces": [
           "application/json"
         ],
@@ -4011,12 +4011,12 @@
 
           },
           {
-            "name": "carKeyArea",
+            "name": "carKeyCabinetArea",
             "in": "body",
-            "description": "carKeyArea info",
+            "description": "carKeyCabinetArea info",
             "required": true,
             "schema": {
-              "$ref": "#/definitions/carKeyArea"
+              "$ref": "#/definitions/carKeyCabinetArea"
             }
 
           }
@@ -4032,7 +4032,7 @@
             }
           },
           "400": {
-            "description": "Invalid token value or invalid carKeyArea id"
+            "description": "Invalid token value or invalid carKeyCabinetArea id"
           }
         }
       }
@@ -4850,7 +4850,7 @@
         "name": "carKeyCabinet"
       }
     },
-    "carKeyArea": {
+    "carKeyCabinetArea": {
       "type": "object",
       "properties": {
 
@@ -4865,7 +4865,7 @@
         }
       },
       "xml": {
-        "name": "carKeyArea"
+        "name": "carKeyCabinetArea"
       }
     },
     "entrust": {
