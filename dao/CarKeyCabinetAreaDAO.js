@@ -20,7 +20,7 @@ function addCarKeyCabinetArea(params,callback){
 }
 
 function getCarKeyCabinetArea(params,callback) {
-    var query = " select cka.*,ckc.key_cabinet_name from car_key_cabinet_area cka " +
+    var query = " select cka.*,ckc.key_cabinet_name,ckc.remark from car_key_cabinet_area cka " +
         " left join car_key_cabinet_info ckc on cka.car_key_cabinet_id = ckc.id where cka.id is not null ";
     var paramsArray=[],i=0;
     if(params.areaId){

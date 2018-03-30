@@ -2486,6 +2486,14 @@
 
           },
           {
+            "name": "mosStatus",
+            "in": "query",
+            "description": "mos status",
+            "required": false,
+            "type": "integer"
+
+          },
+          {
             "name": "enterStart",
             "in": "query",
             "description": "enter start",
@@ -2707,6 +2715,14 @@
             "name": "entrustId",
             "in": "query",
             "description": "entrust id",
+            "required": false,
+            "type": "integer"
+
+          },
+          {
+            "name": "mosStatus",
+            "in": "query",
+            "description": "mos status",
             "required": false,
             "type": "integer"
 

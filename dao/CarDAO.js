@@ -56,6 +56,10 @@ function getCar(params,callback) {
         paramsArray[i++] = params.entrustId;
         query = query + " and c.entrust_id = ? ";
     }
+    if(params.mosStatus){
+        paramsArray[i++] = params.mosStatus;
+        query = query + " and c.mos_status = ? ";
+    }
     if(params.enterStart){
         paramsArray[i++] = params.enterStart +" 00:00:00";
         query = query + " and  r.enter_time  >= ? ";
