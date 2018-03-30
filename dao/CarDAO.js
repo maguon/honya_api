@@ -7,8 +7,8 @@ var serverLogger = require('../util/ServerLogger.js');
 var logger = serverLogger.createLogger('CarDAO.js');
 
 function addCar(params,callback){
-    var query = " insert into car_info (vin,make_id,make_name,model_id,model_name,pro_date,colour,engine_num,remark) " +
-        " values ( ? , ? , ? , ? , ? , ? , ? , ? , ?) ";
+    var query = " insert into car_info (vin,make_id,make_name,model_id,model_name,pro_date,colour,engine_num," +
+        "entrust_id,valuation,mos_status,remark) values ( ? , ? , ? , ? , ? , ? , ? , ? , ? , ? , ? , ? ) ";
     var paramsArray=[],i=0;
     paramsArray[i++]=params.vin;
     paramsArray[i++]=params.makeId;
@@ -18,6 +18,9 @@ function addCar(params,callback){
     paramsArray[i++]=params.proDate;
     paramsArray[i++]=params.colour;
     paramsArray[i++]=params.engineNum;
+    paramsArray[i++]=params.entrustId;
+    paramsArray[i++]=params.valuation;
+    paramsArray[i++]=params.mosStatus;
     paramsArray[i]=params.remark;
     db.dbQuery(query,paramsArray,function(error,rows){
         logger.debug(' addCar ');
@@ -26,11 +29,12 @@ function addCar(params,callback){
 }
 
 function getCar(params,callback) {
-    var query = " select c.*, " +
+    var query = " select c.*,e.short_name,e.entrust_name,e.entrust_type," +
         " p.id as p_id,p.storage_id,p.row,p.col,p.parking_status, " +
         " r.id as r_id,r.storage_name,r.enter_time,r.plan_out_time,r.real_out_time,r.rel_status " +
         " from car_info c left join storage_parking p on c.id = p.car_id " +
-        " left join car_storage_rel r on c.id = r.car_id where c.id is not null ";
+        " left join car_storage_rel r on c.id = r.car_id " +
+        " left join entrust_info e on c.entrust_id = e.id where c.id is not null ";
     var paramsArray=[],i=0;
     if(params.carId){
         paramsArray[i++] = params.carId;
@@ -47,6 +51,10 @@ function getCar(params,callback) {
     if(params.modelId){
         paramsArray[i++] = params.modelId;
         query = query + " and c.model_id = ? ";
+    }
+    if(params.entrustId){
+        paramsArray[i++] = params.entrustId;
+        query = query + " and c.entrust_id = ? ";
     }
     if(params.enterStart){
         paramsArray[i++] = params.enterStart +" 00:00:00";
@@ -123,7 +131,7 @@ function getCarBase(params,callback) {
 
 function updateCar(params,callback){
     var query = " update car_info set vin = ? , make_id = ? , make_name = ? , model_id = ? , model_name = ? ," +
-        " pro_date = ? , colour = ? , engine_num = ? , remark = ? where id = ? " ;
+        " pro_date = ? , colour = ? , engine_num = ? , entrust_id = ? , valuation = ? , mos_status = ? , remark = ? where id = ? " ;
     var paramsArray=[],i=0;
     paramsArray[i++]=params.vin;
     paramsArray[i++]=params.makeId;
@@ -133,6 +141,9 @@ function updateCar(params,callback){
     paramsArray[i++]=params.proDate;
     paramsArray[i++]=params.colour;
     paramsArray[i++]=params.engineNum;
+    paramsArray[i++]=params.entrustId;
+    paramsArray[i++]=params.valuation;
+    paramsArray[i++]=params.mosStatus;
     paramsArray[i++]=params.remark;
     paramsArray[i]=params.carId;
     db.dbQuery(query,paramsArray,function(error,rows){

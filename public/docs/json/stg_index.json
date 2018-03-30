@@ -2478,6 +2478,14 @@
 
           },
           {
+            "name": "entrustId",
+            "in": "query",
+            "description": "entrust id",
+            "required": false,
+            "type": "integer"
+
+          },
+          {
             "name": "enterStart",
             "in": "query",
             "description": "enter start",
@@ -2691,6 +2699,14 @@
             "name": "modelId",
             "in": "query",
             "description": "model id",
+            "required": false,
+            "type": "integer"
+
+          },
+          {
+            "name": "entrustId",
+            "in": "query",
+            "description": "entrust id",
             "required": false,
             "type": "integer"
 
@@ -4814,6 +4830,15 @@
         "engineNum": {
           "type": "string"
         },
+        "entrustId": {
+          "type": "integer"
+        },
+        "valuation": {
+          "type": "integer"
+        },
+        "mosStatus": {
+          "type": "integer"
+        },
         "remark": {
           "type": "string"
         }
@@ -4861,6 +4886,15 @@
         },
         "engineNum": {
           "type": "string"
+        },
+        "entrustId": {
+          "type": "integer"
+        },
+        "valuation": {
+          "type": "integer"
+        },
+        "mosStatus": {
+          "type": "integer"
         },
         "remark": {
           "type": "string"

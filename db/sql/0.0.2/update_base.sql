@@ -64,3 +64,10 @@ CREATE TABLE `car_key_position` (
   `updated_on` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP COMMENT '更新时间',
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+-- ----------------------------
+-- 2018-03-30 更新
+-- ----------------------------
+ALTER TABLE `car_info`
+ADD COLUMN `entrust_id`  int(10) NULL DEFAULT 0 COMMENT '委托方ID' AFTER `engine_num`,
+ADD COLUMN `valuation`  decimal(10,2) NULL DEFAULT 0 COMMENT '商品车估值' AFTER `entrust_id`,
+ADD COLUMN `mos_status`  tinyint(1) NULL DEFAULT 1 COMMENT 'mos状态(1-否,2-是)' AFTER `valuation`;
