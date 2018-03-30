@@ -31,10 +31,12 @@ function addCar(params,callback){
 function getCar(params,callback) {
     var query = " select c.*,e.short_name,e.entrust_name,e.entrust_type," +
         " p.id as p_id,p.storage_id,p.row,p.col,p.parking_status, " +
-        " r.id as r_id,r.storage_name,r.enter_time,r.plan_out_time,r.real_out_time,r.rel_status " +
+        " r.id as r_id,r.storage_name,r.enter_time,r.plan_out_time,r.real_out_time,r.rel_status, " +
+        " ckp.id as car_key_position_id " +
         " from car_info c left join storage_parking p on c.id = p.car_id " +
         " left join car_storage_rel r on c.id = r.car_id " +
-        " left join entrust_info e on c.entrust_id = e.id where c.id is not null ";
+        " left join entrust_info e on c.entrust_id = e.id " +
+        " left join car_key_position ckp on c.id = ckp.car_id where c.id is not null ";
     var paramsArray=[],i=0;
     if(params.carId){
         paramsArray[i++] = params.carId;
@@ -112,11 +114,14 @@ function getCar(params,callback) {
 }
 
 function getCarBase(params,callback) {
-    var query = " select c.*, " +
+    var query = " select c.*,e.short_name,e.entrust_name,e.entrust_type, " +
         " p.id as p_id,p.storage_id,p.row,p.col,p.parking_status, " +
-        " r.id as r_id,r.storage_name,r.enter_time,r.plan_out_time,r.real_out_time,r.rel_status " +
+        " r.id as r_id,r.storage_name,r.enter_time,r.plan_out_time,r.real_out_time,r.rel_status, " +
+        " ckp.id as car_key_position_id " +
         " from car_info c left join storage_parking p on c.id = p.car_id " +
-        " left join car_storage_rel r on c.id = r.car_id where r.active = 1 and c.id is not null ";
+        " left join car_storage_rel r on c.id = r.car_id " +
+        " left join entrust_info e on c.entrust_id = e.id " +
+        " left join car_key_position ckp on c.id = ckp.car_id where r.active = 1 and c.id is not null ";
     var paramsArray=[],i=0;
     if(params.carId){
         paramsArray[i++] = params.carId;

@@ -25,6 +25,7 @@ var carMake = require('./bl/CarMake.js');
 var carModel = require('./bl/CarModel.js');
 var carKeyCabinet = require('./bl/CarKeyCabinet.js');
 var carKeyCabinetArea = require('./bl/CarKeyCabinetArea.js');
+var carKeyPosition = require('./bl/CarKeyPosition.js');
 var entrust = require('./bl/Entrust.js');
 var app = require('./bl/App.js');
 var sysRecord = require('./bl/SysRecord.js');
@@ -254,6 +255,11 @@ function createServer() {
     server.post({path:'/api/user/:userId/carKeyCabinet/:carKeyCabinetId/carKeyCabinetArea',contentType: 'application/json'},carKeyCabinetArea.createCarKeyCabinetArea);
     server.put({path:'/api/user/:userId/carKeyCabinetArea/:areaId',contentType: 'application/json'} ,carKeyCabinetArea.updateCarKeyCabinetArea);
     server.put({path:'/api/user/:userId/carKeyCabinetArea/:areaId/areaStatus/:areaStatus',contentType: 'application/json'} ,carKeyCabinetArea.updateCarKeyCabinetAreaStatus);
+
+    /**
+     * CarKeyPosition Module
+     */
+    server.put({path:'/api/user/:userId/carKeyPosition/:carKeyPositionId',contentType: 'application/json'} ,carKeyPosition.updateCarKeyPosition);
 
     /**
      * Entrust Module

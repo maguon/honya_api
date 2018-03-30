@@ -22,6 +22,10 @@ function addCarKeyPosition(params,callback){
 function getCarKeyPositionBase(params,callback) {
     var query = " select * from car_key_position where car_id >0 and id is not null ";
     var paramsArray=[],i=0;
+    if(params.carKeyPositionId){
+        paramsArray[i++] = params.carKeyPositionId;
+        query = query + " and id = ? ";
+    }
     if(params.carKeyCabinetId){
         paramsArray[i++] = params.carKeyCabinetId;
         query = query + " and car_key_cabinet_id = ? ";
@@ -36,8 +40,31 @@ function getCarKeyPositionBase(params,callback) {
     });
 }
 
+function updateCarKeyPosition(params,callback){
+    var query = " update car_key_position set car_id = ? where id = ? " ;
+    var paramsArray=[],i=0;
+    paramsArray[i++]=params.carId;
+    paramsArray[i]=params.carKeyPositionId;
+    db.dbQuery(query,paramsArray,function(error,rows){
+        logger.debug(' updateCarKeyPosition ');
+        return callback(error,rows);
+    });
+}
+
+function updateCarKeyPositionMove(params,callback){
+    var query = " update car_key_position set car_id = 0 where car_id = ? " ;
+    var paramsArray=[],i=0;
+    paramsArray[i++]=params.carId;
+    db.dbQuery(query,paramsArray,function(error,rows){
+        logger.debug(' updateCarKeyPositionMove ');
+        return callback(error,rows);
+    });
+}
+
 
 module.exports ={
     addCarKeyPosition : addCarKeyPosition,
-    getCarKeyPositionBase : getCarKeyPositionBase
+    getCarKeyPositionBase : getCarKeyPositionBase,
+    updateCarKeyPosition : updateCarKeyPosition,
+    updateCarKeyPositionMove : updateCarKeyPositionMove
 }

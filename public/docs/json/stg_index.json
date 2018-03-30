@@ -4173,6 +4173,60 @@
         }
       }
     },
+    "/user/{userId}/carKeyPosition/{carKeyPositionId}": {
+      "put": {
+        "tags": [
+          "car"
+        ],
+        "summary": "update carKeyPosition info",
+        "description": "update carKeyPosition info",
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "userId",
+            "in": "path",
+            "description": "user Id",
+            "required": true,
+            "type": "integer"
+
+          },
+          {
+            "name": "carKeyPositionId",
+            "in": "path",
+            "description": "carKeyPosition id",
+            "required": true,
+            "type": "integer"
+
+          },
+          {
+            "name": "carKeyPosition",
+            "in": "body",
+            "description": "carKeyPosition info",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/carKeyPosition"
+            }
+
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "successful operation",
+            "schema": {
+              "type": "object",
+              "items": {
+                "$ref": "#/definitions/ApiResponse"
+              }
+            }
+          },
+          "400": {
+            "description": "Invalid token value or invalid carKeyPosition id"
+          }
+        }
+      }
+    },
     "/entrust": {
       "get": {
         "tags": [
@@ -5020,6 +5074,18 @@
       },
       "xml": {
         "name": "carKeyCabinetArea"
+      }
+    },
+    "carKeyPosition": {
+      "type": "object",
+      "properties": {
+
+        "carId": {
+          "type": "integer"
+        }
+      },
+      "xml": {
+        "name": "carKeyPosition"
       }
     },
     "entrust": {
