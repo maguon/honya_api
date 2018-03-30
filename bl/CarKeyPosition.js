@@ -14,24 +14,40 @@ var Seq = require('seq');
 var serverLogger = require('../util/ServerLogger.js');
 var logger = serverLogger.createLogger('CarKeyPosition.js');
 
+function queryCarKeyPosition(req,res,next){
+    var params = req.params ;
+    carKeyPositionDAO.getCarKeyPosition(params,function(error,result){
+        if (error) {
+            logger.error(' queryCarKeyPosition ' + error.message);
+            throw sysError.InternalError(error.message,sysMsg.SYS_INTERNAL_ERROR_MSG);
+        } else {
+            logger.info(' queryCarKeyPosition ' + 'success');
+            resUtil.resetQueryRes(res,result,null);
+            return next();
+        }
+    })
+}
+
 function updateCarKeyPosition(req,res,next){
     var params = req.params ;
     var parkObj = {};
     Seq().seq(function(){
         var that = this;
-        carKeyPositionDAO.getCarKeyPositionBase(params,function(error,rows){
+        carKeyPositionDAO.getCarKeyPosition(params,function(error,rows){
             if (error) {
                 logger.error(' getCarKeyPosition ' + error.message);
                 throw sysError.InternalError(error.message,sysMsg.SYS_INTERNAL_ERROR_MSG);
             } else{
-                if(rows&&rows.length>0){
-                    logger.warn(' getCarKeyPosition ' + 'failed');
-                    resUtil.resetFailedRes(res,"getCarKeyPosition is not empty");
-                    return next();
-                }else{
+                if(rows&&rows.length==1&&rows[0].car_id == 0){
+                    parkObj.keyCabinetName = rows[0].key_cabinet_name;
+                    parkObj.areaName = rows[0].area_name;
                     parkObj.row = rows[0].row;
                     parkObj.col = rows[0].col;
                     that();
+                }else{
+                    logger.warn(' getCarKeyPosition ' + 'failed');
+                    resUtil.resetFailedRes(res,"carKeyPosition is not empty");
+                    return next();
                 }
             }
         })
@@ -57,6 +73,8 @@ function updateCarKeyPosition(req,res,next){
                 throw sysError.InternalError(error.message,sysMsg.SYS_INTERNAL_ERROR_MSG);
             } else {
                 logger.info(' updateCarKeyPosition ' + 'success');
+                req.params.carContent =" carKeyCabinet "+parkObj.keyCabinetName+ " area " + parkObj.areaName + " position at row " +parkObj.row+ " column "+parkObj.col;
+                req.params.op =21;
                 resUtil.resetUpdateRes(res,result,null);
                 return next();
             }
@@ -66,5 +84,6 @@ function updateCarKeyPosition(req,res,next){
 
 
 module.exports = {
+    queryCarKeyPosition : queryCarKeyPosition,
     updateCarKeyPosition : updateCarKeyPosition
 }

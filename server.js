@@ -259,7 +259,8 @@ function createServer() {
     /**
      * CarKeyPosition Module
      */
-    server.put({path:'/api/user/:userId/carKeyPosition/:carKeyPositionId',contentType: 'application/json'} ,carKeyPosition.updateCarKeyPosition);
+    server.get('/api/carKeyPosition',carKeyPosition.queryCarKeyPosition);
+    server.put({path:'/api/user/:userId/carKeyPosition/:carKeyPositionId',contentType: 'application/json'} ,carKeyPosition.updateCarKeyPosition,sysRecord.saveCarRecord);
 
     /**
      * Entrust Module

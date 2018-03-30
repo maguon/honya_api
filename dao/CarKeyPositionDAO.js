@@ -19,6 +19,30 @@ function addCarKeyPosition(params,callback){
     });
 }
 
+function getCarKeyPosition(params,callback) {
+    var query = " select ckp.*,ckc.key_cabinet_name,ckca.area_name from car_key_position ckp " +
+        " left join car_key_cabinet_info ckc on ckp.car_key_cabinet_id = ckc.id " +
+        " left join car_key_cabinet_area ckca on ckp.car_key_cabinet_area_id = ckca.id " +
+        " where ckp.id is not null ";
+    var paramsArray=[],i=0;
+    if(params.carKeyPositionId){
+        paramsArray[i++] = params.carKeyPositionId;
+        query = query + " and ckp.id = ? ";
+    }
+    if(params.carKeyCabinetId){
+        paramsArray[i++] = params.carKeyCabinetId;
+        query = query + " and ckp.car_key_cabinet_id = ? ";
+    }
+    if(params.areaId){
+        paramsArray[i++] = params.areaId;
+        query = query + " and ckp.car_key_cabinet_area_id = ? ";
+    }
+    db.dbQuery(query,paramsArray,function(error,rows){
+        logger.debug(' getCarKeyPosition ');
+        return callback(error,rows);
+    });
+}
+
 function getCarKeyPositionBase(params,callback) {
     var query = " select * from car_key_position where car_id >0 and id is not null ";
     var paramsArray=[],i=0;
@@ -64,6 +88,7 @@ function updateCarKeyPositionMove(params,callback){
 
 module.exports ={
     addCarKeyPosition : addCarKeyPosition,
+    getCarKeyPosition : getCarKeyPosition,
     getCarKeyPositionBase : getCarKeyPositionBase,
     updateCarKeyPosition : updateCarKeyPosition,
     updateCarKeyPositionMove : updateCarKeyPositionMove

@@ -4173,6 +4173,50 @@
         }
       }
     },
+    "/carKeyPosition": {
+      "get": {
+        "tags": [
+          "car"
+        ],
+        "summary": "query  carKeyPosition list",
+        "description": "query carKeyPosition",
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "carKeyCabinetId",
+            "in": "query",
+            "description": "carKeyCabinet id",
+            "required": true,
+            "type": "integer"
+
+          },
+          {
+            "name": "areaId",
+            "in": "query",
+            "description": "area id",
+            "required": true,
+            "type": "integer"
+
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "successful operation",
+            "schema": {
+              "type": "object",
+              "items": {
+                "$ref": "#/definitions/carKeyPosition"
+              }
+            }
+          },
+          "400": {
+            "description": "Invalid token value or invalid carKeyPosition id"
+          }
+        }
+      }
+    },
     "/user/{userId}/carKeyPosition/{carKeyPositionId}": {
       "put": {
         "tags": [
