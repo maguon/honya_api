@@ -10,6 +10,7 @@ var listOfValue = require('../util/ListOfValue.js');
 var carStorageRelDAO = require('../dao/CarStorageRelDAO.js');
 var carDAO = require('../dao/CarDAO.js');
 var storageParkingDAO = require('../dao/StorageParkingDAO.js');
+var carKeyPositionDAO = require('../dao/CarKeyPositionDAO.js');
 var oAuthUtil = require('../util/OAuthUtil.js');
 var Seq = require('seq');
 var serverLogger = require('../util/ServerLogger.js');
@@ -335,6 +336,21 @@ function updateRelStatus(req,res,next){
                     resUtil.resetFailedRes(res,"carStorageRel is not empty");
                     return next();
                 }
+            }
+        })
+    }).seq(function () {
+        var that = this;
+        carKeyPositionDAO.updateCarKeyPositionMove(params,function(error,result){
+            if (error) {
+                logger.error(' updateCarKeyPosition ' + error.message);
+                throw sysError.InternalError(error.message,sysMsg.SYS_INTERNAL_ERROR_MSG);
+            } else {
+                if(result&&result.affectedRows>0){
+                    logger.info(' updateCarKeyPosition ' + 'success');
+                }else{
+                    logger.warn(' updateCarKeyPosition ' + 'failed');
+                }
+                that();
             }
         })
     }).seq(function () {
