@@ -28,6 +28,20 @@ function queryCarKeyPosition(req,res,next){
     })
 }
 
+function queryCarKeyPositionCount(req,res,next){
+    var params = req.params ;
+    carKeyPositionDAO.getCarKeyPositionCount(params,function(error,result){
+        if (error) {
+            logger.error(' queryCarKeyPositionCount ' + error.message);
+            throw sysError.InternalError(error.message,sysMsg.SYS_INTERNAL_ERROR_MSG);
+        } else {
+            logger.info(' queryCarKeyPositionCount ' + 'success');
+            resUtil.resetQueryRes(res,result,null);
+            return next();
+        }
+    })
+}
+
 function updateCarKeyPosition(req,res,next){
     var params = req.params ;
     var parkObj = {};
@@ -85,5 +99,6 @@ function updateCarKeyPosition(req,res,next){
 
 module.exports = {
     queryCarKeyPosition : queryCarKeyPosition,
+    queryCarKeyPositionCount : queryCarKeyPositionCount,
     updateCarKeyPosition : updateCarKeyPosition
 }

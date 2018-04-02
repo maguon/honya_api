@@ -260,6 +260,7 @@ function createServer() {
      * CarKeyPosition Module
      */
     server.get('/api/carKeyPosition',carKeyPosition.queryCarKeyPosition);
+    server.get('/api/carKeyCabinet/:carKeyCabinetId/carKeyPositionCount',carKeyPosition.queryCarKeyPositionCount);
     server.put({path:'/api/user/:userId/carKeyPosition/:carKeyPositionId',contentType: 'application/json'} ,carKeyPosition.updateCarKeyPosition,sysRecord.saveCarRecord);
 
     /**

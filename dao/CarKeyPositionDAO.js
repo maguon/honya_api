@@ -64,6 +64,19 @@ function getCarKeyPositionBase(params,callback) {
     });
 }
 
+function getCarKeyPositionCount(params,callback) {
+    var query = " select count(ckp.id) as position_count from car_key_position ckp where ckp.car_id =0 and ckp.id is not null ";
+    var paramsArray=[],i=0;
+    if(params.carKeyCabinetId){
+        paramsArray[i++] = params.carKeyCabinetId;
+        query = query + " and ckp.car_key_cabinet_id = ? ";
+    }
+    db.dbQuery(query,paramsArray,function(error,rows){
+        logger.debug(' getCarKeyPositionCount ');
+        return callback(error,rows);
+    });
+}
+
 function updateCarKeyPosition(params,callback){
     var query = " update car_key_position set car_id = ? where id = ? " ;
     var paramsArray=[],i=0;
@@ -90,6 +103,7 @@ module.exports ={
     addCarKeyPosition : addCarKeyPosition,
     getCarKeyPosition : getCarKeyPosition,
     getCarKeyPositionBase : getCarKeyPositionBase,
+    getCarKeyPositionCount : getCarKeyPositionCount,
     updateCarKeyPosition : updateCarKeyPosition,
     updateCarKeyPositionMove : updateCarKeyPositionMove
 }
