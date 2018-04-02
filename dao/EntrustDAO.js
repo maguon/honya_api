@@ -53,6 +53,52 @@ function getEntrust(params,callback) {
     });
 }
 
+function getEntrustBase(params,callback) {
+    var query = " select e.*,count(case when r.rel_status = 1 then c.id end) as car_count, " +
+        " sum(case when r.rel_status = 1 then c.valuation end) as valuation, " +
+        " count(case when c.mos_status = 1 then c.id end) as not_mos_count, " +
+        " sum(case when c.mos_status = 1 then c.valuation end) as not_mos_valuation " +
+        " from entrust_info e " +
+        " left join car_info c on e.id = c.entrust_id " +
+        " left join car_storage_rel r on c.id = r.car_id " +
+        "where e.id is not null ";
+    var paramsArray=[],i=0;
+    if(params.entrustId){
+        paramsArray[i++] = params.entrustId;
+        query = query + " and e.id = ? ";
+    }
+    if(params.entrustType){
+        paramsArray[i++] = params.entrustType;
+        query = query + " and e.entrust_type = ? ";
+    }
+    if(params.shortName){
+        paramsArray[i++] = params.shortName;
+        query = query + " and e.short_name = ? ";
+    }
+    if(params.entrustName){
+        paramsArray[i++] = params.entrustName;
+        query = query + " and e.entrust_name = ? ";
+    }
+    if(params.contactsName){
+        paramsArray[i++] = params.contactsName;
+        query = query + " and e.contacts_name = ? ";
+    }
+    if(params.tel){
+        paramsArray[i++] = params.tel;
+        query = query + " and e.tel = ? ";
+    }
+    query = query + " group by e.id  ";
+    if (params.start && params.size) {
+        paramsArray[i++] = parseInt(params.start);
+        paramsArray[i++] = parseInt(params.size);
+        query += " limit ? , ? "
+    }
+    db.dbQuery(query,paramsArray,function(error,rows){
+        logger.debug(' getEntrustBase ');
+        return callback(error,rows);
+    });
+}
+
 function updateEntrust(params,callback){
     var query = " update entrust_info set short_name = ?,entrust_name = ?,entrust_type = ?,contacts_name = ?,tel = ?,address = ?,remark = ? where id = ? " ;
     var paramsArray=[],i=0;
@@ -74,5 +120,6 @@ function updateEntrust(params,callback){
 module.exports ={
     addEntrust : addEntrust,
     getEntrust : getEntrust,
+    getEntrustBase : getEntrustBase,
     updateEntrust : updateEntrust
 }

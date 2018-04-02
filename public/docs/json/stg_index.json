@@ -4391,6 +4391,98 @@
         }
       }
     },
+    "/entrustBase": {
+      "get": {
+        "tags": [
+          "entrust"
+        ],
+        "summary": "query entrust list",
+        "description": "query entrust",
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "entrustId",
+            "in": "query",
+            "description": "entrust id",
+            "required": false,
+            "type": "integer"
+
+          },
+          {
+            "name": "entrustType",
+            "in": "query",
+            "description": "entrust type",
+            "required": false,
+            "type": "integer"
+
+          },
+          {
+            "name": "shortName",
+            "in": "query",
+            "description": "short name",
+            "required": false,
+            "type": "string"
+
+          },
+          {
+            "name": "entrustName",
+            "in": "query",
+            "description": "entrust name",
+            "required": false,
+            "type": "string"
+
+          },
+          {
+            "name": "contactsName",
+            "in": "query",
+            "description": "contacts name",
+            "required": false,
+            "type": "string"
+
+          },
+          {
+            "name": "tel",
+            "in": "query",
+            "description": "entrust tel",
+            "required": false,
+            "type": "string"
+
+          },
+          {
+            "name": "start",
+            "in": "query",
+            "description": " list start pos",
+            "required": false,
+            "type": "integer"
+
+          },
+          {
+            "name": "size",
+            "in": "query",
+            "description": "list size for pagination",
+            "required": false,
+            "type": "integer"
+
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "successful operation",
+            "schema": {
+              "type": "object",
+              "items": {
+                "$ref": "#/definitions/entrust"
+              }
+            }
+          },
+          "400": {
+            "description": "Invalid token value or invalid entrust id"
+          }
+        }
+      }
+    },
     "/user/{userId}/entrust": {
       "post": {
         "tags": [
