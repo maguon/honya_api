@@ -4188,7 +4188,7 @@
             "name": "carKeyCabinetId",
             "in": "query",
             "description": "carKeyCabinet id",
-            "required": true,
+            "required": false,
             "type": "integer"
 
           },
@@ -4196,7 +4196,15 @@
             "name": "areaId",
             "in": "query",
             "description": "area id",
-            "required": true,
+            "required": false,
+            "type": "integer"
+
+          },
+          {
+            "name": "carId",
+            "in": "query",
+            "description": "car id",
+            "required": false,
             "type": "integer"
 
           }
