@@ -13,7 +13,7 @@
       "url": "https://github.com/maguon/honya_api/blob/master/LICENSE"
     }
   },
-  "host": "stg.myxxjs.com:8001",
+  "host": "stg.myxxjs.com:9001",
   "basePath": "/api",
   "tags": [
     {
@@ -4196,6 +4196,42 @@
             "name": "areaId",
             "in": "query",
             "description": "area id",
+            "required": true,
+            "type": "integer"
+
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "successful operation",
+            "schema": {
+              "type": "object",
+              "items": {
+                "$ref": "#/definitions/carKeyPosition"
+              }
+            }
+          },
+          "400": {
+            "description": "Invalid token value or invalid carKeyPosition id"
+          }
+        }
+      }
+    },
+    "/carKeyCabinet/{carKeyCabinetId}/carKeyPositionCount": {
+      "get": {
+        "tags": [
+          "car"
+        ],
+        "summary": "query  carKeyPosition count",
+        "description": "query carKeyPositionCount",
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "carKeyCabinetId",
+            "in": "path",
+            "description": "carKeyCabinet id",
             "required": true,
             "type": "integer"
 
