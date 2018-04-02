@@ -47,7 +47,7 @@ function updateCarKeyPosition(req,res,next){
     var parkObj = {};
     Seq().seq(function(){
         var that = this;
-        carKeyPositionDAO.getCarKeyPosition(params,function(error,rows){
+        carKeyPositionDAO.getCarKeyPosition({carKeyPositionId:params.carKeyPositionId},function(error,rows){
             if (error) {
                 logger.error(' getCarKeyPosition ' + error.message);
                 throw sysError.InternalError(error.message,sysMsg.SYS_INTERNAL_ERROR_MSG);
