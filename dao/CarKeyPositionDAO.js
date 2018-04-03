@@ -20,10 +20,10 @@ function addCarKeyPosition(params,callback){
 }
 
 function getCarKeyPosition(params,callback) {
-    var query = " select ckp.*,ckc.key_cabinet_name,ckca.area_name,c.vin from car_key_position ckp " +
+    var query = " select ckp.*,ckc.key_cabinet_name,ckca.area_name from car_key_position ckp " +
         " left join car_key_cabinet_info ckc on ckp.car_key_cabinet_id = ckc.id " +
         " left join car_key_cabinet_area ckca on ckp.car_key_cabinet_area_id = ckca.id " +
-        " left join car_info c on ckp.car_id = c.id where ckp.id is not null ";
+        " where ckp.id is not null ";
     var paramsArray=[],i=0;
     if(params.carKeyPositionId){
         paramsArray[i++] = params.carKeyPositionId;

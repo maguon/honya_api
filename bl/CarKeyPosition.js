@@ -47,6 +47,23 @@ function updateCarKeyPosition(req,res,next){
     var parkObj = {};
     Seq().seq(function(){
         var that = this;
+        carDAO.getCarBase(params,function(error,rows){
+            if (error) {
+                logger.error(' getCarBase ' + error.message);
+                throw sysError.InternalError(error.message,sysMsg.SYS_INTERNAL_ERROR_MSG);
+            } else{
+                if(rows&&rows.length==1){
+                    parkObj.vin = rows[0].vin;
+                    that();
+                }else{
+                    logger.warn(' getCarBase ' + 'failed');
+                    resUtil.resetFailedRes(res,"car is not empty");
+                    return next();
+                }
+            }
+        })
+    }).seq(function(){
+        var that = this;
         carKeyPositionDAO.getCarKeyPosition({carKeyPositionId:params.carKeyPositionId},function(error,rows){
             if (error) {
                 logger.error(' getCarKeyPosition ' + error.message);
@@ -55,7 +72,6 @@ function updateCarKeyPosition(req,res,next){
                 if(rows&&rows.length==1&&rows[0].car_id == 0){
                     parkObj.keyCabinetName = rows[0].key_cabinet_name;
                     parkObj.areaName = rows[0].area_name;
-                    parkObj.vin = rows[0].vin;
                     parkObj.row = rows[0].row;
                     parkObj.col = rows[0].col;
                     that();
