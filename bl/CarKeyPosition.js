@@ -55,6 +55,7 @@ function updateCarKeyPosition(req,res,next){
                 if(rows&&rows.length==1&&rows[0].car_id == 0){
                     parkObj.keyCabinetName = rows[0].key_cabinet_name;
                     parkObj.areaName = rows[0].area_name;
+                    parkObj.vin = rows[0].vin;
                     parkObj.row = rows[0].row;
                     parkObj.col = rows[0].col;
                     that();
@@ -89,6 +90,7 @@ function updateCarKeyPosition(req,res,next){
                 logger.info(' updateCarKeyPosition ' + 'success');
                 req.params.carContent =" carKeyCabinet "+parkObj.keyCabinetName+ " area " + parkObj.areaName + " position at row " +parkObj.row+ " column "+parkObj.col;
                 req.params.op =21;
+                req.params.vin =parkObj.vin;
                 resUtil.resetUpdateRes(res,result,null);
                 return next();
             }
