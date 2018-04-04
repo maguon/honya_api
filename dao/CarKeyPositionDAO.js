@@ -75,6 +75,10 @@ function getCarKeyPositionCount(params,callback) {
         paramsArray[i++] = params.carKeyCabinetId;
         query = query + " and ckp.car_key_cabinet_id = ? ";
     }
+    if(params.areaId){
+        paramsArray[i++] = params.areaId;
+        query = query + " and ckp.car_key_cabinet_area_id = ? ";
+    }
     db.dbQuery(query,paramsArray,function(error,rows){
         logger.debug(' getCarKeyPositionCount ');
         return callback(error,rows);
