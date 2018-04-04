@@ -12,66 +12,20 @@ var storageParkingDAO = require('../dao/StorageParkingDAO.js');
 var oAuthUtil = require('../util/OAuthUtil.js');
 var Seq = require('seq');
 var serverLogger = require('../util/ServerLogger.js');
+var moment = require('moment/moment.js');
 var logger = serverLogger.createLogger('Storage.js');
 
 function createStorage(req,res,next){
     var params = req.params ;
-    var storageId = 0;
-    Seq().seq(function(){
-        var that = this;
-        storageDAO.addStorage(params,function(error,result){
-            if (error) {
-                logger.error(' createStorage ' + error.message);
-                throw sysError.InternalError(error.message,sysMsg.SYS_INTERNAL_ERROR_MSG);
-            } else {
-                if(result&&result.insertId>0){
-                    logger.info(' createStorage ' + 'success');
-                    storageId = result.insertId;
-                    that();
-                }else{
-                    resUtil.resetFailedRes(res,"create storage failed");
-                    return next();
-                }
-            }
-        })
-    }).seq(function(){
-        var that = this;
-        var rowArray = [] ,colArray=[];
-        rowArray.length= params.row;
-        colArray.length= params.col;
-        Seq(rowArray).seqEach(function(rowObj,i){
-            var that = this;
-            Seq(colArray).seqEach(function(colObj,j){
-                var that = this;
-                var subParams ={
-                    storageId : storageId,
-                    row : i+1,
-                    col : j+1,
-                }
-                storageParkingDAO.addStorageParking(subParams,function(err,result){
-                    if (err) {
-                        logger.error(' createStorage ' + err.message);
-                        throw sysError.InternalError(err.message,sysMsg.SYS_INTERNAL_ERROR_MSG);
-                    } else {
-                        if(result&&result.insertId>0){
-                            logger.info(' createStorage parking ' + 'success');
-                        }else{
-                            logger.warn(' createStorage parking ' + 'failed');
-                        }
-                        that(null,j);
-                    }
-                })
-            }).seq(function(){
-                that(null,i);
-            })
-        }).seq(function(){
-            that();
-        })
-
-    }).seq(function(){
-        logger.info(' createStorage ' + 'success');
-        resUtil.resetCreateRes(res,{insertId:storageId},null);
-        return next();
+    storageDAO.addStorage(params,function(error,result){
+        if (error) {
+            logger.error(' createStorage ' + error.message);
+            throw sysError.InternalError(error.message,sysMsg.SYS_INTERNAL_ERROR_MSG);
+        } else {
+            logger.info(' createStorage ' + 'success');
+            resUtil.resetCreateRes(res,result,null);
+            return next();
+        }
     })
 
 }
@@ -162,11 +116,8 @@ function updateStorage(req,res,next){
 
 function updateStorageStatus (req,res,next){
     var params = req.params;
-     var myDate = new Date();
-    var year = myDate.getFullYear();
-    var month = myDate.getMonth() + 1 < 10 ? "0" + (myDate.getMonth() + 1) : myDate.getMonth() + 1;
-    var day = myDate.getDate() < 10 ? "0" + myDate.getDate() : myDate.getDate();
-    var dateStr = year + month + day;
+    var myDate = new Date();
+    var dateStr = moment(myDate).format('YYYYMMDD');
     Seq().seq(function(){
         var that = this;
         var subParams ={
@@ -183,7 +134,7 @@ function updateStorageStatus (req,res,next){
                     that();
                 }else{
                     logger.warn(' getStorageDate ' + 'failed');
-                    resUtil.resetFailedRes(res,"StorageParking is not empty");
+                    resUtil.resetFailedRes(res,"storageParking is not empty");
                     return next();
                 }
             }

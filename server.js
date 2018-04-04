@@ -18,6 +18,7 @@ var drive = require('./bl/Drive.js');
 var company = require('./bl/Company.js');
 var city = require('./bl/City.js');
 var storage = require('./bl/Storage.js');
+var storageArea = require('./bl/StorageArea.js');
 var storageParking = require('./bl/StorageParking.js');
 var car = require('./bl/Car.js');
 var carStorageRel = require('./bl/CarStorageRel.js');
@@ -196,6 +197,14 @@ function createServer() {
     server.post({path:'/api/admin/:adminId/storage',contentType: 'application/json'},storage.createStorage);
     server.put({path:'/api/admin/:adminId/storage/:storageId',contentType: 'application/json'} ,storage.updateStorage);
     server.put({path:'/api/admin/:adminId/storage/:storageId/storageStatus/:storageStatus',contentType: 'application/json'} ,storage.updateStorageStatus);
+
+    /**
+     * StorageArea Module
+     */
+    server.get('/api/storageArea',storageArea.queryStorageArea);
+    server.post({path:'/api/user/:userId/storage/:storageId/storageArea',contentType: 'application/json'},storageArea.createStorageArea);
+    server.put({path:'/api/user/:userId/storageArea/:areaId',contentType: 'application/json'} ,storageArea.updateStorageArea);
+    server.put({path:'/api/user/:userId/storageArea/:areaId/areaStatus/:areaStatus',contentType: 'application/json'} ,storageArea.updateStorageAreaStatus);
 
     /**
      * storageParking Module

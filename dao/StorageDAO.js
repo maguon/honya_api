@@ -7,11 +7,9 @@ var serverLogger = require('../util/ServerLogger.js');
 var logger = serverLogger.createLogger('StorageDAO.js');
 
 function addStorage(params,callback){
-    var query = " insert into storage_info (storage_name,row,col,remark) values (? , ? , ? , ?) ";
+    var query = " insert into storage_info (storage_name,remark) values (? , ?) ";
     var paramsArray=[],i=0;
     paramsArray[i++]=params.storageName;
-    paramsArray[i++]=params.row;
-    paramsArray[i++]=params.col;
     paramsArray[i]=params.remark;
     db.dbQuery(query,paramsArray,function(error,rows){
         logger.debug(' addStorage ');
@@ -20,20 +18,22 @@ function addStorage(params,callback){
 }
 
 function getStorage(params,callback) {
-    var query = " select * from storage_info where id is not null ";
+    var query = " select s.*,count(sa.id) as area_count,if(isnull(sum(sa.col*sa.row)),0,sum(sa.col*sa.row)) as total_seats from storage_info s " +
+        " left join storage_area sa on s.id = sa.storage_id where s.id is not null ";
     var paramsArray=[],i=0;
     if(params.storageId){
         paramsArray[i++] = params.storageId;
-        query = query + " and id = ? ";
+        query = query + " and s.id = ? ";
     }
     if(params.storageName){
         paramsArray[i++] = params.storageName;
-        query = query + " and storage_name = ? ";
+        query = query + " and s.storage_name = ? ";
     }
     if(params.storageStatus){
         paramsArray[i] = params.storageStatus;
-        query = query + " and storage_status = ? ";
+        query = query + " and s.storage_status = ? ";
     }
+    query = query + ' group by s.id ';
     db.dbQuery(query,paramsArray,function(error,rows){
         logger.debug(' getStorage ');
         return callback(error,rows);

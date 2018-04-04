@@ -2294,6 +2294,225 @@
         }
       }
     },
+    "/storageArea": {
+      "get": {
+        "tags": [
+          "storage"
+        ],
+        "summary": "query  storageArea list",
+        "description": "query storageArea",
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "areaId",
+            "in": "query",
+            "description": "area id",
+            "required": false,
+            "type": "integer"
+
+          },
+          {
+            "name": "areaName",
+            "in": "query",
+            "description": "area name",
+            "required": false,
+            "type": "string"
+
+          },
+          {
+            "name": "areaStatus",
+            "in": "query",
+            "description": "area status",
+            "required": false,
+            "type": "integer"
+
+          },
+          {
+            "name": "storageId",
+            "in": "query",
+            "description": "storage id",
+            "required": false,
+            "type": "integer"
+
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "successful operation",
+            "schema": {
+              "type": "object",
+              "items": {
+                "$ref": "#/definitions/storageArea"
+              }
+            }
+          },
+          "400": {
+            "description": "Invalid token value or invalid storageArea id"
+          }
+        }
+      }
+    },
+    "/user/{userId}/storage/{storageId}/storageArea": {
+      "post": {
+        "tags": [
+          "storage"
+        ],
+        "summary": "create storageArea",
+        "description": "create storageArea",
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "userId",
+            "in": "path",
+            "description": "user Id",
+            "required": true,
+            "type": "integer"
+
+          },
+          {
+            "name": "storageId",
+            "in": "path",
+            "description": "storage Id",
+            "required": true,
+            "type": "integer"
+
+          },
+          {
+            "name": "storageArea",
+            "in": "body",
+            "description": "storageArea info",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/storageArea"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "successful operation",
+            "schema": {
+              "type": "object",
+              "items": {
+                "$ref": "#/definitions/ApiResponse"
+              }
+            }
+          },
+          "400": {
+            "description": "Invalid token value or invalid storageArea id"
+          }
+        }
+      }
+    },
+    "/user/{userId}/storageArea/{areaId}": {
+      "put": {
+        "tags": [
+          "storage"
+        ],
+        "summary": "update storageArea info",
+        "description": "update storageArea info",
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "userId",
+            "in": "path",
+            "description": "user Id",
+            "required": true,
+            "type": "integer"
+
+          },
+          {
+            "name": "areaId",
+            "in": "path",
+            "description": "area id",
+            "required": true,
+            "type": "integer"
+
+          },
+          {
+            "name": "storageArea",
+            "in": "body",
+            "description": "storageArea info",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/storageArea"
+            }
+
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "successful operation",
+            "schema": {
+              "type": "object",
+              "items": {
+                "$ref": "#/definitions/ApiResponse"
+              }
+            }
+          },
+          "400": {
+            "description": "Invalid token value or invalid storageArea id"
+          }
+        }
+      }
+    },
+    "/user/{userId}/storageArea/{areaId}/areaStatus/{areaStatus}": {
+      "put": {
+        "tags": [
+          "storage"
+        ],
+        "summary": "update storageArea status",
+        "description": "update storageArea status",
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "userId",
+            "in": "path",
+            "description": "user Id",
+            "required": true,
+            "type": "integer"
+
+          },
+          {
+            "name": "areaId",
+            "in": "path",
+            "description": "area id",
+            "required": true,
+            "type": "integer"
+
+          },
+          {
+            "name": "areaStatus",
+            "in": "path",
+            "description": "area status",
+            "required": true,
+            "type": "integer"
+
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "successful operation",
+            "schema": {
+              "type": "object",
+              "items": {
+                "$ref": "#/definitions/ApiResponse"
+              }
+            }
+          },
+          "400": {
+            "description": "Invalid token value or invalid storageArea id"
+          }
+        }
+      }
+    },
     "/storageParking": {
       "get": {
         "tags": [
@@ -5038,18 +5257,33 @@
         "storageName": {
           "type": "string"
         },
-        "row": {
-          "type": "integer"
-        },
-        "col": {
-          "type": "integer"
-        },
         "remark": {
           "type": "string"
         }
       },
       "xml": {
         "name": "storage"
+      }
+    },
+    "storageArea": {
+      "type": "object",
+      "properties": {
+
+        "areaName": {
+          "type": "string"
+        },
+        "row": {
+          "type": "integer"
+        },
+        "col": {
+          "type": "integer"
+        },
+        "lot": {
+          "type": "integer"
+        }
+      },
+      "xml": {
+        "name": "storageArea"
       }
     },
     "car": {

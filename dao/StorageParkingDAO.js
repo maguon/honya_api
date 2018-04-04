@@ -7,11 +7,13 @@ var serverLogger = require('../util/ServerLogger.js');
 var logger = serverLogger.createLogger('StorageParkingDAO.js');
 
 function addStorageParking(params,callback){
-    var query = " insert into storage_parking (storage_id,row,col) values (? , ? , ?) ";
+    var query = " insert into storage_parking (storage_id,area_id,row,col,lot) values (? , ? , ? , ? , ?) ";
     var paramsArray=[],i=0;
     paramsArray[i++]=params.storageId;
+    paramsArray[i++]=params.areaId;
     paramsArray[i++]=params.row;
-    paramsArray[i]=params.col;
+    paramsArray[i++]=params.col;
+    paramsArray[i]=params.lot;
     db.dbQuery(query,paramsArray,function(error,rows){
         logger.debug(' addStorageParking ');
         return callback(error,rows);
@@ -40,6 +42,28 @@ function getStorageParking(params,callback) {
     query = query + ' order by p.id ';
     db.dbQuery(query,paramsArray,function(error,rows){
         logger.debug(' getStorageParking ');
+        return callback(error,rows);
+    });
+}
+
+function getStorageParkingBase(params,callback) {
+    var query = " select * from storage_parking where car_id >0 and id is not null ";
+    var paramsArray=[],i=0;
+    if(params.parkingId){
+        paramsArray[i++] = params.parkingId;
+        query = query + " and id = ? ";
+    }
+    if(params.storageId){
+        paramsArray[i++] = params.storageId;
+        query = query + " and storage_id = ? ";
+    }
+    if(params.areaId){
+        paramsArray[i++] = params.areaId;
+        query = query + " and area_id = ? ";
+    }
+
+    db.dbQuery(query,paramsArray,function(error,rows){
+        logger.debug(' getStorageParkingBase ');
         return callback(error,rows);
     });
 }
@@ -96,6 +120,7 @@ function getStorageMakeStat (params,callback){
 module.exports ={
     addStorageParking : addStorageParking,
     getStorageParking : getStorageParking,
+    getStorageParkingBase : getStorageParkingBase,
     updateStorageParking : updateStorageParking,
     updateStorageParkingMove : updateStorageParkingMove,
     updateStorageParkingOut : updateStorageParkingOut,
