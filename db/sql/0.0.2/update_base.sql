@@ -95,10 +95,10 @@ ALTER TABLE `storage_parking`
 ADD COLUMN `area_id`  int(10) NOT NULL COMMENT '分区ID' AFTER `storage_id`,
 ADD COLUMN `lot`  int(10) NULL DEFAULT 1 COMMENT '区块' AFTER `col`;
 
-insert into storage_area(storage_id,area_name,row,col,lot) select s.id,'A区',s.row,s.col,1 from storage_info s
+insert into storage_area(storage_id,area_name,row,col,lot) select s.id,'A区',s.row,s.col,1 from storage_info s;
 
-update storage_parking set lot = 1
-update storage_parking sp ,storage_area sa set sp.area_id = sa.id where sp.storage_id = sa.storage_id
+update storage_parking set lot = 1;
+update storage_parking sp ,storage_area sa set sp.area_id = sa.id where sp.storage_id = sa.storage_id;
 
 ALTER TABLE `storage_info`
 DROP COLUMN `row`,
