@@ -103,5 +103,17 @@ update storage_parking sp ,storage_area sa set sp.area_id = sa.id where sp.stora
 ALTER TABLE `storage_info`
 DROP COLUMN `row`,
 DROP COLUMN `col`;
+-- ----------------------------
+-- 2018-04-08 更新
+-- ----------------------------
+ALTER TABLE `car_storage_rel`
+ADD COLUMN `import_date_id`  int(4) NULL DEFAULT NULL COMMENT '入库统计时间' AFTER `active`,
+ADD COLUMN `export_date_id`  int(4) NULL DEFAULT NULL COMMENT '出库统计时间' AFTER `import_date_id`;
+ALTER TABLE `car_info`
+ADD COLUMN `created_date_id`  int(4) NULL COMMENT '创建统计时间' AFTER `remark`;
+--更新数据
+update car_info set created_date_id = DATE_FORMAT(created_on,'%Y%m%d') where created_on is not null;
+update car_storage_rel set import_date_id = DATE_FORMAT(enter_time,'%Y%m%d')where enter_time is not null;
+update car_storage_rel set export_date_id = DATE_FORMAT(real_out_time,'%Y%m%d')where real_out_time is not null;
 
 
