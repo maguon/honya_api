@@ -2531,6 +2531,14 @@
             "required": false,
             "type": "integer"
 
+          },
+          {
+            "name": "areaId",
+            "in": "query",
+            "description": "area id",
+            "required": false,
+            "type": "integer"
+
           }
         ],
         "responses": {

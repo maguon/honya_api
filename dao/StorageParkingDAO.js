@@ -36,8 +36,12 @@ function getStorageParking(params,callback) {
         query = query + " and s.id = ? ";
     }
     if(params.storageName){
-        paramsArray[i] = params.storageName;
+        paramsArray[i++] = params.storageName;
         query = query + " and s.storage_name = ? ";
+    }
+    if(params.areaId){
+        paramsArray[i++] = params.areaId;
+        query = query + " and area_id = ? ";
     }
     query = query + ' order by p.id ';
     db.dbQuery(query,paramsArray,function(error,rows){
