@@ -41,7 +41,9 @@ function getStorage(params,callback) {
 }
 
 function getStorageDate(params,callback) {
-    var query = " select d.*,s.* from storage_stat_date d left join storage_info s on d.storage_id = s.id where d.date_id is not null ";
+    var query = " select s.id,s.storage_name,s.storage_status,if(isnull(sum(sa.col*sa.row)),0,sum(sa.col*sa.row)) as total_seats,d.* " +
+        " from storage_info s left join storage_area sa on s.id = sa.storage_id " +
+        " left join storage_stat_date d on s.id = d.storage_id where s.id is not null ";
     var paramsArray=[],i=0;
     if(params.storageId){
         paramsArray[i++] = params.storageId;
@@ -49,7 +51,7 @@ function getStorageDate(params,callback) {
     }
     if(params.storageName){
         paramsArray[i++] = params.storageName;
-        query = query + " and storage_name = ? ";
+        query = query + " and s.storage_name = ? ";
     }
     if(params.dateStart){
         paramsArray[i++] = params.dateStart;
@@ -67,6 +69,7 @@ function getStorageDate(params,callback) {
         paramsArray[i] = params.dateEndMonth;
         query = query + " and date_format(d.date_id,'%Y%m') <= ? ";
     }
+    query = query + ' group by s.id,d.date_id ';
     db.dbQuery(query,paramsArray,function(error,rows){
         logger.debug(' getStorageDate ');
         return callback(error,rows);
