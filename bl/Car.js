@@ -77,7 +77,7 @@ function updateCarVin(req,res,next){
 function getCarCsv(req,res,next){
     var csvString = "";
     var header = "VIN码" + ',' + "品牌" + ',' + "型号" + ','+ "生产日期" + ','+ "颜色" + ','+ "发动机号" + ','+ "委托方" + ','+ "是否MOS" + ','+ "车辆估值(美元)"
-        + ','+ "入库时间"+ ','+ "所在仓库" + ','+ "停放位置" + ','+ "计划出库时间" + ',' + "实际出库时间" + ',' + "车辆状态";
+        + ','+ "入库时间"+ ','+ "所在仓库" + ','+ "存放区域" + ','+ "存放位置" + ','+ "计划出库时间" + ',' + "实际出库时间" + ',' + "车辆状态";
     csvString = header + '\r\n'+csvString;
     var params = req.params ;
     var parkObj = {};
@@ -110,6 +110,7 @@ function getCarCsv(req,res,next){
                     parkObj.enterTime = new Date(rows[i].enter_time).toLocaleDateString();
                 }
                 parkObj.storageName = rows[i].storage_name;
+                parkObj.areaName = rows[i].area_name;
                 parkObj.rc = rows[i].row+"行"+rows[i].col+"列";
                 if(rows[i].plan_out_time == null){
                     parkObj.planOutTime = "";
@@ -127,8 +128,8 @@ function getCarCsv(req,res,next){
                     parkObj.relStatus = "出库";
                 }
                 csvString = csvString+parkObj.vin+","+parkObj.makeName+","+parkObj.modelName+","+parkObj.proDate+","+parkObj.colour+","+parkObj.engineNum+","
-                    +parkObj.entrustName+","+parkObj.mosStatus+","+parkObj.valuation+","+parkObj.enterTime+","+parkObj.storageName+","+parkObj.rc+","
-                    +parkObj.planOutTime+","+parkObj.realOutTime+","+parkObj.relStatus+ '\r\n';
+                    +parkObj.entrustName+","+parkObj.mosStatus+","+parkObj.valuation+","+parkObj.enterTime+","+parkObj.storageName+","+parkObj.areaName+","
+                    +parkObj.rc+"," +parkObj.planOutTime+","+parkObj.realOutTime+","+parkObj.relStatus+ '\r\n';
             }
             var csvBuffer = new Buffer(csvString,'utf8');
             res.set('content-type', 'application/csv');
