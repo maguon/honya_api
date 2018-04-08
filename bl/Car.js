@@ -74,9 +74,78 @@ function updateCarVin(req,res,next){
     })
 }
 
+function getCarCsv(req,res,next){
+    var csvString = "";
+    var header = "VIN码" + ',' + "品牌" + ',' + "型号" + ','+ "生产日期" + ','+ "颜色" + ','+ "发动机号" + ','+ "委托方" + ','+ "是否MOS" + ','+ "车辆估值(美元)"
+        + ','+ "入库时间"+ ','+ "所在仓库" + ','+ "停放位置" + ','+ "计划出库时间" + ',' + "实际出库时间" + ',' + "车辆状态";
+    csvString = header + '\r\n'+csvString;
+    var params = req.params ;
+    var parkObj = {};
+    carDAO.getCar(params,function(error,rows){
+        if (error) {
+            logger.error(' getCar ' + error.message);
+            throw sysError.InternalError(error.message,sysMsg.SYS_INTERNAL_ERROR_MSG);
+        } else {
+            for(var i=0;i<rows.length;i++){
+                parkObj.vin = rows[i].vin;
+                parkObj.makeName = rows[i].make_name;
+                parkObj.modelName = rows[i].model_name;
+                if(rows[i].pro_date == null){
+                    parkObj.proDate = "";
+                }else{
+                    parkObj.proDate = new Date(rows[i].pro_date).toLocaleDateString();
+                }
+                parkObj.colour = rows[i].colour;
+                parkObj.engineNum = rows[i].engine_num;
+                parkObj.entrustName = rows[i].entrust_name;
+                if(rows[i].mos_status == 1){
+                    parkObj.mosStatus = "是";
+                }else{
+                    parkObj.mosStatus = "否";
+                }
+                parkObj.valuation = rows[i].valuation;
+                if(rows[i].enter_time == null){
+                    parkObj.enterTime = "";
+                }else{
+                    parkObj.enterTime = new Date(rows[i].enter_time).toLocaleDateString();
+                }
+                parkObj.storageName = rows[i].storage_name;
+                parkObj.rc = rows[i].row+"行"+rows[i].col+"列";
+                if(rows[i].plan_out_time == null){
+                    parkObj.planOutTime = "";
+                }else{
+                    parkObj.planOutTime = new Date(rows[i].plan_out_time).toLocaleDateString();
+                }
+                if(rows[i].real_out_time == null){
+                    parkObj.realOutTime = "";
+                }else{
+                    parkObj.realOutTime = new Date(rows[i].real_out_time).toLocaleDateString();
+                }
+                if(rows[i].rel_status == 1){
+                    parkObj.relStatus = "在库";
+                }else{
+                    parkObj.relStatus = "出库";
+                }
+                csvString = csvString+parkObj.vin+","+parkObj.makeName+","+parkObj.modelName+","+parkObj.proDate+","+parkObj.colour+","+parkObj.engineNum+","
+                    +parkObj.entrustName+","+parkObj.mosStatus+","+parkObj.valuation+","+parkObj.enterTime+","+parkObj.storageName+","+parkObj.rc+","
+                    +parkObj.planOutTime+","+parkObj.realOutTime+","+parkObj.relStatus+ '\r\n';
+            }
+            var csvBuffer = new Buffer(csvString,'utf8');
+            res.set('content-type', 'application/csv');
+            res.set('charset', 'utf8');
+            res.set('content-length', csvBuffer.length);
+            res.writeHead(200);
+            res.write(csvBuffer);//TODO
+            res.end();
+            return next(false);
+        }
+    })
+}
+
 
 module.exports = {
     queryCar : queryCar,
     updateCar : updateCar,
-    updateCarVin : updateCarVin
+    updateCarVin : updateCarVin,
+    getCarCsv : getCarCsv
 }
