@@ -116,26 +116,19 @@ function updateStorage(req,res,next){
 
 function updateStorageStatus (req,res,next){
     var params = req.params;
-    var myDate = new Date();
-    var dateStr = moment(myDate).format('YYYYMMDD');
     Seq().seq(function(){
         var that = this;
-        var subParams ={
-            storageId : params.storageId,
-            dateStart : dateStr,
-            dateEnd : dateStr
-        }
-        storageDAO.getStorageDate(subParams,function(error,rows){
+        storageParkingDAO.getStorageParkingBase(params,function(error,rows){
             if (error) {
-                logger.error(' getStorageDate ' + error.message);
+                logger.error(' storageParking ' + error.message);
                 throw sysError.InternalError(error.message,sysMsg.SYS_INTERNAL_ERROR_MSG);
             } else{
-                if(rows&&rows.length >0 &&rows[0].balance == 0){
-                    that();
-                }else{
-                    logger.warn(' getStorageDate ' + 'failed');
+                if(rows&&rows.length >0){
+                    logger.warn(' storageParking ' + 'failed');
                     resUtil.resetFailedRes(res,"storageParking is not empty");
                     return next();
+                }else{
+                    that();
                 }
             }
         })
