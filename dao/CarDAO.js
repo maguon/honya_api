@@ -8,7 +8,7 @@ var logger = serverLogger.createLogger('CarDAO.js');
 
 function addCar(params,callback){
     var query = " insert into car_info (vin,make_id,make_name,model_id,model_name,pro_date,colour,engine_num," +
-        "entrust_id,valuation,mso_status,remark) values ( ? , ? , ? , ? , ? , ? , ? , ? , ? , ? , ? , ? ) ";
+        "entrust_id,valuation,mso_status,remark,created_date_id) values ( ? , ? , ? , ? , ? , ? , ? , ? , ? , ? , ? , ? , ? ) ";
     var paramsArray=[],i=0;
     paramsArray[i++]=params.vin;
     paramsArray[i++]=params.makeId;
@@ -21,7 +21,8 @@ function addCar(params,callback){
     paramsArray[i++]=params.entrustId;
     paramsArray[i++]=params.valuation;
     paramsArray[i++]=params.msoStatus;
-    paramsArray[i]=params.remark;
+    paramsArray[i++]=params.remark;
+    paramsArray[i]=params.createdDateId;
     db.dbQuery(query,paramsArray,function(error,rows){
         logger.debug(' addCar ');
         return callback(error,rows);

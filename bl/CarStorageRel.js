@@ -14,6 +14,7 @@ var carKeyPositionDAO = require('../dao/CarKeyPositionDAO.js');
 var oAuthUtil = require('../util/OAuthUtil.js');
 var Seq = require('seq');
 var serverLogger = require('../util/ServerLogger.js');
+var moment = require('moment/moment.js');
 var logger = serverLogger.createLogger('CarStorageRel.js');
 
 function createCarStorageRel(req,res,next){
@@ -61,6 +62,9 @@ function createCarStorageRel(req,res,next){
     }).seq(function(){
         var that = this;
         if(newCarFlag){
+            var myDate = new Date();
+            var strDate = moment(myDate).format('YYYYMMDD');
+            params.createdDateId = parseInt(strDate);
             carDAO.addCar(params,function(error,result){
                 if (error) {
                     logger.error(' createCar ' + error.message);
