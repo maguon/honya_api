@@ -28,6 +28,20 @@ function queryStorageParking(req,res,next){
     })
 }
 
+function queryStorageParkingBalanceCount(req,res,next){
+    var params = req.params ;
+    storageParkingDAO.getStorageParkingBalanceCount(params,function(error,result){
+        if (error) {
+            logger.error(' queryStorageParkingBalanceCount ' + error.message);
+            throw sysError.InternalError(error.message,sysMsg.SYS_INTERNAL_ERROR_MSG);
+        } else {
+            logger.info(' queryStorageParkingBalanceCount ' + 'success');
+            resUtil.resetQueryRes(res,result,null);
+            return next();
+        }
+    })
+}
+
 function updateStorageParking(req,res,next){
     var params = req.params ;
     var parkObj = {};
@@ -130,6 +144,7 @@ function queryStorageParkingMakeStat(req,res,next){
 
 module.exports = {
     queryStorageParking : queryStorageParking,
+    queryStorageParkingBalanceCount : queryStorageParkingBalanceCount,
     updateStorageParking : updateStorageParking,
     queryStorageParkingMakeStat : queryStorageParkingMakeStat
 }

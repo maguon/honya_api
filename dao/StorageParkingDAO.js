@@ -72,6 +72,23 @@ function getStorageParkingBase(params,callback) {
     });
 }
 
+function getStorageParkingBalanceCount(params,callback) {
+    var query = " select count(sp.id) as parking_balance_count from storage_parking sp where sp.car_id = 0 and sp.id is not null ";
+    var paramsArray=[],i=0;
+    if(params.storageId){
+        paramsArray[i++] = params.storageId;
+        query = query + " and sp.storage_id = ? ";
+    }
+    if(params.areaId){
+        paramsArray[i++] = params.areaId;
+        query = query + " and sp.area_id = ? ";
+    }
+    db.dbQuery(query,paramsArray,function(error,rows){
+        logger.debug(' getStorageParkingBalanceCount ');
+        return callback(error,rows);
+    });
+}
+
 function updateStorageParking(params,callback){
     var query = " update storage_parking set car_id = ? , rel_id = ? where id = ? " ;
     var paramsArray=[],i=0;
@@ -125,6 +142,7 @@ module.exports ={
     addStorageParking : addStorageParking,
     getStorageParking : getStorageParking,
     getStorageParkingBase : getStorageParkingBase,
+    getStorageParkingBalanceCount : getStorageParkingBalanceCount,
     updateStorageParking : updateStorageParking,
     updateStorageParkingMove : updateStorageParkingMove,
     updateStorageParkingOut : updateStorageParkingOut,

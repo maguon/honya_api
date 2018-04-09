@@ -2557,6 +2557,50 @@
         }
       }
     },
+    "/storageParkingBalanceCount": {
+      "get": {
+        "tags": [
+          "storage"
+        ],
+        "summary": "query  storageParkingBalance count",
+        "description": "query storageParkingBalanceCount",
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "storageId",
+            "in": "query",
+            "description": "storage id",
+            "required": false,
+            "type": "integer"
+
+          },
+          {
+            "name": "areaId",
+            "in": "query",
+            "description": "area id",
+            "required": false,
+            "type": "integer"
+
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "successful operation",
+            "schema": {
+              "type": "object",
+              "items": {
+                "$ref": "#/definitions/storageParking"
+              }
+            }
+          },
+          "400": {
+            "description": "Invalid token value or invalid storageParking id"
+          }
+        }
+      }
+    },
     "/storage/{storageId}/makeStat": {
       "get": {
         "tags": [
