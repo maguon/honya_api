@@ -76,7 +76,7 @@ function updateCarVin(req,res,next){
 
 function getCarCsv(req,res,next){
     var csvString = "";
-    var header = "VIN码" + ',' + "品牌" + ',' + "型号" + ','+ "生产日期" + ','+ "颜色" + ','+ "发动机号" + ','+ "委托方" + ','+ "是否MOS" + ','+ "车辆估值(美元)"
+    var header = "VIN码" + ',' + "品牌" + ',' + "型号" + ','+ "生产日期" + ','+ "颜色" + ','+ "发动机号" + ','+ "委托方" + ','+ "是否MSO" + ','+ "车辆估值(美元)"
         + ','+ "入库时间"+ ','+ "所在仓库" + ','+ "存放区域" + ','+ "存放位置" + ','+ "计划出库时间" + ',' + "实际出库时间" + ',' + "车辆状态";
     csvString = header + '\r\n'+csvString;
     var params = req.params ;
@@ -88,30 +88,62 @@ function getCarCsv(req,res,next){
         } else {
             for(var i=0;i<rows.length;i++){
                 parkObj.vin = rows[i].vin;
-                parkObj.makeName = rows[i].make_name;
-                parkObj.modelName = rows[i].model_name;
+                if(rows[i].make_name == null){
+                    parkObj.makeName = "";
+                }else{
+                    parkObj.makeName = rows[i].make_name;
+                }
+                if(rows[i].model_name == null){
+                    parkObj.modelName = "";
+                }else{
+                    parkObj.modelName = rows[i].model_name;
+                }
                 if(rows[i].pro_date == null){
                     parkObj.proDate = "";
                 }else{
                     parkObj.proDate = new Date(rows[i].pro_date).toLocaleDateString();
                 }
-                parkObj.colour = rows[i].colour;
-                parkObj.engineNum = rows[i].engine_num;
+                if(rows[i].colour == null){
+                    parkObj.colour = "";
+                }else{
+                    parkObj.colour = rows[i].colour;
+                }
+                if(rows[i].engine_num == null){
+                    parkObj.engineNum = "";
+                }else{
+                    parkObj.engineNum = rows[i].engine_num;
+                }
                 parkObj.entrustName = rows[i].entrust_name;
                 if(rows[i].mso_status == 1){
                     parkObj.msoStatus = "是";
                 }else{
                     parkObj.msoStatus = "否";
                 }
-                parkObj.valuation = rows[i].valuation;
+                if(rows[i].valuation == null){
+                    parkObj.valuation = "";
+                }else{
+                    parkObj.valuation = rows[i].valuation;
+                }
                 if(rows[i].enter_time == null){
                     parkObj.enterTime = "";
                 }else{
                     parkObj.enterTime = new Date(rows[i].enter_time).toLocaleDateString();
                 }
-                parkObj.storageName = rows[i].storage_name;
-                parkObj.areaName = rows[i].area_name;
-                parkObj.rc = rows[i].row+"行"+rows[i].col+"列";
+                if(rows[i].storage_name == null){
+                    parkObj.storageName = "";
+                }else{
+                    parkObj.storageName = rows[i].storage_name;
+                }
+                if(rows[i].area_name == null){
+                    parkObj.areaName = "";
+                }else{
+                    parkObj.areaName = rows[i].area_name;
+                }
+                if(rows[i].row == null){
+                    parkObj.rcl = "";
+                }else{
+                    parkObj.rcl = rows[i].row+"行"+rows[i].col+"列"+rows[i].lot+"单元";
+                }
                 if(rows[i].plan_out_time == null){
                     parkObj.planOutTime = "";
                 }else{
@@ -129,7 +161,7 @@ function getCarCsv(req,res,next){
                 }
                 csvString = csvString+parkObj.vin+","+parkObj.makeName+","+parkObj.modelName+","+parkObj.proDate+","+parkObj.colour+","+parkObj.engineNum+","
                     +parkObj.entrustName+","+parkObj.msoStatus+","+parkObj.valuation+","+parkObj.enterTime+","+parkObj.storageName+","+parkObj.areaName+","
-                    +parkObj.rc+"," +parkObj.planOutTime+","+parkObj.realOutTime+","+parkObj.relStatus+ '\r\n';
+                    +parkObj.rcl+"," +parkObj.planOutTime+","+parkObj.realOutTime+","+parkObj.relStatus+ '\r\n';
             }
             var csvBuffer = new Buffer(csvString,'utf8');
             res.set('content-type', 'application/csv');
