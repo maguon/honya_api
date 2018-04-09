@@ -53,6 +53,10 @@
       "description":"Entrust of log api"
     },
     {
+      "name":"port",
+      "description":"Port of log api"
+    },
+    {
       "name":"app",
       "description":"app version"
     }
@@ -5018,6 +5022,173 @@
         }
       }
     },
+    "/port": {
+      "get": {
+        "tags": [
+          "port"
+        ],
+        "summary": "query port list",
+        "description": "query port",
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "portId",
+            "in": "query",
+            "description": "port id",
+            "required": false,
+            "type": "integer"
+
+          },
+          {
+            "name": "countryName",
+            "in": "query",
+            "description": "country name",
+            "required": false,
+            "type": "string"
+
+          },
+          {
+            "name": "portName",
+            "in": "query",
+            "description": "port name",
+            "required": false,
+            "type": "string"
+
+          },
+          {
+            "name": "start",
+            "in": "query",
+            "description": " list start pos",
+            "required": false,
+            "type": "integer"
+
+          },
+          {
+            "name": "size",
+            "in": "query",
+            "description": "list size for pagination",
+            "required": false,
+            "type": "integer"
+
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "successful operation",
+            "schema": {
+              "type": "object",
+              "items": {
+                "$ref": "#/definitions/port"
+              }
+            }
+          },
+          "400": {
+            "description": "Invalid token value or invalid port id"
+          }
+        }
+      }
+    },
+    "/user/{userId}/port": {
+      "post": {
+        "tags": [
+          "port"
+        ],
+        "summary": "user create port",
+        "description": "user create port",
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "userId",
+            "in": "path",
+            "description": "user id",
+            "required": true,
+            "type": "integer"
+
+          },
+          {
+            "name": "port",
+            "in": "body",
+            "description": "port info",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/port"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "successful operation",
+            "schema": {
+              "type": "object",
+              "items": {
+                "$ref": "#/definitions/ApiResponse"
+              }
+            }
+          },
+          "400": {
+            "description": "Invalid token value or invalid port id"
+          }
+        }
+      }
+    },
+    "/user/{userId}/port/{portId}": {
+      "put": {
+        "tags": [
+          "port"
+        ],
+        "summary": "update port info",
+        "description": "update port info",
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "userId",
+            "in": "path",
+            "description": "user id",
+            "required": true,
+            "type": "integer"
+
+          },
+          {
+            "name": "portId",
+            "in": "path",
+            "description": "port id",
+            "required": true,
+            "type": "integer"
+
+          },
+          {
+            "name": "port",
+            "in": "body",
+            "description": "port info",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/port"
+            }
+
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "successful operation",
+            "schema": {
+              "type": "object",
+              "items": {
+                "$ref": "#/definitions/ApiResponse"
+              }
+            }
+          },
+          "400": {
+            "description": "Invalid token value or invalid port id"
+          }
+        }
+      }
+    },
     "/app": {
       "get": {
         "tags": [
@@ -5747,6 +5918,27 @@
       },
       "xml": {
         "name": "entrust"
+      }
+    },
+    "port": {
+      "type": "object",
+      "properties": {
+
+        "portName": {
+          "type": "string"
+        },
+        "countryName": {
+          "type": "string"
+        },
+        "address": {
+          "type": "string"
+        },
+        "remark": {
+          "type": "string"
+        }
+      },
+      "xml": {
+        "name": "port"
       }
     }
   },

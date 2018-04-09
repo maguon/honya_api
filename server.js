@@ -28,6 +28,7 @@ var carKeyCabinet = require('./bl/CarKeyCabinet.js');
 var carKeyCabinetArea = require('./bl/CarKeyCabinetArea.js');
 var carKeyPosition = require('./bl/CarKeyPosition.js');
 var entrust = require('./bl/Entrust.js');
+var port = require('./bl/Port.js');
 var app = require('./bl/App.js');
 var sysRecord = require('./bl/SysRecord.js');
 
@@ -281,6 +282,13 @@ function createServer() {
     server.get('/api/entrustBase',entrust.queryEntrustBase);
     server.post({path:'/api/user/:userId/entrust',contentType: 'application/json'},entrust.createEntrust);
     server.put({path:'/api/user/:userId/entrust/:entrustId',contentType: 'application/json'} ,entrust.updateEntrust);
+
+    /**
+     * Port Module
+     */
+    server.get('/api/port',port.queryPort);
+    server.post({path:'/api/user/:userId/port',contentType: 'application/json'},port.createPort);
+    server.put({path:'/api/user/:userId/port/:portId',contentType: 'application/json'} ,port.updatePort);
 
     /**
      * App Module
