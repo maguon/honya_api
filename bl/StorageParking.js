@@ -77,6 +77,7 @@ function updateStorageParking(req,res,next){
                 if(rows&&rows.length==1&&rows[0].car_id == 0){
                     parkObj.row = rows[0].row;
                     parkObj.col = rows[0].col;
+                    parkObj.lot = rows[0].lot;
                     that();
                 }else{
                     logger.warn(' getStorageParking ' + 'failed');
@@ -117,7 +118,7 @@ function updateStorageParking(req,res,next){
                 throw sysError.InternalError(error.message,sysMsg.SYS_INTERNAL_ERROR_MSG);
             } else {
                 logger.info(' updateStorageParking ' + 'success');
-                req.params.carContent =" moving storage "+parkObj.storageName + " parking at row " +parkObj.row+ " column "+parkObj.col;
+                req.params.carContent =" moving storage "+parkObj.storageName + " parking at row " +parkObj.row+ " column "+parkObj.col+ " lot "+parkObj.lot;
                 req.params.vin =parkObj.vin;
                 req.params.op =12;
                 resUtil.resetUpdateRes(res,result,null);
