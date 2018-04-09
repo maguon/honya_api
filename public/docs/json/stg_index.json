@@ -2713,9 +2713,9 @@
 
           },
           {
-            "name": "mosStatus",
+            "name": "msoStatus",
             "in": "query",
-            "description": "mos status",
+            "description": "mso status",
             "required": false,
             "type": "integer"
 
@@ -2870,9 +2870,9 @@
 
           },
           {
-            "name": "mosStatus",
+            "name": "msoStatus",
             "in": "query",
-            "description": "mos status",
+            "description": "mso status",
             "required": false,
             "type": "integer"
 
@@ -3104,9 +3104,9 @@
 
           },
           {
-            "name": "mosStatus",
+            "name": "msoStatus",
             "in": "query",
-            "description": "mos status",
+            "description": "mso status",
             "required": false,
             "type": "integer"
 
@@ -5493,7 +5493,7 @@
         "valuation": {
           "type": "integer"
         },
-        "mosStatus": {
+        "msoStatus": {
           "type": "integer"
         },
         "remark": {
@@ -5550,7 +5550,7 @@
         "valuation": {
           "type": "integer"
         },
-        "mosStatus": {
+        "msoStatus": {
           "type": "integer"
         },
         "remark": {

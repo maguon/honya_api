@@ -98,10 +98,10 @@ function getCarCsv(req,res,next){
                 parkObj.colour = rows[i].colour;
                 parkObj.engineNum = rows[i].engine_num;
                 parkObj.entrustName = rows[i].entrust_name;
-                if(rows[i].mos_status == 1){
-                    parkObj.mosStatus = "是";
+                if(rows[i].mso_status == 1){
+                    parkObj.msoStatus = "是";
                 }else{
-                    parkObj.mosStatus = "否";
+                    parkObj.msoStatus = "否";
                 }
                 parkObj.valuation = rows[i].valuation;
                 if(rows[i].enter_time == null){
@@ -128,7 +128,7 @@ function getCarCsv(req,res,next){
                     parkObj.relStatus = "出库";
                 }
                 csvString = csvString+parkObj.vin+","+parkObj.makeName+","+parkObj.modelName+","+parkObj.proDate+","+parkObj.colour+","+parkObj.engineNum+","
-                    +parkObj.entrustName+","+parkObj.mosStatus+","+parkObj.valuation+","+parkObj.enterTime+","+parkObj.storageName+","+parkObj.areaName+","
+                    +parkObj.entrustName+","+parkObj.msoStatus+","+parkObj.valuation+","+parkObj.enterTime+","+parkObj.storageName+","+parkObj.areaName+","
                     +parkObj.rc+"," +parkObj.planOutTime+","+parkObj.realOutTime+","+parkObj.relStatus+ '\r\n';
             }
             var csvBuffer = new Buffer(csvString,'utf8');
