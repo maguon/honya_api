@@ -70,7 +70,7 @@ CREATE TABLE `car_key_position` (
 ALTER TABLE `car_info`
 ADD COLUMN `entrust_id`  int(10) NULL DEFAULT 0 COMMENT '委托方ID' AFTER `engine_num`,
 ADD COLUMN `valuation`  decimal(10,2) NULL DEFAULT 0 COMMENT '商品车估值' AFTER `entrust_id`,
-ADD COLUMN `mso_status`  tinyint(1) NULL DEFAULT 1 COMMENT 'mos状态(1-否,2-是)' AFTER `valuation`;
+ADD COLUMN `mso_status`  tinyint(1) NULL DEFAULT 1 COMMENT 'mso状态(1-否,2-是)' AFTER `valuation`;
 -- ----------------------------
 -- Table structure for storage_area
 -- ----------------------------
