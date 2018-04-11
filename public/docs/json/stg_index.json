@@ -5046,9 +5046,9 @@
 
           },
           {
-            "name": "countryName",
+            "name": "countryId",
             "in": "query",
-            "description": "country name",
+            "description": "country id",
             "required": false,
             "type": "string"
 
@@ -6090,8 +6090,8 @@
         "portName": {
           "type": "string"
         },
-        "countryName": {
-          "type": "string"
+        "countryId": {
+          "type": "integer"
         },
         "address": {
           "type": "string"
