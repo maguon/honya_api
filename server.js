@@ -29,6 +29,7 @@ var carKeyCabinetArea = require('./bl/CarKeyCabinetArea.js');
 var carKeyPosition = require('./bl/CarKeyPosition.js');
 var entrust = require('./bl/Entrust.js');
 var port = require('./bl/Port.js');
+var shipCompany = require('./bl/ShipCompany.js');
 var app = require('./bl/App.js');
 var sysRecord = require('./bl/SysRecord.js');
 
@@ -289,6 +290,13 @@ function createServer() {
     server.get('/api/port',port.queryPort);
     server.post({path:'/api/user/:userId/port',contentType: 'application/json'},port.createPort);
     server.put({path:'/api/user/:userId/port/:portId',contentType: 'application/json'} ,port.updatePort);
+
+    /**
+     * ShipCompany Module
+     */
+    server.get('/api/shipCompany',shipCompany.queryShipCompany);
+    server.post({path:'/api/user/:userId/shipCompany',contentType: 'application/json'},shipCompany.createShipCompany);
+    server.put({path:'/api/user/:userId/shipCompany/:shipCompanyId',contentType: 'application/json'} ,shipCompany.updateShipCompany);
 
     /**
      * App Module

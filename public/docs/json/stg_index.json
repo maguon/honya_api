@@ -57,6 +57,10 @@
       "description":"Port of log api"
     },
     {
+      "name":"shipCompany",
+      "description":"ShipCompany of log api"
+    },
+    {
       "name":"app",
       "description":"app version"
     }
@@ -5189,6 +5193,165 @@
         }
       }
     },
+    "/shipCompany": {
+      "get": {
+        "tags": [
+          "shipCompany"
+        ],
+        "summary": "query shipCompany list",
+        "description": "query shipCompany",
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "shipCompanyId",
+            "in": "query",
+            "description": "shipCompany id",
+            "required": false,
+            "type": "integer"
+
+          },
+          {
+            "name": "shipCompanyName",
+            "in": "query",
+            "description": "shipCompany name",
+            "required": false,
+            "type": "string"
+
+          },
+          {
+            "name": "start",
+            "in": "query",
+            "description": " list start pos",
+            "required": false,
+            "type": "integer"
+
+          },
+          {
+            "name": "size",
+            "in": "query",
+            "description": "list size for pagination",
+            "required": false,
+            "type": "integer"
+
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "successful operation",
+            "schema": {
+              "type": "object",
+              "items": {
+                "$ref": "#/definitions/shipCompany"
+              }
+            }
+          },
+          "400": {
+            "description": "Invalid token value or invalid shipCompany id"
+          }
+        }
+      }
+    },
+    "/user/{userId}/shipCompany": {
+      "post": {
+        "tags": [
+          "shipCompany"
+        ],
+        "summary": "user create shipCompany",
+        "description": "user create shipCompany",
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "userId",
+            "in": "path",
+            "description": "user id",
+            "required": true,
+            "type": "integer"
+
+          },
+          {
+            "name": "shipCompany",
+            "in": "body",
+            "description": "shipCompany info",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/shipCompany"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "successful operation",
+            "schema": {
+              "type": "object",
+              "items": {
+                "$ref": "#/definitions/ApiResponse"
+              }
+            }
+          },
+          "400": {
+            "description": "Invalid token value or invalid shipCompany id"
+          }
+        }
+      }
+    },
+    "/user/{userId}/shipCompany/{shipCompanyId}": {
+      "put": {
+        "tags": [
+          "shipCompany"
+        ],
+        "summary": "update shipCompany info",
+        "description": "update shipCompany info",
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "userId",
+            "in": "path",
+            "description": "user id",
+            "required": true,
+            "type": "integer"
+
+          },
+          {
+            "name": "shipCompanyId",
+            "in": "path",
+            "description": "shipCompany id",
+            "required": true,
+            "type": "integer"
+
+          },
+          {
+            "name": "shipCompany",
+            "in": "body",
+            "description": "shipCompany info",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/shipCompany"
+            }
+
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "successful operation",
+            "schema": {
+              "type": "object",
+              "items": {
+                "$ref": "#/definitions/ApiResponse"
+              }
+            }
+          },
+          "400": {
+            "description": "Invalid token value or invalid shipCompany id"
+          }
+        }
+      }
+    },
     "/app": {
       "get": {
         "tags": [
@@ -5939,6 +6102,18 @@
       },
       "xml": {
         "name": "port"
+      }
+    },
+    "shipCompany": {
+      "type": "object",
+      "properties": {
+
+        "shipCompanyName": {
+          "type": "string"
+        }
+      },
+      "xml": {
+        "name": "shipCompany"
       }
     }
   },
