@@ -105,8 +105,34 @@ function getCarCsv(req,res,next){
                 }
                 if(rows[i].colour == null){
                     parkObj.colour = "";
+                }else if(rows[i].colour == "FFFFFF"){
+                    parkObj.colour = "白色";
+                }else if(rows[i].colour == "000000"){
+                    parkObj.colour = "黑色";
+                }else if(rows[i].colour == "ECECEC"){
+                    parkObj.colour = "银色";
+                }else if(rows[i].colour == "EDB756"){
+                    parkObj.colour = "金色";
+                }else if(rows[i].colour == "D0011B"){
+                    parkObj.colour = "红色";
+                }else if(rows[i].colour == "0B7DD5"){
+                    parkObj.colour = "蓝色";
+                }else if(rows[i].colour == "9B9B9B"){
+                    parkObj.colour = "灰色";
+                }else if(rows[i].colour == "7C24AB"){
+                    parkObj.colour = "紫色";
+                }else if(rows[i].colour == "FF6600"){
+                    parkObj.colour = "桔色";
+                }else if(rows[i].colour == "FFCC00"){
+                    parkObj.colour = "黄色";
+                }else if(rows[i].colour == "39A23F"){
+                    parkObj.colour = "绿色";
+                }else if(rows[i].colour == "794A21"){
+                    parkObj.colour = "棕色";
+                }else if(rows[i].colour == "FF9CC3"){
+                    parkObj.colour = "粉色";
                 }else{
-                    parkObj.colour = rows[i].colour;
+                    parkObj.colour = "其他";
                 }
                 if(rows[i].engine_num == null){
                     parkObj.engineNum = "";
