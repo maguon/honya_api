@@ -2875,6 +2875,213 @@
         }
       }
     },
+    "/storageOrderPayment": {
+      "get": {
+        "tags": [
+          "storage"
+        ],
+        "summary": "query  storageOrderPayment list",
+        "description": "query storageOrderPayment",
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "storageOrderPaymentId",
+            "in": "query",
+            "description": "storageOrderPayment id",
+            "required": false,
+            "type": "integer"
+
+          },
+          {
+            "name": "entrustType",
+            "in": "query",
+            "description": "entrust type",
+            "required": false,
+            "type": "integer"
+
+          },
+          {
+            "name": "entrustId",
+            "in": "query",
+            "description": "entrust id",
+            "required": false,
+            "type": "integer"
+
+          },
+          {
+            "name": "paymentStatus",
+            "in": "query",
+            "description": "payment status",
+            "required": false,
+            "type": "integer"
+
+          },
+          {
+            "name": "paymentType",
+            "in": "query",
+            "description": "payment type",
+            "required": false,
+            "type": "integer"
+
+          },
+          {
+            "name": "number",
+            "in": "query",
+            "description": "number",
+            "required": false,
+            "type": "string"
+
+          },
+          {
+            "name": "createdOnStart",
+            "in": "query",
+            "description": "createdOn start",
+            "required": false,
+            "type": "string"
+
+          },
+          {
+            "name": "createdOnEnd",
+            "in": "query",
+            "description": "createdOn end",
+            "required": false,
+            "type": "string"
+
+          },
+          {
+            "name": "start",
+            "in": "query",
+            "description": " list start pos",
+            "required": false,
+            "type": "integer"
+
+          },
+          {
+            "name": "size",
+            "in": "query",
+            "description": "list size for pagination",
+            "required": false,
+            "type": "integer"
+
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "successful operation",
+            "schema": {
+              "type": "object",
+              "items": {
+                "$ref": "#/definitions/storageOrderPayment"
+              }
+            }
+          },
+          "400": {
+            "description": "Invalid token value or invalid storageOrderPayment id"
+          }
+        }
+      }
+    },
+    "/user/{userId}/storageOrderPayment": {
+      "post": {
+        "tags": [
+          "storage"
+        ],
+        "summary": "user create storageOrderPayment",
+        "description": "user create storageOrderPayment",
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "userId",
+            "in": "path",
+            "description": "user id",
+            "required": true,
+            "type": "integer"
+
+          },
+          {
+            "name": "storageOrderPayment",
+            "in": "body",
+            "description": "storageOrderPayment info",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/storageOrderPayment"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "successful operation",
+            "schema": {
+              "type": "object",
+              "items": {
+                "$ref": "#/definitions/ApiResponse"
+              }
+            }
+          },
+          "400": {
+            "description": "Invalid token value or invalid storageOrderPayment id"
+          }
+        }
+      }
+    },
+    "/user/{userId}/storageOrderPayment/{storageOrderPaymentId}": {
+      "put": {
+        "tags": [
+          "storage"
+        ],
+        "summary": "update storageOrderPayment info",
+        "description": "update storageOrderPayment info",
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "userId",
+            "in": "path",
+            "description": "user id",
+            "required": true,
+            "type": "integer"
+
+          },
+          {
+            "name": "storageOrderPaymentId",
+            "in": "path",
+            "description": "storageOrderPayment id",
+            "required": true,
+            "type": "integer"
+
+          },
+          {
+            "name": "storageOrderPayment",
+            "in": "body",
+            "description": "storageOrderPayment info",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/storageOrderPayment"
+            }
+
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "successful operation",
+            "schema": {
+              "type": "object",
+              "items": {
+                "$ref": "#/definitions/ApiResponse"
+              }
+            }
+          },
+          "400": {
+            "description": "Invalid token value or invalid storageOrderPayment id"
+          }
+        }
+      }
+    },
     "/user/{userId}/car": {
       "get": {
         "tags": [
@@ -6025,6 +6232,30 @@
       },
       "xml": {
         "name": "storageOrder"
+      }
+    },
+    "storageOrderPayment": {
+      "type": "object",
+      "properties": {
+
+        "entrustId": {
+          "type": "integer"
+        },
+        "paymentType": {
+          "type": "integer"
+        },
+        "number": {
+          "type": "string"
+        },
+        "paymentMoney": {
+          "type": "integer"
+        },
+        "remark": {
+          "type": "string"
+        }
+      },
+      "xml": {
+        "name": "storageOrderPayment"
       }
     },
     "car": {

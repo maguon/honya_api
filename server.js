@@ -21,6 +21,7 @@ var storage = require('./bl/Storage.js');
 var storageArea = require('./bl/StorageArea.js');
 var storageParking = require('./bl/StorageParking.js');
 var storageOrder = require('./bl/StorageOrder.js');
+var storageOrderPayment = require('./bl/StorageOrderPayment.js');
 var car = require('./bl/Car.js');
 var carStorageRel = require('./bl/CarStorageRel.js');
 var carMake = require('./bl/CarMake.js');
@@ -222,6 +223,13 @@ function createServer() {
      */
     server.get('/api/storageOrder',storageOrder.queryStorageOrder);
     server.put({path:'/api/user/:userId/storageOrder/:storageOrderId',contentType: 'application/json'} ,storageOrder.updateStorageOrderActualFee);
+
+    /**
+     * StorageOrderPayment Module
+     */
+    server.get('/api/storageOrderPayment',storageOrderPayment.queryStorageOrderPayment);
+    server.post({path:'/api/user/:userId/storageOrderPayment',contentType: 'application/json'},storageOrderPayment.createStorageOrderPayment);
+    server.put({path:'/api/user/:userId/storageOrderPayment/:storageOrderPaymentId',contentType: 'application/json'} ,storageOrderPayment.updateStorageOrderPayment);
 
     /**
      * Car Module
