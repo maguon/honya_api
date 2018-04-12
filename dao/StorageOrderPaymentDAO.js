@@ -25,6 +25,7 @@ function getStorageOrderPayment(params,callback) {
     var query = " select sop.*,e.entrust_type,e.short_name,e.entrust_name,u.real_name as payment_user_name from storage_order_payment sop " +
         " left join entrust_info e on sop.entrust_id = e.id " +
         " left join user_info u on sop.payment_user_id = u.uid " +
+        " left join storage_order_payment_rel sopr on sop.id = sopr.storage_order_payment_id " +
         " where sop.id is not null ";
     var paramsArray=[],i=0;
     if(params.storageOrderPaymentId){
@@ -58,6 +59,10 @@ function getStorageOrderPayment(params,callback) {
     if(params.createdOnEnd){
         paramsArray[i++] = params.createdOnEnd +" 23:59:59";
         query = query + " and sop.created_on <= ? ";
+    }
+    if(params.storageOrderId){
+        paramsArray[i++] = params.storageOrderId;
+        query = query + " and sopr.storage_order_id = ? ";
     }
     query = query + " order by sop.id ";
     if (params.start && params.size) {
