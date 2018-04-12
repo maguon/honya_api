@@ -239,6 +239,8 @@ function createServer() {
      * StorageOrderPaymentRel Module
      */
     server.get('/api/storageOrderPaymentRel',storageOrderPaymentRel.queryStorageOrderPaymentRel);
+    server.post({path:'/api/user/:userId/storageOrderPaymentRel',contentType: 'application/json'},storageOrderPaymentRel.createStorageOrderPaymentRel);
+    server.del('/api/user/:userId/storageOrder/:storageOrderId/storageOrderPayment/:storageOrderPaymentId' , storageOrderPaymentRel.removeStorageOrderPaymentRel);
 
     /**
      * Car Module

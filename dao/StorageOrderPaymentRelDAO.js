@@ -46,7 +46,20 @@ function getStorageOrderPaymentRel(params,callback) {
     });
 }
 
+function deleteStorageOrderPaymentRel(params,callback){
+    var query = " delete from storage_order_payment_rel where storage_order_id = ? and storage_order_payment_id = ? ";
+    var paramsArray=[],i=0;
+    paramsArray[i++]=params.storageOrderId;
+    paramsArray[i]=params.storageOrderPaymentId;
+    db.dbQuery(query,paramsArray,function(error,rows){
+        logger.debug(' deleteStorageOrderPaymentRel ');
+        return callback(error,rows);
+    });
+}
+
+
 module.exports ={
     addStorageOrderPaymentRel : addStorageOrderPaymentRel,
-    getStorageOrderPaymentRel : getStorageOrderPaymentRel
+    getStorageOrderPaymentRel : getStorageOrderPaymentRel,
+    deleteStorageOrderPaymentRel : deleteStorageOrderPaymentRel
 }

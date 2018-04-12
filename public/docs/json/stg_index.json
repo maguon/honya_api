@@ -3283,6 +3283,97 @@
         }
       }
     },
+    "/user/{userId}/storageOrderPaymentRel": {
+      "post": {
+        "tags": [
+          "storage"
+        ],
+        "summary": "user create storageOrderPaymentRel",
+        "description": "user create storageOrderPaymentRel",
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "userId",
+            "in": "path",
+            "description": "user id",
+            "required": true,
+            "type": "integer"
+
+          },
+          {
+            "name": "storageOrderPaymentRel",
+            "in": "body",
+            "description": "storageOrderPaymentRel info",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/storageOrderPaymentRel"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "successful operation",
+            "schema": {
+              "type": "object",
+              "items": {
+                "$ref": "#/definitions/ApiResponse"
+              }
+            }
+          },
+          "400": {
+            "description": "Invalid token value or invalid storageOrderPaymentRel id"
+          }
+        }
+      }
+    },
+    "/user/{userId}/storageOrder/{storageOrderId}/storageOrderPayment/{storageOrderPaymentId}": {
+      "delete": {
+        "tags": [
+          "storage"
+        ],
+        "summary": "Deletes a storageOrderPayment",
+        "description": "",
+        "operationId": "deleteStorageOrderPayment",
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "userId",
+            "in": "path",
+            "description": "user id",
+            "required": true,
+            "type": "integer"
+          },
+          {
+            "name": "storageOrderId",
+            "in": "path",
+            "description": "storageOrder id",
+            "required": true,
+            "type": "integer"
+
+          },
+          {
+            "name": "storageOrderPaymentId",
+            "in": "path",
+            "description": "storageOrderPayment id",
+            "required": true,
+            "type": "integer"
+
+          }
+        ],
+        "responses": {
+          "400": {
+            "description": "Invalid ID supplied"
+          },
+          "404": {
+            "description": "contacts not found"
+          }
+        }
+      }
+    },
     "/user/{userId}/car": {
       "get": {
         "tags": [
@@ -6484,6 +6575,21 @@
       },
       "xml": {
         "name": "storageOrderPayment"
+      }
+    },
+    "storageOrderPaymentRel": {
+      "type": "object",
+      "properties": {
+
+        "storageOrderId": {
+          "type": "integer"
+        },
+        "storageOrderPaymentId": {
+          "type": "integer"
+        }
+      },
+      "xml": {
+        "name": "storageOrderPaymentRel"
       }
     },
     "car": {
