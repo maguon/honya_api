@@ -20,6 +20,7 @@ var city = require('./bl/City.js');
 var storage = require('./bl/Storage.js');
 var storageArea = require('./bl/StorageArea.js');
 var storageParking = require('./bl/StorageParking.js');
+var storageOrder = require('./bl/StorageOrder.js');
 var car = require('./bl/Car.js');
 var carStorageRel = require('./bl/CarStorageRel.js');
 var carMake = require('./bl/CarMake.js');
@@ -209,12 +210,18 @@ function createServer() {
     server.put({path:'/api/user/:userId/storageArea/:areaId/areaStatus/:areaStatus',contentType: 'application/json'} ,storageArea.updateStorageAreaStatus);
 
     /**
-     * storageParking Module
+     * StorageParking Module
      */
     server.get('/api/storageParking',storageParking.queryStorageParking);
     server.get('/api/storageParkingBalanceCount',storageParking.queryStorageParkingBalanceCount);
     server.get('/api/storage/:storageId/makeStat',storageParking.queryStorageParkingMakeStat);
     server.put({path:'/api/user/:userId/storageParking/:parkingId',contentType: 'application/json'} ,storageParking.updateStorageParking,sysRecord.saveCarRecord);
+
+    /**
+     * StorageOrder Module
+     */
+    server.get('/api/storageOrder',storageOrder.queryStorageOrder);
+    server.put({path:'/api/user/:userId/storageOrder/:storageOrderId',contentType: 'application/json'} ,storageOrder.updateStorageOrderActualFee);
 
     /**
      * Car Module
