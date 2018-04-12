@@ -230,6 +230,7 @@ function createServer() {
     server.get('/api/storageOrderPayment',storageOrderPayment.queryStorageOrderPayment);
     server.post({path:'/api/user/:userId/storageOrderPayment',contentType: 'application/json'},storageOrderPayment.createStorageOrderPayment);
     server.put({path:'/api/user/:userId/storageOrderPayment/:storageOrderPaymentId',contentType: 'application/json'} ,storageOrderPayment.updateStorageOrderPayment);
+    server.put({path:'/api/user/:userId/storageOrderPayment/:storageOrderPaymentId/paymentStatus/:paymentStatus',contentType: 'application/json'} ,storageOrderPayment.updateStorageOrderPaymentStatus);
 
     /**
      * Car Module

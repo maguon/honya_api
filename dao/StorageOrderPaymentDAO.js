@@ -84,9 +84,21 @@ function updateStorageOrderPayment(params,callback){
     });
 }
 
+function updateStorageOrderPaymentStatus(params,callback){
+    var query = " update storage_order_payment set payment_status = ? where id = ? " ;
+    var paramsArray=[],i=0;
+    paramsArray[i++]=params.paymentStatus;
+    paramsArray[i]=params.storageOrderPaymentId;
+    db.dbQuery(query,paramsArray,function(error,rows){
+        logger.debug(' updateStorageOrderPaymentStatus ');
+        return callback(error,rows);
+    });
+}
+
 
 module.exports ={
     addStorageOrderPayment : addStorageOrderPayment,
     getStorageOrderPayment : getStorageOrderPayment,
-    updateStorageOrderPayment : updateStorageOrderPayment
+    updateStorageOrderPayment : updateStorageOrderPayment,
+    updateStorageOrderPaymentStatus : updateStorageOrderPaymentStatus
 }

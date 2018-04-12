@@ -55,9 +55,24 @@ function updateStorageOrderPayment(req,res,next){
     })
 }
 
+function updateStorageOrderPaymentStatus(req,res,next){
+    var params = req.params ;
+    storageOrderPaymentDAO.updateStorageOrderPaymentStatus(params,function(error,result){
+        if (error) {
+            logger.error(' updateStorageOrderPaymentStatus ' + error.message);
+            throw sysError.InternalError(error.message,sysMsg.SYS_INTERNAL_ERROR_MSG);
+        } else {
+            logger.info(' updateStorageOrderPaymentStatus ' + 'success');
+            resUtil.resetUpdateRes(res,result,null);
+            return next();
+        }
+    })
+}
+
 
 module.exports = {
     createStorageOrderPayment : createStorageOrderPayment,
     queryStorageOrderPayment : queryStorageOrderPayment,
-    updateStorageOrderPayment : updateStorageOrderPayment
+    updateStorageOrderPayment : updateStorageOrderPayment,
+    updateStorageOrderPaymentStatus : updateStorageOrderPaymentStatus
 }
