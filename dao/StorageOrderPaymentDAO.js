@@ -87,8 +87,9 @@ function updateStorageOrderPayment(params,callback){
 }
 
 function updateStorageOrderPaymentStatus(params,callback){
-    var query = " update storage_order_payment set payment_status = ? where id = ? " ;
+    var query = " update storage_order_payment set payment_end_date = ? , payment_status = ? where id = ? " ;
     var paramsArray=[],i=0;
+    paramsArray[i++]=params.paymentEndDate;
     paramsArray[i++]=params.paymentStatus;
     paramsArray[i]=params.storageOrderPaymentId;
     db.dbQuery(query,paramsArray,function(error,rows){

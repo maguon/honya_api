@@ -12,6 +12,7 @@ var storageOrderPaymentRelDAO = require('../dao/StorageOrderPaymentRelDAO.js');
 var oAuthUtil = require('../util/OAuthUtil.js');
 var Seq = require('seq');
 var serverLogger = require('../util/ServerLogger.js');
+var moment = require('moment/moment.js');
 var logger = serverLogger.createLogger('StorageOrderPayment.js');
 
 function createPayment(req,res,next){
@@ -118,6 +119,8 @@ function updateStorageOrderPayment(req,res,next){
 
 function updateStorageOrderPaymentStatus(req,res,next){
     var params = req.params ;
+    var myDate = new Date();
+    params.paymentEndDate = myDate;
     storageOrderPaymentDAO.updateStorageOrderPaymentStatus(params,function(error,result){
         if (error) {
             logger.error(' updateStorageOrderPaymentStatus ' + error.message);
