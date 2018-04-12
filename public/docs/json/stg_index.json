@@ -3231,6 +3231,58 @@
         }
       }
     },
+    "/storageOrderPaymentRel": {
+      "get": {
+        "tags": [
+          "storage"
+        ],
+        "summary": "query  storageOrderPaymentRel list",
+        "description": "query storageOrderPaymentRel",
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "storageOrderPaymentId",
+            "in": "query",
+            "description": "storageOrderPayment id",
+            "required": false,
+            "type": "integer"
+
+          },
+          {
+            "name": "start",
+            "in": "query",
+            "description": " list start pos",
+            "required": false,
+            "type": "integer"
+
+          },
+          {
+            "name": "size",
+            "in": "query",
+            "description": "list size for pagination",
+            "required": false,
+            "type": "integer"
+
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "successful operation",
+            "schema": {
+              "type": "object",
+              "items": {
+                "$ref": "#/definitions/storageOrderPaymentRel"
+              }
+            }
+          },
+          "400": {
+            "description": "Invalid token value or invalid storageOrderPaymentRel id"
+          }
+        }
+      }
+    },
     "/user/{userId}/car": {
       "get": {
         "tags": [
