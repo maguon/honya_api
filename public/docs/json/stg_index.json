@@ -2875,6 +2875,58 @@
         }
       }
     },
+    "/user/{userId}/storageOrder/{storageOrderId}/orderStatus/{orderStatus}": {
+      "put": {
+        "tags": [
+          "storage"
+        ],
+        "summary": "update storageOrder status",
+        "description": "update storageOrder status",
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "userId",
+            "in": "path",
+            "description": "user Id",
+            "required": true,
+            "type": "integer"
+
+          },
+          {
+            "name": "storageOrderId",
+            "in": "path",
+            "description": "storageOrder id",
+            "required": true,
+            "type": "integer"
+
+          },
+          {
+            "name": "orderStatus",
+            "in": "path",
+            "description": "order status",
+            "required": true,
+            "type": "integer"
+
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "successful operation",
+            "schema": {
+              "type": "object",
+              "items": {
+                "$ref": "#/definitions/ApiResponse"
+              }
+            }
+          },
+          "400": {
+            "description": "Invalid token value or invalid storageOrder id"
+          }
+        }
+      }
+    },
     "/storageOrderPayment": {
       "get": {
         "tags": [
@@ -2974,6 +3026,51 @@
               "type": "object",
               "items": {
                 "$ref": "#/definitions/storageOrderPayment"
+              }
+            }
+          },
+          "400": {
+            "description": "Invalid token value or invalid storageOrderPayment id"
+          }
+        }
+      }
+    },
+    "/user/{userId}/payment": {
+      "post": {
+        "tags": [
+          "storage"
+        ],
+        "summary": "user create storageOrderPayment",
+        "description": "user create storageOrderPayment",
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "userId",
+            "in": "path",
+            "description": "user id",
+            "required": true,
+            "type": "integer"
+
+          },
+          {
+            "name": "payment",
+            "in": "body",
+            "description": "payment info",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/payment"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "successful operation",
+            "schema": {
+              "type": "object",
+              "items": {
+                "$ref": "#/definitions/ApiResponse"
               }
             }
           },
@@ -6284,6 +6381,33 @@
       },
       "xml": {
         "name": "storageOrder"
+      }
+    },
+    "payment": {
+      "type": "object",
+      "properties": {
+
+        "entrustId": {
+          "type": "integer"
+        },
+        "paymentType": {
+          "type": "integer"
+        },
+        "number": {
+          "type": "string"
+        },
+        "paymentMoney": {
+          "type": "integer"
+        },
+        "remark": {
+          "type": "string"
+        },
+        "storageOrderIds": {
+          "type": "integer"
+        }
+      },
+      "xml": {
+        "name": "payment"
       }
     },
     "storageOrderPayment": {
