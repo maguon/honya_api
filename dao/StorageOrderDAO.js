@@ -77,8 +77,20 @@ function updateStorageOrderActualFee(params,callback){
     });
 }
 
+function updateStorageOrderStatus(params,callback){
+    var query = " update storage_order set order_status = ? where id = ? " ;
+    var paramsArray=[],i=0;
+    paramsArray[i++]=params.orderStatus;
+    paramsArray[i]=params.storageOrderId;
+    db.dbQuery(query,paramsArray,function(error,rows){
+        logger.debug(' updateStorageOrderStatus ');
+        return callback(error,rows);
+    });
+}
+
 
 module.exports ={
     getStorageOrder : getStorageOrder,
-    updateStorageOrderActualFee : updateStorageOrderActualFee
+    updateStorageOrderActualFee : updateStorageOrderActualFee,
+    updateStorageOrderStatus : updateStorageOrderStatus
 }

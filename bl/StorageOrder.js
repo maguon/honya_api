@@ -41,8 +41,23 @@ function updateStorageOrderActualFee(req,res,next){
     })
 }
 
+function updateStorageOrderStatus(req,res,next){
+    var params = req.params ;
+    storageOrderDAO.updateStorageOrderStatus(params,function(error,result){
+        if (error) {
+            logger.error(' updateStorageOrderStatus ' + error.message);
+            throw sysError.InternalError(error.message,sysMsg.SYS_INTERNAL_ERROR_MSG);
+        } else {
+            logger.info(' updateStorageOrderStatus ' + 'success');
+            resUtil.resetUpdateRes(res,result,null);
+            return next();
+        }
+    })
+}
+
 
 module.exports = {
     queryStorageOrder : queryStorageOrder,
-    updateStorageOrderActualFee : updateStorageOrderActualFee
+    updateStorageOrderActualFee : updateStorageOrderActualFee,
+    updateStorageOrderStatus : updateStorageOrderStatus
 }
