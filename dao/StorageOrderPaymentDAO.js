@@ -7,12 +7,13 @@ var serverLogger = require('../util/ServerLogger.js');
 var logger = serverLogger.createLogger('StorageOrderPaymentDAO.js');
 
 function addStorageOrderPayment(params,callback){
-    var query = " insert into storage_order_payment (entrust_id,payment_type,number,payment_money,remark) values ( ? , ? , ? , ? , ? )";
+    var query = " insert into storage_order_payment (entrust_id,payment_type,number,payment_money,payment_user_id,remark) values ( ? , ? , ? , ? , ? , ? )";
     var paramsArray=[],i=0;
     paramsArray[i++]=params.entrustId;
     paramsArray[i++]=params.paymentType;
     paramsArray[i++]=params.number;
     paramsArray[i++]=params.paymentMoney;
+    paramsArray[i++]=params.userId;
     paramsArray[i]=params.remark;
     db.dbQuery(query,paramsArray,function(error,rows){
         logger.debug(' addStorageOrderPayment ');
@@ -21,8 +22,9 @@ function addStorageOrderPayment(params,callback){
 }
 
 function getStorageOrderPayment(params,callback) {
-    var query = " select sop.*,e.short_name,e.entrust_name from storage_order_payment sop " +
+    var query = " select sop.*,e.entrust_type,e.short_name,e.entrust_name,u.real_name as payment_user_name from storage_order_payment sop " +
         " left join entrust_info e on sop.entrust_id = e.id " +
+        " left join user_info u on sop.payment_user_id = u.uid " +
         " where sop.id is not null ";
     var paramsArray=[],i=0;
     if(params.storageOrderPaymentId){
