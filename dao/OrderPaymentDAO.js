@@ -85,7 +85,7 @@ function updateOrderPayment(params,callback){
     paramsArray[i++]=params.number;
     paramsArray[i++]=params.paymentMoney;
     paramsArray[i++]=params.remark;
-    paramsArray[i]=params.OrderPaymentId;
+    paramsArray[i]=params.orderPaymentId;
     db.dbQuery(query,paramsArray,function(error,rows){
         logger.debug(' updateOrderPayment ');
         return callback(error,rows);
