@@ -6,6 +6,21 @@ var db=require('../db/connection/MysqlDb.js');
 var serverLogger = require('../util/ServerLogger.js');
 var logger = serverLogger.createLogger('StorageOrderDAO.js');
 
+function addStorageOrder(params,callback){
+    var query = " insert into storage_order (car_storage_rel_id,car_id,day_count,hour_count,plan_fee,actual_fee) values ( ? , ? , ? , ? , ? , ? )";
+    var paramsArray=[],i=0;
+    paramsArray[i++]=params.relId;
+    paramsArray[i++]=params.carId;
+    paramsArray[i++]=params.dayCount;
+    paramsArray[i++]=params.hourCount;
+    paramsArray[i++]=params.planFee;
+    paramsArray[i]=params.actualFee;
+    db.dbQuery(query,paramsArray,function(error,rows){
+        logger.debug(' addStorageOrder ');
+        return callback(error,rows);
+    });
+}
+
 function getStorageOrder(params,callback) {
     var query = " select so.*,c.vin,c.make_id,c.make_name,c.model_id,c.model_name,c.colour,c.entrust_id, " +
         " e.short_name,e.entrust_name,csr.enter_time,csr.real_out_time from storage_order so " +
@@ -91,6 +106,7 @@ function updateStorageOrderStatus(params,callback){
 
 
 module.exports ={
+    addStorageOrder : addStorageOrder,
     getStorageOrder : getStorageOrder,
     updateStorageOrderActualFee : updateStorageOrderActualFee,
     updateStorageOrderStatus : updateStorageOrderStatus

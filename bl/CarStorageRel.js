@@ -7,10 +7,12 @@ var sysError = require('../util/SystemError.js');
 var resUtil = require('../util/ResponseUtil.js');
 var encrypt = require('../util/Encrypt.js');
 var listOfValue = require('../util/ListOfValue.js');
+var sysConst = require('../util/SysConst.js');
 var carStorageRelDAO = require('../dao/CarStorageRelDAO.js');
 var carDAO = require('../dao/CarDAO.js');
 var storageParkingDAO = require('../dao/StorageParkingDAO.js');
 var carKeyPositionDAO = require('../dao/CarKeyPositionDAO.js');
+var storageOrderDAO = require('../dao/StorageOrderDAO.js');
 var oAuthUtil = require('../util/OAuthUtil.js');
 var Seq = require('seq');
 var serverLogger = require('../util/ServerLogger.js');
@@ -347,12 +349,39 @@ function updateRelStatus(req,res,next){
                 throw sysError.InternalError(error.message,sysMsg.SYS_INTERNAL_ERROR_MSG);
             } else{
                 if(rows&&rows.length==1&&rows[0].rel_status == listOfValue.REL_STATUS_OUT){
+                    parkObj.dayCount = rows[0].day_count;
+                    parkObj.hourCount = rows[0].hour_count;
+                    parkObj.planFee = rows[0].day_count*sysConst.FEE_MONEY.five;
+                    parkObj.actualFee = rows[0].day_count*sysConst.FEE_MONEY.five;
                     that();
                 }else{
                     logger.warn(' getCarStorageRel ' + 'failed');
                     resUtil.resetFailedRes(res,"carStorageRel is not empty");
                     return next();
                 }
+            }
+        })
+    }).seq(function(){
+        var that = this;
+        var subParams ={
+            relId : params.relId,
+            carId : parkObj.carId,
+            dayCount : parkObj.dayCount,
+            hourCount : parkObj.hourCount,
+            planFee : parkObj.planFee,
+            actualFee : parkObj.actualFee,
+        }
+        storageOrderDAO.addStorageOrder(subParams,function(error,result){
+            if (error) {
+                logger.error(' createStorageOrder ' + error.message);
+                throw sysError.InternalError(error.message,sysMsg.SYS_INTERNAL_ERROR_MSG);
+            } else {
+                if(result&&result.insertId>0){
+                    logger.info(' createStorageOrder ' + 'success');
+                }else{
+                    logger.warn(' createStorageOrder ' + 'failed');
+                }
+                that();
             }
         })
     }).seq(function () {

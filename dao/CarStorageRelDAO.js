@@ -23,8 +23,8 @@ function addCarStorageRel(params,callback){
 }
 
 function getCarStorageRel(params,callback) {
-    var query = " select r.*,TIMESTAMPDIFF(DAY,enter_time,real_out_time) as day_count, " +
-        " TIMESTAMPDIFF(HOUR,enter_time,real_out_time) as hour_count from car_storage_rel r " +
+    var query = " select r.*,sum(TIMESTAMPDIFF(DAY,date_format(enter_time,'%Y-%m-%d'),date_format(real_out_time,'%Y-%m-%d'))+1)as day_count, " +
+        " TIMESTAMPDIFF(HOUR,r.enter_time,r.real_out_time) as hour_count from car_storage_rel r " +
         " left join storage_parking p on r.car_id = p.car_id where r.id is not null ";
     var paramsArray=[],i=0;
     if(params.relId){
@@ -43,6 +43,7 @@ function getCarStorageRel(params,callback) {
         paramsArray[i++] = params.relStatus;
         query = query + " and r.rel_status = ? ";
     }
+    query = query + " group by r.id ";
     query = query + " order by r.id ";
     db.dbQuery(query,paramsArray,function(error,rows){
         logger.debug(' getCarStorageRel ');

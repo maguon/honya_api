@@ -11,9 +11,13 @@ var ORDER_STATUS  ={ //仓储订单状态
     not_payment : 1,  //未支付
     payment : 2, //已支付
 };
+var FEE_MONEY  ={ //仓储计费金额
+    five : 5,
+};
 
 
 module.exports = {
     USER_TYPE : USER_TYPE,
-    ORDER_STATUS : ORDER_STATUS
+    ORDER_STATUS : ORDER_STATUS,
+    FEE_MONEY : FEE_MONEY
 }
