@@ -4007,6 +4007,50 @@
         }
       }
     },
+    "/carStorageRel": {
+      "get": {
+        "tags": [
+          "car"
+        ],
+        "summary": "query  carStorageRel list",
+        "description": "query carStorageRel",
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "relId",
+            "in": "query",
+            "description": "rel id",
+            "required": false,
+            "type": "integer"
+
+          },
+          {
+            "name": "relStatus",
+            "in": "query",
+            "description": "rel Status",
+            "required": false,
+            "type": "integer"
+
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "successful operation",
+            "schema": {
+              "type": "object",
+              "items": {
+                "$ref": "#/definitions/carStorageRel"
+              }
+            }
+          },
+          "400": {
+            "description": "Invalid token value or invalid carStorageRel id"
+          }
+        }
+      }
+    },
     "/user/{userId}/carStorageRel": {
       "post": {
         "tags": [
