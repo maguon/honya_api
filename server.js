@@ -254,6 +254,7 @@ function createServer() {
     /**
      * CarStorageRel Module
      */
+    server.get('/api/carStorageRel',carStorageRel.queryCarStorageRel);
     server.post({path:'/api/user/:userId/carStorageRel',contentType: 'application/json'},carStorageRel.createCarStorageRel,sysRecord.saveCarRecord);
     server.post({path:'/api/user/:userId/againCarStorageRel',contentType: 'application/json'},carStorageRel.createAgainCarStorageRel,sysRecord.saveCarRecord);
     server.put({path:'/api/user/:userId/carStorageRel/:relId/relStatus/:relStatus',contentType: 'application/json'} ,carStorageRel.updateRelStatus,sysRecord.saveCarRecord);

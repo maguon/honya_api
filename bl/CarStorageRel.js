@@ -87,6 +87,8 @@ function createCarStorageRel(req,res,next){
         }
     }).seq(function(){
         var that = this;
+        var strDate = moment(myDate).format('YYYYMMDD');
+        params.importDateId = parseInt(strDate);
         if(params.enterTime == null){
             params.enterTime = myDate;
         }
@@ -96,6 +98,7 @@ function createCarStorageRel(req,res,next){
             storageName : params.storageName,
             enterTime : params.enterTime,
             planOutTime : params.planOutTime,
+            importDateId : params.importDateId
         }
         carStorageRelDAO.addCarStorageRel(subParams,function(err,result){
             if (err) {
@@ -215,6 +218,8 @@ function createAgainCarStorageRel(req,res,next){
         }
     }).seq(function(){
         var that = this;
+        var strDate = moment(myDate).format('YYYYMMDD');
+        params.importDateId = parseInt(strDate);
         if(params.enterTime == null){
             params.enterTime = myDate;
         }
@@ -224,6 +229,7 @@ function createAgainCarStorageRel(req,res,next){
             storageName : params.storageName,
             enterTime : params.enterTime,
             planOutTime : params.planOutTime,
+            importDateId : params.importDateId,
         }
         carStorageRelDAO.addCarStorageRel(subParams,function(err,result){
             if (err) {
@@ -316,6 +322,10 @@ function updateRelStatus(req,res,next){
         })
     }).seq(function(){
         var that = this;
+        var myDate = new Date();
+        var strDate = moment(myDate).format('YYYYMMDD');
+        params.exportDateId = parseInt(strDate);
+        params.realOutTime = myDate;
         carStorageRelDAO.updateRelStatus(params,function(error,result){
             if (error) {
                 logger.error(' updateRelStatus ' + error.message);
@@ -396,10 +406,25 @@ function updateRelPlanOutTime(req,res,next){
     })
 }
 
+function queryCarStorageRel(req,res,next){
+    var params = req.params ;
+    carStorageRelDAO.getCarStorageRel(params,function(error,result){
+        if (error) {
+            logger.error(' queryCarStorageRel ' + error.message);
+            throw sysError.InternalError(error.message,sysMsg.SYS_INTERNAL_ERROR_MSG);
+        } else {
+            logger.info(' queryCarStorageRel ' + 'success');
+            resUtil.resetQueryRes(res,result,null);
+            return next();
+        }
+    })
+}
+
 
 module.exports = {
     createCarStorageRel : createCarStorageRel,
     createAgainCarStorageRel : createAgainCarStorageRel,
     updateRelStatus : updateRelStatus,
-    updateRelPlanOutTime : updateRelPlanOutTime
+    updateRelPlanOutTime : updateRelPlanOutTime,
+    queryCarStorageRel : queryCarStorageRel
 }
