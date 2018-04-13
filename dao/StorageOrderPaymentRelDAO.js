@@ -24,16 +24,16 @@ function getStorageOrderPaymentRel(params,callback) {
         " from storage_order_payment_rel sopr" +
         " left join storage_order so on sopr.storage_order_id = so.id " +
         " left join storage_order_payment sop on sopr.storage_order_payment_id = sop.id " +
+        " left join car_storage_rel csr on so.car_storage_rel_id = csr.id " +
         " left join car_info c on so.car_id = c.id " +
         " left join entrust_info e on c.entrust_id = e.id " +
-        " left join car_storage_rel csr on c.id = csr.car_id " +
-        " where csr.active = 1 and sopr.id is not null ";
+        " where sopr.id is not null ";
     var paramsArray=[],i=0;
     if(params.storageOrderPaymentId){
         paramsArray[i++] = params.storageOrderPaymentId;
         query = query + " and sopr.storage_order_payment_id = ? ";
     }
-    query = query + ' group by sopr.id,csr.id ';
+    query = query + ' group by sopr.id ';
     query = query + ' order by sopr.storage_order_id ';
     if (params.start && params.size) {
         paramsArray[i++] = parseInt(params.start);
