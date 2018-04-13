@@ -2927,21 +2927,21 @@
         }
       }
     },
-    "/storageOrderPayment": {
+    "/orderPayment": {
       "get": {
         "tags": [
           "storage"
         ],
-        "summary": "query  storageOrderPayment list",
-        "description": "query storageOrderPayment",
+        "summary": "query  orderPayment list",
+        "description": "query orderPayment",
         "produces": [
           "application/json"
         ],
         "parameters": [
           {
-            "name": "storageOrderPaymentId",
+            "name": "orderPaymentId",
             "in": "query",
-            "description": "storageOrderPayment id",
+            "description": "orderPayment id",
             "required": false,
             "type": "integer"
 
@@ -3033,12 +3033,12 @@
             "schema": {
               "type": "object",
               "items": {
-                "$ref": "#/definitions/storageOrderPayment"
+                "$ref": "#/definitions/orderPayment"
               }
             }
           },
           "400": {
-            "description": "Invalid token value or invalid storageOrderPayment id"
+            "description": "Invalid token value or invalid orderPayment id"
           }
         }
       }
@@ -3048,8 +3048,8 @@
         "tags": [
           "storage"
         ],
-        "summary": "user create storageOrderPayment",
-        "description": "user create storageOrderPayment",
+        "summary": "user create orderPayment",
+        "description": "user create orderPayment",
         "produces": [
           "application/json"
         ],
@@ -3083,18 +3083,18 @@
             }
           },
           "400": {
-            "description": "Invalid token value or invalid storageOrderPayment id"
+            "description": "Invalid token value or invalid orderPayment id"
           }
         }
       }
     },
-    "/user/{userId}/storageOrderPayment": {
+    "/user/{userId}/orderPayment": {
       "post": {
         "tags": [
           "storage"
         ],
-        "summary": "user create storageOrderPayment",
-        "description": "user create storageOrderPayment",
+        "summary": "user create orderPayment",
+        "description": "user create orderPayment",
         "produces": [
           "application/json"
         ],
@@ -3108,12 +3108,12 @@
 
           },
           {
-            "name": "storageOrderPayment",
+            "name": "orderPayment",
             "in": "body",
-            "description": "storageOrderPayment info",
+            "description": "orderPayment info",
             "required": true,
             "schema": {
-              "$ref": "#/definitions/storageOrderPayment"
+              "$ref": "#/definitions/orderPayment"
             }
           }
         ],
@@ -3128,18 +3128,18 @@
             }
           },
           "400": {
-            "description": "Invalid token value or invalid storageOrderPayment id"
+            "description": "Invalid token value or invalid orderPayment id"
           }
         }
       }
     },
-    "/user/{userId}/storageOrderPayment/{storageOrderPaymentId}": {
+    "/user/{userId}/orderPayment/{orderPaymentId}": {
       "put": {
         "tags": [
           "storage"
         ],
-        "summary": "update storageOrderPayment info",
-        "description": "update storageOrderPayment info",
+        "summary": "update orderPayment info",
+        "description": "update orderPayment info",
         "produces": [
           "application/json"
         ],
@@ -3153,20 +3153,20 @@
 
           },
           {
-            "name": "storageOrderPaymentId",
+            "name": "orderPaymentId",
             "in": "path",
-            "description": "storageOrderPayment id",
+            "description": "orderPayment id",
             "required": true,
             "type": "integer"
 
           },
           {
-            "name": "storageOrderPayment",
+            "name": "orderPayment",
             "in": "body",
-            "description": "storageOrderPayment info",
+            "description": "orderPayment info",
             "required": true,
             "schema": {
-              "$ref": "#/definitions/storageOrderPayment"
+              "$ref": "#/definitions/orderPayment"
             }
 
           }
@@ -3182,18 +3182,18 @@
             }
           },
           "400": {
-            "description": "Invalid token value or invalid storageOrderPayment id"
+            "description": "Invalid token value or invalid orderPayment id"
           }
         }
       }
     },
-    "/user/{userId}/storageOrderPayment/{storageOrderPaymentId}/paymentStatus/{paymentStatus}": {
+    "/user/{userId}/orderPayment/{orderPaymentId}/paymentStatus/{paymentStatus}": {
       "put": {
         "tags": [
           "storage"
         ],
-        "summary": "update storageOrderPayment status",
-        "description": "update storageOrderPayment status",
+        "summary": "update orderPayment status",
+        "description": "update orderPayment status",
         "produces": [
           "application/json"
         ],
@@ -3207,9 +3207,9 @@
 
           },
           {
-            "name": "storageOrderPaymentId",
+            "name": "orderPaymentId",
             "in": "path",
-            "description": "storageOrderPayment id",
+            "description": "orderPayment id",
             "required": true,
             "type": "integer"
 
@@ -3234,26 +3234,26 @@
             }
           },
           "400": {
-            "description": "Invalid token value or invalid storageOrderPayment id"
+            "description": "Invalid token value or invalid orderPayment id"
           }
         }
       }
     },
-    "/storageOrderPaymentRel": {
+    "/orderPaymentRel": {
       "get": {
         "tags": [
           "storage"
         ],
-        "summary": "query  storageOrderPaymentRel list",
-        "description": "query storageOrderPaymentRel",
+        "summary": "query  orderPaymentRel list",
+        "description": "query orderPaymentRel",
         "produces": [
           "application/json"
         ],
         "parameters": [
           {
-            "name": "storageOrderPaymentId",
+            "name": "orderPaymentId",
             "in": "query",
-            "description": "storageOrderPayment id",
+            "description": "orderPayment id",
             "required": false,
             "type": "integer"
 
@@ -3281,23 +3281,23 @@
             "schema": {
               "type": "object",
               "items": {
-                "$ref": "#/definitions/storageOrderPaymentRel"
+                "$ref": "#/definitions/orderPaymentRel"
               }
             }
           },
           "400": {
-            "description": "Invalid token value or invalid storageOrderPaymentRel id"
+            "description": "Invalid token value or invalid orderPaymentRel id"
           }
         }
       }
     },
-    "/user/{userId}/storageOrderPaymentRel": {
+    "/user/{userId}/orderPaymentRel": {
       "post": {
         "tags": [
           "storage"
         ],
-        "summary": "user create storageOrderPaymentRel",
-        "description": "user create storageOrderPaymentRel",
+        "summary": "user create orderPaymentRel",
+        "description": "user create orderPaymentRel",
         "produces": [
           "application/json"
         ],
@@ -3311,12 +3311,12 @@
 
           },
           {
-            "name": "storageOrderPaymentRel",
+            "name": "orderPaymentRel",
             "in": "body",
-            "description": "storageOrderPaymentRel info",
+            "description": "orderPaymentRel info",
             "required": true,
             "schema": {
-              "$ref": "#/definitions/storageOrderPaymentRel"
+              "$ref": "#/definitions/orderPaymentRel"
             }
           }
         ],
@@ -3331,19 +3331,19 @@
             }
           },
           "400": {
-            "description": "Invalid token value or invalid storageOrderPaymentRel id"
+            "description": "Invalid token value or invalid orderPaymentRel id"
           }
         }
       }
     },
-    "/user/{userId}/storageOrder/{storageOrderId}/storageOrderPayment/{storageOrderPaymentId}": {
+    "/user/{userId}/storageOrder/{storageOrderId}/orderPayment/{orderPaymentId}": {
       "delete": {
         "tags": [
           "storage"
         ],
-        "summary": "Deletes a storageOrderPayment",
+        "summary": "Deletes a orderPaymentRel",
         "description": "",
-        "operationId": "deleteStorageOrderPayment",
+        "operationId": "deleteOrderPaymentRel",
         "produces": [
           "application/json"
         ],
@@ -3364,9 +3364,9 @@
 
           },
           {
-            "name": "storageOrderPaymentId",
+            "name": "orderPaymentId",
             "in": "path",
-            "description": "storageOrderPayment id",
+            "description": "orderPayment id",
             "required": true,
             "type": "integer"
 
@@ -4007,31 +4007,31 @@
         }
       }
     },
-    "/carStorageRel": {
+    "/carMake": {
       "get": {
         "tags": [
           "car"
         ],
-        "summary": "query  carStorageRel list",
-        "description": "query carStorageRel",
+        "summary": "query  carMake list",
+        "description": "query carMake",
         "produces": [
           "application/json"
         ],
         "parameters": [
           {
-            "name": "relId",
+            "name": "makeId",
             "in": "query",
-            "description": "rel id",
+            "description": "make id",
             "required": false,
             "type": "integer"
 
           },
           {
-            "name": "relStatus",
+            "name": "makeName",
             "in": "query",
-            "description": "rel Status",
+            "description": "make name",
             "required": false,
-            "type": "integer"
+            "type": "string"
 
           }
         ],
@@ -4041,12 +4041,12 @@
             "schema": {
               "type": "object",
               "items": {
-                "$ref": "#/definitions/carStorageRel"
+                "$ref": "#/definitions/carMake"
               }
             }
           },
           "400": {
-            "description": "Invalid token value or invalid carStorageRel id"
+            "description": "Invalid token value or invalid make id"
           }
         }
       }
@@ -6605,7 +6605,7 @@
         "name": "payment"
       }
     },
-    "storageOrderPayment": {
+    "orderPayment": {
       "type": "object",
       "properties": {
 
@@ -6626,22 +6626,22 @@
         }
       },
       "xml": {
-        "name": "storageOrderPayment"
+        "name": "orderPayment"
       }
     },
-    "storageOrderPaymentRel": {
+    "orderPaymentRel": {
       "type": "object",
       "properties": {
 
         "storageOrderId": {
           "type": "integer"
         },
-        "storageOrderPaymentId": {
+        "orderPaymentId": {
           "type": "integer"
         }
       },
       "xml": {
-        "name": "storageOrderPaymentRel"
+        "name": "orderPaymentRel"
       }
     },
     "car": {

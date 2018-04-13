@@ -21,8 +21,8 @@ var storage = require('./bl/Storage.js');
 var storageArea = require('./bl/StorageArea.js');
 var storageParking = require('./bl/StorageParking.js');
 var storageOrder = require('./bl/StorageOrder.js');
-var storageOrderPayment = require('./bl/StorageOrderPayment.js');
-var storageOrderPaymentRel = require('./bl/StorageOrderPaymentRel.js');
+var orderPayment = require('./bl/OrderPayment.js');
+var orderPaymentRel = require('./bl/OrderPaymentRel.js');
 var car = require('./bl/Car.js');
 var carStorageRel = require('./bl/CarStorageRel.js');
 var carMake = require('./bl/CarMake.js');
@@ -227,20 +227,20 @@ function createServer() {
     server.put({path:'/api/user/:userId/storageOrder/:storageOrderId/orderStatus/:orderStatus',contentType: 'application/json'} ,storageOrder.updateStorageOrderStatus);
 
     /**
-     * StorageOrderPayment Module
+     * OrderPayment Module
      */
-    server.get('/api/storageOrderPayment',storageOrderPayment.queryStorageOrderPayment);
-    server.post({path:'/api/user/:userId/payment',contentType: 'application/json'},storageOrderPayment.createPayment);
-    server.post({path:'/api/user/:userId/storageOrderPayment',contentType: 'application/json'},storageOrderPayment.createStorageOrderPayment);
-    server.put({path:'/api/user/:userId/storageOrderPayment/:storageOrderPaymentId',contentType: 'application/json'} ,storageOrderPayment.updateStorageOrderPayment);
-    server.put({path:'/api/user/:userId/storageOrderPayment/:storageOrderPaymentId/paymentStatus/:paymentStatus',contentType: 'application/json'} ,storageOrderPayment.updateStorageOrderPaymentStatus);
+    server.get('/api/orderPayment',orderPayment.queryOrderPayment);
+    server.post({path:'/api/user/:userId/payment',contentType: 'application/json'},orderPayment.createPayment);
+    server.post({path:'/api/user/:userId/orderPayment',contentType: 'application/json'},orderPayment.createOrderPayment);
+    server.put({path:'/api/user/:userId/orderPayment/:orderPaymentId',contentType: 'application/json'} ,orderPayment.updateOrderPayment);
+    server.put({path:'/api/user/:userId/orderPayment/:orderPaymentId/paymentStatus/:paymentStatus',contentType: 'application/json'} ,orderPayment.updateOrderPaymentStatus);
 
     /**
-     * StorageOrderPaymentRel Module
+     * OrderPaymentRel Module
      */
-    server.get('/api/storageOrderPaymentRel',storageOrderPaymentRel.queryStorageOrderPaymentRel);
-    server.post({path:'/api/user/:userId/storageOrderPaymentRel',contentType: 'application/json'},storageOrderPaymentRel.createStorageOrderPaymentRel);
-    server.del('/api/user/:userId/storageOrder/:storageOrderId/storageOrderPayment/:storageOrderPaymentId' , storageOrderPaymentRel.removeStorageOrderPaymentRel);
+    server.get('/api/orderPaymentRel',orderPaymentRel.queryOrderPaymentRel);
+    server.post({path:'/api/user/:userId/orderPaymentRel',contentType: 'application/json'},orderPaymentRel.createOrderPaymentRel);
+    server.del('/api/user/:userId/storageOrder/:storageOrderId/orderPayment/:orderPaymentId' , orderPaymentRel.removeOrderPaymentRel);
 
     /**
      * Car Module

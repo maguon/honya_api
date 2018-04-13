@@ -7,27 +7,27 @@ var sysError = require('../util/SystemError.js');
 var resUtil = require('../util/ResponseUtil.js');
 var encrypt = require('../util/Encrypt.js');
 var listOfValue = require('../util/ListOfValue.js');
-var storageOrderPaymentDAO = require('../dao/StorageOrderPaymentDAO.js');
-var storageOrderPaymentRelDAO = require('../dao/StorageOrderPaymentRelDAO.js');
+var orderPaymentDAO = require('../dao/OrderPaymentDAO.js');
+var orderPaymentRelDAO = require('../dao/OrderPaymentRelDAO.js');
 var oAuthUtil = require('../util/OAuthUtil.js');
 var Seq = require('seq');
 var serverLogger = require('../util/ServerLogger.js');
 var moment = require('moment/moment.js');
-var logger = serverLogger.createLogger('StorageOrderPayment.js');
+var logger = serverLogger.createLogger('OrderPayment.js');
 
 function createPayment(req,res,next){
     var params = req.params ;
-    var storageOrderPaymentId = 0;
+    var orderPaymentId = 0;
     Seq().seq(function(){
         var that = this;
-        storageOrderPaymentDAO.addStorageOrderPayment(params,function(error,result){
+        orderPaymentDAO.addOrderPayment(params,function(error,result){
             if (error) {
                 logger.error(' createPayment ' + error.message);
                 throw sysError.InternalError(error.message,sysMsg.SYS_INTERNAL_ERROR_MSG);
             } else {
                 if(result&&result.insertId>0){
                     logger.info(' createPayment ' + 'success');
-                    storageOrderPaymentId = result.insertId;
+                    orderPaymentId = result.insertId;
                     that();
                 }else{
                     resUtil.resetFailedRes(res,"create payment failed");
@@ -43,24 +43,24 @@ function createPayment(req,res,next){
         Seq(rowArray).seqEach(function(rowObj,i){
             var that = this;
             var subParams ={
-                storageOrderPaymentId : storageOrderPaymentId,
+                orderPaymentId : orderPaymentId,
                 storageOrderId : storageOrderIds[i],
                 row : i+1,
             }
-            storageOrderPaymentRelDAO.addStorageOrderPaymentRel(subParams,function(err,result){
+            orderPaymentRelDAO.addOrderPaymentRel(subParams,function(err,result){
                 if (err) {
                     if(err.message.indexOf("Duplicate") > 0) {
                         resUtil.resetFailedRes(res, "订单已经被关联，操作失败");
                         return next();
                     } else{
-                        logger.error(' createStorageOrderPaymentRel ' + err.message);
+                        logger.error(' createOrderPaymentRel ' + err.message);
                         throw sysError.InternalError(err.message,sysMsg.SYS_INTERNAL_ERROR_MSG);
                     }
                 } else {
                     if(result&&result.insertId>0){
-                        logger.info(' createStorageOrderPaymentRel ' + 'success');
+                        logger.info(' createOrderPaymentRel ' + 'success');
                     }else{
-                        logger.warn(' createStorageOrderPaymentRel ' + 'failed');
+                        logger.warn(' createOrderPaymentRel ' + 'failed');
                     }
                     that(null,i);
                 }
@@ -69,64 +69,64 @@ function createPayment(req,res,next){
             that();
         })
     }).seq(function(){
-        logger.info(' createDamageInsure ' + 'success');
-        resUtil.resetCreateRes(res,{insertId:storageOrderPaymentId},null);
+        logger.info(' createOrderPaymentRel ' + 'success');
+        resUtil.resetCreateRes(res,{insertId:orderPaymentId},null);
         return next();
     })
 }
 
-function createStorageOrderPayment(req,res,next){
+function createOrderPayment(req,res,next){
     var params = req.params ;
-    storageOrderPaymentDAO.addStorageOrderPayment(params,function(error,result){
+    orderPaymentDAO.addOrderPayment(params,function(error,result){
         if (error) {
-            logger.error(' createStorageOrderPayment ' + error.message);
+            logger.error(' createOrderPayment ' + error.message);
             throw sysError.InternalError(error.message,sysMsg.SYS_INTERNAL_ERROR_MSG);
         } else {
-            logger.info(' createStorageOrderPayment ' + 'success');
+            logger.info(' createOrderPayment ' + 'success');
             resUtil.resetCreateRes(res,result,null);
             return next();
         }
     })
 }
 
-function queryStorageOrderPayment(req,res,next){
+function queryOrderPayment(req,res,next){
     var params = req.params ;
-    storageOrderPaymentDAO.getStorageOrderPayment(params,function(error,result){
+    orderPaymentDAO.getOrderPayment(params,function(error,result){
         if (error) {
-            logger.error(' queryStorageOrderPayment ' + error.message);
+            logger.error(' queryOrderPayment ' + error.message);
             throw sysError.InternalError(error.message,sysMsg.SYS_INTERNAL_ERROR_MSG);
         } else {
-            logger.info(' queryStorageOrderPayment ' + 'success');
+            logger.info(' queryOrderPayment ' + 'success');
             resUtil.resetQueryRes(res,result,null);
             return next();
         }
     })
 }
 
-function updateStorageOrderPayment(req,res,next){
+function updateOrderPayment(req,res,next){
     var params = req.params ;
-    storageOrderPaymentDAO.updateStorageOrderPayment(params,function(error,result){
+    orderPaymentDAO.updateOrderPayment(params,function(error,result){
         if (error) {
-            logger.error(' updateStorageOrderPayment ' + error.message);
+            logger.error(' updateOrderPayment ' + error.message);
             throw sysError.InternalError(error.message,sysMsg.SYS_INTERNAL_ERROR_MSG);
         } else {
-            logger.info(' updateStorageOrderPayment ' + 'success');
+            logger.info(' updateOrderPayment ' + 'success');
             resUtil.resetUpdateRes(res,result,null);
             return next();
         }
     })
 }
 
-function updateStorageOrderPaymentStatus(req,res,next){
+function updateOrderPaymentStatus(req,res,next){
     var params = req.params ;
     var myDate = new Date();
     params.paymentEndDate = myDate;
-    storageOrderPaymentDAO.updateStorageOrderPaymentStatus(params,function(error,result){
+    orderPaymentDAO.updateOrderPaymentStatus(params,function(error,result){
         if (error) {
-            logger.error(' updateStorageOrderPaymentStatus ' + error.message);
+            logger.error(' updateOrderPaymentStatus ' + error.message);
             throw sysError.InternalError(error.message,sysMsg.SYS_INTERNAL_ERROR_MSG);
         } else {
-            logger.info(' updateStorageOrderPaymentStatus ' + 'success');
+            logger.info(' updateOrderPaymentStatus ' + 'success');
             resUtil.resetUpdateRes(res,result,null);
             return next();
         }
@@ -136,8 +136,8 @@ function updateStorageOrderPaymentStatus(req,res,next){
 
 module.exports = {
     createPayment : createPayment,
-    createStorageOrderPayment : createStorageOrderPayment,
-    queryStorageOrderPayment : queryStorageOrderPayment,
-    updateStorageOrderPayment : updateStorageOrderPayment,
-    updateStorageOrderPaymentStatus : updateStorageOrderPaymentStatus
+    createOrderPayment : createOrderPayment,
+    queryOrderPayment : queryOrderPayment,
+    updateOrderPayment : updateOrderPayment,
+    updateOrderPaymentStatus : updateOrderPaymentStatus
 }
