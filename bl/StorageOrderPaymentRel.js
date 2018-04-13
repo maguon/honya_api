@@ -22,8 +22,13 @@ function createStorageOrderPaymentRel(req,res,next){
         var that = this;
         storageOrderPaymentRelDAO.addStorageOrderPaymentRel(params,function(error,result){
             if (error) {
-                logger.error(' createStorageOrderPaymentRel ' + error.message);
-                throw sysError.InternalError(error.message,sysMsg.SYS_INTERNAL_ERROR_MSG);
+                if(error.message.indexOf("Duplicate") > 0) {
+                    resUtil.resetFailedRes(res, "订单编号已经被关联，操作失败");
+                    return next();
+                } else{
+                    logger.error(' createStorageOrderPaymentRel ' + err.message);
+                    throw sysError.InternalError(err.message,sysMsg.SYS_INTERNAL_ERROR_MSG);
+                }
             } else {
                 if(result&&result.insertId>0){
                     logger.info(' createStorageOrderPaymentRel ' + 'success');
