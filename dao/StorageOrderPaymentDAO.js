@@ -64,6 +64,7 @@ function getStorageOrderPayment(params,callback) {
         paramsArray[i++] = params.storageOrderId;
         query = query + " and sopr.storage_order_id = ? ";
     }
+    query = query + " group by sop.id ";
     query = query + " order by sop.id ";
     if (params.start && params.size) {
         paramsArray[i++] = parseInt(params.start);
