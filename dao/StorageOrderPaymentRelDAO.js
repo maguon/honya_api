@@ -18,7 +18,7 @@ function addStorageOrderPaymentRel(params,callback){
 }
 
 function getStorageOrderPaymentRel(params,callback) {
-    var query = " select sopr.*,c.vin,c.make_id,c.make_name,c.model_id,c.model_name,c.entrust_id, " +
+    var query = " select sopr.*,c.vin,c.make_id,c.make_name,c.model_id,c.model_name,c.colour,c.entrust_id, " +
         " e.short_name,e.entrust_name,csr.enter_time,csr.real_out_time, " +
         " so.day_count,so.hour_count,so.plan_fee,so.actual_fee" +
         " from storage_order_payment_rel sopr" +

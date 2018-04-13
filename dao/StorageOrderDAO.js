@@ -7,7 +7,7 @@ var serverLogger = require('../util/ServerLogger.js');
 var logger = serverLogger.createLogger('StorageOrderDAO.js');
 
 function getStorageOrder(params,callback) {
-    var query = " select so.*,c.vin,c.make_id,c.make_name,c.model_id,c.model_name,c.entrust_id, " +
+    var query = " select so.*,c.vin,c.make_id,c.make_name,c.model_id,c.model_name,c.colour,c.entrust_id, " +
         " e.short_name,e.entrust_name,csr.enter_time,csr.real_out_time from storage_order so " +
         " left join car_storage_rel csr on so.car_storage_rel_id = csr.id " +
         " left join car_info c on so.car_id = c.id " +
