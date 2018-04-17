@@ -7,6 +7,7 @@ var sysError = require('../util/SystemError.js');
 var resUtil = require('../util/ResponseUtil.js');
 var encrypt = require('../util/Encrypt.js');
 var listOfValue = require('../util/ListOfValue.js');
+var sysConst = require('../util/SysConst.js');
 var storageOrderDAO = require('../dao/StorageOrderDAO.js');
 var oAuthUtil = require('../util/OAuthUtil.js');
 var Seq = require('seq');
@@ -29,15 +30,33 @@ function queryStorageOrder(req,res,next){
 
 function updateStorageOrderActualFee(req,res,next){
     var params = req.params ;
-    storageOrderDAO.updateStorageOrderActualFee(params,function(error,result){
-        if (error) {
-            logger.error(' updateStorageOrderActualFee ' + error.message);
-            throw sysError.InternalError(error.message,sysMsg.SYS_INTERNAL_ERROR_MSG);
-        } else {
-            logger.info(' updateStorageOrderActualFee ' + 'success');
-            resUtil.resetUpdateRes(res,result,null);
-            return next();
-        }
+    Seq().seq(function(){
+        var that = this;
+        storageOrderDAO.getStorageOrder(params,function(error,rows){
+            if (error) {
+                logger.error(' getStorageOrder ' + error.message);
+                throw sysError.InternalError(error.message,sysMsg.SYS_INTERNAL_ERROR_MSG);
+            } else{
+                if(rows&&rows.length >0&&rows[0].payment_status == sysConst.PAYMENT_STATUS.payment){
+                    that();
+                }else{
+                    logger.warn(' getStorageOrder ' + 'failed');
+                    resUtil.resetFailedRes(res," 订单支付已完结，不能进行修改 ");
+                    return next();
+                }
+            }
+        })
+    }).seq(function () {
+        storageOrderDAO.updateStorageOrderActualFee(params,function(error,result){
+            if (error) {
+                logger.error(' updateStorageOrderActualFee ' + error.message);
+                throw sysError.InternalError(error.message,sysMsg.SYS_INTERNAL_ERROR_MSG);
+            } else {
+                logger.info(' updateStorageOrderActualFee ' + 'success');
+                resUtil.resetUpdateRes(res,result,null);
+                return next();
+            }
+        })
     })
 }
 
