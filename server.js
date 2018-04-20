@@ -33,6 +33,8 @@ var carKeyPosition = require('./bl/CarKeyPosition.js');
 var entrust = require('./bl/Entrust.js');
 var port = require('./bl/Port.js');
 var shipCompany = require('./bl/ShipCompany.js');
+var shipTrans = require('./bl/ShipTrans.js');
+var shipTransOrder = require('./bl/ShipTransOrder.js');
 var app = require('./bl/App.js');
 var sysRecord = require('./bl/SysRecord.js');
 
@@ -324,6 +326,17 @@ function createServer() {
     server.get('/api/shipCompany',shipCompany.queryShipCompany);
     server.post({path:'/api/user/:userId/shipCompany',contentType: 'application/json'},shipCompany.createShipCompany);
     server.put({path:'/api/user/:userId/shipCompany/:shipCompanyId',contentType: 'application/json'} ,shipCompany.updateShipCompany);
+
+    /**
+     * ShipTrans Module
+     */
+    server.post({path:'/api/user/:userId/shipTrans',contentType: 'application/json'},shipTrans.createShipTrans);
+
+    /**
+     * ShipTransOrder Module
+     */
+    server.get('/api/shipTransOrder',shipTransOrder.queryShipTransOrder);
+    server.post({path:'/api/user/:userId/shipTransOrder',contentType: 'application/json'},shipTransOrder.createShipTransOrder);
 
     /**
      * App Module

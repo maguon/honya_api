@@ -57,8 +57,8 @@
       "description":"Port of log api"
     },
     {
-      "name":"shipCompany",
-      "description":"ShipCompany of log api"
+      "name":"ship",
+      "description":"Ship of log api"
     },
     {
       "name":"app",
@@ -5925,7 +5925,7 @@
     "/shipCompany": {
       "get": {
         "tags": [
-          "shipCompany"
+          "ship"
         ],
         "summary": "query shipCompany list",
         "description": "query shipCompany",
@@ -5985,7 +5985,7 @@
     "/user/{userId}/shipCompany": {
       "post": {
         "tags": [
-          "shipCompany"
+          "ship"
         ],
         "summary": "user create shipCompany",
         "description": "user create shipCompany",
@@ -6030,7 +6030,7 @@
     "/user/{userId}/shipCompany/{shipCompanyId}": {
       "put": {
         "tags": [
-          "shipCompany"
+          "ship"
         ],
         "summary": "update shipCompany info",
         "description": "update shipCompany info",
@@ -6077,6 +6077,244 @@
           },
           "400": {
             "description": "Invalid token value or invalid shipCompany id"
+          }
+        }
+      }
+    },
+    "/user/{userId}/shipTrans": {
+      "post": {
+        "tags": [
+          "ship"
+        ],
+        "summary": "user create shipTrans",
+        "description": "user create shipTrans",
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "userId",
+            "in": "path",
+            "description": "user id",
+            "required": true,
+            "type": "integer"
+
+          },
+          {
+            "name": "shipTrans",
+            "in": "body",
+            "description": "shipTrans info",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/shipTrans"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "successful operation",
+            "schema": {
+              "type": "object",
+              "items": {
+                "$ref": "#/definitions/ApiResponse"
+              }
+            }
+          },
+          "400": {
+            "description": "Invalid token value or invalid shipTrans id"
+          }
+        }
+      }
+    },
+    "/shipTransOrder": {
+      "get": {
+        "tags": [
+          "ship"
+        ],
+        "summary": "query shipTransOrder list",
+        "description": "query shipTransOrder",
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "shipTransOrderId",
+            "in": "query",
+            "description": "shipTransOrder id",
+            "required": false,
+            "type": "integer"
+
+          },
+          {
+            "name": "startPortId",
+            "in": "query",
+            "description": "startPort id",
+            "required": false,
+            "type": "integer"
+
+          },
+          {
+            "name": "endPortId",
+            "in": "query",
+            "description": "endPort id",
+            "required": false,
+            "type": "integer"
+
+          },
+          {
+            "name": "startShipDateStart",
+            "in": "query",
+            "description": "startShipDate start",
+            "required": false,
+            "type": "string"
+
+          },
+          {
+            "name": "startShipDateEnd",
+            "in": "query",
+            "description": "startShipDate end",
+            "required": false,
+            "type": "string"
+
+          },
+          {
+            "name": "shipCompanyId",
+            "in": "query",
+            "description": "shipCompany id",
+            "required": false,
+            "type": "integer"
+
+          },
+          {
+            "name": "shipName",
+            "in": "query",
+            "description": "ship name",
+            "required": false,
+            "type": "string"
+
+          },
+          {
+            "name": "endShipDateStart",
+            "in": "query",
+            "description": "endShipDate start",
+            "required": false,
+            "type": "string"
+
+          },
+          {
+            "name": "endShipDateEnd",
+            "in": "query",
+            "description": "endShipDate end",
+            "required": false,
+            "type": "string"
+
+          },
+          {
+            "name": "container",
+            "in": "query",
+            "description": "container",
+            "required": false,
+            "type": "string"
+
+          },
+          {
+            "name": "booking",
+            "in": "query",
+            "description": "booking",
+            "required": false,
+            "type": "string"
+
+          },
+          {
+            "name": "tab",
+            "in": "query",
+            "description": "tab",
+            "required": false,
+            "type": "string"
+
+          },
+          {
+            "name": "orderStatus",
+            "in": "query",
+            "description": "order status",
+            "required": false,
+            "type": "integer"
+
+          },
+          {
+            "name": "start",
+            "in": "query",
+            "description": " list start pos",
+            "required": false,
+            "type": "integer"
+
+          },
+          {
+            "name": "size",
+            "in": "query",
+            "description": "list size for pagination",
+            "required": false,
+            "type": "integer"
+
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "successful operation",
+            "schema": {
+              "type": "object",
+              "items": {
+                "$ref": "#/definitions/shipTransOrder"
+              }
+            }
+          },
+          "400": {
+            "description": "Invalid token value or invalid shipTransOrder id"
+          }
+        }
+      }
+    },
+    "/user/{userId}/shipTransOrder": {
+      "post": {
+        "tags": [
+          "ship"
+        ],
+        "summary": "user create shipTransOrder",
+        "description": "user create shipTransOrder",
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "userId",
+            "in": "path",
+            "description": "user id",
+            "required": true,
+            "type": "integer"
+
+          },
+          {
+            "name": "shipTransOrder",
+            "in": "body",
+            "description": "shipTransOrder info",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/shipTransOrder"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "successful operation",
+            "schema": {
+              "type": "object",
+              "items": {
+                "$ref": "#/definitions/ApiResponse"
+              }
+            }
+          },
+          "400": {
+            "description": "Invalid token value or invalid shipTransOrder id"
           }
         }
       }
@@ -6921,6 +7159,105 @@
       },
       "xml": {
         "name": "shipCompany"
+      }
+    },
+    "shipTrans": {
+      "type": "object",
+      "properties": {
+
+        "startPortId": {
+          "type": "integer"
+        },
+        "startPortName": {
+          "type": "string"
+        },
+        "endPortId": {
+          "type": "integer"
+        },
+        "endPortName": {
+          "type": "string"
+        },
+        "startShipDate": {
+          "type": "string"
+        },
+        "endShipDate": {
+          "type": "string"
+        },
+        "shipCompanyId": {
+          "type": "integer"
+        },
+        "shipName": {
+          "type": "string"
+        },
+        "container": {
+          "type": "string"
+        },
+        "booking": {
+          "type": "string"
+        },
+        "tab": {
+          "type": "string"
+        },
+        "partStatus": {
+          "type": "integer"
+        }
+      },
+      "xml": {
+        "name": "shipTrans"
+      }
+    },
+    "shipTransOrder": {
+      "type": "object",
+      "properties": {
+
+        "startPortId": {
+          "type": "integer"
+        },
+        "startPortName": {
+          "type": "string"
+        },
+        "endPortId": {
+          "type": "integer"
+        },
+        "endPortName": {
+          "type": "string"
+        },
+        "startShipDate": {
+          "type": "string"
+        },
+        "endShipDate": {
+          "type": "string"
+        },
+        "shipCompanyId": {
+          "type": "integer"
+        },
+        "shipName": {
+          "type": "string"
+        },
+        "container": {
+          "type": "string"
+        },
+        "booking": {
+          "type": "string"
+        },
+        "tab": {
+          "type": "string"
+        },
+        "partStatus": {
+          "type": "integer"
+        },
+        "remark": {
+          "type": "string"
+        },
+        "carIds": {
+          "type": "integer"
+        },
+        "shipTransFees": {
+          "type": "integer"
+        }
+      },
+      "xml": {
+        "name": "shipTransOrder"
       }
     }
   },
