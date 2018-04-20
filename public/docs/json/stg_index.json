@@ -6327,6 +6327,58 @@
         }
       }
     },
+    "/shipTransCarRel": {
+      "get": {
+        "tags": [
+          "ship"
+        ],
+        "summary": "query shipTransCarRel list",
+        "description": "query shipTransCarRel",
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "shipTransId",
+            "in": "query",
+            "description": "shipTrans id",
+            "required": false,
+            "type": "integer"
+
+          },
+          {
+            "name": "start",
+            "in": "query",
+            "description": " list start pos",
+            "required": false,
+            "type": "integer"
+
+          },
+          {
+            "name": "size",
+            "in": "query",
+            "description": "list size for pagination",
+            "required": false,
+            "type": "integer"
+
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "successful operation",
+            "schema": {
+              "type": "object",
+              "items": {
+                "$ref": "#/definitions/shipTransCarRel"
+              }
+            }
+          },
+          "400": {
+            "description": "Invalid token value or invalid shipTransCarRel id"
+          }
+        }
+      }
+    },
     "/app": {
       "get": {
         "tags": [

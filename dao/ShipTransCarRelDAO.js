@@ -18,7 +18,30 @@ function addShipTransCarRel(params,callback){
     });
 }
 
+function getShipTransCarRel(params,callback) {
+    var query = " select stcr.*,c.vin,c.make_name,c.pro_date,c.valuation,c.entrust_id,e.short_name from ship_trans_car_rel stcr " +
+        " left join car_info c on stcr.car_id = c.id " +
+        " left join entrust_info e on c.entrust_id = e.id " +
+        " where stcr.id is not null ";
+    var paramsArray=[],i=0;
+    if(params.shipTransId){
+        paramsArray[i++] = params.shipTransId;
+        query = query + " and stcr.ship_trans_id = ? ";
+    }
+    query = query + ' order by stcr.id ';
+    if (params.start && params.size) {
+        paramsArray[i++] = parseInt(params.start);
+        paramsArray[i++] = parseInt(params.size);
+        query += " limit ? , ? "
+    }
+    db.dbQuery(query,paramsArray,function(error,rows){
+        logger.debug(' getShipTransCarRel ');
+        return callback(error,rows);
+    });
+}
+
 
 module.exports ={
-    addShipTransCarRel : addShipTransCarRel
+    addShipTransCarRel : addShipTransCarRel,
+    getShipTransCarRel : getShipTransCarRel
 }

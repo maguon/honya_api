@@ -82,8 +82,3 @@ CREATE TABLE `order_payment_rel` (
   UNIQUE KEY `id` (`id`) USING BTREE,
   UNIQUE KEY `storage_order_id` (`storage_order_id`) USING BTREE
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
--- ----------------------------
--- 2018-04-20 更新
--- ----------------------------
-ALTER TABLE `car_info`
-ADD COLUMN `payment_status`  tinyint(1) NOT NULL DEFAULT 1 COMMENT '支付状态(1-未支付,2-已支付)' AFTER `remark`;
