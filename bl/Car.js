@@ -27,6 +27,20 @@ function queryCar(req,res,next){
     })
 }
 
+function queryCarList(req,res,next){
+    var params = req.params ;
+    carDAO.getCarList(params,function(error,result){
+        if (error) {
+            logger.error(' queryCarList ' + error.message);
+            throw sysError.InternalError(error.message,sysMsg.SYS_INTERNAL_ERROR_MSG);
+        } else {
+            logger.info(' queryCarList ' + 'success');
+            resUtil.resetQueryRes(res,result,null);
+            return next();
+        }
+    })
+}
+
 function updateCar(req,res,next){
     var params = req.params ;
     carDAO.updateCar(params,function(error,result){
@@ -204,6 +218,7 @@ function getCarCsv(req,res,next){
 
 module.exports = {
     queryCar : queryCar,
+    queryCarList : queryCarList,
     updateCar : updateCar,
     updateCarVin : updateCarVin,
     getCarCsv : getCarCsv

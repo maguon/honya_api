@@ -103,10 +103,6 @@ function getCar(params,callback) {
     if(params.vinCode){
         query = query + " and c.vin like '%"+params.vinCode+"%'";
     }
-    if(params.paymentStatus){
-        paramsArray[i++] = params.paymentStatus;
-        query = query + " and c.payment_status = ? ";
-    }
     query = query + '  order by r.plan_out_time ';
     if (params.start && params.size) {
         paramsArray[i++] = parseInt(params.start);
@@ -140,6 +136,32 @@ function getCarBase(params,callback) {
     query = query + '  order by r.id desc ';
     db.dbQuery(query,paramsArray,function(error,rows){
         logger.debug(' getCarBase ');
+        return callback(error,rows);
+    });
+}
+
+function getCarList(params,callback) {
+    var query = " select c.*,e.short_name from car_info c " +
+        " left join entrust_info e on c.entrust_id = e.id where c.id is not null ";
+    var paramsArray=[],i=0;
+    if(params.carId){
+        paramsArray[i++] = params.carId;
+        query = query + " and c.id = ? ";
+    }
+    if(params.vin){
+        paramsArray[i++] = params.vin;
+        query = query + " and c.vin = ? ";
+    }
+    if(params.vinCode){
+        query = query + " and c.vin like '%"+params.vinCode+"%'";
+    }
+    if (params.start && params.size) {
+        paramsArray[i++] = parseInt(params.start);
+        paramsArray[i] = parseInt(params.size);
+        query += " limit ? , ? "
+    }
+    db.dbQuery(query,paramsArray,function(error,rows){
+        logger.debug(' getCarList ');
         return callback(error,rows);
     });
 }
@@ -183,6 +205,7 @@ module.exports ={
     addCar : addCar,
     getCar : getCar,
     getCarBase : getCarBase,
+    getCarList : getCarList,
     updateCar : updateCar,
     updateCarVin : updateCarVin
 }
