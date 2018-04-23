@@ -6556,6 +6556,134 @@
 
           },
           {
+            "name": "vin",
+            "in": "query",
+            "description": "vin",
+            "required": false,
+            "type": "string"
+
+          },
+          {
+            "name": "startPortId",
+            "in": "query",
+            "description": "startPort id",
+            "required": false,
+            "type": "integer"
+
+          },
+          {
+            "name": "endPortId",
+            "in": "query",
+            "description": "endPort id",
+            "required": false,
+            "type": "integer"
+
+          },
+          {
+            "name": "orderStatus",
+            "in": "query",
+            "description": "order status",
+            "required": false,
+            "type": "integer"
+
+          },
+          {
+            "name": "startShipDateStart",
+            "in": "query",
+            "description": "startShipDate start",
+            "required": false,
+            "type": "string"
+
+          },
+          {
+            "name": "startShipDateEnd",
+            "in": "query",
+            "description": "startShipDate end",
+            "required": false,
+            "type": "string"
+
+          },
+          {
+            "name": "entrustId",
+            "in": "query",
+            "description": "entrust id",
+            "required": false,
+            "type": "integer"
+
+          },
+          {
+            "name": "makeId",
+            "in": "query",
+            "description": "make id",
+            "required": false,
+            "type": "integer"
+
+          },
+          {
+            "name": "modelId",
+            "in": "query",
+            "description": "model id",
+            "required": false,
+            "type": "integer"
+
+          },
+          {
+            "name": "endShipDateStart",
+            "in": "query",
+            "description": "endShipDate start",
+            "required": false,
+            "type": "string"
+
+          },
+          {
+            "name": "endShipDateEnd",
+            "in": "query",
+            "description": "endShipDate end",
+            "required": false,
+            "type": "string"
+
+          },
+          {
+            "name": "shipCompanyId",
+            "in": "query",
+            "description": "shipCompany id",
+            "required": false,
+            "type": "integer"
+
+          },
+          {
+            "name": "shipName",
+            "in": "query",
+            "description": "ship name",
+            "required": false,
+            "type": "string"
+
+          },
+          {
+            "name": "container",
+            "in": "query",
+            "description": "container",
+            "required": false,
+            "type": "string"
+
+          },
+          {
+            "name": "booking",
+            "in": "query",
+            "description": "booking",
+            "required": false,
+            "type": "string"
+
+          },
+          {
+            "name": "tab",
+            "in": "query",
+            "description": "tab",
+            "required": false,
+            "type": "string"
+
+          },
+          {
             "name": "start",
             "in": "query",
             "description": " list start pos",

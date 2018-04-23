@@ -19,16 +19,87 @@ function addShipTransCarRel(params,callback){
 }
 
 function getShipTransCarRel(params,callback) {
-    var query = " select stcr.*,c.vin,c.make_name,c.pro_date,c.valuation,c.entrust_id,e.short_name from ship_trans_car_rel stcr " +
+    var query = " select stcr.*,c.vin,c.make_name,c.model_name,c.pro_date,c.valuation,c.entrust_id,e.short_name, " +
+        " st.start_port_id,st.start_port_name,st.end_port_id,st.end_port_name,st.start_ship_date,st.end_ship_date,sc.ship_company_name, " +
+        " st.ship_name,st.container,st.booking,st.tab,st.part_status,st.remark, " +
+        " sto.order_user_id,u.real_name as order_user_name,sto.created_on as order_created_date,sto.order_status " +
+        " from ship_trans_car_rel stcr " +
         " left join car_info c on stcr.car_id = c.id " +
         " left join entrust_info e on c.entrust_id = e.id " +
+        " left join ship_trans_info st on stcr.ship_trans_id = st.id " +
+        " left join ship_trans_order sto on st.id = sto.ship_trans_id " +
+        " left join ship_company_info sc on st.ship_company_id = sc.id" +
+        " left join user_info u on sto.order_user_id = u.uid " +
         " where stcr.id is not null ";
     var paramsArray=[],i=0;
     if(params.shipTransId){
         paramsArray[i++] = params.shipTransId;
         query = query + " and stcr.ship_trans_id = ? ";
     }
-    query = query + ' order by stcr.id ';
+    if(params.vin){
+        paramsArray[i++] = params.vin;
+        query = query + " and c.vin = ? ";
+    }
+    if(params.startPortId){
+        paramsArray[i++] = params.startPortId;
+        query = query + " and st.start_port_id = ? ";
+    }
+    if(params.endPortId){
+        paramsArray[i++] = params.endPortId;
+        query = query + " and st.end_port_id = ? ";
+    }
+    if(params.orderStatus){
+        paramsArray[i++] = params.orderStatus;
+        query = query + " and sto.order_status = ? ";
+    }
+    if(params.startShipDateStart){
+        paramsArray[i++] = params.startShipDateStart +" 00:00:00";
+        query = query + " and  st.start_ship_date  >= ? ";
+    }
+    if(params.startShipDateEnd){
+        paramsArray[i++] = params.startShipDateEnd +" 23:59:59";
+        query = query + " and st.start_ship_date  <= ? ";
+    }
+    if(params.entrustId){
+        paramsArray[i++] = params.entrustId;
+        query = query + " and c.entrust_id = ? ";
+    }
+    if(params.makeId){
+        paramsArray[i++] = params.makeId;
+        query = query + " and c.make_id = ? ";
+    }
+    if(params.modelId){
+        paramsArray[i++] = params.modelId;
+        query = query + " and c.model_id = ? ";
+    }
+    if(params.endShipDateStart){
+        paramsArray[i++] = params.endShipDateStart +" 00:00:00";
+        query = query + " and  st.end_ship_date  >= ? ";
+    }
+    if(params.endShipDateEnd){
+        paramsArray[i++] = params.endShipDateEnd +" 23:59:59";
+        query = query + " and st.end_ship_date  <= ? ";
+    }
+    if(params.shipCompanyId){
+        paramsArray[i++] = params.shipCompanyId;
+        query = query + " and st.ship_company_id = ? ";
+    }
+    if(params.shipName){
+        paramsArray[i++] = params.shipName;
+        query = query + " and st.ship_name = ? ";
+    }
+    if(params.container){
+        paramsArray[i++] = params.container;
+        query = query + " and st.container = ? ";
+    }
+    if(params.booking){
+        paramsArray[i++] = params.booking;
+        query = query + " and st.booking = ? ";
+    }
+    if(params.tab){
+        paramsArray[i++] = params.tab;
+        query = query + " and st.tab = ? ";
+    }
     if (params.start && params.size) {
         paramsArray[i++] = parseInt(params.start);
         paramsArray[i++] = parseInt(params.size);
