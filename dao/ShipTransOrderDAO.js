@@ -92,8 +92,20 @@ function getShipTransOrder(params,callback) {
     });
 }
 
+function updateShipTransOrderStatus(params,callback){
+    var query = " update ship_trans_order set order_status = ? where id = ? " ;
+    var paramsArray=[],i=0;
+    paramsArray[i++]=params.orderStatus;
+    paramsArray[i]=params.shipTransOrderId;
+    db.dbQuery(query,paramsArray,function(error,rows){
+        logger.debug(' updateShipTransOrderStatus ');
+        return callback(error,rows);
+    });
+}
+
 
 module.exports ={
     addShipTransOrder : addShipTransOrder,
-    getShipTransOrder : getShipTransOrder
+    getShipTransOrder : getShipTransOrder,
+    updateShipTransOrderStatus : updateShipTransOrderStatus
 }

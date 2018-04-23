@@ -116,8 +116,23 @@ function queryShipTransOrder(req,res,next){
     })
 }
 
+function updateShipTransOrderStatus(req,res,next){
+    var params = req.params ;
+    shipTransOrderDAO.updateShipTransOrderStatus(params,function(error,result){
+        if (error) {
+            logger.error(' updateShipTransOrderStatus ' + error.message);
+            throw sysError.InternalError(error.message,sysMsg.SYS_INTERNAL_ERROR_MSG);
+        } else {
+            logger.info(' updateShipTransOrderStatus ' + 'success');
+            resUtil.resetUpdateRes(res,result,null);
+            return next();
+        }
+    })
+}
+
 
 module.exports = {
     createShipTransOrder : createShipTransOrder,
-    queryShipTransOrder : queryShipTransOrder
+    queryShipTransOrder : queryShipTransOrder,
+    updateShipTransOrderStatus : updateShipTransOrderStatus
 }
