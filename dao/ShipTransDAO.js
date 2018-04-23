@@ -8,7 +8,7 @@ var logger = serverLogger.createLogger('ShipTransDAO.js');
 
 function addShipTrans(params,callback){
     var query = " insert into ship_trans_info (start_port_id,start_port_name,end_port_id,end_port_name,start_ship_date,end_ship_date," +
-        " ship_company_id,ship_name,container,booking,tab,part_status) values ( ? , ? , ? , ? , ? , ? ,? , ? , ? , ? , ? , ? )";
+        " ship_company_id,ship_name,container,booking,tab,part_status,remark) values ( ? , ? , ? , ? , ? , ? ,? , ? , ? , ? , ? , ? , ? )";
     var paramsArray=[],i=0;
     paramsArray[i++]=params.startPortId;
     paramsArray[i++]=params.startPortName;
@@ -22,6 +22,7 @@ function addShipTrans(params,callback){
     paramsArray[i++]=params.booking;
     paramsArray[i++]=params.tab;
     paramsArray[i++]=params.partStatus;
+    paramsArray[i++]=params.remark;
     db.dbQuery(query,paramsArray,function(error,rows){
         logger.debug(' addShipTrans ');
         return callback(error,rows);

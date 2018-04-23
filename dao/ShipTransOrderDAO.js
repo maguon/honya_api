@@ -7,11 +7,10 @@ var serverLogger = require('../util/ServerLogger.js');
 var logger = serverLogger.createLogger('ShipTransOrderDAO.js');
 
 function addShipTransOrder(params,callback){
-    var query = " insert into ship_trans_order (ship_trans_id,order_user_id,remark) values ( ? , ? , ? )";
+    var query = " insert into ship_trans_order (ship_trans_id,order_user_id) values ( ? , ? )";
     var paramsArray=[],i=0;
     paramsArray[i++]=params.shipTransId;
     paramsArray[i++]=params.userId;
-    paramsArray[i++]=params.remark;
     db.dbQuery(query,paramsArray,function(error,rows){
         logger.debug(' addShipTransOrder ');
         return callback(error,rows);
@@ -20,7 +19,7 @@ function addShipTransOrder(params,callback){
 
 function getShipTransOrder(params,callback) {
     var query = " select sto.*,u.real_name as order_user_name,st.start_port_id,st.start_port_name,st.end_port_id,st.end_port_name, " +
-        " st.start_ship_date,st.end_ship_date,st.ship_company_id,sc.ship_company_name,st.ship_name,st.container,st.booking,st.tab,st.part_status," +
+        " st.start_ship_date,st.end_ship_date,st.ship_company_id,sc.ship_company_name,st.ship_name,st.container,st.booking,st.tab,st.part_status,st.remark," +
         " count(stcr.id) as load_car_count,sum(stcr.ship_trans_fee) as ship_trans_fee from ship_trans_order sto " +
         " left join ship_trans_info st on sto.ship_trans_id = st.id " +
         " left join ship_trans_car_rel stcr on st.id = stcr.ship_trans_id " +
