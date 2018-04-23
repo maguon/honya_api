@@ -27,7 +27,22 @@ function createShipTrans(req,res,next){
     })
 }
 
+function updateShipTrans(req,res,next){
+    var params = req.params ;
+    shipTransDAO.updateShipTrans(params,function(error,result){
+        if (error) {
+            logger.error(' updateShipTrans ' + error.message);
+            throw sysError.InternalError(error.message,sysMsg.SYS_INTERNAL_ERROR_MSG);
+        } else {
+            logger.info(' updateShipTrans ' + 'success');
+            resUtil.resetUpdateRes(res,result,null);
+            return next();
+        }
+    })
+}
+
 
 module.exports = {
-    createShipTrans : createShipTrans
+    createShipTrans : createShipTrans,
+    updateShipTrans : updateShipTrans
 }

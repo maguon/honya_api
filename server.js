@@ -334,6 +334,7 @@ function createServer() {
      * ShipTrans Module
      */
     server.post({path:'/api/user/:userId/shipTrans',contentType: 'application/json'},shipTrans.createShipTrans);
+    server.put({path:'/api/user/:userId/shipTrans/:shipTransId',contentType: 'application/json'} ,shipTrans.updateShipTrans);
 
     /**
      * ShipTransOrder Module
