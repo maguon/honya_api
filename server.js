@@ -251,6 +251,7 @@ function createServer() {
     server.get('/api/user/:userId/car',car.queryCar);
     server.get('/api/carList', car.queryCarList);
     server.get('/api/car.csv', car.getCarCsv);
+    server.post({path:'/api/user/:userId/car',contentType: 'application/json'},car.createCar);
     server.put({path:'/api/user/:userId/car/:carId',contentType: 'application/json'} ,car.updateCar);
     server.get('/api/admin/:adminId/car',car.queryCar);
     server.put({path:'/api/admin/:adminId/car/:carId/vin',contentType: 'application/json'} ,car.updateCarVin);

@@ -3560,6 +3560,49 @@
             "description": "Invalid token value or invalid car id"
           }
         }
+      },
+      "post": {
+        "tags": [
+          "car"
+        ],
+        "summary": "user create car",
+        "description": "user create car",
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "userId",
+            "in": "path",
+            "description": "user id",
+            "required": true,
+            "type": "integer"
+
+          },
+          {
+            "name": "car",
+            "in": "body",
+            "description": "car info",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/car"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "successful operation",
+            "schema": {
+              "type": "object",
+              "items": {
+                "$ref": "#/definitions/ApiResponse"
+              }
+            }
+          },
+          "400": {
+            "description": "Invalid token value or invalid car id"
+          }
+        }
       }
     },
     "/carList": {
@@ -6369,6 +6412,58 @@
             "schema": {
               "$ref": "#/definitions/shipTransOrder"
             }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "successful operation",
+            "schema": {
+              "type": "object",
+              "items": {
+                "$ref": "#/definitions/ApiResponse"
+              }
+            }
+          },
+          "400": {
+            "description": "Invalid token value or invalid shipTransOrder id"
+          }
+        }
+      }
+    },
+    "/user/{userId}/shipTransOrder/{shipTransOrderId}/orderStatus/{orderStatus}": {
+      "put": {
+        "tags": [
+          "ship"
+        ],
+        "summary": "update shipTransOrder status",
+        "description": "update shipTransOrder status",
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "userId",
+            "in": "path",
+            "description": "user Id",
+            "required": true,
+            "type": "integer"
+
+          },
+          {
+            "name": "shipTransOrderId",
+            "in": "path",
+            "description": "shipTransOrder id",
+            "required": true,
+            "type": "integer"
+
+          },
+          {
+            "name": "orderStatus",
+            "in": "path",
+            "description": "order status",
+            "required": true,
+            "type": "integer"
+
           }
         ],
         "responses": {
