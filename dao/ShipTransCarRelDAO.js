@@ -40,8 +40,20 @@ function getShipTransCarRel(params,callback) {
     });
 }
 
+function deleteShipTransCarRel(params,callback){
+    var query = " delete from ship_trans_car_rel where ship_trans_id = ? and car_id = ? ";
+    var paramsArray=[],i=0;
+    paramsArray[i++]=params.shipTransId;
+    paramsArray[i]=params.carId;
+    db.dbQuery(query,paramsArray,function(error,rows){
+        logger.debug(' deleteShipTransCarRel ');
+        return callback(error,rows);
+    });
+}
+
 
 module.exports ={
     addShipTransCarRel : addShipTransCarRel,
-    getShipTransCarRel : getShipTransCarRel
+    getShipTransCarRel : getShipTransCarRel,
+    deleteShipTransCarRel : deleteShipTransCarRel
 }

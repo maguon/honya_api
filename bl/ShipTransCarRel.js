@@ -27,8 +27,23 @@ function queryShipTransCarRel(req,res,next){
     })
 }
 
+function removeShipTransCarRel(req,res,next){
+    var params = req.params;
+    shipTransCarRelDAO.deleteShipTransCarRel(params,function(error,result){
+        if (error) {
+            logger.error(' removeShipTransCarRel ' + error.message);
+            throw sysError.InternalError(error.message,sysMsg.SYS_INTERNAL_ERROR_MSG);
+        } else {
+            logger.info(' removeShipTransCarRel ' + 'success');
+            resUtil.resetUpdateRes(res,result,null);
+            return next();
+        }
+    })
+}
+
 
 module.exports = {
-    queryShipTransCarRel : queryShipTransCarRel
+    queryShipTransCarRel : queryShipTransCarRel,
+    removeShipTransCarRel : removeShipTransCarRel
 }
 

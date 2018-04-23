@@ -6439,6 +6439,52 @@
         }
       }
     },
+    "/user/{userId}/shipTrans/{shipTransId}/car/{carId}": {
+      "delete": {
+        "tags": [
+          "ship"
+        ],
+        "summary": "Deletes a shipTransCarRel",
+        "description": "",
+        "operationId": "deleteShipTransCarRel",
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "userId",
+            "in": "path",
+            "description": "user id",
+            "required": true,
+            "type": "integer"
+          },
+          {
+            "name": "shipTransId",
+            "in": "path",
+            "description": "shipTrans id",
+            "required": true,
+            "type": "integer"
+
+          },
+          {
+            "name": "carId",
+            "in": "path",
+            "description": "car id",
+            "required": true,
+            "type": "integer"
+
+          }
+        ],
+        "responses": {
+          "400": {
+            "description": "Invalid ID supplied"
+          },
+          "404": {
+            "description": "contacts not found"
+          }
+        }
+      }
+    },
     "/app": {
       "get": {
         "tags": [

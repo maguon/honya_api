@@ -341,9 +341,10 @@ function createServer() {
     server.post({path:'/api/user/:userId/shipTransOrder',contentType: 'application/json'},shipTransOrder.createShipTransOrder);
 
     /**
-     * ShipTransOrder Module
+     * ShipTransCarRel Module
      */
     server.get('/api/shipTransCarRel',shipTransCarRel.queryShipTransCarRel);
+    server.del('/api/user/:userId/shipTrans/:shipTransId/car/:carId' , shipTransCarRel.removeShipTransCarRel);
 
     /**
      * App Module
