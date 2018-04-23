@@ -140,9 +140,8 @@ CREATE TABLE `ship_trans_order` (
 DROP TABLE IF EXISTS `ship_trans_stat_date`;
 CREATE TABLE `ship_trans_stat_date` (
   `date_id` int(11) NOT NULL,
-  `ship_trans_id` int(11) NOT NULL,
-  `booking` int(11) NOT NULL DEFAULT '0' COMMENT '今日订舱数',
-  `exports` int(11) unsigned NOT NULL DEFAULT '0' COMMENT '今日海运数',
+  `booking` int(11) unsigned NOT NULL DEFAULT '0' COMMENT '今日订舱数',
+  `exports` int(11) unsigned NOT NULL DEFAULT '0' COMMENT '今日发出数',
   `arrive` int(11) NOT NULL DEFAULT '0' COMMENT '今日到达数',
   PRIMARY KEY (`date_id`,`ship_trans_id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
