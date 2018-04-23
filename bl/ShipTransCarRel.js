@@ -13,6 +13,25 @@ var Seq = require('seq');
 var serverLogger = require('../util/ServerLogger.js');
 var logger = serverLogger.createLogger('ShipTransCarRel.js');
 
+function createShipTransCarRel(req,res,next){
+    var params = req.params ;
+    shipTransCarRelDAO.addShipTransCarRel(params,function(error,result){
+        if (error) {
+            if(error.message.indexOf("Duplicate") > 0) {
+                resUtil.resetFailedRes(res, "VIN已经被关联，操作失败");
+                return next();
+            } else{
+                logger.error(' createShipTransCarRel ' + err.message);
+                throw sysError.InternalError(err.message,sysMsg.SYS_INTERNAL_ERROR_MSG);
+            }
+        } else {
+            logger.info(' createShipTransCarRel ' + 'success');
+            resUtil.resetCreateRes(res,result,null);
+            return next();
+        }
+    })
+}
+
 function queryShipTransCarRel(req,res,next){
     var params = req.params ;
     shipTransCarRelDAO.getShipTransCarRel(params,function(error,result){
@@ -43,6 +62,7 @@ function removeShipTransCarRel(req,res,next){
 
 
 module.exports = {
+    createShipTransCarRel : createShipTransCarRel,
     queryShipTransCarRel : queryShipTransCarRel,
     removeShipTransCarRel : removeShipTransCarRel
 }

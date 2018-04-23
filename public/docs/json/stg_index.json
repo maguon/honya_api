@@ -6588,6 +6588,51 @@
         }
       }
     },
+    "/user/{userId}/shipTransCarRel": {
+      "post": {
+        "tags": [
+          "ship"
+        ],
+        "summary": "user create shipTransCarRel",
+        "description": "user create shipTransCarRel",
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "userId",
+            "in": "path",
+            "description": "user id",
+            "required": true,
+            "type": "integer"
+
+          },
+          {
+            "name": "shipTransCarRel",
+            "in": "body",
+            "description": "shipTransCarRel info",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/shipTransCarRel"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "successful operation",
+            "schema": {
+              "type": "object",
+              "items": {
+                "$ref": "#/definitions/ApiResponse"
+              }
+            }
+          },
+          "400": {
+            "description": "Invalid token value or invalid shipTransCarRel id"
+          }
+        }
+      }
+    },
     "/user/{userId}/shipTrans/{shipTransId}/car/{carId}": {
       "delete": {
         "tags": [
@@ -7573,6 +7618,24 @@
       },
       "xml": {
         "name": "shipTransOrder"
+      }
+    },
+    "shipTransCarRel": {
+      "type": "object",
+      "properties": {
+
+        "shipTransId": {
+          "type": "integer"
+        },
+        "carId": {
+          "type": "integer"
+        },
+        "shipTransFee": {
+          "type": "integer"
+        }
+      },
+      "xml": {
+        "name": "shipTransCarRel"
       }
     }
   },
