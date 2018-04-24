@@ -30,8 +30,10 @@ function addShipTrans(params,callback){
 }
 
 function getShipTrans(params,callback) {
-    var query = " select st.*,sum(sto.ship_trans_fee) as ship_trans_fee from ship_trans_info st" +
+    var query = " select st.*,u.real_name as start_ship_user_name,sum(sto.ship_trans_fee) as ship_trans_fee " +
+        " from ship_trans_info st " +
         " left join ship_trans_order sto on st.id = sto.ship_trans_id " +
+        " left join user_info u on st.start_ship_user_id = u.uid " +
         " where st.id is not null ";
     var paramsArray=[],i=0;
     if(params.shipTransId){
