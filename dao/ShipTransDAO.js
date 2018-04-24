@@ -29,6 +29,75 @@ function addShipTrans(params,callback){
     });
 }
 
+function getShipTrans(params,callback) {
+    var query = " select st.*,sum(sto.ship_trans_fee) as ship_trans_fee from ship_trans_info st" +
+        " left join ship_trans_order sto on st.id = sto.ship_trans_id " +
+        " where st.id is not null ";
+    var paramsArray=[],i=0;
+    if(params.shipTransId){
+        paramsArray[i++] = params.shipTransId;
+        query = query + " and st.id = ? ";
+    }
+    if(params.startPortId){
+        paramsArray[i++] = params.startPortId;
+        query = query + " and st.start_port_id = ? ";
+    }
+    if(params.endPortId){
+        paramsArray[i++] = params.endPortId;
+        query = query + " and st.end_port_id = ? ";
+    }
+    if(params.startShipDateStart){
+        paramsArray[i++] = params.startShipDateStart +" 00:00:00";
+        query = query + " and  st.start_ship_date  >= ? ";
+    }
+    if(params.startShipDateEnd){
+        paramsArray[i++] = params.startShipDateEnd +" 23:59:59";
+        query = query + " and st.start_ship_date  <= ? ";
+    }
+    if(params.shipCompanyId){
+        paramsArray[i++] = params.shipCompanyId;
+        query = query + " and st.ship_company_id = ? ";
+    }
+    if(params.shipName){
+        paramsArray[i++] = params.shipName;
+        query = query + " and st.ship_name = ? ";
+    }
+    if(params.endShipDateStart){
+        paramsArray[i++] = params.endShipDateStart +" 00:00:00";
+        query = query + " and  st.end_ship_date  >= ? ";
+    }
+    if(params.endShipDateEnd){
+        paramsArray[i++] = params.endShipDateEnd +" 23:59:59";
+        query = query + " and st.end_ship_date  <= ? ";
+    }
+    if(params.container){
+        paramsArray[i++] = params.container;
+        query = query + " and st.container = ? ";
+    }
+    if(params.booking){
+        paramsArray[i++] = params.booking;
+        query = query + " and st.booking = ? ";
+    }
+    if(params.tab){
+        paramsArray[i++] = params.tab;
+        query = query + " and st.tab = ? ";
+    }
+    if(params.shipTransStatus){
+        paramsArray[i++] = params.shipTransStatus;
+        query = query + " and st.ship_trans_status = ? ";
+    }
+    query = query + ' group by st.id ';
+    if (params.start && params.size) {
+        paramsArray[i++] = parseInt(params.start);
+        paramsArray[i++] = parseInt(params.size);
+        query += " limit ? , ? "
+    }
+    db.dbQuery(query,paramsArray,function(error,rows){
+        logger.debug(' getShipTrans ');
+        return callback(error,rows);
+    });
+}
+
 function updateShipTrans(params,callback){
     var query = " update ship_trans_info set start_port_id = ? , start_port_name = ? , end_port_id = ? , end_port_name = ? , start_ship_date = ? , end_ship_date = ? , " +
         "ship_company_id = ? , ship_name = ? , container = ? , booking = ? , tab = ? , part_status = ? , remark = ? where id = ? " ;
@@ -55,6 +124,7 @@ function updateShipTrans(params,callback){
 
 
 module.exports ={
+    getShipTrans : getShipTrans,
     addShipTrans : addShipTrans,
     updateShipTrans : updateShipTrans
 }

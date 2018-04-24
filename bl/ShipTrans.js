@@ -27,6 +27,20 @@ function createShipTrans(req,res,next){
     })
 }
 
+function queryShipTrans(req,res,next){
+    var params = req.params ;
+    shipTransDAO.getShipTrans(params,function(error,result){
+        if (error) {
+            logger.error(' queryShipTrans ' + error.message);
+            throw sysError.InternalError(error.message,sysMsg.SYS_INTERNAL_ERROR_MSG);
+        } else {
+            logger.info(' queryShipTrans ' + 'success');
+            resUtil.resetQueryRes(res,result,null);
+            return next();
+        }
+    })
+}
+
 function updateShipTrans(req,res,next){
     var params = req.params ;
     shipTransDAO.updateShipTrans(params,function(error,result){
@@ -44,5 +58,6 @@ function updateShipTrans(req,res,next){
 
 module.exports = {
     createShipTrans : createShipTrans,
+    queryShipTrans : queryShipTrans,
     updateShipTrans : updateShipTrans
 }
