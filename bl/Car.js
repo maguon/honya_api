@@ -16,18 +16,37 @@ var logger = serverLogger.createLogger('Car.js');
 
 function createCar(req,res,next){
     var params = req.params ;
-    var myDate = new Date();
-    var strDate = moment(myDate).format('YYYYMMDD');
-    params.createdDateId = parseInt(strDate);
-    carDAO.addCar(params,function(error,result){
-        if (error) {
-            logger.error(' createCar ' + error.message);
-            throw sysError.InternalError(error.message,sysMsg.SYS_INTERNAL_ERROR_MSG);
-        } else {
-            logger.info(' createCar ' + 'success');
-            resUtil.resetCreateRes(res,result,null);
-            return next();
-        }
+    Seq().seq(function(){
+        var that = this;
+        carDAO.getCarList({vin:params.vin},function(error,rows){
+            if (error) {
+                logger.error(' getCarList ' + error.message);
+                resUtil.resetFailedRes(res,sysMsg.SYS_INTERNAL_ERROR_MSG);
+                return next();
+            } else {
+                if(rows && rows.length>0){
+                    logger.warn(' getCarList ' +params.vin+ sysMsg.CUST_CREATE_EXISTING);
+                    resUtil.resetFailedRes(res,sysMsg.CUST_CREATE_EXISTING);
+                    return next();
+                }else{
+                    that();
+                }
+            }
+        })
+    }).seq(function(){
+        var myDate = new Date();
+        var strDate = moment(myDate).format('YYYYMMDD');
+        params.createdDateId = parseInt(strDate);
+        carDAO.addCar(params,function(error,result){
+            if (error) {
+                logger.error(' createCar ' + error.message);
+                throw sysError.InternalError(error.message,sysMsg.SYS_INTERNAL_ERROR_MSG);
+            } else {
+                logger.info(' createCar ' + 'success');
+                resUtil.resetCreateRes(res,result,null);
+                return next();
+            }
+        })
     })
 }
 
