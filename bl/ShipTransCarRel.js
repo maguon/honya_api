@@ -16,20 +16,38 @@ var logger = serverLogger.createLogger('ShipTransCarRel.js');
 
 function createShipTransCarRel(req,res,next){
     var params = req.params ;
-    shipTransCarRelDAO.addShipTransCarRel(params,function(error,result){
-        if (error) {
-            if(error.message.indexOf("Duplicate") > 0) {
-                resUtil.resetFailedRes(res, "VIN已经被关联，操作失败");
-                return next();
-            } else{
-                logger.error(' createShipTransCarRel ' + err.message);
-                throw sysError.InternalError(err.message,sysMsg.SYS_INTERNAL_ERROR_MSG);
+    Seq().seq(function(){
+        var that = this;
+        shipTransCarRelDAO.addShipTransCarRel(params,function(error,result){
+            if (error) {
+                if(error.message.indexOf("Duplicate") > 0) {
+                    resUtil.resetFailedRes(res, "VIN已经被关联，操作失败");
+                    return next();
+                } else{
+                    logger.error(' createShipTransCarRel ' + err.message);
+                    throw sysError.InternalError(err.message,sysMsg.SYS_INTERNAL_ERROR_MSG);
+                }
+            } else {
+                if(result&&result.insertId>0){
+                    logger.info(' createShipTransCarRel ' + 'success');
+                    that();
+                }else{
+                    resUtil.resetFailedRes(res,"create shipTransCarRel failed");
+                    return next();
+                }
             }
-        } else {
-            logger.info(' createShipTransCarRel ' + 'success');
-            resUtil.resetCreateRes(res,result,null);
-            return next();
-        }
+        })
+    }).seq(function(){
+        shipTransOrderDAO.addShipTransOrder(params,function(error,result){
+            if (error) {
+                logger.error(' createShipTransOrder ' + error.message);
+                throw sysError.InternalError(error.message,sysMsg.SYS_INTERNAL_ERROR_MSG);
+            } else {
+                logger.info(' createShipTransOrder ' + 'success');
+                resUtil.resetCreateRes(res,result,null);
+                return next();
+            }
+        })
     })
 }
 
