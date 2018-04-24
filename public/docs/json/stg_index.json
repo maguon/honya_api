@@ -6439,6 +6439,58 @@
         }
       }
     },
+    "/user/{userId}/shipTrans/{shipTransId}/shipTransStatus/{shipTransStatus}": {
+      "put": {
+        "tags": [
+          "ship"
+        ],
+        "summary": "update shipTrans status",
+        "description": "update shipTrans status",
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "userId",
+            "in": "path",
+            "description": "user Id",
+            "required": true,
+            "type": "integer"
+
+          },
+          {
+            "name": "shipTransId",
+            "in": "path",
+            "description": "shipTrans id",
+            "required": true,
+            "type": "integer"
+
+          },
+          {
+            "name": "shipTransStatus",
+            "in": "path",
+            "description": "shipTrans status",
+            "required": true,
+            "type": "integer"
+
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "successful operation",
+            "schema": {
+              "type": "object",
+              "items": {
+                "$ref": "#/definitions/ApiResponse"
+              }
+            }
+          },
+          "400": {
+            "description": "Invalid token value or invalid shipTrans id"
+          }
+        }
+      }
+    },
     "/shipTransOrder": {
       "get": {
         "tags": [

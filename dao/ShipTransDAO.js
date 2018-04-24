@@ -128,9 +128,21 @@ function updateShipTrans(params,callback){
     });
 }
 
+function updateShipTransStatus(params,callback){
+    var query = " update ship_trans_info set ship_trans_status = ? where id = ? " ;
+    var paramsArray=[],i=0;
+    paramsArray[i++]=params.shipTransStatus;
+    paramsArray[i]=params.shipTransId;
+    db.dbQuery(query,paramsArray,function(error,rows){
+        logger.debug(' updateShipTransStatus ');
+        return callback(error,rows);
+    });
+}
+
 
 module.exports ={
     getShipTrans : getShipTrans,
     addShipTrans : addShipTrans,
-    updateShipTrans : updateShipTrans
+    updateShipTrans : updateShipTrans,
+    updateShipTransStatus : updateShipTransStatus
 }

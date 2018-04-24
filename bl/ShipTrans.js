@@ -145,9 +145,24 @@ function updateShipTrans(req,res,next){
     })
 }
 
+function updateShipTransStatus(req,res,next){
+    var params = req.params ;
+    shipTransDAO.updateShipTransStatus(params,function(error,result){
+        if (error) {
+            logger.error(' updateShipTransStatus ' + error.message);
+            throw sysError.InternalError(error.message,sysMsg.SYS_INTERNAL_ERROR_MSG);
+        } else {
+            logger.info(' updateShipTransStatus ' + 'success');
+            resUtil.resetUpdateRes(res,result,null);
+            return next();
+        }
+    })
+}
+
 
 module.exports = {
     createShipTrans : createShipTrans,
     queryShipTrans : queryShipTrans,
-    updateShipTrans : updateShipTrans
+    updateShipTrans : updateShipTrans,
+    updateShipTransStatus : updateShipTransStatus
 }
