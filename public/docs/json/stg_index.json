@@ -7836,6 +7836,15 @@
         },
         "partStatus": {
           "type": "integer"
+        },
+        "remark": {
+          "type": "string"
+        },
+        "carIds": {
+          "type": "integer"
+        },
+        "shipTransFees": {
+          "type": "integer"
         }
       },
       "xml": {
