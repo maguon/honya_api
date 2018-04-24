@@ -103,9 +103,21 @@ function updateShipTransOrderStatus(params,callback){
     });
 }
 
+function deleteShipTransOrder(params,callback){
+    var query = " delete from ship_trans_order where ship_trans_id = ? and car_id = ? ";
+    var paramsArray=[],i=0;
+    paramsArray[i++]=params.shipTransId;
+    paramsArray[i]=params.carId;
+    db.dbQuery(query,paramsArray,function(error,rows){
+        logger.debug(' deleteShipTransOrder ');
+        return callback(error,rows);
+    });
+}
+
 
 module.exports ={
     addShipTransOrder : addShipTransOrder,
     getShipTransOrder : getShipTransOrder,
-    updateShipTransOrderStatus : updateShipTransOrderStatus
+    updateShipTransOrderStatus : updateShipTransOrderStatus,
+    deleteShipTransOrder : deleteShipTransOrder
 }
