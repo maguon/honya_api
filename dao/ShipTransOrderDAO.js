@@ -21,9 +21,9 @@ function addShipTransOrder(params,callback){
 
 function getShipTransOrder(params,callback) {
     var query = " select sto.*,c.vin,c.make_name,c.model_name,c.pro_date,c.valuation,e.short_name, " +
-        " st.start_port_id,st.start_port_name,st.end_port_id,st.end_port_name," +
-        "st.start_ship_date,st.end_ship_date,st.ship_company_id,sc.ship_company_name, " +
-        " st.ship_name,st.container,st.booking,st.tab,st.part_status,st.remark,u.real_name as start_ship_user_name " +
+        " st.id as ship_trans_id,st.ship_trans_status,st.start_port_id,st.start_port_name,st.end_port_id,st.end_port_name," +
+        " st.start_ship_date,st.end_ship_date,st.ship_company_id,sc.ship_company_name,st.ship_name, " +
+        " st.container,st.booking,st.tab,st.part_status,st.remark,u.real_name as start_ship_user_name,st.created_on as ship_trans_created_date " +
         " from ship_trans_order sto " +
         " left join car_info c on sto.car_id = c.id " +
         " left join entrust_info e on sto.entrust_id = e.id " +
