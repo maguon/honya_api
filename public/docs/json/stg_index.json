@@ -7062,7 +7062,7 @@
         }
       }
     },
-    "/user/{userId}/car/{carId}/ShipTransOrderFee": {
+    "/user/{userId}/shipTransOrder/{shipTransOrderId}/ShipTransOrderFee": {
       "put": {
         "tags": [
           "ship"
@@ -7082,9 +7082,9 @@
 
           },
           {
-            "name": "carId",
+            "name": "shipTransOrderId",
             "in": "path",
-            "description": "car id",
+            "description": "shipTransOrder id",
             "required": true,
             "type": "integer"
 

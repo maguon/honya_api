@@ -17,6 +17,7 @@ var logger = serverLogger.createLogger('ShipTransCarRel.js');
 
 function createShipTransCarRel(req,res,next){
     var params = req.params ;
+    var shipTransOrderId = 0;
     Seq().seq(function(){
         var that = this;
         shipTransCarRelDAO.addShipTransCarRel(params,function(error,result){
@@ -46,6 +47,7 @@ function createShipTransCarRel(req,res,next){
                 throw sysError.InternalError(error.message,sysMsg.SYS_INTERNAL_ERROR_MSG);
             } else {
                 if(result&&result.insertId>0){
+                    shipTransOrderId = result.insertId;
                     logger.info(' createShipTransOrder ' + 'success');
                 }else{
                     logger.warn(' createShipTransOrder ' + 'failed');
@@ -54,16 +56,24 @@ function createShipTransCarRel(req,res,next){
             }
         })
     }).seq(function () {
+        var that = this;
         shipTransDAO.updateShipTransCountPlus(params,function(error,result){
             if (error) {
                 logger.error(' updateShipTransCountPlus ' + error.message);
                 throw sysError.InternalError(error.message,sysMsg.SYS_INTERNAL_ERROR_MSG);
             } else {
-                logger.info(' updateShipTransCountPlus ' + 'success');
-                resUtil.resetUpdateRes(res,result,null);
-                return next();
+                if(result&&result.affectedRows>0){
+                    logger.info(' updateShipTransCountPlus ' + 'success');
+                }else{
+                    logger.warn(' updateShipTransCountPlus ' + 'failed');
+                }
+                that();
             }
         })
+    }).seq(function(){
+        logger.info(' createShipTransOrder ' + 'success');
+        resUtil.resetCreateRes(res,{insertId:shipTransOrderId},null);
+        return next();
     })
 }
 

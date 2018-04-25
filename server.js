@@ -345,7 +345,7 @@ function createServer() {
     server.get('/api/shipTransOrder',shipTransOrder.queryShipTransOrder);
     server.get('/api/shipTransOrder.csv',shipTransOrder.getShipTransOrderCsv);
     server.post({path:'/api/user/:userId/shipTransOrder',contentType: 'application/json'},shipTransOrder.createShipTransOrder);
-    server.put({path:'/api/user/:userId/car/:carId/ShipTransOrderFee',contentType: 'application/json'} ,shipTransOrder.updateShipTransOrderFee);
+    server.put({path:'/api/user/:userId/shipTransOrder/:shipTransOrderId/ShipTransOrderFee',contentType: 'application/json'} ,shipTransOrder.updateShipTransOrderFee);
     server.put({path:'/api/user/:userId/shipTransOrder/:shipTransOrderId/orderStatus/:orderStatus',contentType: 'application/json'} ,shipTransOrder.updateShipTransOrderStatus);
 
     /**

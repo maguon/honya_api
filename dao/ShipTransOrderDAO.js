@@ -113,10 +113,10 @@ function getShipTransOrder(params,callback) {
 }
 
 function updateShipTransOrderFee(params,callback){
-    var query = " update ship_trans_order set ship_trans_fee = ? where car_id = ? " ;
+    var query = " update ship_trans_order set ship_trans_fee = ? where id = ? " ;
     var paramsArray=[],i=0;
     paramsArray[i++]=params.shipTransFee;
-    paramsArray[i]=params.carId;
+    paramsArray[i]=params.shipTransOrderId;
     db.dbQuery(query,paramsArray,function(error,rows){
         logger.debug(' updateShipTransOrderFee ');
         return callback(error,rows);

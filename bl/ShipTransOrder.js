@@ -183,7 +183,7 @@ function getShipTransOrderCsv(req,res,next){
                 }
                 csvString = csvString+parkObj.id+","+parkObj.vin+","+parkObj.makeName+","+parkObj.modelName+","+parkObj.proDate
                     +","+parkObj.valuation+","+parkObj.shipCompanyName+","+parkObj.shipName+","+parkObj.startPortName+","+parkObj.endPortName
-                    +","+parkObj.container+","+parkObj.endShipDate+","+parkObj.shortName+","+parkObj.orderStatus+ '\r\n';
+                    +","+parkObj.container+","+","+parkObj.startShipDate+","+parkObj.endShipDate+","+parkObj.shortName+","+parkObj.orderStatus+ '\r\n';
             }
             var csvBuffer = new Buffer(csvString,'utf8');
             res.set('content-type', 'application/csv');
