@@ -88,15 +88,13 @@ CREATE TABLE `order_payment_rel` (
 DROP TABLE IF EXISTS `ship_trans_car_rel`;
 CREATE TABLE `ship_trans_car_rel` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
-  `ship_trans_id` int(10) NOT NULL COMMENT '海运ID',
+  `ship_trans_id` int(10) NOT NULL DEFAULT '0' COMMENT '海运ID',
   `car_id` int(10) NOT NULL DEFAULT '0' COMMENT '商品车ID',
-  `ship_trans_fee` decimal(10,2) DEFAULT '0.00' COMMENT '海运费用',
   `created_on` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP COMMENT '创建时间',
   `updated_on` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP COMMENT '更新时间',
   UNIQUE KEY `id` (`id`) USING BTREE,
   UNIQUE KEY `car_id` (`car_id`) USING BTREE
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
-
+) ENGINE=InnoDB AUTO_INCREMENT=42 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 -- ----------------------------
 -- Table structure for ship_trans_info
 -- ----------------------------
@@ -114,13 +112,15 @@ CREATE TABLE `ship_trans_info` (
   `container` varchar(50) COLLATE utf8mb4_unicode_ci DEFAULT NULL COMMENT '货柜',
   `booking` varchar(50) COLLATE utf8mb4_unicode_ci DEFAULT NULL COMMENT '预订',
   `tab` varchar(50) COLLATE utf8mb4_unicode_ci DEFAULT NULL COMMENT '封签',
+  `ship_trans_count` int(11) DEFAULT '0' COMMENT '海运数',
   `part_status` tinyint(1) NOT NULL DEFAULT '1' COMMENT '是否分单(1-否,2-是)',
+  `start_ship_user_id` int(10) NOT NULL DEFAULT '0' COMMENT '操作员',
+  `ship_trans_status` tinyint(1) NOT NULL DEFAULT '1' COMMENT '海运状态(1-待出发,2-已出发,3-已到达)',
   `remark` varchar(200) COLLATE utf8mb4_unicode_ci DEFAULT NULL COMMENT '备注',
   `created_on` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP COMMENT '创建时间',
   `updated_on` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP COMMENT '更新时间',
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
-
+) ENGINE=InnoDB AUTO_INCREMENT=30 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 -- ----------------------------
 -- Table structure for ship_trans_order
 -- ----------------------------
@@ -128,12 +128,14 @@ DROP TABLE IF EXISTS `ship_trans_order`;
 CREATE TABLE `ship_trans_order` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `ship_trans_id` int(10) NOT NULL DEFAULT '0' COMMENT '海运ID',
-  `order_user_id` int(10) NOT NULL COMMENT '订单操作员',
-  `order_status` tinyint(1) NOT NULL DEFAULT '1' COMMENT '订单状态(1-待出发,2-已出发,3-已到达)',
+  `car_id` int(10) NOT NULL DEFAULT '0' COMMENT '商品车ID',
+  `ship_trans_fee` decimal(10,2) DEFAULT '0.00' COMMENT '海运费用',
+  `order_status` tinyint(1) NOT NULL DEFAULT '1' COMMENT '订单状态(1-未支付,2-已支付)',
   `created_on` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP COMMENT '创建时间',
   `updated_on` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP COMMENT '更新时间',
-  PRIMARY KEY (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+  UNIQUE KEY `id` (`id`) USING BTREE,
+  UNIQUE KEY `car_id` (`car_id`) USING BTREE
+) ENGINE=InnoDB AUTO_INCREMENT=29 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 -- ----------------------------
 -- Table structure for ship_trans_stat_date
 -- ----------------------------
@@ -143,5 +145,5 @@ CREATE TABLE `ship_trans_stat_date` (
   `booking` int(11) unsigned NOT NULL DEFAULT '0' COMMENT '今日订舱数',
   `exports` int(11) unsigned NOT NULL DEFAULT '0' COMMENT '今日发出数',
   `arrive` int(11) NOT NULL DEFAULT '0' COMMENT '今日到达数',
-  PRIMARY KEY (`date_id`,`ship_trans_id`)
+  PRIMARY KEY (`date_id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
