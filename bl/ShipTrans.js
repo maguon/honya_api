@@ -159,10 +159,70 @@ function updateShipTransStatus(req,res,next){
     })
 }
 
+function getShipTransCsv(req,res,next){
+    var csvString = "";
+    var header = "海运编号" + ',' + "始发港口" + ',' + "目的港口" + ','+ "船公司" + ','+ "船名"+ ','+ "货柜" + ','+ "装载数" + ','+ "运费(美元)"
+        + ',' + "开船日期" + ',' + "到港日期" + ','+ "是否分单" + ','+ "运送状态"+ ','+ "操作员" + ','+ "生成时间" + ','+ "备注";
+    csvString = header + '\r\n'+csvString;
+    var params = req.params ;
+    var parkObj = {};
+    shipTransDAO.getShipTrans(params,function(error,rows){
+        if (error) {
+            logger.error(' getShipTrans ' + error.message);
+            throw sysError.InternalError(error.message,sysMsg.SYS_INTERNAL_ERROR_MSG);
+        } else {
+            for(var i=0;i<rows.length;i++){
+
+                parkObj.id = rows[i].id;
+                parkObj.startPortName = rows[i].start_port_name;
+                parkObj.endPortName = rows[i].end_port_name;
+                parkObj.shipCompanyName = rows[i].ship_company_name;
+                parkObj.shipName = rows[i].ship_name;
+                parkObj.container = rows[i].container;
+                parkObj.shipTransCount = rows[i].ship_trans_count;
+                parkObj.shipTransFee = rows[i].ship_trans_fee;
+                parkObj.startShipDate = new Date(rows[i].start_ship_date).toLocaleDateString();
+                parkObj.endShipDate = new Date(rows[i].end_ship_date).toLocaleDateString();
+                if(rows[i].part_status == 1){
+                    parkObj.partStatus = "否";
+                }else{
+                    parkObj.partStatus = "是";
+                }
+                if(rows[i].ship_trans_status == 1){
+                    parkObj.shipTransStatus = "待出发";
+                }else if(rows[i].ship_trans_status == 2){
+                    parkObj.shipTransStatus = "已出发";
+                }else{
+                    parkObj.shipTransStatus = "已到达";
+                }
+                parkObj.startShipUserName = rows[i].start_ship_user_name;
+                parkObj.createdOn = new Date(rows[i].created_on).toLocaleDateString();
+                if(rows[i].remark == null){
+                    parkObj.remark = "";
+                }else{
+                    parkObj.remark = rows[i].remark;
+                }
+                csvString = csvString+parkObj.id+","+parkObj.startPortName+","+parkObj.endPortName+","+parkObj.shipCompanyName+","+parkObj.shipName
+                    +","+parkObj.container+","+parkObj.shipTransCount+","+parkObj.shipTransFee+","+parkObj.startShipDate+","+parkObj.endShipDate
+                    +","+parkObj.partStatus+","+parkObj.shipTransStatus+","+parkObj.startShipUserName+","+parkObj.createdOn+","+parkObj.remark+ '\r\n';
+            }
+            var csvBuffer = new Buffer(csvString,'utf8');
+            res.set('content-type', 'application/csv');
+            res.set('charset', 'utf8');
+            res.set('content-length', csvBuffer.length);
+            res.writeHead(200);
+            res.write(csvBuffer);//TODO
+            res.end();
+            return next(false);
+        }
+    })
+}
+
 
 module.exports = {
     createShipTrans : createShipTrans,
     queryShipTrans : queryShipTrans,
     updateShipTrans : updateShipTrans,
-    updateShipTransStatus : updateShipTransStatus
+    updateShipTransStatus : updateShipTransStatus,
+    getShipTransCsv : getShipTransCsv
 }
