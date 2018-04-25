@@ -9,6 +9,7 @@ var encrypt = require('../util/Encrypt.js');
 var listOfValue = require('../util/ListOfValue.js');
 var shipTransCarRelDAO = require('../dao/ShipTransCarRelDAO.js');
 var shipTransOrderDAO = require('../dao/ShipTransOrderDAO.js');
+var shipTransDAO = require('../dao/ShipTransDAO.js');
 var oAuthUtil = require('../util/OAuthUtil.js');
 var Seq = require('seq');
 var serverLogger = require('../util/ServerLogger.js');
@@ -38,13 +39,28 @@ function createShipTransCarRel(req,res,next){
             }
         })
     }).seq(function(){
+        var that = this;
         shipTransOrderDAO.addShipTransOrder(params,function(error,result){
             if (error) {
                 logger.error(' createShipTransOrder ' + error.message);
                 throw sysError.InternalError(error.message,sysMsg.SYS_INTERNAL_ERROR_MSG);
             } else {
-                logger.info(' createShipTransOrder ' + 'success');
-                resUtil.resetCreateRes(res,result,null);
+                if(result&&result.insertId>0){
+                    logger.info(' createShipTransOrder ' + 'success');
+                }else{
+                    logger.warn(' createShipTransOrder ' + 'failed');
+                }
+                that();
+            }
+        })
+    }).seq(function () {
+        shipTransDAO.updateShipTransCountPlus(params,function(error,result){
+            if (error) {
+                logger.error(' updateShipTransCountPlus ' + error.message);
+                throw sysError.InternalError(error.message,sysMsg.SYS_INTERNAL_ERROR_MSG);
+            } else {
+                logger.info(' updateShipTransCountPlus ' + 'success');
+                resUtil.resetUpdateRes(res,result,null);
                 return next();
             }
         })
@@ -85,12 +101,27 @@ function removeShipTransCarRel(req,res,next){
             }
         })
     }).seq(function () {
+        var that = this;
         shipTransOrderDAO.deleteShipTransOrder(params,function(error,result){
             if (error) {
                 logger.error(' removeShipTransOrder ' + error.message);
                 throw sysError.InternalError(error.message,sysMsg.SYS_INTERNAL_ERROR_MSG);
             } else {
-                logger.info(' removeShipTransOrder ' + 'success');
+                if(result&&result.affectedRows>0){
+                    logger.info(' removeShipTransOrder ' + 'success');
+                }else{
+                    logger.warn(' removeShipTransOrder ' + 'failed');
+                }
+                that();
+            }
+        })
+    }).seq(function () {
+        shipTransDAO.updateShipTransCountReduce(params,function(error,result){
+            if (error) {
+                logger.error(' updateShipTransCountReduce ' + error.message);
+                throw sysError.InternalError(error.message,sysMsg.SYS_INTERNAL_ERROR_MSG);
+            } else {
+                logger.info(' updateShipTransCountReduce ' + 'success');
                 resUtil.resetUpdateRes(res,result,null);
                 return next();
             }

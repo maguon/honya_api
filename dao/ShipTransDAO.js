@@ -129,6 +129,26 @@ function updateShipTrans(params,callback){
     });
 }
 
+function updateShipTransCountPlus(params,callback){
+    var query = " update ship_trans_info set ship_trans_count = ship_trans_count + 1 where id = ? " ;
+    var paramsArray=[],i=0;
+    paramsArray[i]=params.shipTransId;
+    db.dbQuery(query,paramsArray,function(error,rows){
+        logger.debug(' updateShipTransCountPlus ');
+        return callback(error,rows);
+    });
+}
+
+function updateShipTransCountReduce(params,callback){
+    var query = " update ship_trans_info set ship_trans_count = ship_trans_count - 1 where id = ? " ;
+    var paramsArray=[],i=0;
+    paramsArray[i]=params.shipTransId;
+    db.dbQuery(query,paramsArray,function(error,rows){
+        logger.debug(' updateShipTransCountReduce ');
+        return callback(error,rows);
+    });
+}
+
 function updateShipTransStatus(params,callback){
     var query = " update ship_trans_info set ship_trans_status = ? where id = ? " ;
     var paramsArray=[],i=0;
@@ -145,5 +165,7 @@ module.exports ={
     getShipTrans : getShipTrans,
     addShipTrans : addShipTrans,
     updateShipTrans : updateShipTrans,
+    updateShipTransCountPlus : updateShipTransCountPlus,
+    updateShipTransCountReduce : updateShipTransCountReduce,
     updateShipTransStatus : updateShipTransStatus
 }
