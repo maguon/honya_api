@@ -106,7 +106,7 @@ function getShipTrans(params,callback) {
 
 function updateShipTrans(params,callback){
     var query = " update ship_trans_info set start_port_id = ? , start_port_name = ? , end_port_id = ? , end_port_name = ? , start_ship_date = ? , end_ship_date = ? , " +
-        "ship_company_id = ? , ship_name = ? , container = ? , booking = ? , tab = ? , part_status = ? , remark = ? where id = ? " ;
+        "ship_company_id = ? , ship_name = ? , container = ? , booking = ? , tab = ? , part_status = ? , start_ship_user_id = ? , remark = ? where id = ? " ;
     var paramsArray=[],i=0;
     paramsArray[i++]=params.startPortId;
     paramsArray[i++]=params.startPortName;
@@ -120,6 +120,7 @@ function updateShipTrans(params,callback){
     paramsArray[i++]=params.booking;
     paramsArray[i++]=params.tab;
     paramsArray[i++]=params.partStatus;
+    paramsArray[i++]=params.userId;
     paramsArray[i++]=params.remark;
     paramsArray[i]=params.shipTransId;
     db.dbQuery(query,paramsArray,function(error,rows){
