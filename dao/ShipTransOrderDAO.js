@@ -7,10 +7,11 @@ var serverLogger = require('../util/ServerLogger.js');
 var logger = serverLogger.createLogger('ShipTransOrderDAO.js');
 
 function addShipTransOrder(params,callback){
-    var query = " insert into ship_trans_order (ship_trans_id,car_id,ship_trans_fee) values ( ? , ? , ? )";
+    var query = " insert into ship_trans_order (ship_trans_id,car_id,entrust_id,ship_trans_fee) values ( ? , ? , ? , ? )";
     var paramsArray=[],i=0;
     paramsArray[i++]=params.shipTransId;
     paramsArray[i++]=params.carId;
+    paramsArray[i++]=params.entrustId;
     paramsArray[i++]=params.shipTransFee;
     db.dbQuery(query,paramsArray,function(error,rows){
         logger.debug(' addShipTransOrder ');
@@ -19,18 +20,53 @@ function addShipTransOrder(params,callback){
 }
 
 function getShipTransOrder(params,callback) {
-    var query = " select sto.*,u.real_name as order_user_name,st.start_port_id,st.start_port_name,st.end_port_id,st.end_port_name, " +
-        " st.start_ship_date,st.end_ship_date,st.ship_company_id,sc.ship_company_name,st.ship_name,st.container,st.booking,st.tab,st.part_status,st.remark," +
-        " count(stcr.id) as load_car_count,sum(stcr.ship_trans_fee) as ship_trans_fee from ship_trans_order sto " +
+    var query = " select sto.*,c.vin,c.make_name,c.model_name,c.pro_date,c.valuation,e.short_name, " +
+        " st.start_port_id,st.start_port_name,st.end_port_id,st.end_port_name," +
+        "st.start_ship_date,st.end_ship_date,st.ship_company_id,sc.ship_company_name, " +
+        " st.ship_name,st.container,st.booking,st.tab,st.part_status,st.remark,u.real_name as start_ship_user_name " +
+        " from ship_trans_order sto " +
+        " left join car_info c on sto.car_id = c.id " +
+        " left join entrust_info e on sto.entrust_id = e.id " +
         " left join ship_trans_info st on sto.ship_trans_id = st.id " +
-        " left join ship_trans_car_rel stcr on st.id = stcr.ship_trans_id " +
         " left join ship_company_info sc on st.ship_company_id = sc.id " +
-        " left join user_info u on sto.order_user_id = u.uid " +
+        " left join user_info u on st.start_ship_user_id = u.uid " +
         " where sto.id is not null ";
     var paramsArray=[],i=0;
+    if(params.vin){
+        paramsArray[i++] = params.vin;
+        query = query + " and c.vin = ? ";
+    }
+    if(params.makeId){
+        paramsArray[i++] = params.makeId;
+        query = query + " and c.make_id = ? ";
+    }
+    if(params.modelId){
+        paramsArray[i++] = params.modelId;
+        query = query + " and c.model_id = ? ";
+    }
+    if(params.entrustId){
+        paramsArray[i++] = params.entrustId;
+        query = query + " and sto.entrust_id = ? ";
+    }
     if(params.shipTransOrderId){
         paramsArray[i++] = params.shipTransOrderId;
         query = query + " and sto.id = ? ";
+    }
+    if(params.orderStatus){
+        paramsArray[i++] = params.orderStatus;
+        query = query + " and sto.order_status = ? ";
+    }
+    if(params.shipCompanyId){
+        paramsArray[i++] = params.shipCompanyId;
+        query = query + " and st.ship_company_id = ? ";
+    }
+    if(params.shipName){
+        paramsArray[i++] = params.shipName;
+        query = query + " and st.ship_name = ? ";
+    }
+    if(params.container){
+        paramsArray[i++] = params.container;
+        query = query + " and st.container = ? ";
     }
     if(params.startPortId){
         paramsArray[i++] = params.startPortId;
@@ -48,14 +84,6 @@ function getShipTransOrder(params,callback) {
         paramsArray[i++] = params.startShipDateEnd +" 23:59:59";
         query = query + " and st.start_ship_date  <= ? ";
     }
-    if(params.shipCompanyId){
-        paramsArray[i++] = params.shipCompanyId;
-        query = query + " and st.ship_company_id = ? ";
-    }
-    if(params.shipName){
-        paramsArray[i++] = params.shipName;
-        query = query + " and st.ship_name = ? ";
-    }
     if(params.endShipDateStart){
         paramsArray[i++] = params.endShipDateStart +" 00:00:00";
         query = query + " and  st.end_ship_date  >= ? ";
@@ -64,21 +92,9 @@ function getShipTransOrder(params,callback) {
         paramsArray[i++] = params.endShipDateEnd +" 23:59:59";
         query = query + " and st.end_ship_date  <= ? ";
     }
-    if(params.container){
-        paramsArray[i++] = params.container;
-        query = query + " and st.container = ? ";
-    }
     if(params.booking){
         paramsArray[i++] = params.booking;
         query = query + " and st.booking = ? ";
-    }
-    if(params.tab){
-        paramsArray[i++] = params.tab;
-        query = query + " and st.tab = ? ";
-    }
-    if(params.orderStatus){
-        paramsArray[i++] = params.orderStatus;
-        query = query + " and sto.order_status = ? ";
     }
     query = query + ' group by sto.id ';
     if (params.start && params.size) {

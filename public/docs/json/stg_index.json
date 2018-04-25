@@ -6650,12 +6650,85 @@
           "application/json"
         ],
         "parameters": [
+
+          {
+            "name": "vin",
+            "in": "query",
+            "description": "car vin",
+            "required": false,
+            "type": "string"
+
+          },
+          {
+            "name": "vinCode",
+            "in": "query",
+            "description": "vin code",
+            "required": false,
+            "type": "string"
+
+          },
+          {
+            "name": "makeId",
+            "in": "query",
+            "description": "make id",
+            "required": false,
+            "type": "integer"
+
+          },
+          {
+            "name": "modelId",
+            "in": "query",
+            "description": "model id",
+            "required": false,
+            "type": "integer"
+
+          },
+          {
+            "name": "entrustId",
+            "in": "query",
+            "description": "entrust id",
+            "required": false,
+            "type": "integer"
+
+          },
           {
             "name": "shipTransOrderId",
             "in": "query",
             "description": "shipTransOrder id",
             "required": false,
             "type": "integer"
+
+          },
+          {
+            "name": "orderStatus",
+            "in": "query",
+            "description": "order status",
+            "required": false,
+            "type": "integer"
+
+          },
+          {
+            "name": "shipCompanyId",
+            "in": "query",
+            "description": "shipCompany id",
+            "required": false,
+            "type": "integer"
+
+          },
+          {
+            "name": "shipName",
+            "in": "query",
+            "description": "ship name",
+            "required": false,
+            "type": "string"
+
+          },
+          {
+            "name": "container",
+            "in": "query",
+            "description": "container",
+            "required": false,
+            "type": "string"
 
           },
           {
@@ -6691,22 +6764,6 @@
 
           },
           {
-            "name": "shipCompanyId",
-            "in": "query",
-            "description": "shipCompany id",
-            "required": false,
-            "type": "integer"
-
-          },
-          {
-            "name": "shipName",
-            "in": "query",
-            "description": "ship name",
-            "required": false,
-            "type": "string"
-
-          },
-          {
             "name": "endShipDateStart",
             "in": "query",
             "description": "endShipDate start",
@@ -6723,35 +6780,11 @@
 
           },
           {
-            "name": "container",
-            "in": "query",
-            "description": "container",
-            "required": false,
-            "type": "string"
-
-          },
-          {
             "name": "booking",
             "in": "query",
             "description": "booking",
             "required": false,
             "type": "string"
-
-          },
-          {
-            "name": "tab",
-            "in": "query",
-            "description": "tab",
-            "required": false,
-            "type": "string"
-
-          },
-          {
-            "name": "orderStatus",
-            "in": "query",
-            "description": "order status",
-            "required": false,
-            "type": "integer"
 
           },
           {
@@ -8097,6 +8130,9 @@
         "carIds": {
           "type": "integer"
         },
+        "entrustIds": {
+          "type": "integer"
+        },
         "shipTransFees": {
           "type": "integer"
         }
@@ -8151,6 +8187,7 @@
         "carIds": {
           "type": "integer"
         },
+
         "shipTransFees": {
           "type": "integer"
         }
@@ -8179,6 +8216,9 @@
           "type": "integer"
         },
         "carId": {
+          "type": "integer"
+        },
+        "entrustId": {
           "type": "integer"
         },
         "shipTransFee": {

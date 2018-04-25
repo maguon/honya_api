@@ -129,6 +129,7 @@ CREATE TABLE `ship_trans_order` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `ship_trans_id` int(10) NOT NULL DEFAULT '0' COMMENT '海运ID',
   `car_id` int(10) NOT NULL DEFAULT '0' COMMENT '商品车ID',
+  `entrust_id` int(10) NOT NULL DEFAULT '0' COMMENT '委托方ID',
   `ship_trans_fee` decimal(10,2) DEFAULT '0.00' COMMENT '海运费用',
   `order_status` tinyint(1) NOT NULL DEFAULT '1' COMMENT '订单状态(1-未支付,2-已支付)',
   `created_on` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP COMMENT '创建时间',

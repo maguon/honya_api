@@ -77,15 +77,18 @@ function createShipTrans(req,res,next){
     }).seq(function(){
         var that = this;
         var carIds = params.carIds;
+        var entrustIds = params.entrustIds;
         var shipTransFees = params.shipTransFees;
         var rowArray = [] ;
         rowArray.length= carIds.length;
+        rowArray.length= entrustIds.length;
         rowArray.length= shipTransFees.length;
         Seq(rowArray).seqEach(function(rowObj,i){
             var that = this;
             var subParams ={
                 shipTransId : shipTransId,
                 carId : carIds[i],
+                entrustId : entrustIds[i],
                 shipTransFee : shipTransFees[i],
                 row : i+1,
             }
