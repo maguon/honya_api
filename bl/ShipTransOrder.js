@@ -144,10 +144,64 @@ function updateShipTransOrderStatus(req,res,next){
     })
 }
 
+function getShipTransOrderCsv(req,res,next){
+    var csvString = "";
+    var header = "订单编号" + ',' + "VIN" + ',' + "制造商" + ','+ "型号" + ','+ "车辆年份"+ ','+ "车价(美元)" + ','+ "船公司" + ','+ "船名"
+        + ','+ "始发港口"+ ','+ "目的港口" + ','+ "货柜"+ ',' + "开船日期" + ',' + "到港日期" + ','+ "委托方" + ','+ "支付状态";
+    csvString = header + '\r\n'+csvString;
+    var params = req.params ;
+    var parkObj = {};
+    shipTransOrderDAO.getShipTransOrder(params,function(error,rows){
+        if (error) {
+            logger.error(' getShipTransOrder ' + error.message);
+            throw sysError.InternalError(error.message,sysMsg.SYS_INTERNAL_ERROR_MSG);
+        } else {
+            for(var i=0;i<rows.length;i++){
+
+                parkObj.id = rows[i].id;
+                parkObj.vin = rows[i].vin;
+                parkObj.makeName = rows[i].make_name;
+                parkObj.modelName = rows[i].model_name;
+                if(rows[i].pro_date == null){
+                    parkObj.proDate = "";
+                }else{
+                    parkObj.proDate = new Date(rows[i].pro_date).toLocaleDateString();
+                }
+                parkObj.valuation = rows[i].valuation;
+                parkObj.shipCompanyName = rows[i].ship_company_name;
+                parkObj.shipName = rows[i].ship_name;
+                parkObj.startPortName = rows[i].start_port_name;
+                parkObj.endPortName = rows[i].end_port_name;
+                parkObj.container = rows[i].container;
+                parkObj.startShipDate = new Date(rows[i].start_ship_date).toLocaleDateString();
+                parkObj.endShipDate = new Date(rows[i].end_ship_date).toLocaleDateString();
+                parkObj.shortName = rows[i].short_name;
+                if(rows[i].order_status == 1){
+                    parkObj.orderStatus = "未支付";
+                }else{
+                    parkObj.orderStatus = "已支付";
+                }
+                csvString = csvString+parkObj.id+","+parkObj.vin+","+parkObj.makeName+","+parkObj.modelName+","+parkObj.proDate
+                    +","+parkObj.valuation+","+parkObj.shipCompanyName+","+parkObj.shipName+","+parkObj.startPortName+","+parkObj.endPortName
+                    +","+parkObj.container+","+parkObj.endShipDate+","+parkObj.shortName+","+parkObj.orderStatus+ '\r\n';
+            }
+            var csvBuffer = new Buffer(csvString,'utf8');
+            res.set('content-type', 'application/csv');
+            res.set('charset', 'utf8');
+            res.set('content-length', csvBuffer.length);
+            res.writeHead(200);
+            res.write(csvBuffer);//TODO
+            res.end();
+            return next(false);
+        }
+    })
+}
+
 
 module.exports = {
     createShipTransOrder : createShipTransOrder,
     queryShipTransOrder : queryShipTransOrder,
     updateShipTransOrderFee : updateShipTransOrderFee,
-    updateShipTransOrderStatus : updateShipTransOrderStatus
+    updateShipTransOrderStatus : updateShipTransOrderStatus,
+    getShipTransOrderCsv : getShipTransOrderCsv
 }

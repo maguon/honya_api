@@ -6820,6 +6820,187 @@
         }
       }
     },
+    "/shipTransOrder.csv": {
+      "get": {
+        "tags": [
+          "ship"
+        ],
+        "summary": "query shipTransOrder csv",
+        "description": "query shipTransOrderCsv",
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+
+          {
+            "name": "vin",
+            "in": "query",
+            "description": "car vin",
+            "required": false,
+            "type": "string"
+
+          },
+          {
+            "name": "vinCode",
+            "in": "query",
+            "description": "vin code",
+            "required": false,
+            "type": "string"
+
+          },
+          {
+            "name": "makeId",
+            "in": "query",
+            "description": "make id",
+            "required": false,
+            "type": "integer"
+
+          },
+          {
+            "name": "modelId",
+            "in": "query",
+            "description": "model id",
+            "required": false,
+            "type": "integer"
+
+          },
+          {
+            "name": "entrustId",
+            "in": "query",
+            "description": "entrust id",
+            "required": false,
+            "type": "integer"
+
+          },
+          {
+            "name": "shipTransOrderId",
+            "in": "query",
+            "description": "shipTransOrder id",
+            "required": false,
+            "type": "integer"
+
+          },
+          {
+            "name": "orderStatus",
+            "in": "query",
+            "description": "order status",
+            "required": false,
+            "type": "integer"
+
+          },
+          {
+            "name": "shipCompanyId",
+            "in": "query",
+            "description": "shipCompany id",
+            "required": false,
+            "type": "integer"
+
+          },
+          {
+            "name": "shipName",
+            "in": "query",
+            "description": "ship name",
+            "required": false,
+            "type": "string"
+
+          },
+          {
+            "name": "container",
+            "in": "query",
+            "description": "container",
+            "required": false,
+            "type": "string"
+
+          },
+          {
+            "name": "startPortId",
+            "in": "query",
+            "description": "startPort id",
+            "required": false,
+            "type": "integer"
+
+          },
+          {
+            "name": "endPortId",
+            "in": "query",
+            "description": "endPort id",
+            "required": false,
+            "type": "integer"
+
+          },
+          {
+            "name": "startShipDateStart",
+            "in": "query",
+            "description": "startShipDate start",
+            "required": false,
+            "type": "string"
+
+          },
+          {
+            "name": "startShipDateEnd",
+            "in": "query",
+            "description": "startShipDate end",
+            "required": false,
+            "type": "string"
+
+          },
+          {
+            "name": "endShipDateStart",
+            "in": "query",
+            "description": "endShipDate start",
+            "required": false,
+            "type": "string"
+
+          },
+          {
+            "name": "endShipDateEnd",
+            "in": "query",
+            "description": "endShipDate end",
+            "required": false,
+            "type": "string"
+
+          },
+          {
+            "name": "booking",
+            "in": "query",
+            "description": "booking",
+            "required": false,
+            "type": "string"
+
+          },
+          {
+            "name": "start",
+            "in": "query",
+            "description": " list start pos",
+            "required": false,
+            "type": "integer"
+
+          },
+          {
+            "name": "size",
+            "in": "query",
+            "description": "list size for pagination",
+            "required": false,
+            "type": "integer"
+
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "successful operation",
+            "schema": {
+              "type": "object",
+              "items": {
+                "$ref": "#/definitions/shipTransOrder"
+              }
+            }
+          },
+          "400": {
+            "description": "Invalid token value or invalid shipTransOrder id"
+          }
+        }
+      }
+    },
     "/user/{userId}/shipTransOrder": {
       "post": {
         "tags": [
