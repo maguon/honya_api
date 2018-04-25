@@ -92,6 +92,17 @@ function getShipTransOrder(params,callback) {
     });
 }
 
+function updateShipTransOrderFee(params,callback){
+    var query = " update ship_trans_order set ship_trans_fee = ? where id = ? " ;
+    var paramsArray=[],i=0;
+    paramsArray[i++]=params.shipTransFee;
+    paramsArray[i]=params.shipTransOrderId;
+    db.dbQuery(query,paramsArray,function(error,rows){
+        logger.debug(' updateShipTransOrderFee ');
+        return callback(error,rows);
+    });
+}
+
 function updateShipTransOrderStatus(params,callback){
     var query = " update ship_trans_order set order_status = ? where id = ? " ;
     var paramsArray=[],i=0;
@@ -118,6 +129,7 @@ function deleteShipTransOrder(params,callback){
 module.exports ={
     addShipTransOrder : addShipTransOrder,
     getShipTransOrder : getShipTransOrder,
+    updateShipTransOrderFee : updateShipTransOrderFee,
     updateShipTransOrderStatus : updateShipTransOrderStatus,
     deleteShipTransOrder : deleteShipTransOrder
 }

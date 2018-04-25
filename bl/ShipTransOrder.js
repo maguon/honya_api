@@ -116,6 +116,20 @@ function queryShipTransOrder(req,res,next){
     })
 }
 
+function updateShipTransOrderFee(req,res,next){
+    var params = req.params ;
+    shipTransOrderDAO.updateShipTransOrderFee(params,function(error,result){
+        if (error) {
+            logger.error(' updateShipTransOrderFee ' + error.message);
+            throw sysError.InternalError(error.message,sysMsg.SYS_INTERNAL_ERROR_MSG);
+        } else {
+            logger.info(' updateShipTransOrderFee ' + 'success');
+            resUtil.resetUpdateRes(res,result,null);
+            return next();
+        }
+    })
+}
+
 function updateShipTransOrderStatus(req,res,next){
     var params = req.params ;
     shipTransOrderDAO.updateShipTransOrderStatus(params,function(error,result){
@@ -134,5 +148,6 @@ function updateShipTransOrderStatus(req,res,next){
 module.exports = {
     createShipTransOrder : createShipTransOrder,
     queryShipTransOrder : queryShipTransOrder,
+    updateShipTransOrderFee : updateShipTransOrderFee,
     updateShipTransOrderStatus : updateShipTransOrderStatus
 }
