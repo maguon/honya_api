@@ -21,7 +21,7 @@ function getShipTransCarRel(params,callback) {
     var query = " select stcr.*,c.vin,c.make_name,c.model_name,c.pro_date,c.valuation,c.entrust_id,e.short_name, " +
         " st.start_port_id,st.start_port_name,st.end_port_id,st.end_port_name,st.start_ship_date,st.end_ship_date,sc.ship_company_name, " +
         " st.ship_name,st.container,st.booking,st.tab,st.start_ship_user_id,u.real_name as start_ship_user_name,st.part_status,st.remark, " +
-        " sto.order_status " +
+        " sto.ship_trans_fee,sto.order_status " +
         " from ship_trans_car_rel stcr " +
         " left join ship_trans_order sto on stcr.car_id = sto.car_id " +
         " left join car_info c on stcr.car_id = c.id " +
