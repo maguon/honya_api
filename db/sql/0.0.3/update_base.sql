@@ -148,3 +148,29 @@ CREATE TABLE `ship_trans_stat_date` (
   `arrive` int(11) NOT NULL DEFAULT '0' COMMENT '今日到达数',
   PRIMARY KEY (`date_id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+-- ----------------------------
+-- 2018-04-25 更新
+-- ----------------------------
+DROP TRIGGER IF EXISTS `trg_ship_trans_stat`;
+DELIMITER ;;
+CREATE TRIGGER `trg_ship_trans_stat` AFTER UPDATE ON `ship_trans_info` FOR EACH ROW BEGIN
+IF (old.ship_trans_status <>2 and new.ship_trans_status=2)THEN
+update ship_trans_stat_date set exports=(select sum(ship_trans_count)from ship_trans_info where ship_trans_status = 2)
+where date_id=DATE_FORMAT(CURRENT_DATE(),'%Y%m%d');
+END IF;
+IF (old.ship_trans_status <>3 and new.ship_trans_status=3)THEN
+update ship_trans_stat_date set arrive=(select sum(ship_trans_count)from ship_trans_info where ship_trans_status = 3)
+where date_id=DATE_FORMAT(CURRENT_DATE(),'%Y%m%d');
+END IF;
+END
+;;
+DELIMITER ;
+
+DROP TRIGGER IF EXISTS `trg_ship_trans_stat`;
+DELIMITER ;;
+CREATE TRIGGER `trg_ship_trans_stat` AFTER INSERT ON `ship_trans_info` FOR EACH ROW BEGIN
+update ship_trans_stat_date set booking=booking+1
+where date_id=DATE_FORMAT(CURRENT_DATE(),'%Y%m%d');
+END
+;;
+DELIMITER ;
