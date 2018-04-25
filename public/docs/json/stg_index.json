@@ -6692,6 +6692,14 @@
 
           },
           {
+            "name": "shortName",
+            "in": "query",
+            "description": "short name",
+            "required": false,
+            "type": "string"
+
+          },
+          {
             "name": "shipTransOrderId",
             "in": "query",
             "description": "shipTransOrder id",
@@ -6870,6 +6878,14 @@
             "description": "entrust id",
             "required": false,
             "type": "integer"
+
+          },
+          {
+            "name": "shortName",
+            "in": "query",
+            "description": "short name",
+            "required": false,
+            "type": "string"
 
           },
           {

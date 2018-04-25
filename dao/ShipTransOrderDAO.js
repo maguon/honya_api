@@ -48,6 +48,10 @@ function getShipTransOrder(params,callback) {
         paramsArray[i++] = params.entrustId;
         query = query + " and sto.entrust_id = ? ";
     }
+    if(params.shortName){
+        paramsArray[i++] = params.shortName;
+        query = query + " and e.short_name = ? ";
+    }
     if(params.shipTransOrderId){
         paramsArray[i++] = params.shipTransOrderId;
         query = query + " and sto.id = ? ";
