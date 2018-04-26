@@ -174,3 +174,10 @@ where date_id=DATE_FORMAT(CURRENT_DATE(),'%Y%m%d');
 END
 ;;
 DELIMITER ;
+-- ----------------------------
+-- 2018-04-25 更新
+-- ----------------------------
+ALTER TABLE `order_payment_rel`
+CHANGE COLUMN `storage_order_id` `order_id`  int(10) NOT NULL DEFAULT 0 COMMENT '订单ID' AFTER `id`,
+MODIFY COLUMN `order_payment_id`  int(10) NOT NULL DEFAULT 0 COMMENT '订单支付ID' AFTER `order_id`,
+ADD COLUMN `order_type`  tinyint(1) NOT NULL COMMENT '订单类型(1-仓储,2-海运)' AFTER `order_payment_id`;

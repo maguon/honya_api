@@ -56,7 +56,7 @@ function createShipTrans(req,res,next){
             shipTransCarRelDAO.addShipTransCarRel(subParams,function(err,result){
                 if (err) {
                     if(err.message.indexOf("Duplicate") > 0) {
-                        resUtil.resetFailedRes(res, "商品车已经被关联，操作失败");
+                        resUtil.resetFailedRes(res, "商品车已经被关联，操作失败",{shipTransId:shipTransId});
                         return next();
                     } else{
                         logger.error(' createShipTransCarRel ' + err.message);

@@ -24,8 +24,8 @@ function resetUpdateRes(res,result,errMsg){
     }
 }
 
-function resetFailedRes(res,errMsg){
-    res.send(200,{success:false,msg:errMsg});
+function resetFailedRes(res,errMsg,result){
+    res.send(200,{success:false,msg:errMsg,result:result});
 }
 
 function resInternalError(error , res ,next){
