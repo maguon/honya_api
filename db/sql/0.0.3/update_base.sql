@@ -114,7 +114,7 @@ CREATE TABLE `ship_trans_info` (
   `tab` varchar(50) COLLATE utf8mb4_unicode_ci DEFAULT NULL COMMENT '封签',
   `ship_trans_count` int(11) DEFAULT '0' COMMENT '海运数',
   `part_status` tinyint(1) NOT NULL DEFAULT '1' COMMENT '是否分单(1-否,2-是)',
-  `start_ship_user_id` int(10) NOT NULL DEFAULT '0' COMMENT '操作员',
+  `ship_trans_user_id` int(10) NOT NULL DEFAULT '0' COMMENT '操作员',
   `ship_trans_status` tinyint(1) NOT NULL DEFAULT '1' COMMENT '海运状态(1-待出发,2-已出发,3-已到达)',
   `remark` varchar(200) COLLATE utf8mb4_unicode_ci DEFAULT NULL COMMENT '备注',
   `created_on` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP COMMENT '创建时间',

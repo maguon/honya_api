@@ -23,13 +23,13 @@ function getShipTransOrder(params,callback) {
     var query = " select sto.*,c.vin,c.make_name,c.model_name,c.pro_date,c.colour,c.valuation,e.short_name, " +
         " st.id as ship_trans_id,st.ship_trans_status,st.start_port_id,st.start_port_name,st.end_port_id,st.end_port_name," +
         " st.start_ship_date,st.end_ship_date,st.ship_company_id,sc.ship_company_name,st.ship_name, " +
-        " st.container,st.booking,st.tab,st.part_status,st.remark,u.real_name as start_ship_user_name,st.created_on as ship_trans_created_date " +
+        " st.container,st.booking,st.tab,st.part_status,st.remark,u.real_name as ship_trans_user_name,st.created_on as ship_trans_created_date " +
         " from ship_trans_order sto " +
         " left join car_info c on sto.car_id = c.id " +
         " left join entrust_info e on sto.entrust_id = e.id " +
         " left join ship_trans_info st on sto.ship_trans_id = st.id " +
         " left join ship_company_info sc on st.ship_company_id = sc.id " +
-        " left join user_info u on st.start_ship_user_id = u.uid " +
+        " left join user_info u on st.ship_trans_user_id = u.uid " +
         " where sto.id is not null ";
     var paramsArray=[],i=0;
     if(params.vin){

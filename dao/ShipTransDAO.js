@@ -8,7 +8,7 @@ var logger = serverLogger.createLogger('ShipTransDAO.js');
 
 function addShipTrans(params,callback){
     var query = " insert into ship_trans_info (start_port_id,start_port_name,end_port_id,end_port_name,start_ship_date,end_ship_date," +
-        " ship_company_id,ship_name,container,booking,tab,ship_trans_count,part_status,start_ship_user_id,remark) " +
+        " ship_company_id,ship_name,container,booking,tab,ship_trans_count,part_status,ship_trans_user_id,remark) " +
         " values ( ? , ? , ? , ? , ? , ? ,? , ? , ? , ? , ? , ? , ? , ? , ? )";
     var paramsArray=[],i=0;
     paramsArray[i++]=params.startPortId;
@@ -33,11 +33,11 @@ function addShipTrans(params,callback){
 }
 
 function getShipTrans(params,callback) {
-    var query = " select st.*,sc.ship_company_name,u.real_name as start_ship_user_name,sum(sto.ship_trans_fee) as ship_trans_fee " +
+    var query = " select st.*,sc.ship_company_name,u.real_name as ship_trans_user_name,sum(sto.ship_trans_fee) as ship_trans_fee " +
         " from ship_trans_info st " +
         " left join ship_trans_order sto on st.id = sto.ship_trans_id " +
         " left join ship_company_info sc on st.ship_company_id = sc.id " +
-        " left join user_info u on st.start_ship_user_id = u.uid " +
+        " left join user_info u on st.ship_trans_user_id = u.uid " +
         " where st.id is not null ";
     var paramsArray=[],i=0;
     if(params.shipTransId){

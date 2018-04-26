@@ -20,7 +20,7 @@ function addShipTransCarRel(params,callback){
 function getShipTransCarRel(params,callback) {
     var query = " select stcr.*,c.vin,c.make_name,c.model_name,c.pro_date,c.valuation, " +
         " st.start_port_id,st.start_port_name,st.end_port_id,st.end_port_name,st.start_ship_date,st.end_ship_date,sc.ship_company_name, " +
-        " st.ship_name,st.container,st.booking,st.tab,st.start_ship_user_id,u.real_name as start_ship_user_name,st.part_status,st.remark, " +
+        " st.ship_name,st.container,st.booking,st.tab,st.ship_trans_user_id,u.real_name as ship_trans_user_name,st.part_status,st.remark, " +
         " sto.id as ship_trans_order_id,sto.entrust_id,e.short_name,sto.ship_trans_fee,sto.order_status " +
         " from ship_trans_car_rel stcr " +
         " left join ship_trans_order sto on stcr.car_id = sto.car_id " +
@@ -28,7 +28,7 @@ function getShipTransCarRel(params,callback) {
         " left join entrust_info e on sto.entrust_id = e.id " +
         " left join ship_trans_info st on stcr.ship_trans_id = st.id " +
         " left join ship_company_info sc on st.ship_company_id = sc.id" +
-        " left join user_info u on st.start_ship_user_id = u.uid " +
+        " left join user_info u on st.ship_trans_user_id = u.uid " +
         " where stcr.id is not null ";
     var paramsArray=[],i=0;
     if(params.shipTransId){
