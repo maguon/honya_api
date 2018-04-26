@@ -7,14 +7,15 @@ var serverLogger = require('../util/ServerLogger.js');
 var logger = serverLogger.createLogger('StorageOrderDAO.js');
 
 function addStorageOrder(params,callback){
-    var query = " insert into storage_order (car_storage_rel_id,car_id,day_count,hour_count,plan_fee,actual_fee) values ( ? , ? , ? , ? , ? , ? )";
+    var query = " insert into storage_order (car_storage_rel_id,car_id,day_count,hour_count,plan_fee,actual_fee,storage_order_user_id) values ( ? , ? , ? , ? , ? , ? , ? )";
     var paramsArray=[],i=0;
     paramsArray[i++]=params.relId;
     paramsArray[i++]=params.carId;
     paramsArray[i++]=params.dayCount;
     paramsArray[i++]=params.hourCount;
     paramsArray[i++]=params.planFee;
-    paramsArray[i]=params.actualFee;
+    paramsArray[i++]=params.actualFee;
+    paramsArray[i]=params.userId;
     db.dbQuery(query,paramsArray,function(error,rows){
         logger.debug(' addStorageOrder ');
         return callback(error,rows);
@@ -22,13 +23,14 @@ function addStorageOrder(params,callback){
 }
 
 function getStorageOrder(params,callback) {
-    var query = " select so.*,c.vin,c.make_id,c.make_name,c.model_id,c.model_name,c.colour,c.entrust_id, " +
+    var query = " select so.*,u.real_name as storage_order_user_name,c.vin,c.make_id,c.make_name,c.model_id,c.model_name,c.colour,c.entrust_id, " +
         " e.short_name,e.entrust_name,csr.enter_time,csr.real_out_time,op.payment_status from storage_order so " +
         " left join car_storage_rel csr on so.car_storage_rel_id = csr.id " +
         " left join car_info c on so.car_id = c.id " +
         " left join entrust_info e on c.entrust_id = e.id " +
         " left join order_payment_rel opr on so.id = opr.storage_order_id " +
         " left join order_payment op on opr.order_payment_id = op.id " +
+        " left join user_info u on so.storage_order_user_id = u.uid " +
         " where so.id is not null ";
     var paramsArray=[],i=0;
     if(params.storageOrderId){
