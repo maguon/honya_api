@@ -7,6 +7,7 @@ var sysError = require('../util/SystemError.js');
 var resUtil = require('../util/ResponseUtil.js');
 var encrypt = require('../util/Encrypt.js');
 var listOfValue = require('../util/ListOfValue.js');
+var sysConst = require('../util/SysConst.js');
 var shipTransCarRelDAO = require('../dao/ShipTransCarRelDAO.js');
 var shipTransOrderDAO = require('../dao/ShipTransOrderDAO.js');
 var shipTransDAO = require('../dao/ShipTransDAO.js');
@@ -94,6 +95,23 @@ function queryShipTransCarRel(req,res,next){
 function removeShipTransCarRel(req,res,next){
     var params = req.params;
     Seq().seq(function(){
+        var that = this;
+        shipTransDAO.getShipTrans({shipTransId:params.shipTransId},function(error,rows){
+            if (error) {
+                logger.error(' getShipTrans ' + error.message);
+                resUtil.resetFailedRes(res,sysMsg.SYS_INTERNAL_ERROR_MSG);
+                return next();
+            } else {
+                if(rows && rows.length>0&&rows[0].ship_trans_status==sysConst.SHIP_TRANS_STATUS.no_start){
+                    that();
+                }else{
+                    logger.warn(' getShipTrans ' + 'failed');
+                    resUtil.resetFailedRes(res," 海运已出发，不能做删除操作 ");
+                    return next();
+                }
+            }
+        })
+    }).seq(function(){
         var that = this;
         shipTransCarRelDAO.deleteShipTransCarRel(params,function(error,result){
             if (error) {

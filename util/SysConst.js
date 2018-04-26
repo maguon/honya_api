@@ -18,11 +18,16 @@ var PAYMENT_STATUS  ={ //订单支付状态
 var FEE_MONEY  ={ //仓储计费金额
     five : 5,
 };
-
+var SHIP_TRANS_STATUS  ={ //订单支付状态
+    no_start : 1, //待出发
+    start : 2,   //已出发
+    arrive : 3
+};
 
 module.exports = {
     USER_TYPE : USER_TYPE,
     ORDER_STATUS : ORDER_STATUS,
     PAYMENT_STATUS : PAYMENT_STATUS,
-    FEE_MONEY : FEE_MONEY
+    FEE_MONEY : FEE_MONEY,
+    SHIP_TRANS_STATUS : SHIP_TRANS_STATUS
 }
