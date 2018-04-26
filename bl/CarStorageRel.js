@@ -370,6 +370,7 @@ function updateRelStatus(req,res,next){
             hourCount : parkObj.hourCount,
             planFee : parkObj.planFee,
             actualFee : parkObj.actualFee,
+            userId : params.userId
         }
         storageOrderDAO.addStorageOrder(subParams,function(error,result){
             if (error) {
