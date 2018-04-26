@@ -7455,6 +7455,58 @@
         }
       }
     },
+    "/shipTransOrderPaymentRel": {
+      "get": {
+        "tags": [
+          "ship"
+        ],
+        "summary": "query  shipTransOrderPaymentRel list",
+        "description": "query shipTransOrderPaymentRel",
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "orderPaymentId",
+            "in": "query",
+            "description": "orderPayment id",
+            "required": false,
+            "type": "integer"
+
+          },
+          {
+            "name": "start",
+            "in": "query",
+            "description": " list start pos",
+            "required": false,
+            "type": "integer"
+
+          },
+          {
+            "name": "size",
+            "in": "query",
+            "description": "list size for pagination",
+            "required": false,
+            "type": "integer"
+
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "successful operation",
+            "schema": {
+              "type": "object",
+              "items": {
+                "$ref": "#/definitions/shipTransOrderPaymentRel"
+              }
+            }
+          },
+          "400": {
+            "description": "Invalid token value or invalid shipTransOrderPaymentRel id"
+          }
+        }
+      }
+    },
     "/user/{userId}/shipTransOrderPaymentRel": {
       "post": {
         "tags": [

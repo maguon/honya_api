@@ -359,6 +359,7 @@ function createServer() {
     /**
      * ShipTransOrderPaymentRel Module
      */
+    server.get('/api/shipTransOrderPaymentRel',shipTransOrderPaymentRel.queryShipTransOrderPaymentRel);
     server.post({path:'/api/user/:userId/shipTransOrderPaymentRel',contentType: 'application/json'},shipTransOrderPaymentRel.createShipTransOrderPaymentRel);
     server.del('/api/user/:userId/shipTransOrder/:shipTransOrderId/orderPayment/:orderPaymentId' , shipTransOrderPaymentRel.removeShipTransOrderPaymentRel);
 

@@ -63,6 +63,20 @@ function createShipTransOrderPaymentRel(req,res,next){
     })
 }
 
+function queryShipTransOrderPaymentRel(req,res,next){
+    var params = req.params ;
+    shipTransOrderPaymentRelDAO.getShipTransOrderPaymentRel(params,function(error,result){
+        if (error) {
+            logger.error(' queryShipTransOrderPaymentRel ' + error.message);
+            throw sysError.InternalError(error.message,sysMsg.SYS_INTERNAL_ERROR_MSG);
+        } else {
+            logger.info(' queryShipTransOrderPaymentRel ' + 'success');
+            resUtil.resetQueryRes(res,result,null);
+            return next();
+        }
+    })
+}
+
 function removeShipTransOrderPaymentRel(req,res,next){
     var params = req.params;
     Seq().seq(function(){
@@ -100,5 +114,6 @@ function removeShipTransOrderPaymentRel(req,res,next){
 
 module.exports = {
     createShipTransOrderPaymentRel : createShipTransOrderPaymentRel,
+    queryShipTransOrderPaymentRel : queryShipTransOrderPaymentRel,
     removeShipTransOrderPaymentRel : removeShipTransOrderPaymentRel
 }
