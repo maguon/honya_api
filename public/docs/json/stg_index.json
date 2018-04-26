@@ -7500,6 +7500,52 @@
         }
       }
     },
+    "/user/{userId}/shipTransOrder/{shipTransOrderId}/orderPayment/{orderPaymentId}": {
+      "delete": {
+        "tags": [
+          "ship"
+        ],
+        "summary": "Deletes a shipTransOrderPaymentRel",
+        "description": "",
+        "operationId": "deleteShipTransOrderPaymentRel",
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "userId",
+            "in": "path",
+            "description": "user id",
+            "required": true,
+            "type": "integer"
+          },
+          {
+            "name": "shipTransOrderId",
+            "in": "path",
+            "description": "shipTransOrder id",
+            "required": true,
+            "type": "integer"
+
+          },
+          {
+            "name": "orderPaymentId",
+            "in": "path",
+            "description": "orderPayment id",
+            "required": true,
+            "type": "integer"
+
+          }
+        ],
+        "responses": {
+          "400": {
+            "description": "Invalid ID supplied"
+          },
+          "404": {
+            "description": "contacts not found"
+          }
+        }
+      }
+    },
     "/app": {
       "get": {
         "tags": [

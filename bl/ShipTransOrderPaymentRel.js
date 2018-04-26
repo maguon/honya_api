@@ -63,7 +63,42 @@ function createShipTransOrderPaymentRel(req,res,next){
     })
 }
 
+function removeShipTransOrderPaymentRel(req,res,next){
+    var params = req.params;
+    Seq().seq(function(){
+        var that = this;
+        shipTransOrderPaymentRelDAO.deleteShipTransOrderPaymentRel(params,function(error,result){
+            if (error) {
+                logger.error(' removeShipTransOrderPaymentRel ' + error.message);
+                throw sysError.InternalError(error.message,sysMsg.SYS_INTERNAL_ERROR_MSG);
+            } else {
+                if(result&&result.affectedRows>0){
+                    logger.info(' removeShipTransOrderPaymentRel ' + 'success');
+                    that();
+                }else{
+                    logger.warn(' removeShipTransOrderPaymentRel ' + 'failed');
+                    resUtil.resetFailedRes(res," 删除失败，请核对相关ID ");
+                    return next();
+                }
+            }
+        })
+    }).seq(function () {
+        params.orderStatus = sysConst.ORDER_STATUS.not_payment;
+        shipTransOrderDAO.updateShipTransOrderStatus(params,function(error,result){
+            if (error) {
+                logger.error(' updateShipTransOrderStatus ' + error.message);
+                throw sysError.InternalError(error.message,sysMsg.SYS_INTERNAL_ERROR_MSG);
+            } else {
+                logger.info(' updateShipTransOrderStatus ' + 'success');
+                resUtil.resetUpdateRes(res,result,null);
+                return next();
+            }
+        })
+    })
+}
+
 
 module.exports = {
-    createShipTransOrderPaymentRel : createShipTransOrderPaymentRel
+    createShipTransOrderPaymentRel : createShipTransOrderPaymentRel,
+    removeShipTransOrderPaymentRel : removeShipTransOrderPaymentRel
 }

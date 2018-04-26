@@ -17,7 +17,19 @@ function addShipTransOrderPaymentRel(params,callback){
     });
 }
 
+function deleteShipTransOrderPaymentRel(params,callback){
+    var query = " delete from ship_trans_order_payment_rel where ship_trans_order_id = ? and order_payment_id = ? ";
+    var paramsArray=[],i=0;
+    paramsArray[i++]=params.shipTransOrderId;
+    paramsArray[i]=params.orderPaymentId;
+    db.dbQuery(query,paramsArray,function(error,rows){
+        logger.debug(' deleteShipTransOrderPaymentRel ');
+        return callback(error,rows);
+    });
+}
+
 
 module.exports ={
-    addShipTransOrderPaymentRel : addShipTransOrderPaymentRel
+    addShipTransOrderPaymentRel : addShipTransOrderPaymentRel,
+    deleteShipTransOrderPaymentRel : deleteShipTransOrderPaymentRel
 }
