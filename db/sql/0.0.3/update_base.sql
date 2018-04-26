@@ -64,7 +64,7 @@ CREATE TABLE `order_payment` (
   `payment_user_id` int(10) NOT NULL DEFAULT '0' COMMENT '操作人',
   `payment_end_date` datetime DEFAULT NULL COMMENT '支付完结时间',
   `remark` varchar(200) COLLATE utf8mb4_unicode_ci DEFAULT NULL COMMENT '备注',
-  `payment_status` tinyint(1) NOT NULL DEFAULT '1' COMMENT '支付状态(1-已支付,2-已完结)',
+  `payment_status` tinyint(1) NOT NULL DEFAULT '1' COMMENT '支付状态(1-未完结,2-已完结)',
   `created_on` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP COMMENT '创建时间',
   `updated_on` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP COMMENT '更新时间',
   PRIMARY KEY (`id`)

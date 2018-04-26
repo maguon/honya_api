@@ -6716,6 +6716,14 @@
 
           },
           {
+            "name": "shipTransId",
+            "in": "query",
+            "description": "shipTrans id",
+            "required": false,
+            "type": "integer"
+
+          },
+          {
             "name": "shipCompanyId",
             "in": "query",
             "description": "shipCompany id",
@@ -6793,6 +6801,14 @@
             "description": "booking",
             "required": false,
             "type": "string"
+
+          },
+          {
+            "name": "shipTransStatus",
+            "in": "query",
+            "description": "shipTrans status",
+            "required": false,
+            "type": "integer"
 
           },
           {

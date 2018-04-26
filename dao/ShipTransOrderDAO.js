@@ -20,7 +20,7 @@ function addShipTransOrder(params,callback){
 }
 
 function getShipTransOrder(params,callback) {
-    var query = " select sto.*,c.vin,c.make_name,c.model_name,c.pro_date,c.valuation,e.short_name, " +
+    var query = " select sto.*,c.vin,c.make_name,c.model_name,c.pro_date,c.colour,c.valuation,e.short_name, " +
         " st.id as ship_trans_id,st.ship_trans_status,st.start_port_id,st.start_port_name,st.end_port_id,st.end_port_name," +
         " st.start_ship_date,st.end_ship_date,st.ship_company_id,sc.ship_company_name,st.ship_name, " +
         " st.container,st.booking,st.tab,st.part_status,st.remark,u.real_name as start_ship_user_name,st.created_on as ship_trans_created_date " +
@@ -59,6 +59,10 @@ function getShipTransOrder(params,callback) {
     if(params.orderStatus){
         paramsArray[i++] = params.orderStatus;
         query = query + " and sto.order_status = ? ";
+    }
+    if(params.shipTransId){
+        paramsArray[i++] = params.shipTransId;
+        query = query + " and st.id = ? ";
     }
     if(params.shipCompanyId){
         paramsArray[i++] = params.shipCompanyId;
@@ -99,6 +103,10 @@ function getShipTransOrder(params,callback) {
     if(params.booking){
         paramsArray[i++] = params.booking;
         query = query + " and st.booking = ? ";
+    }
+    if(params.shipTransStatus){
+        paramsArray[i++] = params.shipTransStatus;
+        query = query + " and st.ship_trans_status = ? ";
     }
     query = query + ' group by sto.id ';
     if (params.start && params.size) {
