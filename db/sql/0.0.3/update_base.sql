@@ -179,3 +179,16 @@ DELIMITER ;
 -- ----------------------------
 ALTER TABLE `storage_order`
 MODIFY COLUMN `storage_order_user_id`  int(10) NOT NULL DEFAULT 0 COMMENT '订单操作员' AFTER `order_status`;
+-- ----------------------------
+-- Table structure for ship_trans_order_payment_rel
+-- ----------------------------
+DROP TABLE IF EXISTS `ship_trans_order_payment_rel`;
+CREATE TABLE `ship_trans_order_payment_rel` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `ship_trans_order_id` int(10) NOT NULL DEFAULT '0' COMMENT '海运订单ID',
+  `order_payment_id` int(10) NOT NULL DEFAULT '0' COMMENT '订单支付ID',
+  `created_on` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP COMMENT '创建时间',
+  `updated_on` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP COMMENT '更新时间',
+  UNIQUE KEY `id` (`id`) USING BTREE,
+  UNIQUE KEY `ship_trans_order_id` (`ship_trans_order_id`) USING BTREE
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
