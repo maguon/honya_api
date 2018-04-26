@@ -117,10 +117,12 @@ CREATE TABLE `ship_trans_info` (
   `ship_trans_user_id` int(10) NOT NULL DEFAULT '0' COMMENT '操作员',
   `ship_trans_status` tinyint(1) NOT NULL DEFAULT '1' COMMENT '海运状态(1-待出发,2-已出发,3-已到达)',
   `remark` varchar(200) COLLATE utf8mb4_unicode_ci DEFAULT NULL COMMENT '备注',
+  `start_date_id` int(4) DEFAULT NULL COMMENT '出发统计时间',
+  `end_date_id` int(4) DEFAULT NULL COMMENT '到达统计时间',
   `created_on` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP COMMENT '创建时间',
   `updated_on` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP COMMENT '更新时间',
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=30 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 -- ----------------------------
 -- Table structure for ship_trans_order
 -- ----------------------------

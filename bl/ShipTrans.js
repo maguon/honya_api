@@ -13,6 +13,7 @@ var shipTransCarRelDAO = require('../dao/ShipTransCarRelDAO.js');
 var oAuthUtil = require('../util/OAuthUtil.js');
 var Seq = require('seq');
 var serverLogger = require('../util/ServerLogger.js');
+var moment = require('moment/moment.js');
 var logger = serverLogger.createLogger('ShipTrans.js');
 
 function createShipTrans(req,res,next){
@@ -150,16 +151,34 @@ function updateShipTrans(req,res,next){
 
 function updateShipTransStatus(req,res,next){
     var params = req.params ;
-    shipTransDAO.updateShipTransStatus(params,function(error,result){
-        if (error) {
-            logger.error(' updateShipTransStatus ' + error.message);
-            throw sysError.InternalError(error.message,sysMsg.SYS_INTERNAL_ERROR_MSG);
-        } else {
-            logger.info(' updateShipTransStatus ' + 'success');
-            resUtil.resetUpdateRes(res,result,null);
-            return next();
-        }
-    })
+    var myDate = new Date();
+    var strDate = moment(myDate).format('YYYYMMDD');
+    if(params.shipTransStatus==2){
+        params.startDateId = parseInt(strDate);
+        shipTransDAO.updateShipTransStatusStart(params,function(error,result){
+            if (error) {
+                logger.error(' updateShipTransStatus ' + error.message);
+                throw sysError.InternalError(error.message,sysMsg.SYS_INTERNAL_ERROR_MSG);
+            } else {
+                logger.info(' updateShipTransStatus ' + 'success');
+                resUtil.resetUpdateRes(res,result,null);
+                return next();
+            }
+        })
+    }else{
+        params.endDateId = parseInt(strDate);
+        shipTransDAO.updateShipTransStatusEnd(params,function(error,result){
+            if (error) {
+                logger.error(' updateShipTransStatus ' + error.message);
+                throw sysError.InternalError(error.message,sysMsg.SYS_INTERNAL_ERROR_MSG);
+            } else {
+                logger.info(' updateShipTransStatus ' + 'success');
+                resUtil.resetUpdateRes(res,result,null);
+                return next();
+            }
+        })
+    }
+
 }
 
 function getShipTransCsv(req,res,next){
