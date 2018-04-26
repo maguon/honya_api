@@ -7455,6 +7455,51 @@
         }
       }
     },
+    "/user/{userId}/shipTransOrderPaymentRel": {
+      "post": {
+        "tags": [
+          "ship"
+        ],
+        "summary": "user create shipTransOrderPaymentRel",
+        "description": "user create shipTransOrderPaymentRel",
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "userId",
+            "in": "path",
+            "description": "user id",
+            "required": true,
+            "type": "integer"
+
+          },
+          {
+            "name": "shipTransOrderPaymentRel",
+            "in": "body",
+            "description": "shipTransOrderPaymentRel info",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/shipTransOrderPaymentRel"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "successful operation",
+            "schema": {
+              "type": "object",
+              "items": {
+                "$ref": "#/definitions/ApiResponse"
+              }
+            }
+          },
+          "400": {
+            "description": "Invalid token value or invalid shipTransOrderPaymentRel id"
+          }
+        }
+      }
+    },
     "/app": {
       "get": {
         "tags": [
@@ -8440,6 +8485,21 @@
       },
       "xml": {
         "name": "shipTransCarRel"
+      }
+    },
+    "shipTransOrderPaymentRel": {
+      "type": "object",
+      "properties": {
+
+        "shipTransOrderId": {
+          "type": "integer"
+        },
+        "orderPaymentId": {
+          "type": "integer"
+        }
+      },
+      "xml": {
+        "name": "shipTransOrderPaymentRel"
       }
     }
   },
