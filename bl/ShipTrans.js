@@ -10,6 +10,7 @@ var listOfValue = require('../util/ListOfValue.js');
 var shipTransDAO = require('../dao/ShipTransDAO.js');
 var shipTransOrderDAO = require('../dao/ShipTransOrderDAO.js');
 var shipTransCarRelDAO = require('../dao/ShipTransCarRelDAO.js');
+var sysRecordDAO = require('../dao/SysRecordDAO.js');
 var oAuthUtil = require('../util/OAuthUtil.js');
 var Seq = require('seq');
 var serverLogger = require('../util/ServerLogger.js');
@@ -114,6 +115,44 @@ function createShipTrans(req,res,next){
         }).seq(function(){
             that();
         })
+    }).seq(function() {
+        var that = this;
+        if(res._body.success){
+        var carIds = params.carIds;
+        var vins = params.vins;
+        var rowArray = [];
+        rowArray.length = carIds.length;
+        rowArray.length = vins.length;
+        Seq(rowArray).seqEach(function (rowObj, i) {
+            var that = this;
+            var subParams = {
+                userId: params.userId,
+                userType: req.headers['user-type'] || 9,
+                username: req.headers['user-name'] || 'admin',
+                content: "海运编号 " + shipTransId,
+                op: 31,
+                carId: carIds[i],
+                vin: vins[i],
+                row: i + 1,
+            }
+            sysRecordDAO.addRecord(req, subParams, function (err, result) {
+                if (err) {
+                    logger.error('saveCarRecord ' + err.stack);
+                } else {
+                    if (result && result.insertId > 0) {
+                        logger.info(' saveCarRecord ' + 'success');
+                    } else {
+                        logger.warn(' saveCarRecord ' + 'failed');
+                    }
+                    that(null, i);
+                }
+            })
+        }).seq(function () {
+            that();
+        })
+    }else{
+            that();
+        }
     }).seq(function(){
         logger.info(' createShipTrans ' + 'success');
         resUtil.resetCreateRes(res,{insertId:shipTransId},null);

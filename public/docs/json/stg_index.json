@@ -8522,6 +8522,9 @@
         "carIds": {
           "type": "integer"
         },
+        "vins": {
+          "type": "integer"
+        },
         "entrustIds": {
           "type": "integer"
         },
