@@ -173,6 +173,19 @@ function updateShipTransStatusEnd(params,callback){
     });
 }
 
+function getShipTransStatDate(params,callback) {
+    var query = " select * from ship_trans_stat_date where date_id is not null ";
+    var paramsArray=[],i=0;
+    if(params.yearMonth){
+        paramsArray[i] = params.yearMonth;
+        query = query + " and date_format(date_id,'%Y%m') = ? ";
+    }
+    db.dbQuery(query,paramsArray,function(error,rows){
+        logger.debug(' getShipTransStatDate ');
+        return callback(error,rows);
+    });
+}
+
 
 module.exports ={
     getShipTrans : getShipTrans,
@@ -181,5 +194,6 @@ module.exports ={
     updateShipTransCountPlus : updateShipTransCountPlus,
     updateShipTransCountReduce : updateShipTransCountReduce,
     updateShipTransStatusStart : updateShipTransStatusStart,
-    updateShipTransStatusEnd : updateShipTransStatusEnd
+    updateShipTransStatusEnd : updateShipTransStatusEnd,
+    getShipTransStatDate : getShipTransStatDate
 }

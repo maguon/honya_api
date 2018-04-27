@@ -6488,6 +6488,42 @@
         }
       }
     },
+    "/shipTransStatDate": {
+      "get": {
+        "tags": [
+          "ship"
+        ],
+        "summary": "query  shipTransStatDate list",
+        "description": "query shipTransStatDate",
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "yearMonth",
+            "in": "query",
+            "description": "yearMonth",
+            "required": false,
+            "type": "integer"
+
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "successful operation",
+            "schema": {
+              "type": "object",
+              "items": {
+                "$ref": "#/definitions/shipTransStatDate"
+              }
+            }
+          },
+          "400": {
+            "description": "Invalid token value or invalid shipTransStatDate id"
+          }
+        }
+      }
+    },
     "/user/{userId}/shipTrans": {
       "post": {
         "tags": [

@@ -240,11 +240,26 @@ function getShipTransCsv(req,res,next){
     })
 }
 
+function queryShipTransStatDate(req,res,next){
+    var params = req.params ;
+    shipTransDAO.getShipTransStatDate(params,function(error,result){
+        if (error) {
+            logger.error(' queryShipTransStatDate ' + error.message);
+            throw sysError.InternalError(error.message,sysMsg.SYS_INTERNAL_ERROR_MSG);
+        } else {
+            logger.info(' queryShipTransStatDate ' + 'success');
+            resUtil.resetQueryRes(res,result,null);
+            return next();
+        }
+    })
+}
+
 
 module.exports = {
     createShipTrans : createShipTrans,
     queryShipTrans : queryShipTrans,
     updateShipTrans : updateShipTrans,
     updateShipTransStatus : updateShipTransStatus,
-    getShipTransCsv : getShipTransCsv
+    getShipTransCsv : getShipTransCsv,
+    queryShipTransStatDate : queryShipTransStatDate
 }
