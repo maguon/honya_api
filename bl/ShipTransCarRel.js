@@ -94,6 +94,7 @@ function queryShipTransCarRel(req,res,next){
 
 function removeShipTransCarRel(req,res,next){
     var params = req.params;
+    var parkObj = {};
     Seq().seq(function(){
         var that = this;
         shipTransDAO.getShipTrans({shipTransId:params.shipTransId},function(error,rows){
@@ -107,6 +108,23 @@ function removeShipTransCarRel(req,res,next){
                 }else{
                     logger.warn(' getShipTrans ' + 'failed');
                     resUtil.resetFailedRes(res," 海运已出发，不能做删除操作 ");
+                    return next();
+                }
+            }
+        })
+    }).seq(function(){
+        var that = this;
+        shipTransCarRelDAO.getShipTransCarRel({carId:params.carId},function(error,rows){
+            if (error) {
+                logger.error(' getShipTransCarRel ' + error.message);
+                throw sysError.InternalError(error.message,sysMsg.SYS_INTERNAL_ERROR_MSG);
+            } else{
+                if(rows&&rows.length>0){
+                    parkObj.vin = rows[0].vin;
+                    that();
+                }else{
+                    logger.warn(' getShipTransCarRel ' + 'failed');
+                    resUtil.resetFailedRes(res,"shipTransCarRel is not empty");
                     return next();
                 }
             }
@@ -150,6 +168,10 @@ function removeShipTransCarRel(req,res,next){
                 throw sysError.InternalError(error.message,sysMsg.SYS_INTERNAL_ERROR_MSG);
             } else {
                 logger.info(' updateShipTransCountReduce ' + 'success');
+                req.params.carContent =" 取消海运  编号为"+params.shipTransId;
+                req.params.carId = params.carId;
+                req.params.vin =parkObj.vin;
+                req.params.op =32;
                 resUtil.resetUpdateRes(res,result,null);
                 return next();
             }
