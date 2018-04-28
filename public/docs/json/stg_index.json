@@ -3886,6 +3886,210 @@
         }
       }
     },
+    "/carStorageShipTrans.csv": {
+      "get": {
+        "tags": [
+          "car"
+        ],
+        "summary": "query  carStorageShipTrans csv",
+        "description": "query carStorageShipTrans.csv",
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+
+          {
+            "name": "carId",
+            "in": "query",
+            "description": "car id",
+            "required": false,
+            "type": "integer"
+          },
+          {
+            "name": "vin",
+            "in": "query",
+            "description": "car vin",
+            "required": false,
+            "type": "string"
+          },
+          {
+            "name": "vinCode",
+            "in": "query",
+            "description": "vin code",
+            "required": false,
+            "type": "string"
+          },
+          {
+            "name": "makeId",
+            "in": "query",
+            "description": "make id",
+            "required": false,
+            "type": "integer"
+          },
+          {
+            "name": "modelId",
+            "in": "query",
+            "description": "model id",
+            "required": false,
+            "type": "integer"
+          },
+          {
+            "name": "entrustId",
+            "in": "query",
+            "description": "entrust id",
+            "required": false,
+            "type": "integer"
+          },
+          {
+            "name": "msoStatus",
+            "in": "query",
+            "description": "mso status",
+            "required": false,
+            "type": "integer"
+          },
+          {
+            "name": "enterStart",
+            "in": "query",
+            "description": "enter start",
+            "required": false,
+            "type": "string"
+          },
+          {
+            "name": "enterEnd",
+            "in": "query",
+            "description": "enter end",
+            "required": false,
+            "type": "string"
+          },
+          {
+            "name": "planStart",
+            "in": "query",
+            "description": "plan start",
+            "required": false,
+            "type": "string"
+          },
+          {
+            "name": "planEnd",
+            "in": "query",
+            "description": "plan end",
+            "required": false,
+            "type": "string"
+          },
+          {
+            "name": "realStart",
+            "in": "query",
+            "description": "real start",
+            "required": false,
+            "type": "string"
+          },
+          {
+            "name": "realEnd",
+            "in": "query",
+            "description": "real end",
+            "required": false,
+            "type": "string"
+          },
+          {
+            "name": "relStatus",
+            "in": "query",
+            "description": "rel status",
+            "required": false,
+            "type": "integer"
+          },
+          {
+            "name": "active",
+            "in": "query",
+            "description": "rel active",
+            "required": false,
+            "type": "integer"
+          },
+          {
+            "name": "storageId",
+            "in": "query",
+            "description": "storage id",
+            "required": false,
+            "type": "integer"
+          },
+          {
+            "name": "shipTransStatus",
+            "in": "query",
+            "description": "shipTrans status",
+            "required": false,
+            "type": "integer"
+          },
+          {
+            "name": "shipCompanyId",
+            "in": "query",
+            "description": "shipCompany id",
+            "required": false,
+            "type": "integer"
+          },
+          {
+            "name": "container",
+            "in": "query",
+            "description": "container",
+            "required": false,
+            "type": "string"
+          },
+          {
+            "name": "startShipDateStart",
+            "in": "query",
+            "description": "startShipDate start",
+            "required": false,
+            "type": "string"
+          },
+          {
+            "name": "startShipDateEnd",
+            "in": "query",
+            "description": "startShipDate end",
+            "required": false,
+            "type": "string"
+          },
+          {
+            "name": "endShipDateStart",
+            "in": "query",
+            "description": "endShipDate start",
+            "required": false,
+            "type": "string"
+          },
+          {
+            "name": "endShipDateEnd",
+            "in": "query",
+            "description": "endShipDate end",
+            "required": false,
+            "type": "string"
+          },
+          {
+            "name": "start",
+            "in": "query",
+            "description": " list start pos",
+            "required": false,
+            "type": "integer"
+          },
+          {
+            "name": "size",
+            "in": "query",
+            "description": "list size for pagination",
+            "required": false,
+            "type": "integer"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "successful operation",
+            "schema": {
+              "type": "object",
+              "items": {
+                "$ref": "#/definitions/car"
+              }
+            }
+          },
+          "400": {
+            "description": "Invalid token value or invalid car id"
+          }
+        }
+      }
+    },
     "/user/{userId}/car/{carId}": {
       "put": {
         "tags": [

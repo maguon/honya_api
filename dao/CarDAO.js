@@ -36,7 +36,7 @@ function getCar(params,callback) {
         " ckp.id as car_key_position_id,ckc.key_cabinet_name,ckca.area_name as car_key_cabinet_area, " +
         " ckp.row as car_key_position_row,ckp.col as car_key_position_col, " +
         " st.id as ship_trans_id,st.start_port_name,st.end_port_name,st.start_ship_date,st.end_ship_date, " +
-        " sc.ship_company_name,st.ship_name,st.container,st.booking,st.tab,st.ship_trans_status,st.remark " +
+        " sc.ship_company_name,st.ship_name,st.container,st.booking,st.tab,st.ship_trans_status,st.remark as ship_trans_remark " +
         " from car_info c left join storage_parking p on c.id = p.car_id " +
         " left join car_storage_rel r on c.id = r.car_id " +
         " left join entrust_info e on c.entrust_id = e.id " +
