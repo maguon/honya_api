@@ -8613,6 +8613,9 @@
         "carId": {
           "type": "integer"
         },
+        "vin": {
+          "type": "string"
+        },
         "entrustId": {
           "type": "integer"
         },

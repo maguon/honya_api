@@ -73,6 +73,10 @@ function createShipTransCarRel(req,res,next){
         })
     }).seq(function(){
         logger.info(' createShipTransOrder ' + 'success');
+        req.params.carContent =" 关联海运编号 "+params.shipTransId;
+        req.params.carId = params.carId;
+        req.params.vin =params.vin;
+        req.params.op =31;
         resUtil.resetCreateRes(res,{insertId:shipTransOrderId},null);
         return next();
     })

@@ -128,7 +128,7 @@ function createShipTrans(req,res,next){
                 userId : params.userId,
                 userType : req.headers['user-type'] || 9,
                 username : req.headers['user-name'] || 'admin',
-                content : "海运编号 "+shipTransId,
+                content : "关联海运编号 "+shipTransId,
                 op : 31,
                 carId : carIds[i],
                 vin : vins[i],
