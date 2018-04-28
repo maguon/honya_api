@@ -3530,6 +3530,62 @@
 
           },
           {
+            "name": "shipTransStatus",
+            "in": "query",
+            "description": "shipTrans status",
+            "required": false,
+            "type": "integer"
+
+          },
+          {
+            "name": "shipCompanyId",
+            "in": "query",
+            "description": "shipCompany id",
+            "required": false,
+            "type": "integer"
+
+          },
+          {
+            "name": "container",
+            "in": "query",
+            "description": "container",
+            "required": false,
+            "type": "string"
+
+          },
+          {
+            "name": "startShipDateStart",
+            "in": "query",
+            "description": "startShipDate start",
+            "required": false,
+            "type": "string"
+
+          },
+          {
+            "name": "startShipDateEnd",
+            "in": "query",
+            "description": "startShipDate end",
+            "required": false,
+            "type": "string"
+
+          },
+          {
+            "name": "endShipDateStart",
+            "in": "query",
+            "description": "endShipDate start",
+            "required": false,
+            "type": "string"
+
+          },
+          {
+            "name": "endShipDateEnd",
+            "in": "query",
+            "description": "endShipDate end",
+            "required": false,
+            "type": "string"
+
+          },
+          {
             "name": "start",
             "in": "query",
             "description": " list start pos",

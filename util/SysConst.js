@@ -5,7 +5,11 @@
 var USER_TYPE  ={
     admin : 99,  //系统管理员
     storage_op : 21, //仓储部操作员
-    storage_admin : 29//仓储部管理员
+    storage_admin : 29,//仓储部管理员
+    trade_op : 41,          //国贸部操作员41
+    trade_admin : 49    //国贸部管理员49
+    //调度部操作员31
+    //调度部管理员39
 };
 var ORDER_STATUS  ={ //订单状态
     not_payment : 1,  //未支付
