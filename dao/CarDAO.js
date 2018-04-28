@@ -31,15 +31,18 @@ function addCar(params,callback){
 
 function getCar(params,callback) {
     var query = " select c.*,e.short_name,e.entrust_name,e.entrust_type," +
-        " p.id as p_id,p.storage_id,p.area_id,p.row,p.col,p.lot,p.parking_status, " +
+        " p.id as p_id,p.storage_id,p.area_id,sa.area_name,p.row,p.col,p.lot,p.parking_status, " +
         " r.id as r_id,r.storage_name,r.enter_time,r.plan_out_time,r.real_out_time,r.rel_status, " +
-        " ckp.id as car_key_position_id,sa.area_name, " +
+        " ckp.id as car_key_position_id,ckc.key_cabinet_name,ckca.area_name as car_key_cabinet_area, " +
+        " ckp.row as car_key_position_row,ckp.col as car_key_position_col, " +
         " st.id as ship_trans_id,st.start_port_name,st.end_port_name,st.start_ship_date,st.end_ship_date, " +
         " sc.ship_company_name,st.ship_name,st.container,st.booking,st.tab,st.ship_trans_status,st.remark " +
         " from car_info c left join storage_parking p on c.id = p.car_id " +
         " left join car_storage_rel r on c.id = r.car_id " +
         " left join entrust_info e on c.entrust_id = e.id " +
         " left join car_key_position ckp on c.id = ckp.car_id " +
+        " left join car_key_cabinet_info ckc on ckp.car_key_cabinet_id = ckc.id " +
+        " left join car_key_cabinet_area ckca on ckp.car_key_cabinet_area_id = ckca.id " +
         " left join storage_area sa on p.area_id = sa.id " +
         " left join ship_trans_car_rel stcr on c.id = stcr.car_id " +
         " left join ship_trans_info st on stcr.ship_trans_id = st.id " +

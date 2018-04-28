@@ -177,8 +177,24 @@ function getShipTransStatDate(params,callback) {
     var query = " select * from ship_trans_stat_date where date_id is not null ";
     var paramsArray=[],i=0;
     if(params.yearMonth){
-        paramsArray[i] = params.yearMonth;
+        paramsArray[i++] = params.yearMonth;
         query = query + " and date_format(date_id,'%Y%m') = ? ";
+    }
+    if(params.yearMonthStart){
+        paramsArray[i++] = params.yearMonthStart;
+        query = query + " and date_format(date_id,'%Y%m') >= ? ";
+    }
+    if(params.yearMonthEnd){
+        paramsArray[i] = params.yearMonthEnd;
+        query = query + " and date_format(date_id,'%Y%m') <= ? ";
+    }
+    if(params.dateStart){
+        paramsArray[i++] = params.dateStart;
+        query = query + " and date_id >= ? ";
+    }
+    if(params.dateEnd){
+        paramsArray[i++] = params.dateEnd;
+        query = query + " and date_id <= ? ";
     }
     db.dbQuery(query,paramsArray,function(error,rows){
         logger.debug(' getShipTransStatDate ');
