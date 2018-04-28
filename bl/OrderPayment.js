@@ -120,6 +120,8 @@ function updateOrderPayment(req,res,next){
 function updateOrderPaymentStatus(req,res,next){
     var params = req.params ;
     var myDate = new Date();
+    var strDate = moment(myDate).format('YYYYMMDD');
+    params.dateId = parseInt(strDate);
     params.paymentEndDate = myDate;
     orderPaymentDAO.updateOrderPaymentStatus(params,function(error,result){
         if (error) {

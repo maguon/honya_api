@@ -93,8 +93,9 @@ function updateOrderPayment(params,callback){
 }
 
 function updateOrderPaymentStatus(params,callback){
-    var query = " update order_payment set payment_end_date = ? , payment_status = ? where id = ? " ;
+    var query = " update order_payment set date_id = ? , payment_end_date = ? , payment_status = ? where id = ? " ;
     var paramsArray=[],i=0;
+    paramsArray[i++]=params.dateId;
     paramsArray[i++]=params.paymentEndDate;
     paramsArray[i++]=params.paymentStatus;
     paramsArray[i]=params.orderPaymentId;

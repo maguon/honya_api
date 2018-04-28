@@ -194,3 +194,8 @@ CREATE TABLE `ship_trans_order_payment_rel` (
   UNIQUE KEY `id` (`id`) USING BTREE,
   UNIQUE KEY `ship_trans_order_id` (`ship_trans_order_id`) USING BTREE
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+-- ----------------------------
+-- 2018-04-28 更新
+-- ----------------------------
+ALTER TABLE `order_payment`
+ADD COLUMN `date_id`  int(4) NULL DEFAULT NULL COMMENT '支付完结统计时间' AFTER `payment_user_id`;
