@@ -6745,6 +6745,22 @@
 
           },
           {
+            "name": "vin",
+            "in": "query",
+            "description": "vin",
+            "required": false,
+            "type": "string"
+
+          },
+          {
+            "name": "entrustId",
+            "in": "query",
+            "description": "entrust id",
+            "required": false,
+            "type": "integer"
+
+          },
+          {
             "name": "startPortId",
             "in": "query",
             "description": "startPort id",
