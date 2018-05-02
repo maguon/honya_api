@@ -6561,6 +6561,59 @@
         }
       }
     },
+    "/user/{userId}/shipCompany/{shipCompanyId}/shipCompanyStatus/{shipCompanyStatus}": {
+      "put": {
+        "tags": [
+          "ship"
+        ],
+        "summary": "shipCompany update status",
+        "description": "shipCompany update status",
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+
+          {
+            "name": "userId",
+            "in": "path",
+            "description": "user id",
+            "required": true,
+            "type": "integer"
+
+          },
+          {
+            "name": "shipCompanyId",
+            "in": "path",
+            "description": "shipCompany id",
+            "required": true,
+            "type": "integer"
+
+          },
+          {
+            "name": "shipCompanyStatus",
+            "in": "path",
+            "description": "shipCompany status",
+            "required": true,
+            "type": "integer"
+
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "successful operation",
+            "schema": {
+              "type": "object",
+              "items": {
+                "$ref": "#/definitions/ApiResponse"
+              }
+            }
+          },
+          "400": {
+            "description": "Invalid token value or invalid shipCompany id"
+          }
+        }
+      }
+    },
     "/shipTrans": {
       "get": {
         "tags": [

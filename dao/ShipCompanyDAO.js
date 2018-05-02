@@ -49,9 +49,21 @@ function updateShipCompany(params,callback){
     });
 }
 
+function updateShipCompanyStatus(params,callback){
+    var query = " update ship_company_info set ship_company_status = ? where id = ?";
+    var paramsArray=[],i=0;
+    paramsArray[i++] = params.shipCompanyStatus;
+    paramsArray[i] = params.shipCompanyId;
+    db.dbQuery(query,paramsArray,function(error,rows){
+        logger.debug(' updateShipCompanyStatus ');
+        return callback(error,rows);
+    });
+}
+
 
 module.exports ={
     addShipCompany : addShipCompany,
     getShipCompany : getShipCompany,
-    updateShipCompany : updateShipCompany
+    updateShipCompany : updateShipCompany,
+    updateShipCompanyStatus : updateShipCompanyStatus
 }

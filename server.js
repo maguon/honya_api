@@ -334,6 +334,7 @@ function createServer() {
     server.get('/api/shipCompany',shipCompany.queryShipCompany);
     server.post({path:'/api/user/:userId/shipCompany',contentType: 'application/json'},shipCompany.createShipCompany);
     server.put({path:'/api/user/:userId/shipCompany/:shipCompanyId',contentType: 'application/json'} ,shipCompany.updateShipCompany);
+    server.put({path:'/api/user/:userId/shipCompany/:shipCompanyId/shipCompanyStatus/:shipCompanyStatus',contentType: 'application/json'} ,shipCompany.updateShipCompanyStatus);
 
     /**
      * ShipTrans Module
