@@ -234,6 +234,7 @@ function createServer() {
      * OrderPayment Module
      */
     server.get('/api/orderPayment',orderPayment.queryOrderPayment);
+    server.get('/api/orderPaymentCount',orderPayment.queryOrderPaymentCount);
     server.post({path:'/api/user/:userId/payment',contentType: 'application/json'},orderPayment.createPayment);
     server.post({path:'/api/user/:userId/orderPayment',contentType: 'application/json'},orderPayment.createOrderPayment);
     server.put({path:'/api/user/:userId/orderPayment/:orderPaymentId',contentType: 'application/json'} ,orderPayment.updateOrderPayment);

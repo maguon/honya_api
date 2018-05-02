@@ -105,10 +105,24 @@ function updateOrderPaymentStatus(params,callback){
     });
 }
 
+function getOrderPaymentCount(params,callback) {
+    var query = " select count(id) as payment_count,sum(payment_money) as payment_money from order_payment where id is not null ";
+    var paramsArray=[],i=0;
+    if(params.paymentStatus){
+        paramsArray[i++] = params.paymentStatus;
+        query = query + " and payment_status = ? ";
+    }
+    db.dbQuery(query,paramsArray,function(error,rows){
+        logger.debug(' getOrderPaymentCount ');
+        return callback(error,rows);
+    });
+}
+
 
 module.exports ={
     addOrderPayment : addOrderPayment,
     getOrderPayment : getOrderPayment,
     updateOrderPayment : updateOrderPayment,
-    updateOrderPaymentStatus : updateOrderPaymentStatus
+    updateOrderPaymentStatus : updateOrderPaymentStatus,
+    getOrderPaymentCount : getOrderPaymentCount
 }

@@ -135,11 +135,26 @@ function updateOrderPaymentStatus(req,res,next){
     })
 }
 
+function queryOrderPaymentCount(req,res,next){
+    var params = req.params ;
+    orderPaymentDAO.getOrderPaymentCount(params,function(error,result){
+        if (error) {
+            logger.error(' queryOrderPaymentCount ' + error.message);
+            throw sysError.InternalError(error.message,sysMsg.SYS_INTERNAL_ERROR_MSG);
+        } else {
+            logger.info(' queryOrderPaymentCount ' + 'success');
+            resUtil.resetQueryRes(res,result,null);
+            return next();
+        }
+    })
+}
+
 
 module.exports = {
     createPayment : createPayment,
     createOrderPayment : createOrderPayment,
     queryOrderPayment : queryOrderPayment,
     updateOrderPayment : updateOrderPayment,
-    updateOrderPaymentStatus : updateOrderPaymentStatus
+    updateOrderPaymentStatus : updateOrderPaymentStatus,
+    queryOrderPaymentCount : queryOrderPaymentCount
 }
