@@ -153,7 +153,7 @@ CREATE TABLE `ship_trans_stat_date` (
 -- ----------------------------
 -- 2018-04-25 更新
 -- ----------------------------
-DROP TRIGGER IF EXISTS `trg_ship_trans_stat`;
+DROP TRIGGER IF EXISTS `trg_ship_trans_stat_update`;
 DELIMITER ;;
 CREATE TRIGGER `trg_ship_trans_stat` AFTER UPDATE ON `ship_trans_info` FOR EACH ROW BEGIN
 IF (old.ship_trans_status <>2 and new.ship_trans_status=2)THEN
@@ -168,7 +168,7 @@ END
 ;;
 DELIMITER ;
 
-DROP TRIGGER IF EXISTS `trg_ship_trans_stat`;
+DROP TRIGGER IF EXISTS `trg_ship_trans_stat_new`;
 DELIMITER ;;
 CREATE TRIGGER `trg_ship_trans_stat` AFTER INSERT ON `ship_trans_info` FOR EACH ROW BEGIN
 update ship_trans_stat_date set booking=booking+1
