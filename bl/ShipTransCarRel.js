@@ -175,7 +175,7 @@ function removeShipTransCarRel(req,res,next){
                 req.params.carContent =" 取消海运  编号为"+params.shipTransId;
                 req.params.carId = params.carId;
                 req.params.vin =parkObj.vin;
-                req.params.op =32;
+                req.params.op =34;
                 resUtil.resetUpdateRes(res,result,null);
                 return next();
             }

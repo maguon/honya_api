@@ -186,33 +186,124 @@ function updateShipTrans(req,res,next){
 
 function updateShipTransStatus(req,res,next){
     var params = req.params ;
-    var myDate = new Date();
-    var strDate = moment(myDate).format('YYYYMMDD');
-    if(params.shipTransStatus==2){
-        params.startDateId = parseInt(strDate);
-        shipTransDAO.updateShipTransStatusStart(params,function(error,result){
+    var carIds = [] ;
+    var vins = [] ;
+    Seq().seq(function(){
+        var that = this;
+        shipTransCarRelDAO.getShipTransCarRel({shipTransId	:params.shipTransId	},function(error,rows){
             if (error) {
-                logger.error(' updateShipTransStatus ' + error.message);
+                logger.error(' getShipTransCarRel ' + error.message);
                 throw sysError.InternalError(error.message,sysMsg.SYS_INTERNAL_ERROR_MSG);
-            } else {
-                logger.info(' updateShipTransStatus ' + 'success');
-                resUtil.resetUpdateRes(res,result,null);
-                return next();
+            } else{
+                if(rows&&rows.length>0){
+                        for(var i = 0 ; i < rows.length; i++){
+                            carIds[i] = rows[i].car_id;
+                            vins[i] = rows[i].vin;
+                            console.log(carIds,vins);
+                        }
+                    that();
+                }else{
+                    logger.warn(' getShipTransCarRel ' + 'failed');
+                    that();
+                }
             }
         })
+    }).seq(function() {
+        var that = this;
+        var rowArray = [];
+        if(params.shipTransStatus==2){
+            rowArray.length = carIds.length;
+            rowArray.length = vins.length;
+            Seq(rowArray).seqEach(function (rowObj, i) {
+                var that = this;
+                var subParams = {
+                    userId: params.userId,
+                    userType: req.headers['user-type'] || 9,
+                    username: req.headers['user-name'] || 'admin',
+                    content: " 海运发出 编号 " + params.shipTransId,
+                    op: 32,
+                    carId: carIds[i],
+                    vin: vins[i],
+                    row: i + 1,
+                }
+                sysRecordDAO.addRecord(req, subParams, function (err, result) {
+                    if (err) {
+                        logger.error('saveCarRecord ' + err.stack);
+                    } else {
+                        if (result && result.insertId > 0) {
+                            logger.info(' saveCarRecord ' + 'success');
+                        } else {
+                            logger.warn(' saveCarRecord ' + 'failed');
+                        }
+                        that(null, i);
+                    }
+                })
+            }).seq(function () {
+                that();
+            })
     }else{
-        params.endDateId = parseInt(strDate);
-        shipTransDAO.updateShipTransStatusEnd(params,function(error,result){
-            if (error) {
-                logger.error(' updateShipTransStatus ' + error.message);
-                throw sysError.InternalError(error.message,sysMsg.SYS_INTERNAL_ERROR_MSG);
-            } else {
-                logger.info(' updateShipTransStatus ' + 'success');
-                resUtil.resetUpdateRes(res,result,null);
-                return next();
-            }
-        })
-    }
+            rowArray.length = carIds.length;
+            rowArray.length = vins.length;
+            Seq(rowArray).seqEach(function (rowObj, i) {
+                var that = this;
+                var subParams = {
+                    userId: params.userId,
+                    userType: req.headers['user-type'] || 9,
+                    username: req.headers['user-name'] || 'admin',
+                    content: " 海运到达 编号 " + params.shipTransId,
+                    op: 32,
+                    carId: carIds[i],
+                    vin: vins[i],
+                    row: i + 1,
+                }
+                sysRecordDAO.addRecord(req, subParams, function (err, result) {
+                    if (err) {
+                        logger.error('saveCarRecord ' + err.stack);
+                    } else {
+                        if (result && result.insertId > 0) {
+                            logger.info(' saveCarRecord ' + 'success');
+                        } else {
+                            logger.warn(' saveCarRecord ' + 'failed');
+                        }
+                        that(null, i);
+                    }
+                })
+            }).seq(function () {
+                that();
+            })
+        }
+    }).seq(function(){
+        var myDate = new Date();
+        var strDate = moment(myDate).format('YYYYMMDD');
+        if(params.shipTransStatus==2){
+            params.startDateId = parseInt(strDate);
+            shipTransDAO.updateShipTransStatusStart(params,function(error,result){
+                if (error) {
+                    logger.error(' updateShipTransStatus ' + error.message);
+                    throw sysError.InternalError(error.message,sysMsg.SYS_INTERNAL_ERROR_MSG);
+                } else {
+                    logger.info(' updateShipTransStatus ' + 'success');
+                    resUtil.resetUpdateRes(res,result,null);
+                    return next();
+                }
+            })
+        }else{
+            params.endDateId = parseInt(strDate);
+            shipTransDAO.updateShipTransStatusEnd(params,function(error,result){
+                if (error) {
+                    logger.error(' updateShipTransStatus ' + error.message);
+                    throw sysError.InternalError(error.message,sysMsg.SYS_INTERNAL_ERROR_MSG);
+                } else {
+                    logger.info(' updateShipTransStatus ' + 'success');
+                    resUtil.resetUpdateRes(res,result,null);
+                    return next();
+                }
+            })
+        }
+    })
+
+
+
 
 }
 
