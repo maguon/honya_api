@@ -197,11 +197,26 @@ function getShipTransOrderCsv(req,res,next){
     })
 }
 
+function queryShipTransOrderCount(req,res,next){
+    var params = req.params ;
+    shipTransOrderDAO.getShipTransOrderCount(params,function(error,result){
+        if (error) {
+            logger.error(' queryShipTransOrderCount ' + error.message);
+            throw sysError.InternalError(error.message,sysMsg.SYS_INTERNAL_ERROR_MSG);
+        } else {
+            logger.info(' queryShipTransOrderCount ' + 'success');
+            resUtil.resetQueryRes(res,result,null);
+            return next();
+        }
+    })
+}
+
 
 module.exports = {
     createShipTransOrder : createShipTransOrder,
     queryShipTransOrder : queryShipTransOrder,
     updateShipTransOrderFee : updateShipTransOrderFee,
     updateShipTransOrderStatus : updateShipTransOrderStatus,
-    getShipTransOrderCsv : getShipTransOrderCsv
+    getShipTransOrderCsv : getShipTransOrderCsv,
+    queryShipTransOrderCount : queryShipTransOrderCount
 }

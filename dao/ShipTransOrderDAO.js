@@ -153,11 +153,25 @@ function deleteShipTransOrder(params,callback){
     });
 }
 
+function getShipTransOrderCount(params,callback) {
+    var query = " select count(id) as order_count , sum(ship_trans_fee) as ship_trans_fee from ship_trans_order where id is not null ";
+    var paramsArray=[],i=0;
+    if(params.orderStatus){
+        paramsArray[i++] = params.orderStatus;
+        query = query + " and order_status = ? ";
+    }
+    db.dbQuery(query,paramsArray,function(error,rows){
+        logger.debug(' getShipTransOrderCount ');
+        return callback(error,rows);
+    });
+}
+
 
 module.exports ={
     addShipTransOrder : addShipTransOrder,
     getShipTransOrder : getShipTransOrder,
     updateShipTransOrderFee : updateShipTransOrderFee,
     updateShipTransOrderStatus : updateShipTransOrderStatus,
-    deleteShipTransOrder : deleteShipTransOrder
+    deleteShipTransOrder : deleteShipTransOrder,
+    getShipTransOrderCount : getShipTransOrderCount
 }

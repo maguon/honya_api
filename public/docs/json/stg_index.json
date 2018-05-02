@@ -2821,6 +2821,43 @@
         }
       }
     },
+    "/storageOrderCount": {
+      "get": {
+        "tags": [
+          "storage"
+        ],
+        "summary": "query  storageOrder count",
+        "description": "query storageOrderCount",
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+
+          {
+            "name": "orderStatus",
+            "in": "query",
+            "description": "order status",
+            "required": false,
+            "type": "integer"
+
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "successful operation",
+            "schema": {
+              "type": "object",
+              "items": {
+                "$ref": "#/definitions/storageOrder"
+              }
+            }
+          },
+          "400": {
+            "description": "Invalid token value or invalid storageOrder id"
+          }
+        }
+      }
+    },
     "/user/{userId}/storageOrder/{storageOrderId}": {
       "put": {
         "tags": [
@@ -7412,6 +7449,43 @@
             "name": "size",
             "in": "query",
             "description": "list size for pagination",
+            "required": false,
+            "type": "integer"
+
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "successful operation",
+            "schema": {
+              "type": "object",
+              "items": {
+                "$ref": "#/definitions/shipTransOrder"
+              }
+            }
+          },
+          "400": {
+            "description": "Invalid token value or invalid shipTransOrder id"
+          }
+        }
+      }
+    },
+    "/shipTransOrderCount": {
+      "get": {
+        "tags": [
+          "ship"
+        ],
+        "summary": "query  shipTransOrder count",
+        "description": "query shipTransOrderCount",
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+
+          {
+            "name": "orderStatus",
+            "in": "query",
+            "description": "order status",
             "required": false,
             "type": "integer"
 
