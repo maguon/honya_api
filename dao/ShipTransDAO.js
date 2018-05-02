@@ -38,11 +38,20 @@ function getShipTrans(params,callback) {
         " left join ship_trans_order sto on st.id = sto.ship_trans_id " +
         " left join ship_company_info sc on st.ship_company_id = sc.id " +
         " left join user_info u on st.ship_trans_user_id = u.uid " +
+        " left join car_info c on sto.car_id = c.id " +
         " where st.id is not null ";
     var paramsArray=[],i=0;
     if(params.shipTransId){
         paramsArray[i++] = params.shipTransId;
         query = query + " and st.id = ? ";
+    }
+    if(params.vin){
+        paramsArray[i++] = params.vin;
+        query = query + " and c.vin = ? ";
+    }
+    if(params.entrustId){
+        paramsArray[i++] = params.entrustId;
+        query = query + " and sto.entrust_id = ? ";
     }
     if(params.startPortId){
         paramsArray[i++] = params.startPortId;

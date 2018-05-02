@@ -28,10 +28,17 @@ var SHIP_TRANS_STATUS  ={ //订单支付状态
     arrive : 3
 };
 
+var COUNTRY_TYPE ={
+    usa : 1,    //美国
+    china : 2   //中国
+
+}
+
 module.exports = {
     USER_TYPE : USER_TYPE,
     ORDER_STATUS : ORDER_STATUS,
     PAYMENT_STATUS : PAYMENT_STATUS,
     FEE_MONEY : FEE_MONEY,
-    SHIP_TRANS_STATUS : SHIP_TRANS_STATUS
+    SHIP_TRANS_STATUS : SHIP_TRANS_STATUS,
+    COUNTRY_TYPE : COUNTRY_TYPE
 }

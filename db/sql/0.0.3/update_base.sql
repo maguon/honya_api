@@ -58,7 +58,7 @@ DROP TABLE IF EXISTS `order_payment`;
 CREATE TABLE `order_payment` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `entrust_id` int(10) NOT NULL DEFAULT '0' COMMENT '委托方ID',
-  `payment_type` tinyint(1) NOT NULL COMMENT '支付类型(1-电汇,2-支票)',
+  `payment_type` tinyint(1) NOT NULL COMMENT '支付类型(1-支票,2-电汇)',
   `number` varchar(50) COLLATE utf8mb4_unicode_ci NOT NULL COMMENT '票号',
   `payment_money` decimal(10,2) NOT NULL DEFAULT '0.00' COMMENT '支付金额',
   `payment_user_id` int(10) NOT NULL DEFAULT '0' COMMENT '操作人',
