@@ -155,7 +155,7 @@ CREATE TABLE `ship_trans_stat_date` (
 -- ----------------------------
 DROP TRIGGER IF EXISTS `trg_ship_trans_stat_update`;
 DELIMITER ;;
-CREATE TRIGGER `trg_ship_trans_stat` AFTER UPDATE ON `ship_trans_info` FOR EACH ROW BEGIN
+CREATE TRIGGER `trg_ship_trans_stat_update` AFTER UPDATE ON `ship_trans_info` FOR EACH ROW BEGIN
 IF (old.ship_trans_status <>2 and new.ship_trans_status=2)THEN
 update ship_trans_stat_date set exports=(select sum(ship_trans_count)from ship_trans_info where ship_trans_status = 2)
 where date_id=DATE_FORMAT(CURRENT_DATE(),'%Y%m%d');
@@ -170,7 +170,7 @@ DELIMITER ;
 
 DROP TRIGGER IF EXISTS `trg_ship_trans_stat_new`;
 DELIMITER ;;
-CREATE TRIGGER `trg_ship_trans_stat` AFTER INSERT ON `ship_trans_info` FOR EACH ROW BEGIN
+CREATE TRIGGER `trg_ship_trans_stat_new` AFTER INSERT ON `ship_trans_info` FOR EACH ROW BEGIN
 update ship_trans_stat_date set booking=booking+1
 where date_id=DATE_FORMAT(CURRENT_DATE(),'%Y%m%d');
 END
