@@ -37,7 +37,7 @@ function updateStorageOrderActualFee(req,res,next){
                 logger.error(' getStorageOrder ' + error.message);
                 throw sysError.InternalError(error.message,sysMsg.SYS_INTERNAL_ERROR_MSG);
             } else{
-                if(rows&&rows.length >0&&rows[0].payment_status == sysConst.PAYMENT_STATUS.payment){
+                if(rows&&rows.length >0&&rows[0].payment_status == sysConst.ORDER_STATUS.not_payment){
                     that();
                 }else{
                     logger.warn(' getStorageOrder ' + 'failed');
