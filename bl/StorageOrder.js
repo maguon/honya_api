@@ -74,9 +74,24 @@ function updateStorageOrderStatus(req,res,next){
     })
 }
 
+function queryStorageOrderCount(req,res,next){
+    var params = req.params ;
+    storageOrderDAO.getStorageOrderCount(params,function(error,result){
+        if (error) {
+            logger.error(' queryStorageOrderCount ' + error.message);
+            throw sysError.InternalError(error.message,sysMsg.SYS_INTERNAL_ERROR_MSG);
+        } else {
+            logger.info(' queryStorageOrderCount ' + 'success');
+            resUtil.resetQueryRes(res,result,null);
+            return next();
+        }
+    })
+}
+
 
 module.exports = {
     queryStorageOrder : queryStorageOrder,
     updateStorageOrderActualFee : updateStorageOrderActualFee,
-    updateStorageOrderStatus : updateStorageOrderStatus
+    updateStorageOrderStatus : updateStorageOrderStatus,
+    queryStorageOrderCount : queryStorageOrderCount
 }

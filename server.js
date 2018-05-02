@@ -227,6 +227,7 @@ function createServer() {
      * StorageOrder Module
      */
     server.get('/api/storageOrder',storageOrder.queryStorageOrder);
+    server.get('/api/storageOrderCount',storageOrder.queryStorageOrderCount);
     server.put({path:'/api/user/:userId/storageOrder/:storageOrderId',contentType: 'application/json'} ,storageOrder.updateStorageOrderActualFee);
     server.put({path:'/api/user/:userId/storageOrder/:storageOrderId/orderStatus/:orderStatus',contentType: 'application/json'} ,storageOrder.updateStorageOrderStatus);
 

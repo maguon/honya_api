@@ -108,10 +108,24 @@ function updateStorageOrderStatus(params,callback){
     });
 }
 
+function getStorageOrderCount(params,callback) {
+    var query = " select count(id) as order_count , sum(actual_fee) as actual_fee from storage_order where id is not null ";
+    var paramsArray=[],i=0;
+    if(params.orderStatus){
+        paramsArray[i++] = params.orderStatus;
+        query = query + " and order_status = ? ";
+    }
+    db.dbQuery(query,paramsArray,function(error,rows){
+        logger.debug(' getStorageOrderCount ');
+        return callback(error,rows);
+    });
+}
+
 
 module.exports ={
     addStorageOrder : addStorageOrder,
     getStorageOrder : getStorageOrder,
     updateStorageOrderActualFee : updateStorageOrderActualFee,
-    updateStorageOrderStatus : updateStorageOrderStatus
+    updateStorageOrderStatus : updateStorageOrderStatus,
+    getStorageOrderCount : getStorageOrderCount
 }
