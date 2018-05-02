@@ -315,6 +315,7 @@ function createServer() {
      */
     server.get('/api/entrust',entrust.queryEntrust);
     server.get('/api/entrustBase',entrust.queryEntrustBase);
+    server.get('/api/entrustCount',entrust.queryEntrustCount);
     server.post({path:'/api/user/:userId/entrust',contentType: 'application/json'},entrust.createEntrust);
     server.put({path:'/api/user/:userId/entrust/:entrustId',contentType: 'application/json'} ,entrust.updateEntrust);
 

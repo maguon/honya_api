@@ -69,10 +69,25 @@ function updateEntrust(req,res,next){
     })
 }
 
+function queryEntrustCount(req,res,next){
+    var params = req.params ;
+    entrustDAO.getEntrustCount(params,function(error,result){
+        if (error) {
+            logger.error(' queryEntrustCount ' + error.message);
+            throw sysError.InternalError(error.message,sysMsg.SYS_INTERNAL_ERROR_MSG);
+        } else {
+            logger.info(' queryEntrustCount ' + 'success');
+            resUtil.resetQueryRes(res,result,null);
+            return next();
+        }
+    })
+}
+
 
 module.exports = {
     createEntrust : createEntrust,
     queryEntrust : queryEntrust,
     queryEntrustBase : queryEntrustBase,
-    updateEntrust : updateEntrust
+    updateEntrust : updateEntrust,
+    queryEntrustCount : queryEntrustCount
 }

@@ -116,10 +116,25 @@ function updateEntrust(params,callback){
     });
 }
 
+function getEntrustCount(params,callback) {
+    var query = " select e.entrust_type,count(e.id)entrust_count from entrust_info e where e.id is not null ";
+    var paramsArray=[],i=0;
+    if(params.entrustId){
+        paramsArray[i++] = params.entrustId;
+        query = query + " and e.id = ? ";
+    }
+    query = query + ' group by e.entrust_type ';
+    db.dbQuery(query,paramsArray,function(error,rows){
+        logger.debug(' getEntrustCount ');
+        return callback(error,rows);
+    });
+}
+
 
 module.exports ={
     addEntrust : addEntrust,
     getEntrust : getEntrust,
     getEntrustBase : getEntrustBase,
-    updateEntrust : updateEntrust
+    updateEntrust : updateEntrust,
+    getEntrustCount : getEntrustCount
 }

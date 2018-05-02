@@ -419,8 +419,10 @@ function getCarStorageShipTransCsv(req,res,next){
                     parkObj.shipTransStatus = "待出发";
                 }else if(rows[i].ship_trans_status == 2){
                     parkObj.shipTransStatus = "已出发";
-                }else{
+                }else if(rows[i].ship_trans_status == 3){
                     parkObj.shipTransStatus = "已到达";
+                }else{
+                    parkObj.shipTransStatus = "";
                 }
                 if(rows[i].ship_trans_remark == null){
                     parkObj.shipTransRemark = "";
