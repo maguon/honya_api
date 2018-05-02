@@ -3043,6 +3043,42 @@
         }
       }
     },
+    "/orderPaymentCount": {
+      "get": {
+        "tags": [
+          "storage"
+        ],
+        "summary": "query  orderPayment count",
+        "description": "query orderPaymentCount",
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "paymentStatus",
+            "in": "query",
+            "description": "payment status",
+            "required": false,
+            "type": "integer"
+
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "successful operation",
+            "schema": {
+              "type": "object",
+              "items": {
+                "$ref": "#/definitions/orderPayment"
+              }
+            }
+          },
+          "400": {
+            "description": "Invalid token value or invalid orderPayment id"
+          }
+        }
+      }
+    },
     "/user/{userId}/payment": {
       "post": {
         "tags": [
