@@ -343,7 +343,7 @@ function getShipTransCsv(req,res,next){
                 }else{
                     parkObj.shipTransStatus = "已到达";
                 }
-                parkObj.startShipUserName = rows[i].start_ship_user_name;
+                parkObj.shipTransUserName = rows[i].ship_trans_user_name;
                 parkObj.createdOn = new Date(rows[i].created_on).toLocaleDateString();
                 if(rows[i].remark == null){
                     parkObj.remark = "";
@@ -352,7 +352,7 @@ function getShipTransCsv(req,res,next){
                 }
                 csvString = csvString+parkObj.id+","+parkObj.startPortName+","+parkObj.endPortName+","+parkObj.shipCompanyName+","+parkObj.shipName
                     +","+parkObj.container+","+parkObj.shipTransCount+","+parkObj.shipTransFee+","+parkObj.startShipDate+","+parkObj.endShipDate
-                    +","+parkObj.partStatus+","+parkObj.shipTransStatus+","+parkObj.startShipUserName+","+parkObj.createdOn+","+parkObj.remark+ '\r\n';
+                    +","+parkObj.partStatus+","+parkObj.shipTransStatus+","+parkObj.shipTransUserName+","+parkObj.createdOn+","+parkObj.remark+ '\r\n';
             }
             var csvBuffer = new Buffer(csvString,'utf8');
             res.set('content-type', 'application/csv');
