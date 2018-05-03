@@ -27,6 +27,10 @@ function getShipCompany(params,callback) {
         paramsArray[i++] = params.shipCompanyName;
         query = query + " and ship_company_name = ? ";
     }
+    if(params.shipCompanyStatus){
+        paramsArray[i++] = params.shipCompanyStatus;
+        query = query + " and ship_company_status = ? ";
+    }
     if (params.start && params.size) {
         paramsArray[i++] = parseInt(params.start);
         paramsArray[i++] = parseInt(params.size);

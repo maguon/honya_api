@@ -251,7 +251,7 @@ function updateShipTransStatus(req,res,next){
                     userType: req.headers['user-type'] || 9,
                     username: req.headers['user-name'] || 'admin',
                     content: " 海运到达 编号 " + params.shipTransId,
-                    op: 32,
+                    op: 33,
                     carId: carIds[i],
                     vin: vins[i],
                     row: i + 1,
