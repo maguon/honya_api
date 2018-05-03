@@ -26,6 +26,7 @@ function getOrderPayment(params,callback) {
         " left join entrust_info e on op.entrust_id = e.id " +
         " left join user_info u on op.payment_user_id = u.uid " +
         " left join order_payment_rel opr on op.id = opr.order_payment_id " +
+        " left join ship_trans_order_payment_rel stopr on op.id = stopr.order_payment_id " +
         " where op.id is not null ";
     var paramsArray=[],i=0;
     if(params.orderPaymentId){
@@ -63,6 +64,10 @@ function getOrderPayment(params,callback) {
     if(params.storageOrderId){
         paramsArray[i++] = params.storageOrderId;
         query = query + " and opr.storage_order_id = ? ";
+    }
+    if(params.shipTransOrderId){
+        paramsArray[i++] = params.shipTransOrderId;
+        query = query + " and stopr.ship_trans_order_id = ? ";
     }
     query = query + " group by op.id ";
     query = query + " order by op.id desc ";
