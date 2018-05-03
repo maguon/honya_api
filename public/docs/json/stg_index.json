@@ -2858,6 +2858,114 @@
         }
       }
     },
+    "/storageOrder.csv": {
+      "get": {
+        "tags": [
+          "storage"
+        ],
+        "summary": "query  storageOrder.csv",
+        "description": "query storageOrder csv",
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "storageOrderId",
+            "in": "query",
+            "description": "storageOrder id",
+            "required": false,
+            "type": "integer"
+
+          },
+          {
+            "name": "vin",
+            "in": "query",
+            "description": "vin",
+            "required": false,
+            "type": "string"
+
+          },
+          {
+            "name": "makeId",
+            "in": "query",
+            "description": "make id",
+            "required": false,
+            "type": "integer"
+
+          },
+          {
+            "name": "modelId",
+            "in": "query",
+            "description": "model id",
+            "required": false,
+            "type": "integer"
+
+          },
+          {
+            "name": "entrustId",
+            "in": "query",
+            "description": "entrust id",
+            "required": false,
+            "type": "integer"
+
+          },
+          {
+            "name": "enterStart",
+            "in": "query",
+            "description": "enter start",
+            "required": false,
+            "type": "string"
+
+          },
+          {
+            "name": "enterEnd",
+            "in": "query",
+            "description": "enter end",
+            "required": false,
+            "type": "string"
+
+          },
+          {
+            "name": "realStart",
+            "in": "query",
+            "description": "real start",
+            "required": false,
+            "type": "string"
+
+          },
+          {
+            "name": "realEnd",
+            "in": "query",
+            "description": "real end",
+            "required": false,
+            "type": "string"
+
+          },
+          {
+            "name": "orderStatus",
+            "in": "query",
+            "description": "order status",
+            "required": false,
+            "type": "integer"
+
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "successful operation",
+            "schema": {
+              "type": "object",
+              "items": {
+                "$ref": "#/definitions/storageOrder"
+              }
+            }
+          },
+          "400": {
+            "description": "Invalid token value or invalid storageOrder id"
+          }
+        }
+      }
+    },
     "/user/{userId}/storageOrder/{storageOrderId}": {
       "put": {
         "tags": [

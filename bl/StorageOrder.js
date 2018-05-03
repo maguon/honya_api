@@ -88,10 +88,64 @@ function queryStorageOrderCount(req,res,next){
     })
 }
 
+function getStorageOrderCsv(req,res,next){
+    var csvString = "";
+    var header = "订单编号" + ',' + "VIN" + ',' + "制造商" + ','+ "型号" + ','+ "委托方"+ ','+ "入库时间" + ','+ "出库时间" + ','+ "合计天数"
+        + ','+ "预计支付"+ ','+ "实际应付" + ','+ "订单状态";
+    csvString = header + '\r\n'+csvString;
+    var params = req.params ;
+    var parkObj = {};
+    storageOrderDAO.getStorageOrder(params,function(error,rows){
+        if (error) {
+            logger.error(' getShipTransOrder ' + error.message);
+            throw sysError.InternalError(error.message,sysMsg.SYS_INTERNAL_ERROR_MSG);
+        } else {
+            for(var i=0;i<rows.length;i++){
+
+                parkObj.id = rows[i].id;
+                parkObj.vin = rows[i].vin;
+                parkObj.makeName = rows[i].make_name;
+                parkObj.modelName = rows[i].model_name;
+                parkObj.shortName = rows[i].short_name;
+                if(rows[i].enter_time == null){
+                    parkObj.enterTime = "";
+                }else{
+                    parkObj.enterTime = new Date(rows[i].enter_time).toLocaleDateString();
+                }
+                if(rows[i].real_out_time == null){
+                    parkObj.realOutTime = "";
+                }else{
+                    parkObj.realOutTime = new Date(rows[i].real_out_time).toLocaleDateString();
+                }
+                parkObj.dayCount = rows[i].day_count;
+                parkObj.planFee = rows[i].plan_fee;
+                parkObj.actualFee = rows[i].actual_fee;
+                if(rows[i].order_status == 1){
+                    parkObj.orderStatus = "未支付";
+                }else{
+                    parkObj.orderStatus = "已支付";
+                }
+                csvString = csvString+parkObj.id+","+parkObj.vin+","+parkObj.makeName+","+parkObj.modelName+","+parkObj.shortName
+                    +","+parkObj.enterTime+","+parkObj.realOutTime+","+parkObj.dayCount+","+parkObj.planFee+","+parkObj.actualFee
+                    +","+parkObj.orderStatus+ '\r\n';
+            }
+            var csvBuffer = new Buffer(csvString,'utf8');
+            res.set('content-type', 'application/csv');
+            res.set('charset', 'utf8');
+            res.set('content-length', csvBuffer.length);
+            res.writeHead(200);
+            res.write(csvBuffer);//TODO
+            res.end();
+            return next(false);
+        }
+    })
+}
+
 
 module.exports = {
     queryStorageOrder : queryStorageOrder,
     updateStorageOrderActualFee : updateStorageOrderActualFee,
     updateStorageOrderStatus : updateStorageOrderStatus,
-    queryStorageOrderCount : queryStorageOrderCount
+    queryStorageOrderCount : queryStorageOrderCount,
+    getStorageOrderCsv : getStorageOrderCsv
 }
