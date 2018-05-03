@@ -19,6 +19,11 @@ var PAYMENT_STATUS  ={ //订单支付状态
     payment : 1, //已支付
     completed : 2   //已完结
 };
+var PAYMENT_TYPE  ={ //支付类型
+    cheque : 1, //支票
+    remittance : 2   //电汇
+};
+
 var FEE_MONEY  ={ //仓储计费金额
     five : 5
 };
@@ -49,6 +54,7 @@ module.exports = {
     USER_TYPE : USER_TYPE,
     ORDER_STATUS : ORDER_STATUS,
     PAYMENT_STATUS : PAYMENT_STATUS,
+    PAYMENT_TYPE : PAYMENT_TYPE,
     FEE_MONEY : FEE_MONEY,
     SHIP_TRANS_STATUS : SHIP_TRANS_STATUS,
     COUNTRY_TYPE : COUNTRY_TYPE,

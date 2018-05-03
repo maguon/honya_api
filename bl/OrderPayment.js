@@ -149,6 +149,67 @@ function queryOrderPaymentCount(req,res,next){
     })
 }
 
+function getOrderPaymentCsv(req,res,next){
+    var csvString = "";
+    var header = "支付编号" + ',' + "委托方" + ',' + "委托方性质" + ',' + "支付金额(美元)" + ','+ "支付方式" + ','+ "票号"+ ','+ "支付时间" + ','+ "支付状态" + ','+ "完结时间"
+                             + ','+ "操作人" + ','+ "备注";
+    csvString = header + '\r\n'+csvString;
+    var params = req.params ;
+    var parkObj = {};
+    orderPaymentDAO.getOrderPayment(params,function(error,rows){
+        if (error) {
+            logger.error(' getOrderPayment ' + error.message);
+            throw sysError.InternalError(error.message,sysMsg.SYS_INTERNAL_ERROR_MSG);
+        } else {
+            for(var i=0;i<rows.length;i++){
+
+                parkObj.id = rows[i].id;
+                parkObj.shortName = rows[i].short_name;
+                if(rows[i].entrust_type == 1){
+                    parkObj.entrustType = "个人";
+                }else{
+                    parkObj.entrustType = "企业";
+                }
+                parkObj.paymentMoney = rows[i].payment_money;
+                if(rows[i].payment_type == 1){
+                    parkObj.paymentType = "支票";
+                }else{
+                    parkObj.paymentType = "电汇";
+                }
+                parkObj.number = rows[i].number;
+                if(rows[i].created_on == null){
+                    parkObj.createdOn = "";
+                }else{
+                    parkObj.createdOn = new Date(rows[i].created_on).toLocaleDateString();
+                }
+                if(rows[i].payment_status == 1){
+                    parkObj.paymentStatus = "未完结";
+                }else{
+                    parkObj.paymentStatus = "已完结";
+                }
+                if(rows[i].payment_end_date == null){
+                    parkObj.paymentEndDate = "";
+                }else{
+                    parkObj.paymentEndDate = new Date(rows[i].payment_end_date).toLocaleDateString();
+                }
+                parkObj.paymentUserName = rows[i].payment_user_name;
+                parkObj.remark = rows[i].remark;
+                csvString = csvString+parkObj.id+","+parkObj.shortName+","+parkObj.entrustType+","+parkObj.paymentMoney+","+parkObj.paymentType
+                    +","+parkObj.number+","+parkObj.createdOn+","+parkObj.paymentStatus+","+parkObj.paymentEndDate+","+parkObj.paymentUserName
+                    +","+parkObj.remark+ '\r\n';
+            }
+            var csvBuffer = new Buffer(csvString,'utf8');
+            res.set('content-type', 'application/csv');
+            res.set('charset', 'utf8');
+            res.set('content-length', csvBuffer.length);
+            res.writeHead(200);
+            res.write(csvBuffer);//TODO
+            res.end();
+            return next(false);
+        }
+    })
+}
+
 
 module.exports = {
     createPayment : createPayment,
@@ -156,5 +217,6 @@ module.exports = {
     queryOrderPayment : queryOrderPayment,
     updateOrderPayment : updateOrderPayment,
     updateOrderPaymentStatus : updateOrderPaymentStatus,
-    queryOrderPaymentCount : queryOrderPaymentCount
+    queryOrderPaymentCount : queryOrderPaymentCount,
+    getOrderPaymentCsv : getOrderPaymentCsv
 }

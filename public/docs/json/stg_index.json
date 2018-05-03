@@ -3124,6 +3124,114 @@
         }
       }
     },
+    "/orderPayment.csv": {
+      "get": {
+        "tags": [
+          "storage"
+        ],
+        "summary": "query  orderPayment csv",
+        "description": "query orderPayment.csv",
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "orderPaymentId",
+            "in": "query",
+            "description": "orderPayment id",
+            "required": false,
+            "type": "integer"
+
+          },
+          {
+            "name": "entrustType",
+            "in": "query",
+            "description": "entrust type",
+            "required": false,
+            "type": "integer"
+
+          },
+          {
+            "name": "entrustId",
+            "in": "query",
+            "description": "entrust id",
+            "required": false,
+            "type": "integer"
+
+          },
+          {
+            "name": "paymentStatus",
+            "in": "query",
+            "description": "payment status",
+            "required": false,
+            "type": "integer"
+
+          },
+          {
+            "name": "paymentType",
+            "in": "query",
+            "description": "payment type",
+            "required": false,
+            "type": "integer"
+
+          },
+          {
+            "name": "number",
+            "in": "query",
+            "description": "number",
+            "required": false,
+            "type": "string"
+
+          },
+          {
+            "name": "createdOnStart",
+            "in": "query",
+            "description": "createdOn start",
+            "required": false,
+            "type": "string"
+
+          },
+          {
+            "name": "createdOnEnd",
+            "in": "query",
+            "description": "createdOn end",
+            "required": false,
+            "type": "string"
+
+          },
+          {
+            "name": "storageOrderId",
+            "in": "query",
+            "description": "storageOrder id",
+            "required": false,
+            "type": "integer"
+
+          },
+          {
+            "name": "shipTransOrderId",
+            "in": "query",
+            "description": "shipTransOrder id",
+            "required": false,
+            "type": "integer"
+
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "successful operation",
+            "schema": {
+              "type": "object",
+              "items": {
+                "$ref": "#/definitions/orderPayment"
+              }
+            }
+          },
+          "400": {
+            "description": "Invalid token value or invalid orderPayment id"
+          }
+        }
+      }
+    },
     "/user/{userId}/payment": {
       "post": {
         "tags": [

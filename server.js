@@ -236,6 +236,7 @@ function createServer() {
      */
     server.get('/api/orderPayment',orderPayment.queryOrderPayment);
     server.get('/api/orderPaymentCount',orderPayment.queryOrderPaymentCount);
+    server.get('/api/orderPayment.csv',orderPayment.getOrderPaymentCsv);
     server.post({path:'/api/user/:userId/payment',contentType: 'application/json'},orderPayment.createPayment);
     server.post({path:'/api/user/:userId/orderPayment',contentType: 'application/json'},orderPayment.createOrderPayment);
     server.put({path:'/api/user/:userId/orderPayment/:orderPaymentId',contentType: 'application/json'} ,orderPayment.updateOrderPayment);
