@@ -204,3 +204,8 @@ ADD COLUMN `date_id`  int(4) NULL DEFAULT NULL COMMENT '支付完结统计时间
 -- ----------------------------
 ALTER TABLE `ship_company_info`
 ADD COLUMN `ship_company_status`  tinyint(1) NOT NULL DEFAULT 1 COMMENT '船公司状态(0-不可用,1-可用)' AFTER `ship_company_name`;
+-- ----------------------------
+-- 2018-05-03 更新
+-- ----------------------------
+ALTER TABLE `car_info`
+ADD UNIQUE INDEX `vin` (`vin`) USING BTREE ;

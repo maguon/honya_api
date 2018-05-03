@@ -47,14 +47,18 @@ function createCarStorageRel(req,res,next){
         })
     }).seq(function(){
         var that = this;
-        carDAO.getCarBase({vin:params.vin},function(error,rows){
+        carDAO.getCarList({vin:params.vin},function(error,rows){
             if (error) {
-                logger.error(' getCarBase ' + error.message);
-                resUtil.resetFailedRes(res,sysMsg.SYS_INTERNAL_ERROR_MSG);
-                return next();
+                if(err.message.indexOf("Duplicate") > 0) {
+                    resUtil.resetFailedRes(res,sysMsg.SYS_INTERNAL_ERROR_MSG);
+                    return next();
+                } else{
+                    logger.error(' getCarList ' + err.message);
+                    throw sysError.InternalError(err.message,sysMsg.SYS_INTERNAL_ERROR_MSG);
+                }
             } else {
                 if(rows && rows.length>0){
-                    logger.warn(' getCarBase ' +params.vin+ sysMsg.CUST_CREATE_EXISTING);
+                    logger.warn(' getCarList ' +params.vin+ sysMsg.CUST_CREATE_EXISTING);
                     resUtil.resetFailedRes(res,sysMsg.CUST_CREATE_EXISTING);
                     return next();
                 }else{
