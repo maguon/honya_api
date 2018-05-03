@@ -24,7 +24,9 @@ function addStorageOrder(params,callback){
 
 function getStorageOrder(params,callback) {
     var query = " select so.*,u.real_name as storage_order_user_name,c.vin,c.make_id,c.make_name,c.model_id,c.model_name,c.colour,c.entrust_id, " +
-        " e.short_name,e.entrust_name,csr.enter_time,csr.real_out_time,op.payment_status from storage_order so " +
+        " e.short_name,e.entrust_name,csr.enter_time,csr.real_out_time, " +
+        " op.id as payment_id,op.payment_type,op.number,op.payment_money,op.remark,op.created_on as payment_date,op.payment_status " +
+        " from storage_order so " +
         " left join car_storage_rel csr on so.car_storage_rel_id = csr.id " +
         " left join car_info c on so.car_id = c.id " +
         " left join entrust_info e on c.entrust_id = e.id " +
