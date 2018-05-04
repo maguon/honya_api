@@ -180,7 +180,7 @@ DELIMITER ;
 -- 2018-04-25 更新
 -- ----------------------------
 ALTER TABLE `storage_order`
-MODIFY COLUMN `storage_order_user_id`  int(10) NOT NULL DEFAULT 0 COMMENT '订单操作员' AFTER `order_status`;
+ADD COLUMN `storage_order_user_id`  int(10) NOT NULL DEFAULT 0 COMMENT '订单操作员' AFTER `order_status`;
 -- ----------------------------
 -- Table structure for ship_trans_order_payment_rel
 -- ----------------------------
