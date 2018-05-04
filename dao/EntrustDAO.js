@@ -56,8 +56,8 @@ function getEntrust(params,callback) {
 function getEntrustBase(params,callback) {
     var query = " select e.*,count(case when r.rel_status = 1 and r.active = 1 then c.id end) as car_count, " +
         " if(isnull(sum(case when r.rel_status = 1 and r.active = 1 then c.valuation end)),0,sum(case when r.rel_status = 1 and r.active = 1 then c.valuation end)) as valuation, " +
-        " count(case when c.mso_status = 1 and r.active = 1 then c.id end) as not_mso_count, " +
-        " if(isnull(sum(case when c.mso_status = 1 and r.active = 1 then c.valuation end)),0,sum(case when c.mso_status = 1 and r.active = 1 then c.valuation end)) as not_mso_valuation " +
+        " count(case when c.mso_status = 1 and r.rel_status = 1 and r.active = 1 then c.id end) as not_mso_count, " +
+        " if(isnull(sum(case when c.mso_status = 1 and r.rel_status = 1 and r.active = 1 then c.valuation end)),0,sum(case when c.mso_status = 1 and r.rel_status = 1 and r.active = 1 then c.valuation end)) as not_mso_valuation " +
         " from entrust_info e " +
         " left join car_info c on e.id = c.entrust_id " +
         " left join car_storage_rel r on c.id = r.car_id " +
