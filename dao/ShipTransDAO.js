@@ -102,6 +102,7 @@ function getShipTrans(params,callback) {
         query = query + " and st.ship_trans_status = ? ";
     }
     query = query + ' group by st.id ';
+    query = query + ' order by st.id desc ';
     if (params.start && params.size) {
         paramsArray[i++] = parseInt(params.start);
         paramsArray[i++] = parseInt(params.size);
