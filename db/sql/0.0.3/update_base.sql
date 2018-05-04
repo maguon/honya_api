@@ -157,11 +157,11 @@ DROP TRIGGER IF EXISTS `trg_ship_trans_stat_update`;
 DELIMITER ;;
 CREATE TRIGGER `trg_ship_trans_stat_update` AFTER UPDATE ON `ship_trans_info` FOR EACH ROW BEGIN
 IF (old.ship_trans_status <>2 and new.ship_trans_status=2)THEN
-update ship_trans_stat_date set exports=(select sum(ship_trans_count)from ship_trans_info where ship_trans_status = 2)
+update ship_trans_stat_date set exports= exports +(select sum(ship_trans_count)from ship_trans_info where ship_trans_status = 2 and id=new.id)
 where date_id=DATE_FORMAT(CURRENT_DATE(),'%Y%m%d');
 END IF;
 IF (old.ship_trans_status <>3 and new.ship_trans_status=3)THEN
-update ship_trans_stat_date set arrive=(select sum(ship_trans_count)from ship_trans_info where ship_trans_status = 3)
+update ship_trans_stat_date set arrive= arrive +(select sum(ship_trans_count)from ship_trans_info where ship_trans_status = 3 and id=new.id)
 where date_id=DATE_FORMAT(CURRENT_DATE(),'%Y%m%d');
 END IF;
 END
