@@ -8989,6 +8989,9 @@
         "msoStatus": {
           "type": "integer"
         },
+        "purchaseType": {
+          "type": "integer"
+        },
         "remark": {
           "type": "string"
         }
@@ -9044,6 +9047,9 @@
           "type": "integer"
         },
         "msoStatus": {
+          "type": "integer"
+        },
+        "purchaseType": {
           "type": "integer"
         },
         "remark": {
