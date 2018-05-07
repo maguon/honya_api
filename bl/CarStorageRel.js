@@ -69,6 +69,9 @@ function createCarStorageRel(req,res,next){
     }).seq(function(){
         var that = this;
         if(newCarFlag){
+            if(params.purchaseType==null){
+                params.purchaseType = 0;
+            }
             var myDate = new Date();
             var strDate = moment(myDate).format('YYYYMMDD');
             params.createdDateId = parseInt(strDate);

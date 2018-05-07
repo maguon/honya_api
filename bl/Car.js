@@ -34,6 +34,9 @@ function createCar(req,res,next){
             }
         })
     }).seq(function(){
+        if(params.purchaseType==null){
+            params.purchaseType = 0;
+        }
         var myDate = new Date();
         var strDate = moment(myDate).format('YYYYMMDD');
         params.createdDateId = parseInt(strDate);
