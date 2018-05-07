@@ -47,6 +47,7 @@ function updateStorageParking(req,res,next){
     var parkObj = {};
     Seq().seq(function(){
         var that = this;
+        params.active = listOfValue.REL_STATUS_ACTIVE;
         carDAO.getCarBase(params,function(error,rows){
             if (error) {
                 logger.error(' getCarBase ' + error.message);

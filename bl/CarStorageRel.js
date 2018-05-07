@@ -154,7 +154,7 @@ function createAgainCarStorageRel(req,res,next){
     var parkObj = {};
     var carId = 0;
     var relId = 0;
-    var newCarFlag  = true;
+    var newCarFlag  = false;
     var myDate = new Date();
     Seq().seq(function(){
         var that = this;
@@ -193,35 +193,14 @@ function createAgainCarStorageRel(req,res,next){
                     return next();
                 }else if(rows && rows.length>0&&rows[0].rel_status == listOfValue.REL_STATUS_OUT) {
                     carId = rows[0].id;
-                    newCarFlag = false;
+                    newCarFlag = true;
                     that();
                 }else{
+                    carId = rows[0].id;
                     that();
                 }
             }
         })
-    }).seq(function(){
-        var that = this;
-        if(newCarFlag){
-            carDAO.addCar(params,function(error,result){
-                if (error) {
-                    logger.error(' createCar ' + error.message);
-                    throw sysError.InternalError(error.message,sysMsg.SYS_INTERNAL_ERROR_MSG);
-                } else {
-                    if(result&&result.insertId>0){
-                        logger.info(' createCar ' + 'success');
-                        carId = result.insertId;
-                        req.params.carId = carId;
-                        that();
-                    }else{
-                        resUtil.resetFailedRes(res,"create car failed");
-                        return next();
-                    }
-                }
-            })
-        }else{
-            that();
-        }
     }).seq(function(){
         var that = this;
         var strDate = moment(myDate).format('YYYYMMDD');
@@ -253,23 +232,27 @@ function createAgainCarStorageRel(req,res,next){
         })
     }).seq(function () {
         var that = this;
-        var subParams ={
-            carId : carId,
-            relId : relId,
-        }
-        carStorageRelDAO.updateRelActive(subParams,function(err,result){
-            if (err) {
-                logger.error(' updateRelActive ' + err.message);
-                throw sysError.InternalError(err.message,sysMsg.SYS_INTERNAL_ERROR_MSG);
-            } else {
-                if(result&&result.affectedRows>0){
-                    logger.info(' updateRelActive ' + 'success');
-                }else{
-                    logger.warn(' updateRelActive ' + 'failed');
-                }
-                that();
+        if(newCarFlag) {
+            var subParams = {
+                carId: carId,
+                relId: relId,
             }
-        })
+            carStorageRelDAO.updateRelActive(subParams, function (err, result) {
+                if (err) {
+                    logger.error(' updateRelActive ' + err.message);
+                    throw sysError.InternalError(err.message, sysMsg.SYS_INTERNAL_ERROR_MSG);
+                } else {
+                    if (result && result.affectedRows > 0) {
+                        logger.info(' updateRelActive ' + 'success');
+                    } else {
+                        logger.warn(' updateRelActive ' + 'failed');
+                    }
+                    that();
+                }
+            })
+        }else{
+            that();
+        }
     }).seq(function () {
         var that = this;
         var subParams ={

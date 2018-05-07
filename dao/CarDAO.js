@@ -161,7 +161,7 @@ function getCarBase(params,callback) {
         " from car_info c left join storage_parking p on c.id = p.car_id " +
         " left join car_storage_rel r on c.id = r.car_id " +
         " left join entrust_info e on c.entrust_id = e.id " +
-        " left join car_key_position ckp on c.id = ckp.car_id where r.active = 1 and c.id is not null ";
+        " left join car_key_position ckp on c.id = ckp.car_id where c.id is not null ";
     var paramsArray=[],i=0;
     if(params.carId){
         paramsArray[i++] = params.carId;
@@ -170,6 +170,10 @@ function getCarBase(params,callback) {
     if(params.vin){
         paramsArray[i] = params.vin;
         query = query + " and c.vin = ? ";
+    }
+    if(params.active){
+        paramsArray[i++] = params.active;
+        query = query + " and r.active = ? ";
     }
     query = query + '  order by r.id desc ';
     db.dbQuery(query,paramsArray,function(error,rows){

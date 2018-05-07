@@ -47,16 +47,16 @@ function updateCarKeyPosition(req,res,next){
     var parkObj = {};
     Seq().seq(function(){
         var that = this;
-        carDAO.getCarBase(params,function(error,rows){
+        carDAO.getCarList(params,function(error,rows){
             if (error) {
-                logger.error(' getCarBase ' + error.message);
+                logger.error(' getCarList ' + error.message);
                 throw sysError.InternalError(error.message,sysMsg.SYS_INTERNAL_ERROR_MSG);
             } else{
                 if(rows&&rows.length==1){
                     parkObj.vin = rows[0].vin;
                     that();
                 }else{
-                    logger.warn(' getCarBase ' + 'failed');
+                    logger.warn(' getCarList ' + 'failed');
                     resUtil.resetFailedRes(res,"car is not empty");
                     return next();
                 }
