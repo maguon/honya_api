@@ -213,6 +213,14 @@ function getCarList(params,callback) {
         paramsArray[i++] = params.purchaseType;
         query = query + " and c.purchase_type = ? ";
     }
+    if(params.createdOnStart){
+        paramsArray[i++] = params.createdOnStart +" 00:00:00";
+        query = query + " and  c.created_on  >= ? ";
+    }
+    if(params.createdOnEnd){
+        paramsArray[i++] = params.createdOnEnd +" 23:59:59";
+        query = query + " and c.created_on  <= ? ";
+    }
     if (params.start && params.size) {
         paramsArray[i++] = parseInt(params.start);
         paramsArray[i] = parseInt(params.size);
