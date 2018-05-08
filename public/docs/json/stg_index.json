@@ -4764,13 +4764,13 @@
         }
       }
     },
-    "/user/{userId}/againCarStorageRel": {
-      "post": {
+    "/user/{userId}/car/{carId}/vin/{vin}/carStorageRel": {
+      "put": {
         "tags": [
           "car"
         ],
-        "summary": "user create againCarStorageRel",
-        "description": "user create againCarStorageRel",
+        "summary": "user put carStorageRel",
+        "description": "user put carStorageRel",
         "produces": [
           "application/json"
         ],
@@ -4785,7 +4785,7 @@
           },
           {
             "name": "carId",
-            "in": "query",
+            "in": "path",
             "description": "car id",
             "required": true,
             "type": "integer"
@@ -4793,7 +4793,7 @@
           },
           {
             "name": "vin",
-            "in": "query",
+            "in": "path",
             "description": "car vin",
             "required": true,
             "type": "string"
