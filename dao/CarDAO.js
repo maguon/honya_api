@@ -234,7 +234,7 @@ function getCarList(params,callback) {
 
 function updateCar(params,callback){
     var query = " update car_info set vin = ? , make_id = ? , make_name = ? , model_id = ? , model_name = ? ," +
-        " pro_date = ? , colour = ? , engine_num = ? , entrust_id = ? , valuation = ? , mso_status = ? , remark = ? where id = ? " ;
+        " pro_date = ? , colour = ? , engine_num = ? , entrust_id = ? , valuation = ? , mso_status = ? , purchase_type = ? , remark = ? where id = ? " ;
     var paramsArray=[],i=0;
     paramsArray[i++]=params.vin;
     paramsArray[i++]=params.makeId;
@@ -247,6 +247,7 @@ function updateCar(params,callback){
     paramsArray[i++]=params.entrustId;
     paramsArray[i++]=params.valuation;
     paramsArray[i++]=params.msoStatus;
+    paramsArray[i++]=params.purchaseType;
     paramsArray[i++]=params.remark;
     paramsArray[i]=params.carId;
     db.dbQuery(query,paramsArray,function(error,rows){
