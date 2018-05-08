@@ -183,7 +183,7 @@ function getCarBase(params,callback) {
 }
 
 function getCarList(params,callback) {
-    var query = " select c.*,e.short_name from car_info c " +
+    var query = " select c.*,e.short_name,e.entrust_type from car_info c " +
         " left join entrust_info e on c.entrust_id = e.id where c.id is not null ";
     var paramsArray=[],i=0;
     if(params.carId){
