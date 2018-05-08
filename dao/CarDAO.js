@@ -197,6 +197,22 @@ function getCarList(params,callback) {
     if(params.vinCode){
         query = query + " and c.vin like '%"+params.vinCode+"%'";
     }
+    if(params.makeId){
+        paramsArray[i++] = params.makeId;
+        query = query + " and c.make_id = ? ";
+    }
+    if(params.modelId){
+        paramsArray[i++] = params.modelId;
+        query = query + " and c.model_id = ? ";
+    }
+    if(params.entrustId){
+        paramsArray[i++] = params.entrustId;
+        query = query + " and c.entrust_id = ? ";
+    }
+    if(params.purchaseType){
+        paramsArray[i++] = params.purchaseType;
+        query = query + " and c.purchase_type = ? ";
+    }
     if (params.start && params.size) {
         paramsArray[i++] = parseInt(params.start);
         paramsArray[i] = parseInt(params.size);
