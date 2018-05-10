@@ -7290,6 +7290,110 @@
         }
       }
     },
+    "/shipTransMonthStat": {
+      "get": {
+        "tags": [
+          "ship"
+        ],
+        "summary": "query  shipTransMonth stat",
+        "description": "query shipTransMonthStat",
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "monthStart",
+            "in": "query",
+            "description": "month start",
+            "required": false,
+            "type": "integer"
+
+          },
+          {
+            "name": "monthEnd",
+            "in": "query",
+            "description": "month end",
+            "required": false,
+            "type": "integer"
+
+          },
+          {
+            "name": "start",
+            "in": "query",
+            "description": " list start pos",
+            "required": false,
+            "type": "integer"
+
+          },
+          {
+            "name": "size",
+            "in": "query",
+            "description": "list size for pagination",
+            "required": false,
+            "type": "integer"
+
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "successful operation",
+            "schema": {
+              "type": "object",
+              "items": {
+                "$ref": "#/definitions/shipTransMonthStat"
+              }
+            }
+          },
+          "400": {
+            "description": "Invalid token value or invalid shipTrans id"
+          }
+        }
+      }
+    },
+    "/shipTransDayStat": {
+      "get": {
+        "tags": [
+          "ship"
+        ],
+        "summary": "query  shipTransDay stat",
+        "description": "query shipTransDayStat",
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "start",
+            "in": "query",
+            "description": " list start pos",
+            "required": false,
+            "type": "integer"
+
+          },
+          {
+            "name": "size",
+            "in": "query",
+            "description": "list size for pagination",
+            "required": false,
+            "type": "integer"
+
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "successful operation",
+            "schema": {
+              "type": "object",
+              "items": {
+                "$ref": "#/definitions/shipTransDayStat"
+              }
+            }
+          },
+          "400": {
+            "description": "Invalid token value or invalid shipTrans id"
+          }
+        }
+      }
+    },
     "/user/{userId}/shipTrans": {
       "post": {
         "tags": [

@@ -212,6 +212,52 @@ function getShipTransStatDate(params,callback) {
     });
 }
 
+function getShipTransMonthStat(params,callback){
+    var query = " select db.y_month,count(st.id) as ship_trans_count,count(stc.id) as ship_trans_car_count from date_base db " +
+        " left join ship_trans_info st on db.id = st.start_date_id " +
+        " left join ship_trans_car_rel stc on st.id = stc.ship_trans_id " +
+        " where db.id is not null " ;
+    var paramsArray=[],i=0;
+    if(params.monthStart){
+        paramsArray[i++] = params.monthStart;
+        query = query + " and db.y_month >= ? ";
+    }
+    if(params.monthEnd){
+        paramsArray[i++] = params.monthEnd;
+        query = query + " and db.y_month <= ? ";
+    }
+    query = query + ' group by db.y_month ';
+    query = query + ' order by db.y_month desc ';
+    if (params.start && params.size) {
+        paramsArray[i++] = parseInt(params.start);
+        paramsArray[i++] = parseInt(params.size);
+        query += " limit ? , ? "
+    }
+    db.dbQuery(query,paramsArray,function(error,rows){
+        logger.debug(' getShipTransMonthStat ');
+        return callback(error,rows);
+    });
+}
+
+function getShipTransDayStat(params,callback){
+    var query = " select db.id,count(st.id) as ship_trans_count,count(stc.id) as ship_trans_car_count from date_base db " +
+        " left join ship_trans_info st on db.id = st.start_date_id " +
+        " left join ship_trans_car_rel stc on st.id = stc.ship_trans_id " +
+        " where db.id is not null " ;
+    var paramsArray=[],i=0;
+    query = query + ' group by db.id ';
+    query = query + ' order by db.id desc ';
+    if (params.start && params.size) {
+        paramsArray[i++] = parseInt(params.start);
+        paramsArray[i++] = parseInt(params.size);
+        query += " limit ? , ? "
+    }
+    db.dbQuery(query,paramsArray,function(error,rows){
+        logger.debug(' getShipTransDayStat ');
+        return callback(error,rows);
+    });
+}
+
 
 module.exports ={
     getShipTrans : getShipTrans,
@@ -221,5 +267,7 @@ module.exports ={
     updateShipTransCountReduce : updateShipTransCountReduce,
     updateShipTransStatusStart : updateShipTransStatusStart,
     updateShipTransStatusEnd : updateShipTransStatusEnd,
-    getShipTransStatDate : getShipTransStatDate
+    getShipTransStatDate : getShipTransStatDate,
+    getShipTransMonthStat : getShipTransMonthStat,
+    getShipTransDayStat : getShipTransDayStat
 }
