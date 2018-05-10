@@ -380,6 +380,20 @@ function queryShipTransStatDate(req,res,next){
     })
 }
 
+function queryShipTransCount(req,res,next){
+    var params = req.params ;
+    shipTransDAO.getShipTransCount(params,function(error,result){
+        if (error) {
+            logger.error(' queryShipTransCount ' + error.message);
+            throw sysError.InternalError(error.message,sysMsg.SYS_INTERNAL_ERROR_MSG);
+        } else {
+            logger.info(' queryShipTransCount ' + 'success');
+            resUtil.resetQueryRes(res,result,null);
+            return next();
+        }
+    })
+}
+
 function queryShipTransMonthStat(req,res,next){
     var params = req.params ;
     shipTransDAO.getShipTransMonthStat(params,function(error,result){
@@ -416,6 +430,7 @@ module.exports = {
     updateShipTransStatus : updateShipTransStatus,
     getShipTransCsv : getShipTransCsv,
     queryShipTransStatDate : queryShipTransStatDate,
+    queryShipTransCount : queryShipTransCount,
     queryShipTransMonthStat : queryShipTransMonthStat,
     queryShipTransDayStat : queryShipTransDayStat
 }

@@ -344,6 +344,7 @@ function createServer() {
     server.get('/api/shipTrans',shipTrans.queryShipTrans);
     server.get('/api/shipTrans.csv',shipTrans.getShipTransCsv);
     server.get('/api/shipTransStatDate',shipTrans.queryShipTransStatDate);
+    server.get('/api/shipTransCount',shipTrans.queryShipTransCount);
     server.get('/api/shipTransMonthStat',shipTrans.queryShipTransMonthStat);
     server.get('/api/shipTransDayStat',shipTrans.queryShipTransDayStat);
     server.post({path:'/api/user/:userId/shipTrans',contentType: 'application/json'},shipTrans.createShipTrans);

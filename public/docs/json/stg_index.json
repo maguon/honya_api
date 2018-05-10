@@ -7285,7 +7285,36 @@
             }
           },
           "400": {
-            "description": "Invalid token value or invalid shipTransStatDate id"
+            "description": "Invalid token value or invalid shipTrans id"
+          }
+        }
+      }
+    },
+    "/shipTransCount": {
+      "get": {
+        "tags": [
+          "ship"
+        ],
+        "summary": "query  shipTrans count",
+        "description": "query shipTransCount",
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+
+        ],
+        "responses": {
+          "200": {
+            "description": "successful operation",
+            "schema": {
+              "type": "object",
+              "items": {
+                "$ref": "#/definitions/shipTransCount"
+              }
+            }
+          },
+          "400": {
+            "description": "Invalid token value or invalid shipTrans id"
           }
         }
       }

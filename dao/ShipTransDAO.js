@@ -212,6 +212,18 @@ function getShipTransStatDate(params,callback) {
     });
 }
 
+function getShipTransCount(params,callback) {
+    var query = " select count(st.id) as ship_trans_count,count(stc.id) as ship_trans_car_count,st.ship_trans_status from ship_trans_info st " +
+        " left join ship_trans_car_rel stc on st.id = stc.ship_trans_id " +
+        " where st.id is not null ";
+    var paramsArray=[],i=0;
+    query = query + ' group by st.ship_trans_status ';
+    db.dbQuery(query,paramsArray,function(error,rows){
+        logger.debug(' getShipTransCount ');
+        return callback(error,rows);
+    });
+}
+
 function getShipTransMonthStat(params,callback){
     var query = " select db.y_month,count(st.id) as ship_trans_count,count(stc.id) as ship_trans_car_count from date_base db " +
         " left join ship_trans_info st on db.id = st.start_date_id " +
@@ -268,6 +280,7 @@ module.exports ={
     updateShipTransStatusStart : updateShipTransStatusStart,
     updateShipTransStatusEnd : updateShipTransStatusEnd,
     getShipTransStatDate : getShipTransStatDate,
+    getShipTransCount : getShipTransCount,
     getShipTransMonthStat : getShipTransMonthStat,
     getShipTransDayStat : getShipTransDayStat
 }
