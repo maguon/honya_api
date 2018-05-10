@@ -213,8 +213,8 @@ function getShipTransStatDate(params,callback) {
 }
 
 function getShipTransCount(params,callback) {
-    var query = " select count(st.id) as ship_trans_count,count(stc.id) as ship_trans_car_count,st.ship_trans_status from ship_trans_info st " +
-        " left join ship_trans_car_rel stc on st.id = stc.ship_trans_id " +
+    var query = " select count(st.id) as ship_trans_count,count(sto.id) as ship_trans_order_count,st.ship_trans_status from ship_trans_info st " +
+        " left join ship_trans_order sto on st.id = sto.ship_trans_id " +
         " where st.id is not null ";
     var paramsArray=[],i=0;
     query = query + ' group by st.ship_trans_status ';
