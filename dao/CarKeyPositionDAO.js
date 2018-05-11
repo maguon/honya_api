@@ -20,7 +20,7 @@ function addCarKeyPosition(params,callback){
 }
 
 function getCarKeyPosition(params,callback) {
-    var query = " select ckp.*,ckc.key_cabinet_name,ckca.area_name,c.vin,c.make_name,c.model_name,e.short_name " +
+    var query = " select ckp.*,ckc.key_cabinet_name,ckca.area_name,c.vin,c.make_name,c.model_name,e.entrust_type,e.short_name " +
         " from car_key_position ckp " +
         " left join car_key_cabinet_info ckc on ckp.car_key_cabinet_id = ckc.id " +
         " left join car_key_cabinet_area ckca on ckp.car_key_cabinet_area_id = ckca.id" +
