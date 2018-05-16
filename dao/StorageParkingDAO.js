@@ -186,7 +186,7 @@ function getStorageParkingCol(params,callback) {
 }
 
 function getStorageParkingLot(params,callback) {
-    var query = " select id,lot from storage_parking where id is not null ";
+    var query = " select * from storage_parking where id is not null ";
     var paramsArray=[],i=0;
     if(params.parkingId){
         paramsArray[i++] = params.parkingId;
