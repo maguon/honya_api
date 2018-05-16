@@ -7152,6 +7152,38 @@
 
           },
           {
+            "name": "actualStartDateStart",
+            "in": "query",
+            "description": "actualStartDate start",
+            "required": false,
+            "type": "string"
+
+          },
+          {
+            "name": "actualStartDateEnd",
+            "in": "query",
+            "description": "actualStartDate end",
+            "required": false,
+            "type": "string"
+
+          },
+          {
+            "name": "actualEndDateStart",
+            "in": "query",
+            "description": "actualEndDate start",
+            "required": false,
+            "type": "string"
+
+          },
+          {
+            "name": "actualEndDateEnd",
+            "in": "query",
+            "description": "actualEndDate end",
+            "required": false,
+            "type": "string"
+
+          },
+          {
             "name": "start",
             "in": "query",
             "description": " list start pos",
@@ -7313,6 +7345,38 @@
             "description": "shipTrans status",
             "required": false,
             "type": "integer"
+
+          },
+          {
+            "name": "actualStartDateStart",
+            "in": "query",
+            "description": "actualStartDate start",
+            "required": false,
+            "type": "string"
+
+          },
+          {
+            "name": "actualStartDateEnd",
+            "in": "query",
+            "description": "actualStartDate end",
+            "required": false,
+            "type": "string"
+
+          },
+          {
+            "name": "actualEndDateStart",
+            "in": "query",
+            "description": "actualEndDate start",
+            "required": false,
+            "type": "string"
+
+          },
+          {
+            "name": "actualEndDateEnd",
+            "in": "query",
+            "description": "actualEndDate end",
+            "required": false,
+            "type": "string"
 
           }
         ],

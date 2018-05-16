@@ -277,6 +277,7 @@ function updateShipTransStatus(req,res,next){
         var strDate = moment(myDate).format('YYYYMMDD');
         if(params.shipTransStatus==2){
             params.startDateId = parseInt(strDate);
+            params.actualStartDate = myDate;
             shipTransDAO.updateShipTransStatusStart(params,function(error,result){
                 if (error) {
                     logger.error(' updateShipTransStatus ' + error.message);
@@ -289,6 +290,7 @@ function updateShipTransStatus(req,res,next){
             })
         }else{
             params.endDateId = parseInt(strDate);
+            params.actualEndDate = myDate;
             shipTransDAO.updateShipTransStatusEnd(params,function(error,result){
                 if (error) {
                     logger.error(' updateShipTransStatus ' + error.message);

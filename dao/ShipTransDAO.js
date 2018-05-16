@@ -101,6 +101,22 @@ function getShipTrans(params,callback) {
         paramsArray[i++] = params.shipTransStatus;
         query = query + " and st.ship_trans_status = ? ";
     }
+    if(params.actualStartDateStart){
+        paramsArray[i++] = params.actualStartDateStart +" 00:00:00";
+        query = query + " and  st.actual_start_date  >= ? ";
+    }
+    if(params.actualStartDateEnd){
+        paramsArray[i++] = params.actualStartDateEnd +" 23:59:59";
+        query = query + " and st.actual_start_date  <= ? ";
+    }
+    if(params.actualEndDateStart){
+        paramsArray[i++] = params.actualEndDateStart +" 00:00:00";
+        query = query + " and  st.actual_end_date  >= ? ";
+    }
+    if(params.actualEndDateEnd){
+        paramsArray[i++] = params.actualEndDateEnd +" 23:59:59";
+        query = query + " and st.actual_end_date  <= ? ";
+    }
     query = query + ' group by st.id ';
     query = query + ' order by st.id desc ';
     if (params.start && params.size) {
@@ -160,10 +176,11 @@ function updateShipTransCountReduce(params,callback){
 }
 
 function updateShipTransStatusStart(params,callback){
-    var query = " update ship_trans_info set ship_trans_status = ? , start_date_id = ? where id = ? " ;
+    var query = " update ship_trans_info set ship_trans_status = ? , start_date_id = ? , actual_start_date = ? where id = ? " ;
     var paramsArray=[],i=0;
     paramsArray[i++]=params.shipTransStatus;
     paramsArray[i++]=params.startDateId;
+    paramsArray[i++]=params.actualStartDate;
     paramsArray[i]=params.shipTransId;
     db.dbQuery(query,paramsArray,function(error,rows){
         logger.debug(' updateShipTransStatusStart ');
@@ -172,10 +189,11 @@ function updateShipTransStatusStart(params,callback){
 }
 
 function updateShipTransStatusEnd(params,callback){
-    var query = " update ship_trans_info set ship_trans_status = ? , end_date_id = ? where id = ? " ;
+    var query = " update ship_trans_info set ship_trans_status = ? , end_date_id = ? , actual_end_date = ? where id = ? " ;
     var paramsArray=[],i=0;
     paramsArray[i++]=params.shipTransStatus;
     paramsArray[i++]=params.endDateId;
+    paramsArray[i++]=params.actualEndDate;
     paramsArray[i]=params.shipTransId;
     db.dbQuery(query,paramsArray,function(error,rows){
         logger.debug(' updateShipTransStatusEnd ');
