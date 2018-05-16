@@ -147,7 +147,8 @@ function updateShipTransOrderStatus(req,res,next){
 function getShipTransOrderCsv(req,res,next){
     var csvString = "";
     var header = "订单编号" + ',' + "VIN" + ',' + "制造商" + ','+ "型号" + ','+ "车辆年份"+ ','+ "车价(美元)" + ','+ "船公司" + ','+ "船名"
-        + ','+ "始发港口"+ ','+ "目的港口" + ','+ "货柜"+ ',' + "开船日期" + ',' + "到港日期" + ','+ "委托方" + ','+ "支付状态";
+        + ','+ "始发港口"+ ','+ "目的港口" + ','+ "货柜"+ ',' + "预计开船日期" + ',' + "预计到港日期"+ ',' + "实际开船日期" + ',' + "实际到港日期"
+        + ','+ "委托方" + ','+ "支付状态";
     csvString = header + '\r\n'+csvString;
     var params = req.params ;
     var parkObj = {};
@@ -173,8 +174,26 @@ function getShipTransOrderCsv(req,res,next){
                 parkObj.startPortName = rows[i].start_port_name;
                 parkObj.endPortName = rows[i].end_port_name;
                 parkObj.container = rows[i].container;
-                parkObj.startShipDate = new Date(rows[i].start_ship_date).toLocaleDateString();
-                parkObj.endShipDate = new Date(rows[i].end_ship_date).toLocaleDateString();
+                if(rows[i].start_ship_date == null){
+                    parkObj.startShipDate = "";
+                }else{
+                    parkObj.startShipDate = new Date(rows[i].start_ship_date).toLocaleDateString();
+                }
+                if(rows[i].end_ship_date == null){
+                    parkObj.endShipDate = "";
+                }else{
+                    parkObj.endShipDate = new Date(rows[i].end_ship_date).toLocaleDateString();
+                }
+                if(rows[i].actual_start_date == null){
+                    parkObj.actualStartDate = "";
+                }else{
+                    parkObj.actualStartDate = new Date(rows[i].actual_start_date).toLocaleDateString();
+                }
+                if(rows[i].actual_end_date == null){
+                    parkObj.actualEndDate = "";
+                }else{
+                    parkObj.actualEndDate = new Date(rows[i].actual_end_date).toLocaleDateString();
+                }
                 parkObj.shortName = rows[i].short_name;
                 if(rows[i].order_status == 1){
                     parkObj.orderStatus = "未支付";
@@ -183,7 +202,8 @@ function getShipTransOrderCsv(req,res,next){
                 }
                 csvString = csvString+parkObj.id+","+parkObj.vin+","+parkObj.makeName+","+parkObj.modelName+","+parkObj.proDate
                     +","+parkObj.valuation+","+parkObj.shipCompanyName+","+parkObj.shipName+","+parkObj.startPortName+","+parkObj.endPortName
-                    +","+parkObj.container+","+parkObj.startShipDate+","+parkObj.endShipDate+","+parkObj.shortName+","+parkObj.orderStatus+ '\r\n';
+                    +","+parkObj.container+","+parkObj.startShipDate+","+parkObj.endShipDate+","+parkObj.actualStartDate+","+parkObj.actualEndDate
+                    +","+parkObj.shortName+","+parkObj.orderStatus+ '\r\n';
             }
             var csvBuffer = new Buffer(csvString,'utf8');
             res.set('content-type', 'application/csv');

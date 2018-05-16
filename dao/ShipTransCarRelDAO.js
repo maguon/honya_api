@@ -19,7 +19,8 @@ function addShipTransCarRel(params,callback){
 
 function getShipTransCarRel(params,callback) {
     var query = " select stcr.*,c.vin,c.make_name,c.model_name,c.pro_date,c.valuation, " +
-        " st.start_port_id,st.start_port_name,st.end_port_id,st.end_port_name,st.start_ship_date,st.end_ship_date,sc.ship_company_name, " +
+        " st.start_port_id,st.start_port_name,st.end_port_id,st.end_port_name,st.start_ship_date,st.end_ship_date, " +
+        " st.actual_start_date,st.actual_end_date,sc.ship_company_name, " +
         " st.ship_name,st.container,st.booking,st.tab,st.ship_trans_user_id,u.real_name as ship_trans_user_name,st.part_status,st.remark, " +
         " sto.id as ship_trans_order_id,sto.entrust_id,e.short_name,sto.ship_trans_fee,sto.order_status " +
         " from ship_trans_car_rel stcr " +

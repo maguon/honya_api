@@ -19,7 +19,8 @@ function addShipTransOrderPaymentRel(params,callback){
 
 function getShipTransOrderPaymentRel(params,callback) {
     var query = " select stopr.*,c.vin,c.make_name,c.model_name, " +
-        " st.start_port_name,st.end_port_name,st.start_ship_date,st.end_ship_date,sto.ship_trans_fee " +
+        " st.start_port_name,st.end_port_name,st.start_ship_date,st.end_ship_date," +
+        " st.actual_start_date,st.actual_end_date,sto.ship_trans_fee " +
         " from ship_trans_order_payment_rel stopr " +
         " left join ship_trans_order sto on stopr.ship_trans_order_id = sto.id " +
         " left join car_info c on sto.car_id = c.id " +
