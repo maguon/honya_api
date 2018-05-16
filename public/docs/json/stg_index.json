@@ -7921,6 +7921,38 @@
 
           },
           {
+            "name": "actualStartDateStart",
+            "in": "query",
+            "description": "actualStartDate start",
+            "required": false,
+            "type": "string"
+
+          },
+          {
+            "name": "actualStartDateEnd",
+            "in": "query",
+            "description": "actualStartDate end",
+            "required": false,
+            "type": "string"
+
+          },
+          {
+            "name": "actualEndDateStart",
+            "in": "query",
+            "description": "actualEndDate start",
+            "required": false,
+            "type": "string"
+
+          },
+          {
+            "name": "actualEndDateEnd",
+            "in": "query",
+            "description": "actualEndDate end",
+            "required": false,
+            "type": "string"
+
+          },
+          {
             "name": "start",
             "in": "query",
             "description": " list start pos",
@@ -8105,6 +8137,38 @@
             "name": "booking",
             "in": "query",
             "description": "booking",
+            "required": false,
+            "type": "string"
+
+          },
+          {
+            "name": "actualStartDateStart",
+            "in": "query",
+            "description": "actualStartDate start",
+            "required": false,
+            "type": "string"
+
+          },
+          {
+            "name": "actualStartDateEnd",
+            "in": "query",
+            "description": "actualStartDate end",
+            "required": false,
+            "type": "string"
+
+          },
+          {
+            "name": "actualEndDateStart",
+            "in": "query",
+            "description": "actualEndDate start",
+            "required": false,
+            "type": "string"
+
+          },
+          {
+            "name": "actualEndDateEnd",
+            "in": "query",
+            "description": "actualEndDate end",
             "required": false,
             "type": "string"
 

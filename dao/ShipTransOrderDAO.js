@@ -108,6 +108,22 @@ function getShipTransOrder(params,callback) {
         paramsArray[i++] = params.shipTransStatus;
         query = query + " and st.ship_trans_status = ? ";
     }
+    if(params.actualStartDateStart){
+        paramsArray[i++] = params.actualStartDateStart +" 00:00:00";
+        query = query + " and  st.actual_start_date  >= ? ";
+    }
+    if(params.actualStartDateEnd){
+        paramsArray[i++] = params.actualStartDateEnd +" 23:59:59";
+        query = query + " and st.actual_start_date  <= ? ";
+    }
+    if(params.actualEndDateStart){
+        paramsArray[i++] = params.actualEndDateStart +" 00:00:00";
+        query = query + " and  st.actual_end_date  >= ? ";
+    }
+    if(params.actualEndDateEnd){
+        paramsArray[i++] = params.actualEndDateEnd +" 23:59:59";
+        query = query + " and st.actual_end_date  <= ? ";
+    }
     query = query + ' group by sto.id ';
     if (params.start && params.size) {
         paramsArray[i++] = parseInt(params.start);
