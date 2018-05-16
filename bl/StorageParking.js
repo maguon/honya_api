@@ -143,10 +143,55 @@ function queryStorageParkingMakeStat(req,res,next){
     })
 }
 
+function queryStorageParkingRow(req,res,next){
+    var params = req.params ;
+    storageParkingDAO.getStorageParkingRow(params,function(error,result){
+        if (error) {
+            logger.error(' queryStorageParkingRow ' + error.message);
+            throw sysError.InternalError(error.message,sysMsg.SYS_INTERNAL_ERROR_MSG);
+        } else {
+            logger.info(' queryStorageParkingRow ' + 'success');
+            resUtil.resetQueryRes(res,result,null);
+            return next();
+        }
+    })
+}
+
+function queryStorageParkingCol(req,res,next){
+    var params = req.params ;
+    storageParkingDAO.getStorageParkingCol(params,function(error,result){
+        if (error) {
+            logger.error(' queryStorageParkingCol ' + error.message);
+            throw sysError.InternalError(error.message,sysMsg.SYS_INTERNAL_ERROR_MSG);
+        } else {
+            logger.info(' queryStorageParkingCol ' + 'success');
+            resUtil.resetQueryRes(res,result,null);
+            return next();
+        }
+    })
+}
+
+function queryStorageParkingLot(req,res,next){
+    var params = req.params ;
+    storageParkingDAO.getStorageParkingLot(params,function(error,result){
+        if (error) {
+            logger.error(' queryStorageParkingLot ' + error.message);
+            throw sysError.InternalError(error.message,sysMsg.SYS_INTERNAL_ERROR_MSG);
+        } else {
+            logger.info(' queryStorageParkingLot ' + 'success');
+            resUtil.resetQueryRes(res,result,null);
+            return next();
+        }
+    })
+}
+
 
 module.exports = {
     queryStorageParking : queryStorageParking,
     queryStorageParkingBalanceCount : queryStorageParkingBalanceCount,
     updateStorageParking : updateStorageParking,
-    queryStorageParkingMakeStat : queryStorageParkingMakeStat
+    queryStorageParkingMakeStat : queryStorageParkingMakeStat,
+    queryStorageParkingRow : queryStorageParkingRow,
+    queryStorageParkingCol : queryStorageParkingCol,
+    queryStorageParkingLot : queryStorageParkingLot
 }

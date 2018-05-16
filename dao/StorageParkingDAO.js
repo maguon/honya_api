@@ -137,6 +137,83 @@ function getStorageMakeStat (params,callback){
     });
 }
 
+function getStorageParkingRow(params,callback) {
+    var query = " select row from storage_parking where id is not null ";
+    var paramsArray=[],i=0;
+    if(params.parkingId){
+        paramsArray[i++] = params.parkingId;
+        query = query + " and id = ? ";
+    }
+    if(params.storageId){
+        paramsArray[i++] = params.storageId;
+        query = query + " and storage_id = ? ";
+    }
+    if(params.areaId){
+        paramsArray[i++] = params.areaId;
+        query = query + " and area_id = ? ";
+    }
+    query = query + ' group by row ';
+    db.dbQuery(query,paramsArray,function(error,rows){
+        logger.debug(' getStorageParkingRow ');
+        return callback(error,rows);
+    });
+}
+
+function getStorageParkingCol(params,callback) {
+    var query = " select col from storage_parking where id is not null ";
+    var paramsArray=[],i=0;
+    if(params.parkingId){
+        paramsArray[i++] = params.parkingId;
+        query = query + " and id = ? ";
+    }
+    if(params.storageId){
+        paramsArray[i++] = params.storageId;
+        query = query + " and storage_id = ? ";
+    }
+    if(params.areaId){
+        paramsArray[i++] = params.areaId;
+        query = query + " and area_id = ? ";
+    }
+    if(params.row){
+        paramsArray[i++] = params.row;
+        query = query + " and row = ? ";
+    }
+    query = query + ' group by col ';
+    db.dbQuery(query,paramsArray,function(error,rows){
+        logger.debug(' getStorageParkingCol ');
+        return callback(error,rows);
+    });
+}
+
+function getStorageParkingLot(params,callback) {
+    var query = " select id,lot from storage_parking where id is not null ";
+    var paramsArray=[],i=0;
+    if(params.parkingId){
+        paramsArray[i++] = params.parkingId;
+        query = query + " and id = ? ";
+    }
+    if(params.storageId){
+        paramsArray[i++] = params.storageId;
+        query = query + " and storage_id = ? ";
+    }
+    if(params.areaId){
+        paramsArray[i++] = params.areaId;
+        query = query + " and area_id = ? ";
+    }
+    if(params.row){
+        paramsArray[i++] = params.row;
+        query = query + " and row = ? ";
+    }
+    if(params.col){
+        paramsArray[i++] = params.col;
+        query = query + " and col = ? ";
+    }
+    db.dbQuery(query,paramsArray,function(error,rows){
+        logger.debug(' getStorageParkingLot ');
+        return callback(error,rows);
+    });
+}
+
 
 module.exports ={
     addStorageParking : addStorageParking,
@@ -146,5 +223,8 @@ module.exports ={
     updateStorageParking : updateStorageParking,
     updateStorageParkingMove : updateStorageParkingMove,
     updateStorageParkingOut : updateStorageParkingOut,
-    getStorageMakeStat : getStorageMakeStat
+    getStorageMakeStat : getStorageMakeStat,
+    getStorageParkingRow : getStorageParkingRow,
+    getStorageParkingCol : getStorageParkingCol,
+    getStorageParkingLot : getStorageParkingLot
 }

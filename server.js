@@ -219,6 +219,9 @@ function createServer() {
      * StorageParking Module
      */
     server.get('/api/storageParking',storageParking.queryStorageParking);
+    server.get('/api/storageParkingRow',storageParking.queryStorageParkingRow);
+    server.get('/api/storageParkingCol',storageParking.queryStorageParkingCol);
+    server.get('/api/storageParkingLot',storageParking.queryStorageParkingLot);
     server.get('/api/storageParkingBalanceCount',storageParking.queryStorageParkingBalanceCount);
     server.get('/api/storage/:storageId/makeStat',storageParking.queryStorageParkingMakeStat);
     server.put({path:'/api/user/:userId/storageParking/:parkingId',contentType: 'application/json'} ,storageParking.updateStorageParking,sysRecord.saveCarRecord);

@@ -2565,6 +2565,162 @@
         }
       }
     },
+    "/storageParkingRow": {
+      "get": {
+        "tags": [
+          "storage"
+        ],
+        "summary": "query  storageParkingRow list",
+        "description": "query storageParkingRow",
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "storageId",
+            "in": "query",
+            "description": "storage id",
+            "required": false,
+            "type": "integer"
+
+          },
+          {
+            "name": "areaId",
+            "in": "query",
+            "description": "area id",
+            "required": false,
+            "type": "integer"
+
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "successful operation",
+            "schema": {
+              "type": "object",
+              "items": {
+                "$ref": "#/definitions/storageParking"
+              }
+            }
+          },
+          "400": {
+            "description": "Invalid token value or invalid storageParking id"
+          }
+        }
+      }
+    },
+    "/storageParkingCol": {
+      "get": {
+        "tags": [
+          "storage"
+        ],
+        "summary": "query  storageParkingCol list",
+        "description": "query storageParkingCol",
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "storageId",
+            "in": "query",
+            "description": "storage id",
+            "required": false,
+            "type": "integer"
+
+          },
+          {
+            "name": "areaId",
+            "in": "query",
+            "description": "area id",
+            "required": false,
+            "type": "integer"
+
+          },
+          {
+            "name": "row",
+            "in": "query",
+            "description": "row",
+            "required": false,
+            "type": "integer"
+
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "successful operation",
+            "schema": {
+              "type": "object",
+              "items": {
+                "$ref": "#/definitions/storageParking"
+              }
+            }
+          },
+          "400": {
+            "description": "Invalid token value or invalid storageParking id"
+          }
+        }
+      }
+    },
+    "/storageParkingLot": {
+      "get": {
+        "tags": [
+          "storage"
+        ],
+        "summary": "query  storageParkingLot list",
+        "description": "query storageParkingLot",
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "storageId",
+            "in": "query",
+            "description": "storage id",
+            "required": false,
+            "type": "integer"
+
+          },
+          {
+            "name": "areaId",
+            "in": "query",
+            "description": "area id",
+            "required": false,
+            "type": "integer"
+
+          },
+          {
+            "name": "row",
+            "in": "query",
+            "description": "row",
+            "required": false,
+            "type": "integer"
+
+          },
+          {
+            "name": "col",
+            "in": "query",
+            "description": "col",
+            "required": false,
+            "type": "integer"
+
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "successful operation",
+            "schema": {
+              "type": "object",
+              "items": {
+                "$ref": "#/definitions/storageParking"
+              }
+            }
+          },
+          "400": {
+            "description": "Invalid token value or invalid storageParking id"
+          }
+        }
+      }
+    },
     "/storageParkingBalanceCount": {
       "get": {
         "tags": [
