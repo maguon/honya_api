@@ -7,14 +7,15 @@ var serverLogger = require('../util/ServerLogger.js');
 var logger = serverLogger.createLogger('EntrustDAO.js');
 
 function addEntrust(params,callback){
-    var query = " insert into entrust_info (short_name,entrust_name,entrust_type,contacts_name,tel,address,remark) " +
-        " values ( ? , ? , ? , ? , ? , ? , ? )";
+    var query = " insert into entrust_info (short_name,entrust_name,entrust_type,contacts_name,tel,email,address,remark) " +
+        " values ( ? , ? , ? , ? , ? , ? , ? , ? )";
     var paramsArray=[],i=0;
     paramsArray[i++]=params.shortName;
     paramsArray[i++]=params.entrustName;
     paramsArray[i++]=params.entrustType;
     paramsArray[i++]=params.contactsName;
     paramsArray[i++]=params.tel;
+    paramsArray[i++]=params.email;
     paramsArray[i++]=params.address;
     paramsArray[i]=params.remark;
     db.dbQuery(query,paramsArray,function(error,rows){
@@ -100,13 +101,14 @@ function getEntrustBase(params,callback) {
 }
 
 function updateEntrust(params,callback){
-    var query = " update entrust_info set short_name = ?,entrust_name = ?,entrust_type = ?,contacts_name = ?,tel = ?,address = ?,remark = ? where id = ? " ;
+    var query = " update entrust_info set short_name = ?,entrust_name = ?,entrust_type = ?,contacts_name = ?,tel = ?,email = ?,address = ?,remark = ? where id = ? " ;
     var paramsArray=[],i=0;
     paramsArray[i++]=params.shortName;
     paramsArray[i++]=params.entrustName;
     paramsArray[i++]=params.entrustType;
     paramsArray[i++]=params.contactsName;
     paramsArray[i++]=params.tel;
+    paramsArray[i++]=params.email;
     paramsArray[i++]=params.address;
     paramsArray[i++]=params.remark;
     paramsArray[i]=params.entrustId;

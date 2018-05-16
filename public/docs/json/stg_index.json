@@ -9468,6 +9468,9 @@
         "tel": {
           "type": "string"
         },
+        "email": {
+          "type": "string"
+        },
         "address": {
           "type": "string"
         },
