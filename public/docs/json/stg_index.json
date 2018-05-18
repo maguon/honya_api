@@ -8949,6 +8949,151 @@
         }
       }
     },
+    "/financialCredit": {
+      "get": {
+        "tags": [
+          "financial"
+        ],
+        "summary": "query  financialCredit list",
+        "description": "query financialCredit",
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "financialCreditId",
+            "in": "query",
+            "description": "financialCredit id",
+            "required": false,
+            "type": "integer"
+
+          },
+          {
+            "name": "entrustId",
+            "in": "query",
+            "description": "entrust id",
+            "required": false,
+            "type": "integer"
+
+          },
+          {
+            "name": "creditStatus",
+            "in": "query",
+            "description": "credit status",
+            "required": false,
+            "type": "integer"
+
+          },
+          {
+            "name": "planReturnDateStart",
+            "in": "query",
+            "description": "planReturnDate start",
+            "required": false,
+            "type": "string"
+
+          },
+          {
+            "name": "planReturnDateEnd",
+            "in": "query",
+            "description": "planReturnDate end",
+            "required": false,
+            "type": "string"
+
+          },
+          {
+            "name": "actualReturnDateStart",
+            "in": "query",
+            "description": "actualReturnDate start",
+            "required": false,
+            "type": "string"
+
+          },
+          {
+            "name": "actualReturnDateEnd",
+            "in": "query",
+            "description": "actualReturnDate end",
+            "required": false,
+            "type": "string"
+
+          },
+          {
+            "name": "start",
+            "in": "query",
+            "description": " list start pos",
+            "required": false,
+            "type": "integer"
+
+          },
+          {
+            "name": "size",
+            "in": "query",
+            "description": "list size for pagination",
+            "required": false,
+            "type": "integer"
+
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "successful operation",
+            "schema": {
+              "type": "object",
+              "items": {
+                "$ref": "#/definitions/financialCredit"
+              }
+            }
+          },
+          "400": {
+            "description": "Invalid token value or invalid financialCredit id"
+          }
+        }
+      }
+    },
+    "/user/{userId}/financialCredit": {
+      "post": {
+        "tags": [
+          "financial"
+        ],
+        "summary": "user create financialCredit",
+        "description": "user create financialCredit",
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "userId",
+            "in": "path",
+            "description": "user id",
+            "required": true,
+            "type": "integer"
+
+          },
+          {
+            "name": "financialCredit",
+            "in": "body",
+            "description": "financialCredit info",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/financialCredit"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "successful operation",
+            "schema": {
+              "type": "object",
+              "items": {
+                "$ref": "#/definitions/ApiResponse"
+              }
+            }
+          },
+          "400": {
+            "description": "Invalid token value or invalid financialCredit id"
+          }
+        }
+      }
+    },
     "/app": {
       "get": {
         "tags": [
@@ -9985,6 +10130,54 @@
       },
       "xml": {
         "name": "financialLoan"
+      }
+    },
+    "financialCredit": {
+      "type": "object",
+      "properties": {
+
+        "creditNumber": {
+          "type": "string"
+        },
+        "entrustId": {
+          "type": "integer"
+        },
+        "creditMoney": {
+          "type": "integer"
+        },
+        "actualMoney": {
+          "type": "integer"
+        },
+        "planReturnDate": {
+          "type": "string"
+        },
+        "actualReturnDate": {
+          "type": "string"
+        },
+        "receiveCardDate": {
+          "type": "string"
+        },
+        "documentsDate": {
+          "type": "string"
+        },
+        "documentsSendDate": {
+          "type": "string"
+        },
+        "documentsReceiveDate": {
+          "type": "string"
+        },
+        "actualRemitDate": {
+          "type": "string"
+        },
+        "invoiceNumber": {
+          "type": "string"
+        },
+        "remark": {
+          "type": "string"
+        }
+      },
+      "xml": {
+        "name": "financialCredit"
       }
     }
   },

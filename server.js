@@ -38,6 +38,7 @@ var shipTransOrder = require('./bl/ShipTransOrder.js');
 var shipTransCarRel = require('./bl/ShipTransCarRel.js');
 var shipTransOrderPaymentRel = require('./bl/ShipTransOrderPaymentRel.js');
 var financialLoan = require('./bl/FinancialLoan.js');
+var financialCredit = require('./bl/FinancialCredit.js');
 var app = require('./bl/App.js');
 var sysRecord = require('./bl/SysRecord.js');
 
@@ -384,6 +385,12 @@ function createServer() {
      */
     server.get('/api/financialLoan',financialLoan.queryFinancialLoan);
     server.post({path:'/api/user/:userId/financialLoan',contentType: 'application/json'},financialLoan.createFinancialLoan);
+
+    /**
+     * FinancialCredit Module
+     */
+    server.get('/api/financialCredit',financialCredit.queryFinancialCredit);
+    server.post({path:'/api/user/:userId/financialCredit',contentType: 'application/json'},financialCredit.createFinancialCredit);
 
     /**
      * App Module
