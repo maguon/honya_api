@@ -20,8 +20,10 @@ function addFinancialLoan(params,callback){
 }
 
 function getFinancialLoan(params,callback) {
-    var query = " select fl.*,e.entrust_type,e.short_name from financial_loan_info fl " +
+    var query = " select fl.*,e.entrust_type,e.short_name,sum(c.valuation) as mortgage_valuation from financial_loan_info fl " +
         " left join entrust_info e on fl.entrust_id = e.id " +
+        " left join financial_loan_mortgage_car_rel flmc on fl.id = flmc.financial_loan_id " +
+        " left join car_info c on flmc.car_id = c.id " +
         " where fl.id is not null ";
     var paramsArray=[],i=0;
     if(params.financialLoanId){
