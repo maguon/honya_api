@@ -8949,6 +8949,97 @@
         }
       }
     },
+    "/user/{userId}/financialLoanMortgageCarRel": {
+      "post": {
+        "tags": [
+          "financial"
+        ],
+        "summary": "user create financialLoanMortgageCarRel",
+        "description": "user create financialLoanMortgageCarRel",
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "userId",
+            "in": "path",
+            "description": "user id",
+            "required": true,
+            "type": "integer"
+
+          },
+          {
+            "name": "financialLoanMortgageCarRel",
+            "in": "body",
+            "description": "financialLoanMortgageCarRel info",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/financialLoanMortgageCarRel"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "successful operation",
+            "schema": {
+              "type": "object",
+              "items": {
+                "$ref": "#/definitions/ApiResponse"
+              }
+            }
+          },
+          "400": {
+            "description": "Invalid token value or invalid financialLoanMortgageCarRel id"
+          }
+        }
+      }
+    },
+    "/user/{userId}/financialLoan/{financialLoanId}/car/{carId}": {
+      "delete": {
+        "tags": [
+          "financial"
+        ],
+        "summary": "Deletes a financialLoanMortgageCarRel",
+        "description": "",
+        "operationId": "deleteFinancialLoanMortgageCarRel",
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "userId",
+            "in": "path",
+            "description": "user id",
+            "required": true,
+            "type": "integer"
+          },
+          {
+            "name": "financialLoanId",
+            "in": "path",
+            "description": "financialLoan id",
+            "required": true,
+            "type": "integer"
+
+          },
+          {
+            "name": "carId",
+            "in": "path",
+            "description": "car id",
+            "required": true,
+            "type": "integer"
+
+          }
+        ],
+        "responses": {
+          "400": {
+            "description": "Invalid ID supplied"
+          },
+          "404": {
+            "description": "contacts not found"
+          }
+        }
+      }
+    },
     "/financialCredit": {
       "get": {
         "tags": [
@@ -10130,6 +10221,21 @@
       },
       "xml": {
         "name": "financialLoan"
+      }
+    },
+    "financialLoanMortgageCarRel": {
+      "type": "object",
+      "properties": {
+
+        "financialLoanId": {
+          "type": "integer"
+        },
+        "carId": {
+          "type": "integer"
+        }
+      },
+      "xml": {
+        "name": "financialLoanMortgageCarRel"
       }
     },
     "financialCredit": {

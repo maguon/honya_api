@@ -69,8 +69,30 @@ function getFinancialLoan(params,callback) {
     });
 }
 
+function updateMortgageCarCountPlus(params,callback){
+    var query = " update financial_loan_info set mortgage_car_count = mortgage_car_count +1 where id = ? " ;
+    var paramsArray=[],i=0;
+    paramsArray[i]=params.financialLoanId;
+    db.dbQuery(query,paramsArray,function(error,rows){
+        logger.debug(' updateMortgageCarCountPlus ');
+        return callback(error,rows);
+    });
+}
+
+function updateMortgageCarCountMinus(params,callback){
+    var query = " update financial_loan_info set mortgage_car_count = mortgage_car_count -1 where id = ? " ;
+    var paramsArray=[],i=0;
+    paramsArray[i]=params.financialLoanId;
+    db.dbQuery(query,paramsArray,function(error,rows){
+        logger.debug(' updateMortgageCarCountMinus ');
+        return callback(error,rows);
+    });
+}
+
 
 module.exports ={
     addFinancialLoan : addFinancialLoan,
-    getFinancialLoan : getFinancialLoan
+    getFinancialLoan : getFinancialLoan,
+    updateMortgageCarCountPlus : updateMortgageCarCountPlus,
+    updateMortgageCarCountMinus : updateMortgageCarCountMinus
 }
