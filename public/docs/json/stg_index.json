@@ -61,6 +61,10 @@
       "description":"Ship of log api"
     },
     {
+      "name":"financial",
+      "description":"Financial of log api"
+    },
+    {
       "name":"app",
       "description":"app version"
     }
@@ -8792,6 +8796,159 @@
         }
       }
     },
+    "/financialLoan": {
+      "get": {
+        "tags": [
+          "financial"
+        ],
+        "summary": "query  financialLoan list",
+        "description": "query financialLoan",
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "financialLoanId",
+            "in": "query",
+            "description": "financialLoan id",
+            "required": false,
+            "type": "integer"
+
+          },
+          {
+            "name": "entrustType",
+            "in": "query",
+            "description": "entrust type",
+            "required": false,
+            "type": "integer"
+
+          },
+          {
+            "name": "entrustId",
+            "in": "query",
+            "description": "entrust id",
+            "required": false,
+            "type": "integer"
+
+          },
+          {
+            "name": "loanStatus",
+            "in": "query",
+            "description": "loan status",
+            "required": false,
+            "type": "integer"
+
+          },
+          {
+            "name": "createdOnStart",
+            "in": "query",
+            "description": "createdOn start",
+            "required": false,
+            "type": "string"
+
+          },
+          {
+            "name": "createdOnEnd",
+            "in": "query",
+            "description": "createdOn end",
+            "required": false,
+            "type": "string"
+
+          },
+          {
+            "name": "loanEndDateStart",
+            "in": "query",
+            "description": "loanEndDate start",
+            "required": false,
+            "type": "string"
+
+          },
+          {
+            "name": "loanEndDateEnd",
+            "in": "query",
+            "description": "loanEndDate end",
+            "required": false,
+            "type": "string"
+
+          },
+          {
+            "name": "start",
+            "in": "query",
+            "description": " list start pos",
+            "required": false,
+            "type": "integer"
+
+          },
+          {
+            "name": "size",
+            "in": "query",
+            "description": "list size for pagination",
+            "required": false,
+            "type": "integer"
+
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "successful operation",
+            "schema": {
+              "type": "object",
+              "items": {
+                "$ref": "#/definitions/financialLoan"
+              }
+            }
+          },
+          "400": {
+            "description": "Invalid token value or invalid financialLoan id"
+          }
+        }
+      }
+    },
+    "/user/{userId}/financialLoan": {
+      "post": {
+        "tags": [
+          "financial"
+        ],
+        "summary": "user create financialLoan",
+        "description": "user create financialLoan",
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "userId",
+            "in": "path",
+            "description": "user id",
+            "required": true,
+            "type": "integer"
+
+          },
+          {
+            "name": "financialLoan",
+            "in": "body",
+            "description": "financialLoan info",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/financialLoan"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "successful operation",
+            "schema": {
+              "type": "object",
+              "items": {
+                "$ref": "#/definitions/ApiResponse"
+              }
+            }
+          },
+          "400": {
+            "description": "Invalid token value or invalid financialLoan id"
+          }
+        }
+      }
+    },
     "/app": {
       "get": {
         "tags": [
@@ -9807,6 +9964,27 @@
       },
       "xml": {
         "name": "shipTransOrderPaymentRel"
+      }
+    },
+    "financialLoan": {
+      "type": "object",
+      "properties": {
+
+        "entrustId": {
+          "type": "integer"
+        },
+        "deposit": {
+          "type": "integer"
+        },
+        "loanMoney": {
+          "type": "integer"
+        },
+        "remark": {
+          "type": "string"
+        }
+      },
+      "xml": {
+        "name": "financialLoan"
       }
     }
   },
