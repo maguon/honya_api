@@ -390,6 +390,7 @@ function createServer() {
     /**
      * FinancialLoanMortgageCarRel Module
      */
+    server.get('/api/financialLoanMortgageCarRel',financialLoanMortgageCarRel.queryFinancialLoanMortgageCarRel);
     server.post({path:'/api/user/:userId/financialLoanMortgageCarRel',contentType: 'application/json'},financialLoanMortgageCarRel.createFinancialLoanMortgageCarRel);
     server.del('/api/user/:userId/financialLoan/:financialLoanId/car/:carId' , financialLoanMortgageCarRel.removeFinancialLoanMortgageCarRel);
 

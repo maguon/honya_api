@@ -8949,6 +8949,58 @@
         }
       }
     },
+    "/financialLoanMortgageCarRel": {
+      "get": {
+        "tags": [
+          "financial"
+        ],
+        "summary": "query  financialLoanMortgageCarRel list",
+        "description": "query financialLoanMortgageCarRel",
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "financialLoanId",
+            "in": "query",
+            "description": "financialLoan id",
+            "required": false,
+            "type": "integer"
+
+          },
+          {
+            "name": "start",
+            "in": "query",
+            "description": " list start pos",
+            "required": false,
+            "type": "integer"
+
+          },
+          {
+            "name": "size",
+            "in": "query",
+            "description": "list size for pagination",
+            "required": false,
+            "type": "integer"
+
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "successful operation",
+            "schema": {
+              "type": "object",
+              "items": {
+                "$ref": "#/definitions/financialLoanMortgageCarRel"
+              }
+            }
+          },
+          "400": {
+            "description": "Invalid token value or invalid financialLoanMortgageCarRel id"
+          }
+        }
+      }
+    },
     "/user/{userId}/financialLoanMortgageCarRel": {
       "post": {
         "tags": [

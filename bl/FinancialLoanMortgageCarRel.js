@@ -61,6 +61,20 @@ function createFinancialLoanMortgageCarRel(req,res,next){
     })
 }
 
+function queryFinancialLoanMortgageCarRel(req,res,next){
+    var params = req.params ;
+    financialLoanMortgageCarRelDAO.getFinancialLoanMortgageCarRel(params,function(error,result){
+        if (error) {
+            logger.error(' queryFinancialLoanMortgageCarRel ' + error.message);
+            throw sysError.InternalError(error.message,sysMsg.SYS_INTERNAL_ERROR_MSG);
+        } else {
+            logger.info(' queryFinancialLoanMortgageCarRel ' + 'success');
+            resUtil.resetQueryRes(res,result,null);
+            return next();
+        }
+    })
+}
+
 function removeFinancialLoanMortgageCarRel(req,res,next){
     var params = req.params;
     Seq().seq(function(){
@@ -97,5 +111,6 @@ function removeFinancialLoanMortgageCarRel(req,res,next){
 
 module.exports = {
     createFinancialLoanMortgageCarRel : createFinancialLoanMortgageCarRel,
+    queryFinancialLoanMortgageCarRel : queryFinancialLoanMortgageCarRel,
     removeFinancialLoanMortgageCarRel : removeFinancialLoanMortgageCarRel
 }
