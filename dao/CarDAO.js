@@ -141,7 +141,7 @@ function getCar(params,callback) {
         paramsArray[i++] = params.endShipDateEnd +" 23:59:59";
         query = query + " and st.end_ship_date  <= ? ";
     }
-    query = query + '  order by r.plan_out_time ';
+    query = query + '  order by c.id ';
     if (params.start && params.size) {
         paramsArray[i++] = parseInt(params.start);
         paramsArray[i] = parseInt(params.size);
