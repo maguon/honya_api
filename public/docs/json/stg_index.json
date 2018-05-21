@@ -9235,6 +9235,51 @@
         }
       }
     },
+    "/user/{userId}/financialLoanRepayment": {
+      "post": {
+        "tags": [
+          "financial"
+        ],
+        "summary": "user create financialLoanRepayment",
+        "description": "user create financialLoanRepayment",
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "userId",
+            "in": "path",
+            "description": "user id",
+            "required": true,
+            "type": "integer"
+
+          },
+          {
+            "name": "financialLoanRepayment",
+            "in": "body",
+            "description": "financialLoanRepayment info",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/financialLoanRepayment"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "successful operation",
+            "schema": {
+              "type": "object",
+              "items": {
+                "$ref": "#/definitions/ApiResponse"
+              }
+            }
+          },
+          "400": {
+            "description": "Invalid token value or invalid financialLoanRepayment id"
+          }
+        }
+      }
+    },
     "/financialCredit": {
       "get": {
         "tags": [
@@ -10446,6 +10491,39 @@
       },
       "xml": {
         "name": "financialLoanBuyCarRel"
+      }
+    },
+    "financialLoanRepayment": {
+      "type": "object",
+      "properties": {
+
+        "financialLoanId": {
+          "type": "integer"
+        },
+        "repaymentMoney": {
+          "type": "integer"
+        },
+        "rate": {
+          "type": "integer"
+        },
+        "createInterestMoney": {
+          "type": "integer"
+        },
+        "createInterestDay": {
+          "type": "integer"
+        },
+        "interestMoney": {
+          "type": "integer"
+        },
+        "fee": {
+          "type": "integer"
+        },
+        "remark": {
+          "type": "string"
+        }
+      },
+      "xml": {
+        "name": "financialLoanRepayment"
       }
     },
     "financialCredit": {
