@@ -40,6 +40,9 @@ function getShipTransCarRel(params,callback) {
         paramsArray[i++] = params.vin;
         query = query + " and c.vin = ? ";
     }
+    if(params.vinCode){
+        query = query + " and c.vin like '%"+params.vinCode+"%'";
+    }
     if(params.startPortId){
         paramsArray[i++] = params.startPortId;
         query = query + " and st.start_port_id = ? ";

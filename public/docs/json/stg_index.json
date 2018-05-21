@@ -8410,6 +8410,14 @@
 
           },
           {
+            "name": "vinCode",
+            "in": "query",
+            "description": "vin code",
+            "required": false,
+            "type": "string"
+
+          },
+          {
             "name": "startPortId",
             "in": "query",
             "description": "startPort id",
