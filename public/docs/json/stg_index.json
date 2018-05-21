@@ -9092,6 +9092,149 @@
         }
       }
     },
+    "/financialLoanBuyCarRel": {
+      "get": {
+        "tags": [
+          "financial"
+        ],
+        "summary": "query  financialLoanBuyCarRel list",
+        "description": "query financialLoanBuyCarRel",
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "financialLoanId",
+            "in": "query",
+            "description": "financialLoan id",
+            "required": false,
+            "type": "integer"
+
+          },
+          {
+            "name": "start",
+            "in": "query",
+            "description": " list start pos",
+            "required": false,
+            "type": "integer"
+
+          },
+          {
+            "name": "size",
+            "in": "query",
+            "description": "list size for pagination",
+            "required": false,
+            "type": "integer"
+
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "successful operation",
+            "schema": {
+              "type": "object",
+              "items": {
+                "$ref": "#/definitions/financialLoanBuyCarRel"
+              }
+            }
+          },
+          "400": {
+            "description": "Invalid token value or invalid financialLoanBuyCarRel id"
+          }
+        }
+      }
+    },
+    "/user/{userId}/financialLoanBuyCarRel": {
+      "post": {
+        "tags": [
+          "financial"
+        ],
+        "summary": "user create financialLoanBuyCarRel",
+        "description": "user create financialLoanBuyCarRel",
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "userId",
+            "in": "path",
+            "description": "user id",
+            "required": true,
+            "type": "integer"
+
+          },
+          {
+            "name": "financialLoanBuyCarRel",
+            "in": "body",
+            "description": "financialLoanBuyCarRel info",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/financialLoanBuyCarRel"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "successful operation",
+            "schema": {
+              "type": "object",
+              "items": {
+                "$ref": "#/definitions/ApiResponse"
+              }
+            }
+          },
+          "400": {
+            "description": "Invalid token value or invalid financialLoanBuyCarRel id"
+          }
+        }
+      }
+    },
+    "/user/{userId}/financialLoan/{financialLoanId}/car/{carId}/financialLoanBuyCarRel": {
+      "delete": {
+        "tags": [
+          "financial"
+        ],
+        "summary": "Deletes a financialLoanBuyCarRel",
+        "description": "",
+        "operationId": "deleteFinancialLoanBuyCarRel",
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "userId",
+            "in": "path",
+            "description": "user id",
+            "required": true,
+            "type": "integer"
+          },
+          {
+            "name": "financialLoanId",
+            "in": "path",
+            "description": "financialLoan id",
+            "required": true,
+            "type": "integer"
+
+          },
+          {
+            "name": "carId",
+            "in": "path",
+            "description": "car id",
+            "required": true,
+            "type": "integer"
+
+          }
+        ],
+        "responses": {
+          "400": {
+            "description": "Invalid ID supplied"
+          },
+          "404": {
+            "description": "contacts not found"
+          }
+        }
+      }
+    },
     "/financialCredit": {
       "get": {
         "tags": [
@@ -10288,6 +10431,21 @@
       },
       "xml": {
         "name": "financialLoanMortgageCarRel"
+      }
+    },
+    "financialLoanBuyCarRel": {
+      "type": "object",
+      "properties": {
+
+        "financialLoanId": {
+          "type": "integer"
+        },
+        "carId": {
+          "type": "integer"
+        }
+      },
+      "xml": {
+        "name": "financialLoanBuyCarRel"
       }
     },
     "financialCredit": {

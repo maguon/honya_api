@@ -39,6 +39,7 @@ var shipTransCarRel = require('./bl/ShipTransCarRel.js');
 var shipTransOrderPaymentRel = require('./bl/ShipTransOrderPaymentRel.js');
 var financialLoan = require('./bl/FinancialLoan.js');
 var financialLoanMortgageCarRel = require('./bl/FinancialLoanMortgageCarRel.js');
+var financialLoanBuyCarRel = require('./bl/FinancialLoanBuyCarRel.js');
 var financialCredit = require('./bl/FinancialCredit.js');
 var app = require('./bl/App.js');
 var sysRecord = require('./bl/SysRecord.js');
@@ -393,6 +394,13 @@ function createServer() {
     server.get('/api/financialLoanMortgageCarRel',financialLoanMortgageCarRel.queryFinancialLoanMortgageCarRel);
     server.post({path:'/api/user/:userId/financialLoanMortgageCarRel',contentType: 'application/json'},financialLoanMortgageCarRel.createFinancialLoanMortgageCarRel);
     server.del('/api/user/:userId/financialLoan/:financialLoanId/car/:carId' , financialLoanMortgageCarRel.removeFinancialLoanMortgageCarRel);
+
+    /**
+     * FinancialLoanBuyCarRel Module
+     */
+    server.get('/api/financialLoanBuyCarRel',financialLoanBuyCarRel.queryFinancialLoanBuyCarRel);
+    server.post({path:'/api/user/:userId/financialLoanBuyCarRel',contentType: 'application/json'},financialLoanBuyCarRel.createFinancialLoanBuyCarRel);
+    server.del('/api/user/:userId/financialLoan/:financialLoanId/car/:carId/financialLoanBuyCarRel' , financialLoanBuyCarRel.removeFinancialLoanBuyCarRel);
 
     /**
      * FinancialCredit Module

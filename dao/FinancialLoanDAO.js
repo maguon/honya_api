@@ -91,10 +91,32 @@ function updateMortgageCarCountMinus(params,callback){
     });
 }
 
+function updateBuyCarCountPlus(params,callback){
+    var query = " update financial_loan_info set buy_car_count = buy_car_count +1 where id = ? " ;
+    var paramsArray=[],i=0;
+    paramsArray[i]=params.financialLoanId;
+    db.dbQuery(query,paramsArray,function(error,rows){
+        logger.debug(' updateBuyCarCountPlus ');
+        return callback(error,rows);
+    });
+}
+
+function updateBuyCarCountMinus(params,callback){
+    var query = " update financial_loan_info set buy_car_count = buy_car_count -1 where id = ? " ;
+    var paramsArray=[],i=0;
+    paramsArray[i]=params.financialLoanId;
+    db.dbQuery(query,paramsArray,function(error,rows){
+        logger.debug(' updateBuyCarCountMinus ');
+        return callback(error,rows);
+    });
+}
+
 
 module.exports ={
     addFinancialLoan : addFinancialLoan,
     getFinancialLoan : getFinancialLoan,
     updateMortgageCarCountPlus : updateMortgageCarCountPlus,
-    updateMortgageCarCountMinus : updateMortgageCarCountMinus
+    updateMortgageCarCountMinus : updateMortgageCarCountMinus,
+    updateBuyCarCountPlus : updateBuyCarCountPlus,
+    updateBuyCarCountMinus : updateBuyCarCountMinus
 }
