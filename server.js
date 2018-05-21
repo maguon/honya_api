@@ -414,6 +414,7 @@ function createServer() {
      */
     server.get('/api/financialCredit',financialCredit.queryFinancialCredit);
     server.post({path:'/api/user/:userId/financialCredit',contentType: 'application/json'},financialCredit.createFinancialCredit);
+    server.put({path:'/api/user/:userId/financialCredit/:financialCreditId/creditStatus/:creditStatus',contentType: 'application/json'} ,financialCredit.updateFinancialCreditStatus);
 
     /**
      * FinancialCreditCarRel Module

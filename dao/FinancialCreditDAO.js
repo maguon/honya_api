@@ -75,8 +75,21 @@ function getFinancialCredit(params,callback) {
     });
 }
 
+function updateFinancialCreditStatus(params,callback){
+    var query = " update financial_credit_info set credit_end_date = ? , credit_status = ? where id = ? " ;
+    var paramsArray=[],i=0;
+    paramsArray[i++]=params.creditEndDate;
+    paramsArray[i++]=params.creditStatus;
+    paramsArray[i]=params.financialCreditId;
+    db.dbQuery(query,paramsArray,function(error,rows){
+        logger.debug(' updateFinancialCreditStatus ');
+        return callback(error,rows);
+    });
+}
+
 
 module.exports ={
     addFinancialCredit : addFinancialCredit,
-    getFinancialCredit : getFinancialCredit
+    getFinancialCredit : getFinancialCredit,
+    updateFinancialCreditStatus : updateFinancialCreditStatus
 }
