@@ -42,6 +42,7 @@ var financialLoanMortgageCarRel = require('./bl/FinancialLoanMortgageCarRel.js')
 var financialLoanBuyCarRel = require('./bl/FinancialLoanBuyCarRel.js');
 var financialLoanRepayment = require('./bl/FinancialLoanRepayment.js');
 var financialCredit = require('./bl/FinancialCredit.js');
+var financialCreditCarRel = require('./bl/FinancialCreditCarRel.js');
 var app = require('./bl/App.js');
 var sysRecord = require('./bl/SysRecord.js');
 
@@ -413,6 +414,13 @@ function createServer() {
      */
     server.get('/api/financialCredit',financialCredit.queryFinancialCredit);
     server.post({path:'/api/user/:userId/financialCredit',contentType: 'application/json'},financialCredit.createFinancialCredit);
+
+    /**
+     * FinancialCreditCarRel Module
+     */
+    server.get('/api/financialCreditCarRel',financialCreditCarRel.queryFinancialCreditCarRel);
+    server.post({path:'/api/user/:userId/financialCreditCarRel',contentType: 'application/json'},financialCreditCarRel.createFinancialCreditCarRel);
+    server.del('/api/user/:userId/financialCredit/:financialCreditId/car/:carId' , financialCreditCarRel.removeFinancialCreditCarRel);
 
     /**
      * App Module

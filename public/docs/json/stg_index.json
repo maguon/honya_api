@@ -9425,6 +9425,149 @@
         }
       }
     },
+    "/financialCreditCarRel": {
+      "get": {
+        "tags": [
+          "financial"
+        ],
+        "summary": "query  financialCreditCarRel list",
+        "description": "query financialCreditCarRel",
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "financialCreditId",
+            "in": "query",
+            "description": "financialCredit id",
+            "required": false,
+            "type": "integer"
+
+          },
+          {
+            "name": "start",
+            "in": "query",
+            "description": " list start pos",
+            "required": false,
+            "type": "integer"
+
+          },
+          {
+            "name": "size",
+            "in": "query",
+            "description": "list size for pagination",
+            "required": false,
+            "type": "integer"
+
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "successful operation",
+            "schema": {
+              "type": "object",
+              "items": {
+                "$ref": "#/definitions/financialCreditCarRel"
+              }
+            }
+          },
+          "400": {
+            "description": "Invalid token value or invalid financialCreditCarRel id"
+          }
+        }
+      }
+    },
+    "/user/{userId}/financialCreditCarRel": {
+      "post": {
+        "tags": [
+          "financial"
+        ],
+        "summary": "user create financialCreditCarRel",
+        "description": "user create financialCreditCarRel",
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "userId",
+            "in": "path",
+            "description": "user id",
+            "required": true,
+            "type": "integer"
+
+          },
+          {
+            "name": "financialCreditCarRel",
+            "in": "body",
+            "description": "financialCreditCarRel info",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/financialCreditCarRel"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "successful operation",
+            "schema": {
+              "type": "object",
+              "items": {
+                "$ref": "#/definitions/ApiResponse"
+              }
+            }
+          },
+          "400": {
+            "description": "Invalid token value or invalid financialCreditCarRel id"
+          }
+        }
+      }
+    },
+    "/user/{userId}/financialCredit/{financialCreditId}/car/{carId}": {
+      "delete": {
+        "tags": [
+          "financial"
+        ],
+        "summary": "Deletes a financialCreditCarRel",
+        "description": "",
+        "operationId": "deleteFinancialCreditCarRel",
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "userId",
+            "in": "path",
+            "description": "user id",
+            "required": true,
+            "type": "integer"
+          },
+          {
+            "name": "financialCreditId",
+            "in": "path",
+            "description": "financialCredit id",
+            "required": true,
+            "type": "integer"
+
+          },
+          {
+            "name": "carId",
+            "in": "path",
+            "description": "car id",
+            "required": true,
+            "type": "integer"
+
+          }
+        ],
+        "responses": {
+          "400": {
+            "description": "Invalid ID supplied"
+          },
+          "404": {
+            "description": "contacts not found"
+          }
+        }
+      }
+    },
     "/app": {
       "get": {
         "tags": [
@@ -10572,6 +10715,21 @@
       },
       "xml": {
         "name": "financialCredit"
+      }
+    },
+    "financialCreditCarRel": {
+      "type": "object",
+      "properties": {
+
+        "financialCreditId": {
+          "type": "integer"
+        },
+        "carId": {
+          "type": "integer"
+        }
+      },
+      "xml": {
+        "name": "financialCreditCarRel"
       }
     }
   },
