@@ -389,6 +389,7 @@ function createServer() {
      */
     server.get('/api/financialLoan',financialLoan.queryFinancialLoan);
     server.post({path:'/api/user/:userId/financialLoan',contentType: 'application/json'},financialLoan.createFinancialLoan);
+    server.put({path:'/api/user/:userId/financialLoan/:financialLoanId',contentType: 'application/json'} ,financialLoan.updateFinancialLoan);
 
     /**
      * FinancialLoanMortgageCarRel Module

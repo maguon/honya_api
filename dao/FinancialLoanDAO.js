@@ -71,6 +71,19 @@ function getFinancialLoan(params,callback) {
     });
 }
 
+function updateFinancialLoan(params,callback){
+    var query = " update financial_loan_info set deposit = ? , loan_money = ? , remark = ? where id = ? " ;
+    var paramsArray=[],i=0;
+    paramsArray[i++]=params.deposit;
+    paramsArray[i++]=params.loanMoney;
+    paramsArray[i++]=params.remark;
+    paramsArray[i]=params.financialLoanId;
+    db.dbQuery(query,paramsArray,function(error,rows){
+        logger.debug(' updateFinancialLoan ');
+        return callback(error,rows);
+    });
+}
+
 function updateMortgageCarCountPlus(params,callback){
     var query = " update financial_loan_info set mortgage_car_count = mortgage_car_count +1 where id = ? " ;
     var paramsArray=[],i=0;
@@ -115,6 +128,7 @@ function updateBuyCarCountMinus(params,callback){
 module.exports ={
     addFinancialLoan : addFinancialLoan,
     getFinancialLoan : getFinancialLoan,
+    updateFinancialLoan : updateFinancialLoan,
     updateMortgageCarCountPlus : updateMortgageCarCountPlus,
     updateMortgageCarCountMinus : updateMortgageCarCountMinus,
     updateBuyCarCountPlus : updateBuyCarCountPlus,

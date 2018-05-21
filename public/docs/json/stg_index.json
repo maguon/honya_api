@@ -8957,6 +8957,60 @@
         }
       }
     },
+    "/user/{userId}/financialLoan/{financialLoanId}": {
+      "put": {
+        "tags": [
+          "financial"
+        ],
+        "summary": "update financialLoan info",
+        "description": "update financialLoan info",
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "userId",
+            "in": "path",
+            "description": "user Id",
+            "required": true,
+            "type": "integer"
+
+          },
+          {
+            "name": "financialLoanId",
+            "in": "path",
+            "description": "financialLoan id",
+            "required": true,
+            "type": "integer"
+
+          },
+          {
+            "name": "financialLoan",
+            "in": "body",
+            "description": "financialLoan info",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/financialLoan"
+            }
+
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "successful operation",
+            "schema": {
+              "type": "object",
+              "items": {
+                "$ref": "#/definitions/ApiResponse"
+              }
+            }
+          },
+          "400": {
+            "description": "Invalid token value or invalid financialLoan id"
+          }
+        }
+      }
+    },
     "/financialLoanMortgageCarRel": {
       "get": {
         "tags": [

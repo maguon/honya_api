@@ -41,8 +41,23 @@ function queryFinancialLoan(req,res,next){
     })
 }
 
+function updateFinancialLoan(req,res,next){
+    var params = req.params ;
+    financialLoanDAO.updateFinancialLoan(params,function(error,result){
+        if (error) {
+            logger.error(' updateFinancialLoan ' + error.message);
+            throw sysError.InternalError(error.message,sysMsg.SYS_INTERNAL_ERROR_MSG);
+        } else {
+            logger.info(' updateFinancialLoan ' + 'success');
+            resUtil.resetUpdateRes(res,result,null);
+            return next();
+        }
+    })
+}
+
 
 module.exports = {
     createFinancialLoan : createFinancialLoan,
-    queryFinancialLoan : queryFinancialLoan
+    queryFinancialLoan : queryFinancialLoan,
+    updateFinancialLoan : updateFinancialLoan
 }
