@@ -75,6 +75,31 @@ function getFinancialCredit(params,callback) {
     });
 }
 
+function updateFinancialCredit(params,callback){
+    var query = " update financial_credit_info set credit_number = ? , entrust_id = ? , credit_money = ? , actual_money = ? , " +
+        " plan_return_date = ? , actual_return_date = ? , receive_card_date = ? , documents_date = ? , documents_send_date = ? , " +
+        " documents_receive_date = ? , actual_remit_date = ? , invoice_number = ? , remark = ? where id = ? " ;
+    var paramsArray=[],i=0;
+    paramsArray[i++]=params.creditNumber;
+    paramsArray[i++]=params.entrustId;
+    paramsArray[i++]=params.creditMoney;
+    paramsArray[i++]=params.actualMoney;
+    paramsArray[i++]=params.planReturnDate;
+    paramsArray[i++]=params.actualReturnDate;
+    paramsArray[i++]=params.receiveCardDate;
+    paramsArray[i++]=params.documentsDate;
+    paramsArray[i++]=params.documentsSendDate;
+    paramsArray[i++]=params.documentsReceiveDate;
+    paramsArray[i++]=params.actualRemitDate;
+    paramsArray[i++]=params.invoiceNumber;
+    paramsArray[i++]=params.remark;
+    paramsArray[i++]=params.financialCreditId;
+    db.dbQuery(query,paramsArray,function(error,rows){
+        logger.debug(' updateFinancialCredit ');
+        return callback(error,rows);
+    });
+}
+
 function updateFinancialCreditStatus(params,callback){
     var query = " update financial_credit_info set credit_end_date = ? , credit_status = ? where id = ? " ;
     var paramsArray=[],i=0;
@@ -91,5 +116,6 @@ function updateFinancialCreditStatus(params,callback){
 module.exports ={
     addFinancialCredit : addFinancialCredit,
     getFinancialCredit : getFinancialCredit,
+    updateFinancialCredit : updateFinancialCredit,
     updateFinancialCreditStatus : updateFinancialCreditStatus
 }

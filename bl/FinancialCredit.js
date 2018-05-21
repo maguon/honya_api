@@ -41,6 +41,20 @@ function queryFinancialCredit(req,res,next){
     })
 }
 
+function updateFinancialCredit(req,res,next){
+    var params = req.params ;
+    financialCreditDAO.updateFinancialCredit(params,function(error,result){
+        if (error) {
+            logger.error(' updateFinancialCredit ' + error.message);
+            throw sysError.InternalError(error.message,sysMsg.SYS_INTERNAL_ERROR_MSG);
+        } else {
+            logger.info(' updateFinancialCredit ' + 'success');
+            resUtil.resetUpdateRes(res,result,null);
+            return next();
+        }
+    })
+}
+
 function updateFinancialCreditStatus(req,res,next){
     var params = req.params ;
     var myDate = new Date();
@@ -61,5 +75,6 @@ function updateFinancialCreditStatus(req,res,next){
 module.exports = {
     createFinancialCredit : createFinancialCredit,
     queryFinancialCredit : queryFinancialCredit,
+    updateFinancialCredit : updateFinancialCredit,
     updateFinancialCreditStatus : updateFinancialCreditStatus
 }

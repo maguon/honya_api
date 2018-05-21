@@ -9433,6 +9433,60 @@
         }
       }
     },
+    "/user/{userId}/financialCredit/{financialCreditId}": {
+      "put": {
+        "tags": [
+          "financial"
+        ],
+        "summary": "update financialCredit info",
+        "description": "update financialCredit info",
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "userId",
+            "in": "path",
+            "description": "user Id",
+            "required": true,
+            "type": "integer"
+
+          },
+          {
+            "name": "financialCreditId",
+            "in": "path",
+            "description": "financialCredit id",
+            "required": true,
+            "type": "integer"
+
+          },
+          {
+            "name": "financialCredit",
+            "in": "body",
+            "description": "financialCredit info",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/financialCredit"
+            }
+
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "successful operation",
+            "schema": {
+              "type": "object",
+              "items": {
+                "$ref": "#/definitions/ApiResponse"
+              }
+            }
+          },
+          "400": {
+            "description": "Invalid token value or invalid financialCredit id"
+          }
+        }
+      }
+    },
     "/user/{userId}/financialCredit/{financialCreditId}/creditStatus/{creditStatus}": {
       "put": {
         "tags": [
