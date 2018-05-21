@@ -7,8 +7,10 @@ var sysError = require('../util/SystemError.js');
 var resUtil = require('../util/ResponseUtil.js');
 var encrypt = require('../util/Encrypt.js');
 var listOfValue = require('../util/ListOfValue.js');
+var sysConst = require('../util/SysConst.js');
 var financialLoanMortgageCarRelDAO = require('../dao/FinancialLoanMortgageCarRelDAO.js');
 var financialLoanDAO = require('../dao/FinancialLoanDAO.js');
+var carStorageRelDAO = require('../dao/CarStorageRelDAO.js');
 var oAuthUtil = require('../util/OAuthUtil.js');
 var Seq = require('seq');
 var serverLogger = require('../util/ServerLogger.js');
@@ -54,6 +56,22 @@ function createFinancialLoanMortgageCarRel(req,res,next){
                 that();
             }
         })
+    }).seq(function () {
+        var that = this;
+        params.mortgageStatus = sysConst.MORTGAGE_STATUS.mortgage;
+        carStorageRelDAO.updateMortgageStatus(params,function(error,result){
+            if (error) {
+                logger.error(' updateMortgageStatus ' + error.message);
+                throw sysError.InternalError(error.message,sysMsg.SYS_INTERNAL_ERROR_MSG);
+            } else {
+                if(result&&result.affectedRows>0){
+                    logger.info(' updateMortgageStatus ' + 'success');
+                }else{
+                    logger.warn(' updateMortgageStatus ' + 'failed');
+                }
+                that();
+            }
+        })
     }).seq(function(){
         logger.info(' createFinancialLoanMortgageCarRel ' + 'success');
         resUtil.resetCreateRes(res,{insertId:mortgageCarRelId},null);
@@ -92,6 +110,22 @@ function removeFinancialLoanMortgageCarRel(req,res,next){
                     resUtil.resetFailedRes(res," 删除失败，请核对相关ID ");
                     return next();
                 }
+            }
+        })
+    }).seq(function () {
+        var that = this;
+        params.mortgageStatus = sysConst.MORTGAGE_STATUS.not_mortgage;
+        carStorageRelDAO.updateMortgageStatus(params,function(error,result){
+            if (error) {
+                logger.error(' updateMortgageStatus ' + error.message);
+                throw sysError.InternalError(error.message,sysMsg.SYS_INTERNAL_ERROR_MSG);
+            } else {
+                if(result&&result.affectedRows>0){
+                    logger.info(' updateMortgageStatus ' + 'success');
+                }else{
+                    logger.warn(' updateMortgageStatus ' + 'failed');
+                }
+                that();
             }
         })
     }).seq(function () {

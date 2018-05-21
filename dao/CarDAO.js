@@ -33,7 +33,7 @@ function addCar(params,callback){
 function getCar(params,callback) {
     var query = " select c.*,e.short_name,e.entrust_name,e.entrust_type," +
         " p.id as p_id,p.storage_id,p.area_id,sa.area_name,p.row,p.col,p.lot,p.parking_status, " +
-        " r.id as r_id,r.storage_name,r.enter_time,r.plan_out_time,r.real_out_time,r.rel_status, " +
+        " r.id as r_id,r.storage_name,r.enter_time,r.plan_out_time,r.real_out_time,r.rel_status,r.mortgage_status, " +
         " ckp.id as car_key_position_id,ckc.key_cabinet_name,ckca.area_name as car_key_cabinet_area, " +
         " ckp.row as car_key_position_row,ckp.col as car_key_position_col, " +
         " st.id as ship_trans_id,st.start_port_name,st.end_port_name,st.start_ship_date,st.end_ship_date, " +

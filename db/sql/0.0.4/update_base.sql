@@ -12,3 +12,8 @@ ADD COLUMN `email`  varchar(50) NULL DEFAULT NULL COMMENT '邮箱' AFTER `tel`;
 ALTER TABLE `ship_trans_info`
 ADD COLUMN `actual_start_date`  datetime NULL DEFAULT NULL COMMENT '实际开船日期' AFTER `start_date_id`,
 ADD COLUMN `actual_end_date`  datetime NULL DEFAULT NULL COMMENT '实际到港日期' AFTER `end_date_id`;
+-- ----------------------------
+-- 2018-05-21 更新
+-- ----------------------------
+ALTER TABLE `car_storage_rel`
+ADD COLUMN `mortgage_status`  tinyint(1) NOT NULL DEFAULT 1 COMMENT '抵押状态(1-未抵押,2-抵押)' AFTER `rel_status`;

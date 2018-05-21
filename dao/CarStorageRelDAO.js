@@ -86,11 +86,23 @@ function updateRelActive(params,callback){
     });
 }
 
+function updateMortgageStatus(params,callback){
+    var query = " update car_storage_rel set mortgage_status = ? where car_id = ? and rel_status = 1 ";
+    var paramsArray=[],i=0;
+    paramsArray[i++] = params.mortgageStatus;
+    paramsArray[i] = params.carId;
+    db.dbQuery(query,paramsArray,function(error,rows){
+        logger.debug(' updateMortgageStatus ');
+        return callback(error,rows);
+    });
+}
+
 
 module.exports ={
     addCarStorageRel : addCarStorageRel,
     getCarStorageRel : getCarStorageRel,
     updateRelStatus : updateRelStatus,
     updateRelPlanOutTime : updateRelPlanOutTime,
-    updateRelActive : updateRelActive
+    updateRelActive : updateRelActive,
+    updateMortgageStatus : updateMortgageStatus
 }

@@ -50,6 +50,11 @@ var RECORD_OP_TYPE  ={
     ship_trans_cancel : 34  //海运取消
 };
 
+var MORTGAGE_STATUS  ={ //订单状态
+    not_mortgage : 1,  //未抵押
+    mortgage : 2 //抵押
+};
+
 module.exports = {
     USER_TYPE : USER_TYPE,
     ORDER_STATUS : ORDER_STATUS,
@@ -58,5 +63,6 @@ module.exports = {
     FEE_MONEY : FEE_MONEY,
     SHIP_TRANS_STATUS : SHIP_TRANS_STATUS,
     COUNTRY_TYPE : COUNTRY_TYPE,
-    RECORD_OP_TYPE : RECORD_OP_TYPE
+    RECORD_OP_TYPE : RECORD_OP_TYPE,
+    MORTGAGE_STATUS : MORTGAGE_STATUS
 }
