@@ -8,13 +8,13 @@ var logger = serverLogger.createLogger('LoanRepaymentDAO.js');
 
 function addLoanRepayment(params,callback){
     var query = " insert into loan_repayment (loan_id,repayment_money,rate," +
-        "create_interest_money,create_interest_day,interest_money,fee,remark) values ( ? , ? , ? , ? , ? , ? , ? , ? )";
+        "create_interest_money,day_count,interest_money,fee,remark) values ( ? , ? , ? , ? , ? , ? , ? , ? )";
     var paramsArray=[],i=0;
     paramsArray[i++]=params.loanId;
     paramsArray[i++]=params.repaymentMoney;
     paramsArray[i++]=params.rate;
     paramsArray[i++]=params.createInterestMoney;
-    paramsArray[i++]=params.createInterestDay;
+    paramsArray[i++]=params.dayCount;
     paramsArray[i++]=params.interestMoney;
     paramsArray[i++]=params.fee;
     paramsArray[i++]=params.remark;
@@ -25,8 +25,7 @@ function addLoanRepayment(params,callback){
 }
 
 function getLoanRepayment(params,callback) {
-    var query = " select lr.* from loan_repayment lr " +
-        " where lr.id is not null ";
+    var query = " select lr.* from loan_repayment lr where lr.id is not null ";
     var paramsArray=[],i=0;
     if(params.repaymentId){
         paramsArray[i++] = params.repaymentId;
