@@ -42,8 +42,8 @@ var financialLoanMortgageCarRel = require('./bl/FinancialLoanMortgageCarRel.js')
 var financialLoanBuyCarRel = require('./bl/FinancialLoanBuyCarRel.js');
 var financialLoanRepayment = require('./bl/FinancialLoanRepayment.js');
 var financialLoanRepCreditRel = require('./bl/FinancialLoanRepCreditRel.js');
-var financialCredit = require('./bl/FinancialCredit.js');
-var financialCreditCarRel = require('./bl/FinancialCreditCarRel.js');
+var credit = require('./bl/Credit.js');
+var creditCarRel = require('./bl/CreditCarRel.js');
 var app = require('./bl/App.js');
 var sysRecord = require('./bl/SysRecord.js');
 
@@ -420,19 +420,19 @@ function createServer() {
     server.del('/api/user/:userId/repayment/:repaymentId/credit/:creditId' , financialLoanRepCreditRel.removeFinancialLoanRepCreditRel);
 
     /**
-     * FinancialCredit Module
+     * Credit Module
      */
-    server.get('/api/financialCredit',financialCredit.queryFinancialCredit);
-    server.post({path:'/api/user/:userId/financialCredit',contentType: 'application/json'},financialCredit.createFinancialCredit);
-    server.put({path:'/api/user/:userId/financialCredit/:financialCreditId',contentType: 'application/json'} ,financialCredit.updateFinancialCredit);
-    server.put({path:'/api/user/:userId/financialCredit/:financialCreditId/creditStatus/:creditStatus',contentType: 'application/json'} ,financialCredit.updateFinancialCreditStatus);
+    server.get('/api/credit',credit.queryCredit);
+    server.post({path:'/api/user/:userId/credit',contentType: 'application/json'},credit.createCredit);
+    server.put({path:'/api/user/:userId/credit/:creditId',contentType: 'application/json'} ,credit.updateCredit);
+    server.put({path:'/api/user/:userId/credit/:creditId/creditStatus/:creditStatus',contentType: 'application/json'} ,credit.updateCreditStatus);
 
     /**
-     * FinancialCreditCarRel Module
+     * CreditCarRel Module
      */
-    server.get('/api/financialCreditCarRel',financialCreditCarRel.queryFinancialCreditCarRel);
-    server.post({path:'/api/user/:userId/financialCreditCarRel',contentType: 'application/json'},financialCreditCarRel.createFinancialCreditCarRel);
-    server.del('/api/user/:userId/financialCredit/:financialCreditId/car/:carId' , financialCreditCarRel.removeFinancialCreditCarRel);
+    server.get('/api/creditCarRel',creditCarRel.queryCreditCarRel);
+    server.post({path:'/api/user/:userId/creditCarRel',contentType: 'application/json'},creditCarRel.createCreditCarRel);
+    server.del('/api/user/:userId/credit/:creditId/car/:carId' , creditCarRel.removeCreditCarRel);
 
     /**
      * App Module

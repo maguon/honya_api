@@ -7,64 +7,64 @@ var sysError = require('../util/SystemError.js');
 var resUtil = require('../util/ResponseUtil.js');
 var encrypt = require('../util/Encrypt.js');
 var listOfValue = require('../util/ListOfValue.js');
-var financialCreditDAO = require('../dao/FinancialCreditDAO.js');
+var creditDAO = require('../dao/CreditDAO.js');
 var oAuthUtil = require('../util/OAuthUtil.js');
 var Seq = require('seq');
 var serverLogger = require('../util/ServerLogger.js');
-var logger = serverLogger.createLogger('FinancialCredit.js');
+var logger = serverLogger.createLogger('Credit.js');
 
-function createFinancialCredit(req,res,next){
+function createCredit(req,res,next){
     var params = req.params ;
-    financialCreditDAO.addFinancialCredit(params,function(error,result){
+    creditDAO.addCredit(params,function(error,result){
         if (error) {
-            logger.error(' createFinancialCredit ' + error.message);
+            logger.error(' createCredit ' + error.message);
             throw sysError.InternalError(error.message,sysMsg.SYS_INTERNAL_ERROR_MSG);
         } else {
-            logger.info(' createFinancialCredit ' + 'success');
+            logger.info(' createCredit ' + 'success');
             resUtil.resetCreateRes(res,result,null);
             return next();
         }
     })
 }
 
-function queryFinancialCredit(req,res,next){
+function queryCredit(req,res,next){
     var params = req.params ;
-    financialCreditDAO.getFinancialCredit(params,function(error,result){
+    creditDAO.getCredit(params,function(error,result){
         if (error) {
-            logger.error(' queryFinancialCredit ' + error.message);
+            logger.error(' queryCredit ' + error.message);
             throw sysError.InternalError(error.message,sysMsg.SYS_INTERNAL_ERROR_MSG);
         } else {
-            logger.info(' queryFinancialCredit ' + 'success');
+            logger.info(' queryCredit ' + 'success');
             resUtil.resetQueryRes(res,result,null);
             return next();
         }
     })
 }
 
-function updateFinancialCredit(req,res,next){
+function updateCredit(req,res,next){
     var params = req.params ;
-    financialCreditDAO.updateFinancialCredit(params,function(error,result){
+    creditDAO.updateCredit(params,function(error,result){
         if (error) {
-            logger.error(' updateFinancialCredit ' + error.message);
+            logger.error(' updateCredit ' + error.message);
             throw sysError.InternalError(error.message,sysMsg.SYS_INTERNAL_ERROR_MSG);
         } else {
-            logger.info(' updateFinancialCredit ' + 'success');
+            logger.info(' updateCredit ' + 'success');
             resUtil.resetUpdateRes(res,result,null);
             return next();
         }
     })
 }
 
-function updateFinancialCreditStatus(req,res,next){
+function updateCreditStatus(req,res,next){
     var params = req.params ;
     var myDate = new Date();
     params.creditEndDate = myDate;
-    financialCreditDAO.updateFinancialCreditStatus(params,function(error,result){
+    creditDAO.updateCreditStatus(params,function(error,result){
         if (error) {
-            logger.error(' updateFinancialCreditStatus ' + error.message);
+            logger.error(' updateCreditStatus ' + error.message);
             throw sysError.InternalError(error.message,sysMsg.SYS_INTERNAL_ERROR_MSG);
         } else {
-            logger.info(' updateFinancialCreditStatus ' + 'success');
+            logger.info(' updateCreditStatus ' + 'success');
             resUtil.resetUpdateRes(res,result,null);
             return next();
         }
@@ -73,8 +73,8 @@ function updateFinancialCreditStatus(req,res,next){
 
 
 module.exports = {
-    createFinancialCredit : createFinancialCredit,
-    queryFinancialCredit : queryFinancialCredit,
-    updateFinancialCredit : updateFinancialCredit,
-    updateFinancialCreditStatus : updateFinancialCreditStatus
+    createCredit : createCredit,
+    queryCredit : queryCredit,
+    updateCredit : updateCredit,
+    updateCreditStatus : updateCreditStatus
 }

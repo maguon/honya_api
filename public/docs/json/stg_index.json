@@ -65,6 +65,10 @@
       "description":"Financial of log api"
     },
     {
+      "name":"credit",
+      "description":"Credit of log api"
+    },
+    {
       "name":"app",
       "description":"app version"
     }
@@ -9545,21 +9549,21 @@
         }
       }
     },
-    "/financialCredit": {
+    "/credit": {
       "get": {
         "tags": [
-          "financial"
+          "credit"
         ],
-        "summary": "query  financialCredit list",
-        "description": "query financialCredit",
+        "summary": "query  credit list",
+        "description": "query credit",
         "produces": [
           "application/json"
         ],
         "parameters": [
           {
-            "name": "financialCreditId",
+            "name": "creditId",
             "in": "query",
-            "description": "financialCredit id",
+            "description": "credit id",
             "required": false,
             "type": "integer"
 
@@ -9635,23 +9639,23 @@
             "schema": {
               "type": "object",
               "items": {
-                "$ref": "#/definitions/financialCredit"
+                "$ref": "#/definitions/credit"
               }
             }
           },
           "400": {
-            "description": "Invalid token value or invalid financialCredit id"
+            "description": "Invalid token value or invalid credit id"
           }
         }
       }
     },
-    "/user/{userId}/financialCredit": {
+    "/user/{userId}/credit": {
       "post": {
         "tags": [
-          "financial"
+          "credit"
         ],
-        "summary": "user create financialCredit",
-        "description": "user create financialCredit",
+        "summary": "user create credit",
+        "description": "user create credit",
         "produces": [
           "application/json"
         ],
@@ -9665,12 +9669,12 @@
 
           },
           {
-            "name": "financialCredit",
+            "name": "credit",
             "in": "body",
-            "description": "financialCredit info",
+            "description": "credit info",
             "required": true,
             "schema": {
-              "$ref": "#/definitions/financialCredit"
+              "$ref": "#/definitions/credit"
             }
           }
         ],
@@ -9685,18 +9689,18 @@
             }
           },
           "400": {
-            "description": "Invalid token value or invalid financialCredit id"
+            "description": "Invalid token value or invalid credit id"
           }
         }
       }
     },
-    "/user/{userId}/financialCredit/{financialCreditId}": {
+    "/user/{userId}/credit/{creditId}": {
       "put": {
         "tags": [
-          "financial"
+          "credit"
         ],
-        "summary": "update financialCredit info",
-        "description": "update financialCredit info",
+        "summary": "update credit info",
+        "description": "update credit info",
         "produces": [
           "application/json"
         ],
@@ -9710,20 +9714,20 @@
 
           },
           {
-            "name": "financialCreditId",
+            "name": "creditId",
             "in": "path",
-            "description": "financialCredit id",
+            "description": "credit id",
             "required": true,
             "type": "integer"
 
           },
           {
-            "name": "financialCredit",
+            "name": "credit",
             "in": "body",
-            "description": "financialCredit info",
+            "description": "credit info",
             "required": true,
             "schema": {
-              "$ref": "#/definitions/financialCredit"
+              "$ref": "#/definitions/credit"
             }
 
           }
@@ -9739,18 +9743,18 @@
             }
           },
           "400": {
-            "description": "Invalid token value or invalid financialCredit id"
+            "description": "Invalid token value or invalid credit id"
           }
         }
       }
     },
-    "/user/{userId}/financialCredit/{financialCreditId}/creditStatus/{creditStatus}": {
+    "/user/{userId}/credit/{creditId}/creditStatus/{creditStatus}": {
       "put": {
         "tags": [
-          "financial"
+          "credit"
         ],
-        "summary": "update financialCredit status",
-        "description": "update financialCredit status",
+        "summary": "update credit status",
+        "description": "update credit status",
         "produces": [
           "application/json"
         ],
@@ -9764,9 +9768,9 @@
 
           },
           {
-            "name": "financialCreditId",
+            "name": "creditId",
             "in": "path",
-            "description": "financialCredit id",
+            "description": "credit id",
             "required": true,
             "type": "integer"
 
@@ -9791,26 +9795,26 @@
             }
           },
           "400": {
-            "description": "Invalid token value or invalid financialCredit id"
+            "description": "Invalid token value or invalid credit id"
           }
         }
       }
     },
-    "/financialCreditCarRel": {
+    "/creditCarRel": {
       "get": {
         "tags": [
-          "financial"
+          "credit"
         ],
-        "summary": "query  financialCreditCarRel list",
-        "description": "query financialCreditCarRel",
+        "summary": "query  creditCarRel list",
+        "description": "query creditCarRel",
         "produces": [
           "application/json"
         ],
         "parameters": [
           {
-            "name": "financialCreditId",
+            "name": "creditId",
             "in": "query",
-            "description": "financialCredit id",
+            "description": "credit id",
             "required": false,
             "type": "integer"
 
@@ -9838,23 +9842,23 @@
             "schema": {
               "type": "object",
               "items": {
-                "$ref": "#/definitions/financialCreditCarRel"
+                "$ref": "#/definitions/creditCarRel"
               }
             }
           },
           "400": {
-            "description": "Invalid token value or invalid financialCreditCarRel id"
+            "description": "Invalid token value or invalid creditCarRel id"
           }
         }
       }
     },
-    "/user/{userId}/financialCreditCarRel": {
+    "/user/{userId}/creditCarRel": {
       "post": {
         "tags": [
-          "financial"
+          "credit"
         ],
-        "summary": "user create financialCreditCarRel",
-        "description": "user create financialCreditCarRel",
+        "summary": "user create creditCarRel",
+        "description": "user create creditCarRel",
         "produces": [
           "application/json"
         ],
@@ -9868,12 +9872,12 @@
 
           },
           {
-            "name": "financialCreditCarRel",
+            "name": "creditCarRel",
             "in": "body",
-            "description": "financialCreditCarRel info",
+            "description": "creditCarRel info",
             "required": true,
             "schema": {
-              "$ref": "#/definitions/financialCreditCarRel"
+              "$ref": "#/definitions/creditCarRel"
             }
           }
         ],
@@ -9888,19 +9892,19 @@
             }
           },
           "400": {
-            "description": "Invalid token value or invalid financialCreditCarRel id"
+            "description": "Invalid token value or invalid creditCarRel id"
           }
         }
       }
     },
-    "/user/{userId}/financialCredit/{financialCreditId}/car/{carId}": {
+    "/user/{userId}/credit/{creditId}/car/{carId}": {
       "delete": {
         "tags": [
-          "financial"
+          "credit"
         ],
-        "summary": "Deletes a financialCreditCarRel",
+        "summary": "Deletes a creditCarRel",
         "description": "",
-        "operationId": "deleteFinancialCreditCarRel",
+        "operationId": "deletecreditCarRel",
         "produces": [
           "application/json"
         ],
@@ -9913,9 +9917,9 @@
             "type": "integer"
           },
           {
-            "name": "financialCreditId",
+            "name": "creditId",
             "in": "path",
-            "description": "financialCredit id",
+            "description": "credit id",
             "required": true,
             "type": "integer"
 
@@ -11055,7 +11059,7 @@
         "name": "financialLoanRepCreditRel"
       }
     },
-    "financialCredit": {
+    "credit": {
       "type": "object",
       "properties": {
 
@@ -11100,14 +11104,14 @@
         }
       },
       "xml": {
-        "name": "financialCredit"
+        "name": "credit"
       }
     },
-    "financialCreditCarRel": {
+    "creditCarRel": {
       "type": "object",
       "properties": {
 
-        "financialCreditId": {
+        "creditId": {
           "type": "integer"
         },
         "carId": {
@@ -11115,7 +11119,7 @@
         }
       },
       "xml": {
-        "name": "financialCreditCarRel"
+        "name": "creditCarRel"
       }
     }
   },

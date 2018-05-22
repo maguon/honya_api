@@ -4,10 +4,10 @@
 
 var db=require('../db/connection/MysqlDb.js');
 var serverLogger = require('../util/ServerLogger.js');
-var logger = serverLogger.createLogger('FinancialCreditDAO.js');
+var logger = serverLogger.createLogger('CreditDAO.js');
 
-function addFinancialCredit(params,callback){
-    var query = " insert into financial_credit_info (credit_number,entrust_id,credit_money,actual_money,plan_return_date,actual_return_date," +
+function addCredit(params,callback){
+    var query = " insert into credit_info (credit_number,entrust_id,credit_money,actual_money,plan_return_date,actual_return_date," +
         "receive_card_date,documents_date,documents_send_date,documents_receive_date,actual_remit_date,invoice_number,remark) " +
         " values ( ? , ? , ? , ? , ? , ? , ? , ? , ? , ? , ? , ? , ? ) ";
     var paramsArray=[],i=0;
@@ -25,59 +25,59 @@ function addFinancialCredit(params,callback){
     paramsArray[i++]=params.invoiceNumber;
     paramsArray[i]=params.remark;
     db.dbQuery(query,paramsArray,function(error,rows){
-        logger.debug(' addFinancialCredit ');
+        logger.debug(' addCredit ');
         return callback(error,rows);
     });
 }
 
-function getFinancialCredit(params,callback) {
-    var query = " select fc.*,e.entrust_type,e.short_name,flrcr.repayment_id from financial_credit_info fc " +
-        " left join entrust_info e on fc.entrust_id = e.id " +
-        " left join financial_loan_rep_credit_rel flrcr on fc.id = flrcr.credit_id " +
-        " where fc.id is not null ";
+function getCredit(params,callback) {
+    var query = " select c.*,e.entrust_type,e.short_name,lrcr.repayment_id from credit_info c " +
+        " left join entrust_info e on c.entrust_id = e.id " +
+        " left join loan_rep_credit_rel lrcr on c.id = lrcr.credit_id " +
+        " where c.id is not null ";
     var paramsArray=[],i=0;
-    if(params.financialCreditId){
-        paramsArray[i++] = params.financialCreditId;
-        query = query + " and fc.id = ? ";
+    if(params.creditId){
+        paramsArray[i++] = params.creditId;
+        query = query + " and c.id = ? ";
     }
     if(params.entrustId){
         paramsArray[i++] = params.entrustId;
-        query = query + " and fc.entrust_id = ? ";
+        query = query + " and c.entrust_id = ? ";
     }
     if(params.creditStatus){
         paramsArray[i++] = params.creditStatus;
-        query = query + " and fc.credit_status = ? ";
+        query = query + " and c.credit_status = ? ";
     }
     if(params.planReturnDateStart){
         paramsArray[i++] = params.planReturnDateStart +" 00:00:00";
-        query = query + " and fc.plan_return_date >= ? ";
+        query = query + " and c.plan_return_date >= ? ";
     }
     if(params.planReturnDateEnd){
         paramsArray[i++] = params.planReturnDateEnd +" 23:59:59";
-        query = query + " and fc.plan_return_date <= ? ";
+        query = query + " and c.plan_return_date <= ? ";
     }
     if(params.actualReturnDateStart){
         paramsArray[i++] = params.actualReturnDateStart +" 00:00:00";
-        query = query + " and fc.actual_return_date >= ? ";
+        query = query + " and c.actual_return_date >= ? ";
     }
     if(params.actualReturnDateEnd){
         paramsArray[i++] = params.actualReturnDateEnd +" 23:59:59";
-        query = query + " and fc.actual_return_date <= ? ";
+        query = query + " and c.actual_return_date <= ? ";
     }
-    query = query + " group by fc.id ";
+    query = query + " group by c.id ";
     if (params.start && params.size) {
         paramsArray[i++] = parseInt(params.start);
         paramsArray[i++] = parseInt(params.size);
         query += " limit ? , ? "
     }
     db.dbQuery(query,paramsArray,function(error,rows){
-        logger.debug(' getFinancialCredit ');
+        logger.debug(' getCredit ');
         return callback(error,rows);
     });
 }
 
-function updateFinancialCredit(params,callback){
-    var query = " update financial_credit_info set credit_number = ? , entrust_id = ? , credit_money = ? , actual_money = ? , " +
+function updateCredit(params,callback){
+    var query = " update credit_info set credit_number = ? , entrust_id = ? , credit_money = ? , actual_money = ? , " +
         " plan_return_date = ? , actual_return_date = ? , receive_card_date = ? , documents_date = ? , documents_send_date = ? , " +
         " documents_receive_date = ? , actual_remit_date = ? , invoice_number = ? , remark = ? where id = ? " ;
     var paramsArray=[],i=0;
@@ -94,29 +94,29 @@ function updateFinancialCredit(params,callback){
     paramsArray[i++]=params.actualRemitDate;
     paramsArray[i++]=params.invoiceNumber;
     paramsArray[i++]=params.remark;
-    paramsArray[i++]=params.financialCreditId;
+    paramsArray[i++]=params.creditId;
     db.dbQuery(query,paramsArray,function(error,rows){
-        logger.debug(' updateFinancialCredit ');
+        logger.debug(' updateCredit ');
         return callback(error,rows);
     });
 }
 
-function updateFinancialCreditStatus(params,callback){
-    var query = " update financial_credit_info set credit_end_date = ? , credit_status = ? where id = ? " ;
+function updateCreditStatus(params,callback){
+    var query = " update credit_info set credit_end_date = ? , credit_status = ? where id = ? " ;
     var paramsArray=[],i=0;
     paramsArray[i++]=params.creditEndDate;
     paramsArray[i++]=params.creditStatus;
-    paramsArray[i]=params.financialCreditId;
+    paramsArray[i]=params.creditId;
     db.dbQuery(query,paramsArray,function(error,rows){
-        logger.debug(' updateFinancialCreditStatus ');
+        logger.debug(' updateCreditStatus ');
         return callback(error,rows);
     });
 }
 
 
 module.exports ={
-    addFinancialCredit : addFinancialCredit,
-    getFinancialCredit : getFinancialCredit,
-    updateFinancialCredit : updateFinancialCredit,
-    updateFinancialCreditStatus : updateFinancialCreditStatus
+    addCredit : addCredit,
+    getCredit : getCredit,
+    updateCredit : updateCredit,
+    updateCreditStatus : updateCreditStatus
 }
