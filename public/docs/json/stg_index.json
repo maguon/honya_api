@@ -9549,6 +9549,211 @@
         }
       }
     },
+    "/loanRepPaymentRel": {
+      "get": {
+        "tags": [
+          "loan"
+        ],
+        "summary": "query  loanRepPaymentRel list",
+        "description": "query loanRepPaymentRel",
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "repaymentId",
+            "in": "query",
+            "description": "repayment id",
+            "required": false,
+            "type": "integer"
+
+          },
+          {
+            "name": "start",
+            "in": "query",
+            "description": " list start pos",
+            "required": false,
+            "type": "integer"
+
+          },
+          {
+            "name": "size",
+            "in": "query",
+            "description": "list size for pagination",
+            "required": false,
+            "type": "integer"
+
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "successful operation",
+            "schema": {
+              "type": "object",
+              "items": {
+                "$ref": "#/definitions/loanRepPaymentRel"
+              }
+            }
+          },
+          "400": {
+            "description": "Invalid token value or invalid loanRepPaymentRel id"
+          }
+        }
+      }
+    },
+    "/user/{userId}/loanRepPaymentRel": {
+      "post": {
+        "tags": [
+          "loan"
+        ],
+        "summary": "user create loanRepPaymentRel",
+        "description": "user create loanRepPaymentRel",
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "userId",
+            "in": "path",
+            "description": "user id",
+            "required": true,
+            "type": "integer"
+
+          },
+          {
+            "name": "loanRepPaymentRel",
+            "in": "body",
+            "description": "loanRepPaymentRel info",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/loanRepPaymentRel"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "successful operation",
+            "schema": {
+              "type": "object",
+              "items": {
+                "$ref": "#/definitions/ApiResponse"
+              }
+            }
+          },
+          "400": {
+            "description": "Invalid token value or invalid loanRepPaymentRel id"
+          }
+        }
+      }
+    },
+    "/user/{userId}/repayment/{repaymentId}/payment/{paymentId}/repPaymentMoney": {
+      "put": {
+        "tags": [
+          "loan"
+        ],
+        "summary": "update repPaymentMoney info",
+        "description": "update repPaymentMoney info",
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "userId",
+            "in": "path",
+            "description": "user id",
+            "required": true,
+            "type": "integer"
+
+          },
+          {
+            "name": "repaymentId",
+            "in": "path",
+            "description": "repayment id",
+            "required": true,
+            "type": "integer"
+
+          },
+          {
+            "name": "paymentId",
+            "in": "path",
+            "description": "payment id",
+            "required": true,
+            "type": "integer"
+
+          },
+          {
+            "name": "repPaymentMoney",
+            "in": "body",
+            "description": "repPaymentMoney info",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/repPaymentMoney"
+            }
+
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "successful operation",
+            "schema": {
+              "type": "object",
+              "items": {
+                "$ref": "#/definitions/ApiResponse"
+              }
+            }
+          },
+          "400": {
+            "description": "Invalid token value or invalid loanRepPaymentRel id"
+          }
+        }
+      }
+    },
+    "/user/{userId}/repayment/{repaymentId}/payment/{paymentId}": {
+      "delete": {
+        "tags": [
+          "loan"
+        ],
+        "summary": "Deletes a loanRepPaymentRel",
+        "description": "",
+        "operationId": "deleteLoanRepPaymentRel",
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "userId",
+            "in": "path",
+            "description": "user id",
+            "required": true,
+            "type": "integer"
+          },
+          {
+            "name": "repaymentId",
+            "in": "path",
+            "description": "repayment id",
+            "required": true,
+            "type": "integer"
+
+          },
+          {
+            "name": "paymentId",
+            "in": "path",
+            "description": "payment id",
+            "required": true,
+            "type": "integer"
+
+          }
+        ],
+        "responses": {
+          "400": {
+            "description": "Invalid ID supplied"
+          },
+          "404": {
+            "description": "contacts not found"
+          }
+        }
+      }
+    },
     "/credit": {
       "get": {
         "tags": [
@@ -11057,6 +11262,33 @@
       },
       "xml": {
         "name": "loanRepCreditRel"
+      }
+    },
+    "loanRepPaymentRel": {
+      "type": "object",
+      "properties": {
+
+        "repaymentId": {
+          "type": "integer"
+        },
+        "paymentId": {
+          "type": "integer"
+        }
+      },
+      "xml": {
+        "name": "loanRepPaymentRel"
+      }
+    },
+    "repPaymentMoney": {
+      "type": "object",
+      "properties": {
+
+        "thisPaymentMoney": {
+          "type": "integer"
+        }
+      },
+      "xml": {
+        "name": "repPaymentMoney"
       }
     },
     "credit": {

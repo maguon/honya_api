@@ -42,6 +42,7 @@ var loanMortgageCarRel = require('./bl/LoanMortgageCarRel.js');
 var loanBuyCarRel = require('./bl/LoanBuyCarRel.js');
 var loanRepayment = require('./bl/LoanRepayment.js');
 var loanRepCreditRel = require('./bl/LoanRepCreditRel.js');
+var loanRepPaymentRel = require('./bl/LoanRepPaymentRel.js');
 var credit = require('./bl/Credit.js');
 var creditCarRel = require('./bl/CreditCarRel.js');
 var app = require('./bl/App.js');
@@ -418,6 +419,14 @@ function createServer() {
     server.get('/api/loanRepCreditRel',loanRepCreditRel.queryLoanRepCreditRel);
     server.post({path:'/api/user/:userId/loanRepCreditRel',contentType: 'application/json'},loanRepCreditRel.createLoanRepCreditRel);
     server.del('/api/user/:userId/repayment/:repaymentId/credit/:creditId' , loanRepCreditRel.removeLoanRepCreditRel);
+
+    /**
+     * LoanRepPaymentRel Module
+     */
+    server.get('/api/loanRepPaymentRel',loanRepPaymentRel.queryLoanRepPaymentRel);
+    server.post({path:'/api/user/:userId/loanRepPaymentRel',contentType: 'application/json'},loanRepPaymentRel.createLoanRepPaymentRel);
+    server.put({path:'/api/user/:userId/repayment/:repaymentId/payment/:paymentId/repPaymentMoney',contentType: 'application/json'} ,loanRepPaymentRel.updateRepPaymentMoney);
+    server.del('/api/user/:userId/repayment/:repaymentId/payment/:paymentId' , loanRepPaymentRel.removeLoanRepPaymentRel);
 
     /**
      * Credit Module
