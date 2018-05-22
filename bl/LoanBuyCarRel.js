@@ -7,41 +7,41 @@ var sysError = require('../util/SystemError.js');
 var resUtil = require('../util/ResponseUtil.js');
 var encrypt = require('../util/Encrypt.js');
 var listOfValue = require('../util/ListOfValue.js');
-var financialLoanBuyCarRelDAO = require('../dao/FinancialLoanBuyCarRelDAO.js');
-var financialLoanDAO = require('../dao/FinancialLoanDAO.js');
+var loanBuyCarRelDAO = require('../dao/LoanBuyCarRelDAO.js');
+var loanDAO = require('../dao/LoanDAO.js');
 var oAuthUtil = require('../util/OAuthUtil.js');
 var Seq = require('seq');
 var serverLogger = require('../util/ServerLogger.js');
-var logger = serverLogger.createLogger('FinancialLoanBuyCarRel.js');
+var logger = serverLogger.createLogger('LoanBuyCarRel.js');
 
-function createFinancialLoanBuyCarRel(req,res,next){
+function createLoanBuyCarRel(req,res,next){
     var params = req.params ;
     var buyCarRelId = 0;
     Seq().seq(function(){
         var that = this;
-        financialLoanBuyCarRelDAO.addFinancialLoanBuyCarRel(params,function(error,result){
+        loanBuyCarRelDAO.addLoanBuyCarRel(params,function(error,result){
             if (error) {
                 if(error.message.indexOf("Duplicate") > 0) {
                     resUtil.resetFailedRes(res, "VIN已经被关联，操作失败");
                     return next();
                 } else{
-                    logger.error(' createFinancialLoanBuyCarRel ' + err.message);
+                    logger.error(' createLoanBuyCarRel ' + err.message);
                     throw sysError.InternalError(err.message,sysMsg.SYS_INTERNAL_ERROR_MSG);
                 }
             } else {
                 if(result&&result.insertId>0){
                     buyCarRelId = result.insertId;
-                    logger.info(' createFinancialLoanBuyCarRel ' + 'success');
+                    logger.info(' createLoanBuyCarRel ' + 'success');
                     that();
                 }else{
-                    resUtil.resetFailedRes(res,"create financialLoanBuyCarRel failed");
+                    resUtil.resetFailedRes(res,"create LoanBuyCarRel failed");
                     return next();
                 }
             }
         })
     }).seq(function () {
         var that = this;
-        financialLoanDAO.updateBuyCarCountPlus(params,function(error,result){
+        loanDAO.updateBuyCarCountPlus(params,function(error,result){
             if (error) {
                 logger.error(' updateBuyCarCountPlus ' + error.message);
                 throw sysError.InternalError(error.message,sysMsg.SYS_INTERNAL_ERROR_MSG);
@@ -55,47 +55,47 @@ function createFinancialLoanBuyCarRel(req,res,next){
             }
         })
     }).seq(function(){
-        logger.info(' createFinancialLoanBuyCarRel ' + 'success');
+        logger.info(' createLoanBuyCarRel ' + 'success');
         resUtil.resetCreateRes(res,{insertId:buyCarRelId},null);
         return next();
     })
 }
 
-function queryFinancialLoanBuyCarRel(req,res,next){
+function queryLoanBuyCarRel(req,res,next){
     var params = req.params ;
-    financialLoanBuyCarRelDAO.getFinancialLoanBuyCarRel(params,function(error,result){
+    loanBuyCarRelDAO.getLoanBuyCarRel(params,function(error,result){
         if (error) {
-            logger.error(' queryFinancialLoanBuyCarRel ' + error.message);
+            logger.error(' queryLoanBuyCarRel ' + error.message);
             throw sysError.InternalError(error.message,sysMsg.SYS_INTERNAL_ERROR_MSG);
         } else {
-            logger.info(' queryFinancialLoanBuyCarRel ' + 'success');
+            logger.info(' queryLoanBuyCarRel ' + 'success');
             resUtil.resetQueryRes(res,result,null);
             return next();
         }
     })
 }
 
-function removeFinancialLoanBuyCarRel(req,res,next){
+function removeLoanBuyCarRel(req,res,next){
     var params = req.params;
     Seq().seq(function(){
         var that = this;
-        financialLoanBuyCarRelDAO.deleteFinancialLoanBuyCarRel(params,function(error,result){
+        loanBuyCarRelDAO.deleteLoanBuyCarRel(params,function(error,result){
             if (error) {
-                logger.error(' removeFinancialLoanBuyCarRel ' + error.message);
+                logger.error(' removeLoanBuyCarRel ' + error.message);
                 throw sysError.InternalError(error.message,sysMsg.SYS_INTERNAL_ERROR_MSG);
             } else {
                 if(result&&result.affectedRows>0){
-                    logger.info(' removeFinancialLoanBuyCarRel ' + 'success');
+                    logger.info(' removeLoanBuyCarRel ' + 'success');
                     that();
                 }else{
-                    logger.warn(' removeFinancialLoanBuyCarRel ' + 'failed');
+                    logger.warn(' removeLoanBuyCarRel ' + 'failed');
                     resUtil.resetFailedRes(res," 删除失败，请核对相关ID ");
                     return next();
                 }
             }
         })
     }).seq(function () {
-        financialLoanDAO.updateBuyCarCountMinus(params,function(error,result){
+        loanDAO.updateBuyCarCountMinus(params,function(error,result){
             if (error) {
                 logger.error(' updateBuyCarCountMinus ' + error.message);
                 throw sysError.InternalError(error.message,sysMsg.SYS_INTERNAL_ERROR_MSG);
@@ -110,7 +110,7 @@ function removeFinancialLoanBuyCarRel(req,res,next){
 
 
 module.exports = {
-    createFinancialLoanBuyCarRel : createFinancialLoanBuyCarRel,
-    queryFinancialLoanBuyCarRel : queryFinancialLoanBuyCarRel,
-    removeFinancialLoanBuyCarRel : removeFinancialLoanBuyCarRel
+    createLoanBuyCarRel : createLoanBuyCarRel,
+    queryLoanBuyCarRel : queryLoanBuyCarRel,
+    removeLoanBuyCarRel : removeLoanBuyCarRel
 }

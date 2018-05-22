@@ -7,48 +7,48 @@ var sysError = require('../util/SystemError.js');
 var resUtil = require('../util/ResponseUtil.js');
 var encrypt = require('../util/Encrypt.js');
 var listOfValue = require('../util/ListOfValue.js');
-var financialLoanDAO = require('../dao/FinancialLoanDAO.js');
+var loanDAO = require('../dao/LoanDAO.js');
 var oAuthUtil = require('../util/OAuthUtil.js');
 var Seq = require('seq');
 var serverLogger = require('../util/ServerLogger.js');
-var logger = serverLogger.createLogger('FinancialLoan.js');
+var logger = serverLogger.createLogger('Loan.js');
 
-function createFinancialLoan(req,res,next){
+function createLoan(req,res,next){
     var params = req.params ;
-    financialLoanDAO.addFinancialLoan(params,function(error,result){
+    loanDAO.addLoan(params,function(error,result){
         if (error) {
-            logger.error(' createFinancialLoan ' + error.message);
+            logger.error(' createLoan ' + error.message);
             throw sysError.InternalError(error.message,sysMsg.SYS_INTERNAL_ERROR_MSG);
         } else {
-            logger.info(' createFinancialLoan ' + 'success');
+            logger.info(' createLoan ' + 'success');
             resUtil.resetCreateRes(res,result,null);
             return next();
         }
     })
 }
 
-function queryFinancialLoan(req,res,next){
+function queryLoan(req,res,next){
     var params = req.params ;
-    financialLoanDAO.getFinancialLoan(params,function(error,result){
+    loanDAO.getLoan(params,function(error,result){
         if (error) {
-            logger.error(' queryFinancialLoan ' + error.message);
+            logger.error(' queryLoan ' + error.message);
             throw sysError.InternalError(error.message,sysMsg.SYS_INTERNAL_ERROR_MSG);
         } else {
-            logger.info(' queryFinancialLoan ' + 'success');
+            logger.info(' queryLoan ' + 'success');
             resUtil.resetQueryRes(res,result,null);
             return next();
         }
     })
 }
 
-function updateFinancialLoan(req,res,next){
+function updateLoan(req,res,next){
     var params = req.params ;
-    financialLoanDAO.updateFinancialLoan(params,function(error,result){
+    loanDAO.updateLoan(params,function(error,result){
         if (error) {
-            logger.error(' updateFinancialLoan ' + error.message);
+            logger.error(' updateLoan ' + error.message);
             throw sysError.InternalError(error.message,sysMsg.SYS_INTERNAL_ERROR_MSG);
         } else {
-            logger.info(' updateFinancialLoan ' + 'success');
+            logger.info(' updateLoan ' + 'success');
             resUtil.resetUpdateRes(res,result,null);
             return next();
         }
@@ -57,7 +57,7 @@ function updateFinancialLoan(req,res,next){
 
 
 module.exports = {
-    createFinancialLoan : createFinancialLoan,
-    queryFinancialLoan : queryFinancialLoan,
-    updateFinancialLoan : updateFinancialLoan
+    createLoan : createLoan,
+    queryLoan : queryLoan,
+    updateLoan : updateLoan
 }

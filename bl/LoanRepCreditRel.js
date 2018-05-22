@@ -7,53 +7,53 @@ var sysError = require('../util/SystemError.js');
 var resUtil = require('../util/ResponseUtil.js');
 var encrypt = require('../util/Encrypt.js');
 var listOfValue = require('../util/ListOfValue.js');
-var financialLoanRepCreditRelDAO = require('../dao/FinancialLoanRepCreditRelDAO.js');
+var loanRepCreditRelDAO = require('../dao/LoanRepCreditRelDAO.js');
 var oAuthUtil = require('../util/OAuthUtil.js');
 var Seq = require('seq');
 var serverLogger = require('../util/ServerLogger.js');
-var logger = serverLogger.createLogger('FinancialLoanRepCreditRel.js');
+var logger = serverLogger.createLogger('LoanRepCreditRel.js');
 
-function createFinancialLoanRepCreditRel(req,res,next){
+function createLoanRepCreditRel(req,res,next){
     var params = req.params ;
-    financialLoanRepCreditRelDAO.addFinancialLoanRepCreditRel(params,function(error,result){
+    loanRepCreditRelDAO.addLoanRepCreditRel(params,function(error,result){
         if (error) {
             if(error.message.indexOf("Duplicate") > 0) {
                 resUtil.resetFailedRes(res, "信用证已经被关联，操作失败");
                 return next();
             } else{
-                logger.error(' createFinancialLoanRepCreditRel ' + err.message);
+                logger.error(' createLoanRepCreditRel ' + err.message);
                 throw sysError.InternalError(err.message,sysMsg.SYS_INTERNAL_ERROR_MSG);
             }
         } else {
-            logger.info(' createFinancialLoanRepCreditRel ' + 'success');
+            logger.info(' createLoanRepCreditRel ' + 'success');
             resUtil.resetCreateRes(res,result,null);
             return next();
         }
     })
 }
 
-function queryFinancialLoanRepCreditRel(req,res,next){
+function queryLoanRepCreditRel(req,res,next){
     var params = req.params ;
-    financialLoanRepCreditRelDAO.getFinancialLoanRepCreditRel(params,function(error,result){
+    loanRepCreditRelDAO.getLoanRepCreditRel(params,function(error,result){
         if (error) {
-            logger.error(' queryFinancialLoanRepCreditRel ' + error.message);
+            logger.error(' queryLoanRepCreditRel ' + error.message);
             throw sysError.InternalError(error.message,sysMsg.SYS_INTERNAL_ERROR_MSG);
         } else {
-            logger.info(' queryFinancialLoanRepCreditRel ' + 'success');
+            logger.info(' queryLoanRepCreditRel ' + 'success');
             resUtil.resetQueryRes(res,result,null);
             return next();
         }
     })
 }
 
-function removeFinancialLoanRepCreditRel(req,res,next){
+function removeLoanRepCreditRel(req,res,next){
     var params = req.params;
-    financialLoanRepCreditRelDAO.deleteFinancialLoanRepCreditRel(params,function(error,result){
+    loanRepCreditRelDAO.deleteLoanRepCreditRel(params,function(error,result){
         if (error) {
-            logger.error(' removeFinancialLoanRepCreditRel ' + error.message);
+            logger.error(' removeLoanRepCreditRel ' + error.message);
             throw sysError.InternalError(error.message,sysMsg.SYS_INTERNAL_ERROR_MSG);
         } else {
-            logger.info(' removeFinancialLoanRepCreditRel ' + 'success');
+            logger.info(' removeLoanRepCreditRel ' + 'success');
             resUtil.resetUpdateRes(res,result,null);
             return next();
         }
@@ -62,7 +62,7 @@ function removeFinancialLoanRepCreditRel(req,res,next){
 
 
 module.exports = {
-    createFinancialLoanRepCreditRel : createFinancialLoanRepCreditRel,
-    queryFinancialLoanRepCreditRel : queryFinancialLoanRepCreditRel,
-    removeFinancialLoanRepCreditRel : removeFinancialLoanRepCreditRel
+    createLoanRepCreditRel : createLoanRepCreditRel,
+    queryLoanRepCreditRel : queryLoanRepCreditRel,
+    removeLoanRepCreditRel : removeLoanRepCreditRel
 }

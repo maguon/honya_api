@@ -7,34 +7,34 @@ var sysError = require('../util/SystemError.js');
 var resUtil = require('../util/ResponseUtil.js');
 var encrypt = require('../util/Encrypt.js');
 var listOfValue = require('../util/ListOfValue.js');
-var financialLoanRepaymentDAO = require('../dao/FinancialLoanRepaymentDAO.js');
+var loanRepaymentDAO = require('../dao/LoanRepaymentDAO.js');
 var oAuthUtil = require('../util/OAuthUtil.js');
 var Seq = require('seq');
 var serverLogger = require('../util/ServerLogger.js');
-var logger = serverLogger.createLogger('FinancialLoanRepayment.js');
+var logger = serverLogger.createLogger('LoanRepayment.js');
 
-function createFinancialLoanRepayment(req,res,next){
+function createLoanRepayment(req,res,next){
     var params = req.params ;
-    financialLoanRepaymentDAO.addFinancialLoanRepayment(params,function(error,result){
+    loanRepaymentDAO.addLoanRepayment(params,function(error,result){
         if (error) {
-            logger.error(' createFinancialLoanRepayment ' + error.message);
+            logger.error(' createLoanRepayment ' + error.message);
             throw sysError.InternalError(error.message,sysMsg.SYS_INTERNAL_ERROR_MSG);
         } else {
-            logger.info(' createFinancialLoanRepayment ' + 'success');
+            logger.info(' createLoanRepayment ' + 'success');
             resUtil.resetCreateRes(res,result,null);
             return next();
         }
     })
 }
 
-function queryFinancialLoanRepayment(req,res,next){
+function queryLoanRepayment(req,res,next){
     var params = req.params ;
-    financialLoanRepaymentDAO.getFinancialLoanRepayment(params,function(error,result){
+    loanRepaymentDAO.getLoanRepayment(params,function(error,result){
         if (error) {
-            logger.error(' queryFinancialLoanRepayment ' + error.message);
+            logger.error(' queryLoanRepayment ' + error.message);
             throw sysError.InternalError(error.message,sysMsg.SYS_INTERNAL_ERROR_MSG);
         } else {
-            logger.info(' queryFinancialLoanRepayment ' + 'success');
+            logger.info(' queryLoanRepayment ' + 'success');
             resUtil.resetQueryRes(res,result,null);
             return next();
         }
@@ -43,6 +43,6 @@ function queryFinancialLoanRepayment(req,res,next){
 
 
 module.exports = {
-    createFinancialLoanRepayment : createFinancialLoanRepayment,
-    queryFinancialLoanRepayment : queryFinancialLoanRepayment
+    createLoanRepayment : createLoanRepayment,
+    queryLoanRepayment : queryLoanRepayment
 }

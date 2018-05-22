@@ -61,8 +61,8 @@
       "description":"Ship of log api"
     },
     {
-      "name":"financial",
-      "description":"Financial of log api"
+      "name":"loan",
+      "description":"Loan of log api"
     },
     {
       "name":"credit",
@@ -8808,21 +8808,21 @@
         }
       }
     },
-    "/financialLoan": {
+    "/loan": {
       "get": {
         "tags": [
-          "financial"
+          "loan"
         ],
-        "summary": "query  financialLoan list",
-        "description": "query financialLoan",
+        "summary": "query  loan list",
+        "description": "query loan",
         "produces": [
           "application/json"
         ],
         "parameters": [
           {
-            "name": "financialLoanId",
+            "name": "loanId",
             "in": "query",
-            "description": "financialLoan id",
+            "description": "loan id",
             "required": false,
             "type": "integer"
 
@@ -8906,23 +8906,23 @@
             "schema": {
               "type": "object",
               "items": {
-                "$ref": "#/definitions/financialLoan"
+                "$ref": "#/definitions/loan"
               }
             }
           },
           "400": {
-            "description": "Invalid token value or invalid financialLoan id"
+            "description": "Invalid token value or invalid loan id"
           }
         }
       }
     },
-    "/user/{userId}/financialLoan": {
+    "/user/{userId}/loan": {
       "post": {
         "tags": [
-          "financial"
+          "loan"
         ],
-        "summary": "user create financialLoan",
-        "description": "user create financialLoan",
+        "summary": "user create loan",
+        "description": "user create loan",
         "produces": [
           "application/json"
         ],
@@ -8936,12 +8936,12 @@
 
           },
           {
-            "name": "financialLoan",
+            "name": "loan",
             "in": "body",
-            "description": "financialLoan info",
+            "description": "loan info",
             "required": true,
             "schema": {
-              "$ref": "#/definitions/financialLoan"
+              "$ref": "#/definitions/loan"
             }
           }
         ],
@@ -8956,18 +8956,18 @@
             }
           },
           "400": {
-            "description": "Invalid token value or invalid financialLoan id"
+            "description": "Invalid token value or invalid loan id"
           }
         }
       }
     },
-    "/user/{userId}/financialLoan/{financialLoanId}": {
+    "/user/{userId}/loan/{loanId}": {
       "put": {
         "tags": [
-          "financial"
+          "loan"
         ],
-        "summary": "update financialLoan info",
-        "description": "update financialLoan info",
+        "summary": "update loan info",
+        "description": "update loan info",
         "produces": [
           "application/json"
         ],
@@ -8981,20 +8981,20 @@
 
           },
           {
-            "name": "financialLoanId",
+            "name": "loanId",
             "in": "path",
-            "description": "financialLoan id",
+            "description": "loan id",
             "required": true,
             "type": "integer"
 
           },
           {
-            "name": "financialLoan",
+            "name": "loan",
             "in": "body",
-            "description": "financialLoan info",
+            "description": "loan info",
             "required": true,
             "schema": {
-              "$ref": "#/definitions/financialLoan"
+              "$ref": "#/definitions/loan"
             }
 
           }
@@ -9010,26 +9010,26 @@
             }
           },
           "400": {
-            "description": "Invalid token value or invalid financialLoan id"
+            "description": "Invalid token value or invalid loan id"
           }
         }
       }
     },
-    "/financialLoanMortgageCarRel": {
+    "/loanMortgageCarRel": {
       "get": {
         "tags": [
-          "financial"
+          "loan"
         ],
-        "summary": "query  financialLoanMortgageCarRel list",
-        "description": "query financialLoanMortgageCarRel",
+        "summary": "query  loanMortgageCarRel list",
+        "description": "query loanMortgageCarRel",
         "produces": [
           "application/json"
         ],
         "parameters": [
           {
-            "name": "financialLoanId",
+            "name": "loanId",
             "in": "query",
-            "description": "financialLoan id",
+            "description": "loan id",
             "required": false,
             "type": "integer"
 
@@ -9057,23 +9057,23 @@
             "schema": {
               "type": "object",
               "items": {
-                "$ref": "#/definitions/financialLoanMortgageCarRel"
+                "$ref": "#/definitions/loanMortgageCarRel"
               }
             }
           },
           "400": {
-            "description": "Invalid token value or invalid financialLoanMortgageCarRel id"
+            "description": "Invalid token value or invalid loanMortgageCarRel id"
           }
         }
       }
     },
-    "/user/{userId}/financialLoanMortgageCarRel": {
+    "/user/{userId}/loanMortgageCarRel": {
       "post": {
         "tags": [
-          "financial"
+          "loan"
         ],
-        "summary": "user create financialLoanMortgageCarRel",
-        "description": "user create financialLoanMortgageCarRel",
+        "summary": "user create loanMortgageCarRel",
+        "description": "user create loanMortgageCarRel",
         "produces": [
           "application/json"
         ],
@@ -9087,12 +9087,12 @@
 
           },
           {
-            "name": "financialLoanMortgageCarRel",
+            "name": "loanMortgageCarRel",
             "in": "body",
-            "description": "financialLoanMortgageCarRel info",
+            "description": "loanMortgageCarRel info",
             "required": true,
             "schema": {
-              "$ref": "#/definitions/financialLoanMortgageCarRel"
+              "$ref": "#/definitions/loanMortgageCarRel"
             }
           }
         ],
@@ -9107,19 +9107,19 @@
             }
           },
           "400": {
-            "description": "Invalid token value or invalid financialLoanMortgageCarRel id"
+            "description": "Invalid token value or invalid loanMortgageCarRel id"
           }
         }
       }
     },
-    "/user/{userId}/financialLoan/{financialLoanId}/car/{carId}": {
+    "/user/{userId}/loan/{loanId}/car/{carId}": {
       "delete": {
         "tags": [
-          "financial"
+          "loan"
         ],
-        "summary": "Deletes a financialLoanMortgageCarRel",
+        "summary": "Deletes a loanMortgageCarRel",
         "description": "",
-        "operationId": "deleteFinancialLoanMortgageCarRel",
+        "operationId": "deleteloanMortgageCarRel",
         "produces": [
           "application/json"
         ],
@@ -9132,9 +9132,9 @@
             "type": "integer"
           },
           {
-            "name": "financialLoanId",
+            "name": "loanId",
             "in": "path",
-            "description": "financialLoan id",
+            "description": "loan id",
             "required": true,
             "type": "integer"
 
@@ -9158,21 +9158,21 @@
         }
       }
     },
-    "/financialLoanBuyCarRel": {
+    "/loanBuyCarRel": {
       "get": {
         "tags": [
-          "financial"
+          "loan"
         ],
-        "summary": "query  financialLoanBuyCarRel list",
-        "description": "query financialLoanBuyCarRel",
+        "summary": "query  loanBuyCarRel list",
+        "description": "query loanBuyCarRel",
         "produces": [
           "application/json"
         ],
         "parameters": [
           {
-            "name": "financialLoanId",
+            "name": "loanId",
             "in": "query",
-            "description": "financialLoan id",
+            "description": "loan id",
             "required": false,
             "type": "integer"
 
@@ -9200,23 +9200,23 @@
             "schema": {
               "type": "object",
               "items": {
-                "$ref": "#/definitions/financialLoanBuyCarRel"
+                "$ref": "#/definitions/loanBuyCarRel"
               }
             }
           },
           "400": {
-            "description": "Invalid token value or invalid financialLoanBuyCarRel id"
+            "description": "Invalid token value or invalid loanBuyCarRel id"
           }
         }
       }
     },
-    "/user/{userId}/financialLoanBuyCarRel": {
+    "/user/{userId}/loanBuyCarRel": {
       "post": {
         "tags": [
-          "financial"
+          "loan"
         ],
-        "summary": "user create financialLoanBuyCarRel",
-        "description": "user create financialLoanBuyCarRel",
+        "summary": "user create loanBuyCarRel",
+        "description": "user create loanBuyCarRel",
         "produces": [
           "application/json"
         ],
@@ -9230,12 +9230,12 @@
 
           },
           {
-            "name": "financialLoanBuyCarRel",
+            "name": "loanBuyCarRel",
             "in": "body",
-            "description": "financialLoanBuyCarRel info",
+            "description": "loanBuyCarRel info",
             "required": true,
             "schema": {
-              "$ref": "#/definitions/financialLoanBuyCarRel"
+              "$ref": "#/definitions/loanBuyCarRel"
             }
           }
         ],
@@ -9250,19 +9250,19 @@
             }
           },
           "400": {
-            "description": "Invalid token value or invalid financialLoanBuyCarRel id"
+            "description": "Invalid token value or invalid loanBuyCarRel id"
           }
         }
       }
     },
-    "/user/{userId}/financialLoan/{financialLoanId}/car/{carId}/financialLoanBuyCarRel": {
+    "/user/{userId}/loan/{loanId}/car/{carId}/loanBuyCarRel": {
       "delete": {
         "tags": [
-          "financial"
+          "loan"
         ],
-        "summary": "Deletes a financialLoanBuyCarRel",
+        "summary": "Deletes a loanBuyCarRel",
         "description": "",
-        "operationId": "deleteFinancialLoanBuyCarRel",
+        "operationId": "deleteLoanBuyCarRel",
         "produces": [
           "application/json"
         ],
@@ -9275,9 +9275,9 @@
             "type": "integer"
           },
           {
-            "name": "financialLoanId",
+            "name": "loanId",
             "in": "path",
-            "description": "financialLoan id",
+            "description": "loan id",
             "required": true,
             "type": "integer"
 
@@ -9301,13 +9301,13 @@
         }
       }
     },
-    "/financialLoanRepayment": {
+    "/loanRepayment": {
       "get": {
         "tags": [
-          "financial"
+          "loan"
         ],
-        "summary": "query  financialLoanRepayment list",
-        "description": "query financialLoanRepayment",
+        "summary": "query  loanRepayment list",
+        "description": "query loanRepayment",
         "produces": [
           "application/json"
         ],
@@ -9321,9 +9321,9 @@
 
           },
           {
-            "name": "financialLoanId",
+            "name": "loanId",
             "in": "query",
-            "description": "financialLoan id",
+            "description": "loan id",
             "required": false,
             "type": "integer"
 
@@ -9351,23 +9351,23 @@
             "schema": {
               "type": "object",
               "items": {
-                "$ref": "#/definitions/financialLoanRepayment"
+                "$ref": "#/definitions/loanRepayment"
               }
             }
           },
           "400": {
-            "description": "Invalid token value or invalid financialLoanRepayment id"
+            "description": "Invalid token value or invalid loanRepayment id"
           }
         }
       }
     },
-    "/user/{userId}/financialLoanRepayment": {
+    "/user/{userId}/loanRepayment": {
       "post": {
         "tags": [
-          "financial"
+          "loan"
         ],
-        "summary": "user create financialLoanRepayment",
-        "description": "user create financialLoanRepayment",
+        "summary": "user create loanRepayment",
+        "description": "user create loanRepayment",
         "produces": [
           "application/json"
         ],
@@ -9381,12 +9381,12 @@
 
           },
           {
-            "name": "financialLoanRepayment",
+            "name": "loanRepayment",
             "in": "body",
-            "description": "financialLoanRepayment info",
+            "description": "loanRepayment info",
             "required": true,
             "schema": {
-              "$ref": "#/definitions/financialLoanRepayment"
+              "$ref": "#/definitions/loanRepayment"
             }
           }
         ],
@@ -9401,18 +9401,18 @@
             }
           },
           "400": {
-            "description": "Invalid token value or invalid financialLoanRepayment id"
+            "description": "Invalid token value or invalid loanRepayment id"
           }
         }
       }
     },
-    "/financialLoanRepCreditRel": {
+    "/loanRepCreditRel": {
       "get": {
         "tags": [
-          "financial"
+          "loan"
         ],
-        "summary": "query  financialLoanRepCreditRel list",
-        "description": "query financialLoanRepCreditRel",
+        "summary": "query  loanRepCreditRel list",
+        "description": "query loanRepCreditRel",
         "produces": [
           "application/json"
         ],
@@ -9448,23 +9448,23 @@
             "schema": {
               "type": "object",
               "items": {
-                "$ref": "#/definitions/financialLoanRepCreditRel"
+                "$ref": "#/definitions/loanRepCreditRel"
               }
             }
           },
           "400": {
-            "description": "Invalid token value or invalid financialLoanRepCreditRel id"
+            "description": "Invalid token value or invalid loanRepCreditRel id"
           }
         }
       }
     },
-    "/user/{userId}/financialLoanRepCreditRel": {
+    "/user/{userId}/loanRepCreditRel": {
       "post": {
         "tags": [
-          "financial"
+          "loan"
         ],
-        "summary": "user create financialLoanRepCreditRel",
-        "description": "user create financialLoanRepCreditRel",
+        "summary": "user create loanRepCreditRel",
+        "description": "user create loanRepCreditRel",
         "produces": [
           "application/json"
         ],
@@ -9478,12 +9478,12 @@
 
           },
           {
-            "name": "financialLoanRepCreditRel",
+            "name": "loanRepCreditRel",
             "in": "body",
-            "description": "financialLoanRepCreditRel info",
+            "description": "loanRepCreditRel info",
             "required": true,
             "schema": {
-              "$ref": "#/definitions/financialLoanRepCreditRel"
+              "$ref": "#/definitions/loanRepCreditRel"
             }
           }
         ],
@@ -9498,7 +9498,7 @@
             }
           },
           "400": {
-            "description": "Invalid token value or invalid financialLoanRepCreditRel id"
+            "description": "Invalid token value or invalid loanRepCreditRel id"
           }
         }
       }
@@ -9506,11 +9506,11 @@
     "/user/{userId}/repayment/{repaymentId}/credit/{creditId}": {
       "delete": {
         "tags": [
-          "financial"
+          "loan"
         ],
-        "summary": "Deletes a financialLoanRepCreditRel",
+        "summary": "Deletes a loanRepCreditRel",
         "description": "",
-        "operationId": "deleteFinancialLoanRepCreditRel",
+        "operationId": "deleteLoanRepCreditRel",
         "produces": [
           "application/json"
         ],
@@ -10960,7 +10960,7 @@
         "name": "shipTransOrderPaymentRel"
       }
     },
-    "financialLoan": {
+    "loan": {
       "type": "object",
       "properties": {
 
@@ -10978,14 +10978,14 @@
         }
       },
       "xml": {
-        "name": "financialLoan"
+        "name": "loan"
       }
     },
-    "financialLoanMortgageCarRel": {
+    "loanMortgageCarRel": {
       "type": "object",
       "properties": {
 
-        "financialLoanId": {
+        "loanId": {
           "type": "integer"
         },
         "carId": {
@@ -10993,14 +10993,14 @@
         }
       },
       "xml": {
-        "name": "financialLoanMortgageCarRel"
+        "name": "loanMortgageCarRel"
       }
     },
-    "financialLoanBuyCarRel": {
+    "loanBuyCarRel": {
       "type": "object",
       "properties": {
 
-        "financialLoanId": {
+        "loanId": {
           "type": "integer"
         },
         "carId": {
@@ -11008,14 +11008,14 @@
         }
       },
       "xml": {
-        "name": "financialLoanBuyCarRel"
+        "name": "loanBuyCarRel"
       }
     },
-    "financialLoanRepayment": {
+    "loanRepayment": {
       "type": "object",
       "properties": {
 
-        "financialLoanId": {
+        "loanId": {
           "type": "integer"
         },
         "repaymentMoney": {
@@ -11041,10 +11041,10 @@
         }
       },
       "xml": {
-        "name": "financialLoanRepayment"
+        "name": "loanRepayment"
       }
     },
-    "financialLoanRepCreditRel": {
+    "loanRepCreditRel": {
       "type": "object",
       "properties": {
 
@@ -11056,7 +11056,7 @@
         }
       },
       "xml": {
-        "name": "financialLoanRepCreditRel"
+        "name": "loanRepCreditRel"
       }
     },
     "credit": {
