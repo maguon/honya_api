@@ -41,6 +41,7 @@ var financialLoan = require('./bl/FinancialLoan.js');
 var financialLoanMortgageCarRel = require('./bl/FinancialLoanMortgageCarRel.js');
 var financialLoanBuyCarRel = require('./bl/FinancialLoanBuyCarRel.js');
 var financialLoanRepayment = require('./bl/FinancialLoanRepayment.js');
+var financialLoanRepCreditRel = require('./bl/FinancialLoanRepCreditRel.js');
 var financialCredit = require('./bl/FinancialCredit.js');
 var financialCreditCarRel = require('./bl/FinancialCreditCarRel.js');
 var app = require('./bl/App.js');
@@ -410,6 +411,13 @@ function createServer() {
      */
     server.get('/api/financialLoanRepayment',financialLoanRepayment.queryFinancialLoanRepayment);
     server.post({path:'/api/user/:userId/financialLoanRepayment',contentType: 'application/json'},financialLoanRepayment.createFinancialLoanRepayment);
+
+    /**
+     * FinancialLoanRepCreditRel Module
+     */
+    server.get('/api/financialLoanRepCreditRel',financialLoanRepCreditRel.queryFinancialLoanRepCreditRel);
+    server.post({path:'/api/user/:userId/financialLoanRepCreditRel',contentType: 'application/json'},financialLoanRepCreditRel.createFinancialLoanRepCreditRel);
+    server.del('/api/user/:userId/repayment/:repaymentId/credit/:creditId' , financialLoanRepCreditRel.removeFinancialLoanRepCreditRel);
 
     /**
      * FinancialCredit Module

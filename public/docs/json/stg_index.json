@@ -9402,6 +9402,149 @@
         }
       }
     },
+    "/financialLoanRepCreditRel": {
+      "get": {
+        "tags": [
+          "financial"
+        ],
+        "summary": "query  financialLoanRepCreditRel list",
+        "description": "query financialLoanRepCreditRel",
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "repaymentId",
+            "in": "query",
+            "description": "repayment id",
+            "required": false,
+            "type": "integer"
+
+          },
+          {
+            "name": "start",
+            "in": "query",
+            "description": " list start pos",
+            "required": false,
+            "type": "integer"
+
+          },
+          {
+            "name": "size",
+            "in": "query",
+            "description": "list size for pagination",
+            "required": false,
+            "type": "integer"
+
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "successful operation",
+            "schema": {
+              "type": "object",
+              "items": {
+                "$ref": "#/definitions/financialLoanRepCreditRel"
+              }
+            }
+          },
+          "400": {
+            "description": "Invalid token value or invalid financialLoanRepCreditRel id"
+          }
+        }
+      }
+    },
+    "/user/{userId}/financialLoanRepCreditRel": {
+      "post": {
+        "tags": [
+          "financial"
+        ],
+        "summary": "user create financialLoanRepCreditRel",
+        "description": "user create financialLoanRepCreditRel",
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "userId",
+            "in": "path",
+            "description": "user id",
+            "required": true,
+            "type": "integer"
+
+          },
+          {
+            "name": "financialLoanRepCreditRel",
+            "in": "body",
+            "description": "financialLoanRepCreditRel info",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/financialLoanRepCreditRel"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "successful operation",
+            "schema": {
+              "type": "object",
+              "items": {
+                "$ref": "#/definitions/ApiResponse"
+              }
+            }
+          },
+          "400": {
+            "description": "Invalid token value or invalid financialLoanRepCreditRel id"
+          }
+        }
+      }
+    },
+    "/user/{userId}/repayment/{repaymentId}/credit/{creditId}": {
+      "delete": {
+        "tags": [
+          "financial"
+        ],
+        "summary": "Deletes a financialLoanRepCreditRel",
+        "description": "",
+        "operationId": "deleteFinancialLoanRepCreditRel",
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "userId",
+            "in": "path",
+            "description": "user id",
+            "required": true,
+            "type": "integer"
+          },
+          {
+            "name": "repaymentId",
+            "in": "path",
+            "description": "repayment id",
+            "required": true,
+            "type": "integer"
+
+          },
+          {
+            "name": "creditId",
+            "in": "path",
+            "description": "credit id",
+            "required": true,
+            "type": "integer"
+
+          }
+        ],
+        "responses": {
+          "400": {
+            "description": "Invalid ID supplied"
+          },
+          "404": {
+            "description": "contacts not found"
+          }
+        }
+      }
+    },
     "/financialCredit": {
       "get": {
         "tags": [
@@ -10895,6 +11038,21 @@
       },
       "xml": {
         "name": "financialLoanRepayment"
+      }
+    },
+    "financialLoanRepCreditRel": {
+      "type": "object",
+      "properties": {
+
+        "repaymentId": {
+          "type": "integer"
+        },
+        "creditId": {
+          "type": "integer"
+        }
+      },
+      "xml": {
+        "name": "financialLoanRepCreditRel"
       }
     },
     "financialCredit": {
