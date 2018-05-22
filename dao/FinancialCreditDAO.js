@@ -31,8 +31,9 @@ function addFinancialCredit(params,callback){
 }
 
 function getFinancialCredit(params,callback) {
-    var query = " select fc.*,e.entrust_type,e.short_name from financial_credit_info fc " +
+    var query = " select fc.*,e.entrust_type,e.short_name,flrcr.repayment_id from financial_credit_info fc " +
         " left join entrust_info e on fc.entrust_id = e.id " +
+        " left join financial_loan_rep_credit_rel flrcr on fc.id = flrcr.credit_id " +
         " where fc.id is not null ";
     var paramsArray=[],i=0;
     if(params.financialCreditId){
