@@ -18,10 +18,15 @@ function addCreditCarRel(params,callback){
 }
 
 function getCreditCarRel(params,callback) {
-    var query = " select ccr.*,c.vin,c.make_name,c.model_name,c.colour,c.valuation,c.remark, " +
+    var query = " select ccr.*,ct.credit_number,ct.entrust_id,e.entrust_type,e.short_name,ct.credit_money,ct.actual_money, " +
+        " ct.plan_return_date,ct.actual_return_date,ct.receive_card_date,ct.documents_date,ct.documents_send_date, " +
+        " ct.documents_receive_date,ct.actual_remit_date,ct.invoice_number,ct.remark,ct.credit_end_date,ct.credit_status, " +
+        " c.vin,c.make_name,c.model_name,c.colour,c.valuation,c.remark, " +
         " st.start_port_name,st.end_port_name,st.start_ship_date,st.end_ship_date,st.actual_start_date,st.actual_end_date, " +
         " sc.ship_company_name,st.ship_name,st.container,st.booking,st.tab " +
         " from credit_car_rel ccr " +
+        " left join credit_info ct on ccr.credit_id = ct.id " +
+        " left join entrust_info e on ct.entrust_id = e.id " +
         " left join car_info c on ccr.car_id = c.id " +
         " left join ship_trans_car_rel stcr on c.id = stcr.car_id " +
         " left join ship_trans_info st on stcr.ship_trans_id = st.id " +
