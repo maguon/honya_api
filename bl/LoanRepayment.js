@@ -41,8 +41,25 @@ function queryLoanRepayment(req,res,next){
     })
 }
 
+function updateLoanRepaymentStatus(req,res,next){
+    var params = req.params ;
+    var myDate = new Date();
+    params.repaymentEndDate = myDate;
+    loanRepaymentDAO.updateLoanRepaymentStatus(params,function(error,result){
+        if (error) {
+            logger.error(' updateLoanRepaymentStatus ' + error.message);
+            throw sysError.InternalError(error.message,sysMsg.SYS_INTERNAL_ERROR_MSG);
+        } else {
+            logger.info(' updateLoanRepaymentStatus ' + 'success');
+            resUtil.resetUpdateRes(res,result,null);
+            return next();
+        }
+    })
+}
+
 
 module.exports = {
     createLoanRepayment : createLoanRepayment,
-    queryLoanRepayment : queryLoanRepayment
+    queryLoanRepayment : queryLoanRepayment,
+    updateLoanRepaymentStatus : updateLoanRepaymentStatus
 }
