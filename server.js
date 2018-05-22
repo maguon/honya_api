@@ -408,6 +408,7 @@ function createServer() {
     /**
      * FinancialLoanRepayment Module
      */
+    server.get('/api/financialLoanRepayment',financialLoanRepayment.queryFinancialLoanRepayment);
     server.post({path:'/api/user/:userId/financialLoanRepayment',contentType: 'application/json'},financialLoanRepayment.createFinancialLoanRepayment);
 
     /**

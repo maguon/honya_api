@@ -9297,6 +9297,66 @@
         }
       }
     },
+    "/financialLoanRepayment": {
+      "get": {
+        "tags": [
+          "financial"
+        ],
+        "summary": "query  financialLoanRepayment list",
+        "description": "query financialLoanRepayment",
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "repaymentId",
+            "in": "query",
+            "description": "repayment id",
+            "required": false,
+            "type": "integer"
+
+          },
+          {
+            "name": "financialLoanId",
+            "in": "query",
+            "description": "financialLoan id",
+            "required": false,
+            "type": "integer"
+
+          },
+          {
+            "name": "start",
+            "in": "query",
+            "description": " list start pos",
+            "required": false,
+            "type": "integer"
+
+          },
+          {
+            "name": "size",
+            "in": "query",
+            "description": "list size for pagination",
+            "required": false,
+            "type": "integer"
+
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "successful operation",
+            "schema": {
+              "type": "object",
+              "items": {
+                "$ref": "#/definitions/financialLoanRepayment"
+              }
+            }
+          },
+          "400": {
+            "description": "Invalid token value or invalid financialLoanRepayment id"
+          }
+        }
+      }
+    },
     "/user/{userId}/financialLoanRepayment": {
       "post": {
         "tags": [

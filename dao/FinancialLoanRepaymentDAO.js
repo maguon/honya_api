@@ -24,7 +24,31 @@ function addFinancialLoanRepayment(params,callback){
     });
 }
 
+function getFinancialLoanRepayment(params,callback) {
+    var query = " select flr.* from financial_loan_repayment flr " +
+        " where flr.id is not null ";
+    var paramsArray=[],i=0;
+    if(params.repaymentId){
+        paramsArray[i++] = params.repaymentId;
+        query = query + " and flr.id = ? ";
+    }
+    if(params.financialLoanId){
+        paramsArray[i++] = params.financialLoanId;
+        query = query + " and flr.financial_loan_id = ? ";
+    }
+    if (params.start && params.size) {
+        paramsArray[i++] = parseInt(params.start);
+        paramsArray[i++] = parseInt(params.size);
+        query += " limit ? , ? "
+    }
+    db.dbQuery(query,paramsArray,function(error,rows){
+        logger.debug(' getFinancialLoanRepayment ');
+        return callback(error,rows);
+    });
+}
+
 
 module.exports ={
-    addFinancialLoanRepayment : addFinancialLoanRepayment
+    addFinancialLoanRepayment : addFinancialLoanRepayment,
+    getFinancialLoanRepayment : getFinancialLoanRepayment
 }
