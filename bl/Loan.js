@@ -17,6 +17,7 @@ var logger = serverLogger.createLogger('Loan.js');
 
 function createLoan(req,res,next){
     var params = req.params ;
+    params.notRepaymentMoney = params.loanMoney;
     loanDAO.addLoan(params,function(error,result){
         if (error) {
             logger.error(' createLoan ' + error.message);
@@ -45,6 +46,7 @@ function queryLoan(req,res,next){
 
 function updateLoan(req,res,next){
     var params = req.params ;
+    params.notRepaymentMoney = params.loanMoney;
     loanDAO.updateLoan(params,function(error,result){
         if (error) {
             logger.error(' updateLoan ' + error.message);
