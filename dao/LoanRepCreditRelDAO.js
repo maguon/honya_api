@@ -18,7 +18,7 @@ function addLoanRepCreditRel(params,callback){
 }
 
 function getLoanRepCreditRel(params,callback) {
-    var query = " select lrcr.*,c.credit_money,c.actual_money,c.created_on as credit_created_date from loan_rep_credit_rel lrcr " +
+    var query = " select lrcr.*,c.credit_number,c.credit_money,c.actual_money,c.created_on as credit_created_date from loan_rep_credit_rel lrcr " +
         " left join credit_info c on lrcr.credit_id = c.id " +
         " where lrcr.id is not null ";
     var paramsArray=[],i=0;
