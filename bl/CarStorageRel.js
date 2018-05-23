@@ -295,7 +295,11 @@ function updateRelStatus(req,res,next){
                 logger.error(' getCarBase ' + error.message);
                 throw sysError.InternalError(error.message,sysMsg.SYS_INTERNAL_ERROR_MSG);
             } else{
-                if(rows&&rows.length>0&&rows[0].rel_status == listOfValue.REL_STATUS_MOVE){
+                if(rows&&rows.length>0&&rows[0].mortgage_status == sysConst.MORTGAGE_STATUS.mortgage){
+                    logger.warn(' getCarBase ' + 'failed');
+                    resUtil.resetFailedRes(res," 商品车被抵押，不能出库 ");
+                    return next();
+                }else if(rows&&rows.length>0&&rows[0].rel_status == listOfValue.REL_STATUS_MOVE){
                     parkObj.parkingId = rows[0].p_id;
                     parkObj.storageId = rows[0].storage_id;
                     parkObj.storageName = rows[0].storage_name;
