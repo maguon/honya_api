@@ -88,7 +88,7 @@ function getCreditCsv(req,res,next){
         } else {
             for(var i=0;i<rows.length;i++){
 
-                parkObj.creditId = rows[i].credit_id;
+                parkObj.creditNumber = rows[i].credit_number;
                 parkObj.shortName = rows[i].short_name;
                 if(rows[i].entrust_type == 1){
                     parkObj.entrustType = "个人";
@@ -197,7 +197,7 @@ function getCreditCsv(req,res,next){
                 parkObj.booking = rows[i].booking;
                 parkObj.tab = rows[i].tab;
 
-                csvString = csvString+parkObj.creditId+","+parkObj.shortName+","+parkObj.entrustType+","+parkObj.creditMoney+","+parkObj.actualMoney
+                csvString = csvString+parkObj.creditNumber+","+parkObj.shortName+","+parkObj.entrustType+","+parkObj.creditMoney+","+parkObj.actualMoney
                     +","+parkObj.planReturnDate+","+parkObj.actualReturnDate+","+parkObj.receiveCardDate+","+parkObj.documentsDate
                     +","+parkObj.documentsSendDate +","+parkObj.documentsReceiveDate+","+parkObj.actualRemitDate+","+parkObj.invoiceNumber
                     +","+parkObj.remark+","+parkObj.creditEndDate +","+parkObj.creditStatus+","+parkObj.repaymentId

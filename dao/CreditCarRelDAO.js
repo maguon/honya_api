@@ -21,7 +21,7 @@ function getCreditCarRel(params,callback) {
     var query = " select ccr.*,lrcr.repayment_id,ct.credit_number,ct.entrust_id,e.entrust_type,e.short_name,ct.credit_money,ct.actual_money, " +
         " ct.plan_return_date,ct.actual_return_date,ct.receive_card_date,ct.documents_date,ct.documents_send_date, " +
         " ct.documents_receive_date,ct.actual_remit_date,ct.invoice_number,ct.remark,ct.credit_end_date,ct.credit_status, " +
-        " c.vin,c.make_name,c.model_name,c.colour,c.valuation,c.remark as car_remark, " +
+        " c.vin,c.make_name,c.model_name,c.colour,c.valuation,c.purchase_type,c.remark as car_remark,csr.mortgage_status, " +
         " st.start_port_name,st.end_port_name,st.start_ship_date,st.end_ship_date,st.actual_start_date,st.actual_end_date, " +
         " sc.ship_company_name,st.ship_name,st.container,st.booking,st.tab " +
         " from credit_car_rel ccr " +
@@ -32,7 +32,8 @@ function getCreditCarRel(params,callback) {
         " left join ship_trans_car_rel stcr on c.id = stcr.car_id " +
         " left join ship_trans_info st on stcr.ship_trans_id = st.id " +
         " left join ship_company_info sc on st.ship_company_id = sc.id " +
-        " where ccr.id is not null ";
+        " left join car_storage_rel csr on ccr.car_id = csr.car_id " +
+        " where ccr.id is not null and (csr.active =1 or csr.id is null) ";
     var paramsArray=[],i=0;
     if(params.creditId){
         paramsArray[i++] = params.creditId;
@@ -74,7 +75,6 @@ function getCreditCarRel(params,callback) {
         paramsArray[i++] = params.actualReturnDateEnd +" 23:59:59";
         query = query + " and ct.actual_return_date <= ? ";
     }
-    query = query + ' group by ccr.id ';
     if (params.start && params.size) {
         paramsArray[i++] = parseInt(params.start);
         paramsArray[i++] = parseInt(params.size);
