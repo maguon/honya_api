@@ -124,6 +124,31 @@ function updateBuyCarCountMinus(params,callback){
     });
 }
 
+function updateLoanStatus(params,callback){
+    if(params.loanStatus==2){
+        var query = " update loan_info set start_date_id = ? , loan_start_date = ? , loan_status = ? where id = ? " ;
+    }else if(params.loanStatus==3){
+        var query = " update loan_info set loan_status = ? where id = ? " ;
+    }else{
+        var query = " update loan_info set end_date_id = ? , loan_end_date = ? , loan_status = ? where id = ? " ;
+    }
+    var paramsArray=[],i=0;
+    if(params.loanStartDate){
+        paramsArray[i++] = params.startDateId;
+        paramsArray[i++] = params.loanStartDate;
+    }
+    if(params.loanEndDate){
+        paramsArray[i++] = params.endDateId;
+        paramsArray[i++] = params.loanEndDate;
+    }
+    paramsArray[i++]=params.loanStatus;
+    paramsArray[i]=params.loanId;
+    db.dbQuery(query,paramsArray,function(error,rows){
+        logger.debug(' updateLoanStatus ');
+        return callback(error,rows);
+    });
+}
+
 
 module.exports ={
     addLoan : addLoan,
@@ -132,5 +157,6 @@ module.exports ={
     updateMortgageCarCountPlus : updateMortgageCarCountPlus,
     updateMortgageCarCountMinus : updateMortgageCarCountMinus,
     updateBuyCarCountPlus : updateBuyCarCountPlus,
-    updateBuyCarCountMinus : updateBuyCarCountMinus
+    updateBuyCarCountMinus : updateBuyCarCountMinus,
+    updateLoanStatus : updateLoanStatus
 }

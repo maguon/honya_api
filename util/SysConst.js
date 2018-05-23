@@ -50,7 +50,15 @@ var RECORD_OP_TYPE  ={
     ship_trans_cancel : 34  //海运取消
 };
 
-var MORTGAGE_STATUS  ={ //订单状态
+var LOAN_STATUS  ={ //贷款状态
+    not_loan : 1,  //未贷
+    loan : 2, //已贷
+    repayment : 3,  //还款中
+    completed : 4   //完结
+
+};
+
+var MORTGAGE_STATUS  ={ //抵押状态
     not_mortgage : 1,  //未抵押
     mortgage : 2 //抵押
 };
@@ -64,5 +72,6 @@ module.exports = {
     SHIP_TRANS_STATUS : SHIP_TRANS_STATUS,
     COUNTRY_TYPE : COUNTRY_TYPE,
     RECORD_OP_TYPE : RECORD_OP_TYPE,
-    MORTGAGE_STATUS : MORTGAGE_STATUS
+    MORTGAGE_STATUS : MORTGAGE_STATUS,
+    LOAN_STATUS : LOAN_STATUS
 }

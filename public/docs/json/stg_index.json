@@ -9015,6 +9015,58 @@
         }
       }
     },
+    "/user/{userId}/loan/{loanId}/loanStatus/{loanStatus}": {
+      "put": {
+        "tags": [
+          "loan"
+        ],
+        "summary": "update loan status",
+        "description": "update loan status",
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "userId",
+            "in": "path",
+            "description": "user Id",
+            "required": true,
+            "type": "integer"
+
+          },
+          {
+            "name": "loanId",
+            "in": "path",
+            "description": "loan id",
+            "required": true,
+            "type": "integer"
+
+          },
+          {
+            "name": "loanStatus",
+            "in": "path",
+            "description": "loan status",
+            "required": true,
+            "type": "integer"
+
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "successful operation",
+            "schema": {
+              "type": "object",
+              "items": {
+                "$ref": "#/definitions/ApiResponse"
+              }
+            }
+          },
+          "400": {
+            "description": "Invalid token value or invalid loan id"
+          }
+        }
+      }
+    },
     "/loanMortgageCarRel": {
       "get": {
         "tags": [
