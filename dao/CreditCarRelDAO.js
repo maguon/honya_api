@@ -21,7 +21,7 @@ function getCreditCarRel(params,callback) {
     var query = " select ccr.*,lrcr.repayment_id,ct.credit_number,ct.entrust_id,e.entrust_type,e.short_name,ct.credit_money,ct.actual_money, " +
         " ct.plan_return_date,ct.actual_return_date,ct.receive_card_date,ct.documents_date,ct.documents_send_date, " +
         " ct.documents_receive_date,ct.actual_remit_date,ct.invoice_number,ct.remark,ct.credit_end_date,ct.credit_status, " +
-        " c.vin,c.make_name,c.model_name,c.colour,c.valuation,c.purchase_type,c.remark as car_remark,csr.mortgage_status, " +
+        " c.vin,c.make_name,c.model_name,pro_date,c.colour,c.valuation,c.purchase_type,c.remark as car_remark,csr.mortgage_status, " +
         " st.start_port_name,st.end_port_name,st.start_ship_date,st.end_ship_date,st.actual_start_date,st.actual_end_date, " +
         " sc.ship_company_name,st.ship_name,st.container,st.booking,st.tab " +
         " from credit_car_rel ccr " +
