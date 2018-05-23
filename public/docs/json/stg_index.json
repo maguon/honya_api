@@ -9458,6 +9458,60 @@
         }
       }
     },
+    "/user/{userId}/repayment/{repaymentId}": {
+      "put": {
+        "tags": [
+          "loan"
+        ],
+        "summary": "update loanRepayment info",
+        "description": "update loanRepayment info",
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "userId",
+            "in": "path",
+            "description": "user Id",
+            "required": true,
+            "type": "integer"
+
+          },
+          {
+            "name": "repaymentId",
+            "in": "path",
+            "description": "repayment id",
+            "required": true,
+            "type": "integer"
+
+          },
+          {
+            "name": "loanRepayment",
+            "in": "body",
+            "description": "loanRepayment info",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/loanRepayment"
+            }
+
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "successful operation",
+            "schema": {
+              "type": "object",
+              "items": {
+                "$ref": "#/definitions/ApiResponse"
+              }
+            }
+          },
+          "400": {
+            "description": "Invalid token value or invalid repayment id"
+          }
+        }
+      }
+    },
     "/user/{userId}/repayment/{repaymentId}/repaymentStatus/{repaymentStatus}": {
       "put": {
         "tags": [
@@ -11479,6 +11533,9 @@
         },
         "remark": {
           "type": "string"
+        },
+        "notRepaymentMoney": {
+          "type": "integer"
         }
       },
       "xml": {

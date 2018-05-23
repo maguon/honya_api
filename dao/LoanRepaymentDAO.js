@@ -46,6 +46,24 @@ function getLoanRepayment(params,callback) {
     });
 }
 
+function updateLoanRepayment(params,callback){
+    var query = " update loan_repayment set repayment_money = ? , rate = ? , create_interest_money = ? , " +
+        " day_count = ? , interest_money = ? , fee = ? , remark = ? where id = ? " ;
+    var paramsArray=[],i=0;
+    paramsArray[i++]=params.repaymentMoney;
+    paramsArray[i++]=params.rate;
+    paramsArray[i++]=params.createInterestMoney;
+    paramsArray[i++]=params.dayCount;
+    paramsArray[i++]=params.interestMoney;
+    paramsArray[i++]=params.fee;
+    paramsArray[i++]=params.remark;
+    paramsArray[i]=params.repaymentId;
+    db.dbQuery(query,paramsArray,function(error,rows){
+        logger.debug(' updateLoanRepayment ');
+        return callback(error,rows);
+    });
+}
+
 function updateLoanRepaymentStatus(params,callback){
     var query = " update loan_repayment set repayment_end_date = ? , repayment_status = ? where id = ? " ;
     var paramsArray=[],i=0;
@@ -62,5 +80,6 @@ function updateLoanRepaymentStatus(params,callback){
 module.exports ={
     addLoanRepayment : addLoanRepayment,
     getLoanRepayment : getLoanRepayment,
+    updateLoanRepayment : updateLoanRepayment,
     updateLoanRepaymentStatus : updateLoanRepaymentStatus
 }
