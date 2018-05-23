@@ -20,6 +20,22 @@ function createLoanRepayment(req,res,next){
     var repaymentId = 0;
     Seq().seq(function(){
         var that = this;
+        loanDAO.getLoan({loanId:params.loanId},function(error,rows){
+            if (error) {
+                logger.error(' getLoan ' + error.message);
+                throw sysError.InternalError(error.message,sysMsg.SYS_INTERNAL_ERROR_MSG);
+            } else{
+                if(rows&&rows.length==1&&rows[0].loan_status >= sysConst.LOAN_STATUS.loan){
+                    that();
+                }else{
+                    logger.warn(' getLoan ' + 'failed');
+                    resUtil.resetFailedRes(res," 不是已贷状态，无法进行还款 ");
+                    return next();
+                }
+            }
+        })
+    }).seq(function(){
+        var that = this;
         loanRepaymentDAO.addLoanRepayment(params,function(error,result){
             if (error) {
                 logger.error(' createLoanRepayment ' + error.message);
