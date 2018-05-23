@@ -140,10 +140,10 @@ function updateBuyCarCountMinus(params,callback){
 function updateLoanStatus(params,callback){
     if(params.loanStatus==2){
         var query = " update loan_info set start_date_id = ? , loan_start_date = ? , loan_status = ? where id = ? " ;
-    }else if(params.loanStatus==3){
-        var query = " update loan_info set loan_status = ? where id = ? " ;
-    }else{
+    }else if(params.loanStatus==4){
         var query = " update loan_info set end_date_id = ? , loan_end_date = ? , loan_status = ? where id = ? " ;
+    }else{
+        var query = " update loan_info set loan_status = ? where id = ? " ;
     }
     var paramsArray=[],i=0;
     if(params.loanStartDate){
