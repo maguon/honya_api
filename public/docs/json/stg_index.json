@@ -9826,6 +9826,14 @@
 
           },
           {
+            "name": "creditNumber",
+            "in": "query",
+            "description": "credit number",
+            "required": false,
+            "type": "string"
+
+          },
+          {
             "name": "vin",
             "in": "query",
             "description": "vin",
@@ -9939,6 +9947,14 @@
             "description": "credit id",
             "required": false,
             "type": "integer"
+
+          },
+          {
+            "name": "creditNumber",
+            "in": "query",
+            "description": "credit number",
+            "required": false,
+            "type": "string"
 
           },
           {

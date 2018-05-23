@@ -42,6 +42,10 @@ function getCredit(params,callback) {
         paramsArray[i++] = params.creditId;
         query = query + " and ct.id = ? ";
     }
+    if(params.creditNumber){
+        paramsArray[i++] = params.creditNumber;
+        query = query + " and ct.credit_number = ? ";
+    }
     if(params.vin){
         paramsArray[i++] = params.vin;
         query = query + " and c.vin = ? ";
