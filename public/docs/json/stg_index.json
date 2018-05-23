@@ -9826,6 +9826,22 @@
 
           },
           {
+            "name": "vin",
+            "in": "query",
+            "description": "vin",
+            "required": false,
+            "type": "string"
+
+          },
+          {
+            "name": "repaymentId",
+            "in": "query",
+            "description": "repayment id",
+            "required": false,
+            "type": "integer"
+
+          },
+          {
             "name": "entrustId",
             "in": "query",
             "description": "entrust id",
@@ -9887,6 +9903,106 @@
             "description": "list size for pagination",
             "required": false,
             "type": "integer"
+
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "successful operation",
+            "schema": {
+              "type": "object",
+              "items": {
+                "$ref": "#/definitions/credit"
+              }
+            }
+          },
+          "400": {
+            "description": "Invalid token value or invalid credit id"
+          }
+        }
+      }
+    },
+    "/credit.csv": {
+      "get": {
+        "tags": [
+          "credit"
+        ],
+        "summary": "query  credit.csv",
+        "description": "query credit csv",
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "creditId",
+            "in": "query",
+            "description": "credit id",
+            "required": false,
+            "type": "integer"
+
+          },
+          {
+            "name": "vin",
+            "in": "query",
+            "description": "vin",
+            "required": false,
+            "type": "string"
+
+          },
+          {
+            "name": "repaymentId",
+            "in": "query",
+            "description": "repayment id",
+            "required": false,
+            "type": "integer"
+
+          },
+          {
+            "name": "entrustId",
+            "in": "query",
+            "description": "entrust id",
+            "required": false,
+            "type": "integer"
+
+          },
+          {
+            "name": "creditStatus",
+            "in": "query",
+            "description": "credit status",
+            "required": false,
+            "type": "integer"
+
+          },
+          {
+            "name": "planReturnDateStart",
+            "in": "query",
+            "description": "planReturnDate start",
+            "required": false,
+            "type": "string"
+
+          },
+          {
+            "name": "planReturnDateEnd",
+            "in": "query",
+            "description": "planReturnDate end",
+            "required": false,
+            "type": "string"
+
+          },
+          {
+            "name": "actualReturnDateStart",
+            "in": "query",
+            "description": "actualReturnDate start",
+            "required": false,
+            "type": "string"
+
+          },
+          {
+            "name": "actualReturnDateEnd",
+            "in": "query",
+            "description": "actualReturnDate end",
+            "required": false,
+            "type": "string"
 
           }
         ],

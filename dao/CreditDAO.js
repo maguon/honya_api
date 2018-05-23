@@ -31,40 +31,50 @@ function addCredit(params,callback){
 }
 
 function getCredit(params,callback) {
-    var query = " select c.*,e.entrust_type,e.short_name,lrcr.repayment_id from credit_info c " +
-        " left join entrust_info e on c.entrust_id = e.id " +
-        " left join loan_rep_credit_rel lrcr on c.id = lrcr.credit_id " +
-        " where c.id is not null ";
+    var query = " select ct.*,e.entrust_type,e.short_name,lrcr.repayment_id from credit_info ct " +
+        " left join entrust_info e on ct.entrust_id = e.id " +
+        " left join loan_rep_credit_rel lrcr on ct.id = lrcr.credit_id " +
+        " left join credit_car_rel ccr on ct.id = ccr.credit_id " +
+        " left join car_info c on ccr.car_id = c.id " +
+        " where ct.id is not null ";
     var paramsArray=[],i=0;
     if(params.creditId){
         paramsArray[i++] = params.creditId;
-        query = query + " and c.id = ? ";
+        query = query + " and ct.id = ? ";
+    }
+    if(params.vin){
+        paramsArray[i++] = params.vin;
+        query = query + " and c.vin = ? ";
+    }
+    if(params.repaymentId){
+        paramsArray[i++] = params.repaymentId;
+        query = query + " and lrcr.repayment_id = ? ";
     }
     if(params.entrustId){
         paramsArray[i++] = params.entrustId;
-        query = query + " and c.entrust_id = ? ";
+        query = query + " and ct.entrust_id = ? ";
     }
     if(params.creditStatus){
         paramsArray[i++] = params.creditStatus;
-        query = query + " and c.credit_status = ? ";
+        query = query + " and ct.credit_status = ? ";
     }
     if(params.planReturnDateStart){
         paramsArray[i++] = params.planReturnDateStart +" 00:00:00";
-        query = query + " and c.plan_return_date >= ? ";
+        query = query + " and ct.plan_return_date >= ? ";
     }
     if(params.planReturnDateEnd){
         paramsArray[i++] = params.planReturnDateEnd +" 23:59:59";
-        query = query + " and c.plan_return_date <= ? ";
+        query = query + " and ct.plan_return_date <= ? ";
     }
     if(params.actualReturnDateStart){
         paramsArray[i++] = params.actualReturnDateStart +" 00:00:00";
-        query = query + " and c.actual_return_date >= ? ";
+        query = query + " and ct.actual_return_date >= ? ";
     }
     if(params.actualReturnDateEnd){
         paramsArray[i++] = params.actualReturnDateEnd +" 23:59:59";
-        query = query + " and c.actual_return_date <= ? ";
+        query = query + " and ct.actual_return_date <= ? ";
     }
-    query = query + " group by c.id ";
+    query = query + " group by ct.id ";
     if (params.start && params.size) {
         paramsArray[i++] = parseInt(params.start);
         paramsArray[i++] = parseInt(params.size);

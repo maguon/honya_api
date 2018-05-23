@@ -18,14 +18,15 @@ function addCreditCarRel(params,callback){
 }
 
 function getCreditCarRel(params,callback) {
-    var query = " select ccr.*,ct.credit_number,ct.entrust_id,e.entrust_type,e.short_name,ct.credit_money,ct.actual_money, " +
+    var query = " select ccr.*,lrcr.repayment_id,ct.credit_number,ct.entrust_id,e.entrust_type,e.short_name,ct.credit_money,ct.actual_money, " +
         " ct.plan_return_date,ct.actual_return_date,ct.receive_card_date,ct.documents_date,ct.documents_send_date, " +
         " ct.documents_receive_date,ct.actual_remit_date,ct.invoice_number,ct.remark,ct.credit_end_date,ct.credit_status, " +
-        " c.vin,c.make_name,c.model_name,c.colour,c.valuation,c.remark, " +
+        " c.vin,c.make_name,c.model_name,c.colour,c.valuation,c.remark as car_remark, " +
         " st.start_port_name,st.end_port_name,st.start_ship_date,st.end_ship_date,st.actual_start_date,st.actual_end_date, " +
         " sc.ship_company_name,st.ship_name,st.container,st.booking,st.tab " +
         " from credit_car_rel ccr " +
         " left join credit_info ct on ccr.credit_id = ct.id " +
+        " left join loan_rep_credit_rel lrcr on ct.id = lrcr.credit_id " +
         " left join entrust_info e on ct.entrust_id = e.id " +
         " left join car_info c on ccr.car_id = c.id " +
         " left join ship_trans_car_rel stcr on c.id = stcr.car_id " +
@@ -36,6 +37,38 @@ function getCreditCarRel(params,callback) {
     if(params.creditId){
         paramsArray[i++] = params.creditId;
         query = query + " and ccr.credit_id = ? ";
+    }
+    if(params.vin){
+        paramsArray[i++] = params.vin;
+        query = query + " and c.vin = ? ";
+    }
+    if(params.repaymentId){
+        paramsArray[i++] = params.repaymentId;
+        query = query + " and lrcr.repayment_id = ? ";
+    }
+    if(params.entrustId){
+        paramsArray[i++] = params.entrustId;
+        query = query + " and ct.entrust_id = ? ";
+    }
+    if(params.creditStatus){
+        paramsArray[i++] = params.creditStatus;
+        query = query + " and ct.credit_status = ? ";
+    }
+    if(params.planReturnDateStart){
+        paramsArray[i++] = params.planReturnDateStart +" 00:00:00";
+        query = query + " and ct.plan_return_date >= ? ";
+    }
+    if(params.planReturnDateEnd){
+        paramsArray[i++] = params.planReturnDateEnd +" 23:59:59";
+        query = query + " and ct.plan_return_date <= ? ";
+    }
+    if(params.actualReturnDateStart){
+        paramsArray[i++] = params.actualReturnDateStart +" 00:00:00";
+        query = query + " and ct.actual_return_date >= ? ";
+    }
+    if(params.actualReturnDateEnd){
+        paramsArray[i++] = params.actualReturnDateEnd +" 23:59:59";
+        query = query + " and ct.actual_return_date <= ? ";
     }
     query = query + ' group by ccr.id ';
     if (params.start && params.size) {
