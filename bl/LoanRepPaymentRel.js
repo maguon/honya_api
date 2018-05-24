@@ -46,6 +46,20 @@ function queryLoanRepPaymentRel(req,res,next){
     })
 }
 
+function queryRepPaymentMoney(req,res,next){
+    var params = req.params ;
+    loanRepPaymentRelDAO.getRepPaymentMoney(params,function(error,result){
+        if (error) {
+            logger.error(' queryRepPaymentMoney ' + error.message);
+            throw sysError.InternalError(error.message,sysMsg.SYS_INTERNAL_ERROR_MSG);
+        } else {
+            logger.info(' queryRepPaymentMoney ' + 'success');
+            resUtil.resetQueryRes(res,result,null);
+            return next();
+        }
+    })
+}
+
 function updateRepPaymentMoney(req,res,next){
     var params = req.params ;
     loanRepPaymentRelDAO.updateRepPaymentMoney(params,function(error,result){
@@ -78,6 +92,7 @@ function removeLoanRepPaymentRel(req,res,next){
 module.exports = {
     createLoanRepPaymentRel : createLoanRepPaymentRel,
     queryLoanRepPaymentRel : queryLoanRepPaymentRel,
+    queryRepPaymentMoney : queryRepPaymentMoney,
     updateRepPaymentMoney : updateRepPaymentMoney,
     removeLoanRepPaymentRel : removeLoanRepPaymentRel
 }

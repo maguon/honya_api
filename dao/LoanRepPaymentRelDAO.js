@@ -38,6 +38,20 @@ function getLoanRepPaymentRel(params,callback) {
     });
 }
 
+function getRepPaymentMoney(params,callback) {
+    var query = " select sum(lrpr.this_payment_money) as payment_rep_money from loan_rep_payment_rel lrpr " +
+        " where lrpr.id is not null ";
+    var paramsArray=[],i=0;
+    if(params.repaymentId){
+        paramsArray[i++] = params.repaymentId;
+        query = query + " and lrpr.repayment_id= ? ";
+    }
+    db.dbQuery(query,paramsArray,function(error,rows){
+        logger.debug(' getRepPaymentMoney ');
+        return callback(error,rows);
+    });
+}
+
 function updateRepPaymentMoney(params,callback){
     var query = " update loan_rep_payment_rel set this_payment_money = ? where repayment_id = ? and payment_id = ? " ;
     var paramsArray=[],i=0;
@@ -65,6 +79,7 @@ function deleteLoanRepPaymentRel(params,callback){
 module.exports ={
     addLoanRepPaymentRel : addLoanRepPaymentRel,
     getLoanRepPaymentRel : getLoanRepPaymentRel,
+    getRepPaymentMoney : getRepPaymentMoney,
     updateRepPaymentMoney : updateRepPaymentMoney,
     deleteLoanRepPaymentRel : deleteLoanRepPaymentRel
 }

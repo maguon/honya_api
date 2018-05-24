@@ -9759,6 +9759,42 @@
         }
       }
     },
+    "/repayment/{repaymentId}/repPaymentMoney": {
+      "get": {
+        "tags": [
+          "loan"
+        ],
+        "summary": "query  repPayment money",
+        "description": "query repPaymentMoney",
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "repaymentId",
+            "in": "path",
+            "description": "repayment id",
+            "required": true,
+            "type": "integer"
+
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "successful operation",
+            "schema": {
+              "type": "object",
+              "items": {
+                "$ref": "#/definitions/loanRepPaymentRel"
+              }
+            }
+          },
+          "400": {
+            "description": "Invalid token value or invalid loanRepPaymentRel id"
+          }
+        }
+      }
+    },
     "/user/{userId}/loanRepPaymentRel": {
       "post": {
         "tags": [

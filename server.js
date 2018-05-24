@@ -427,6 +427,7 @@ function createServer() {
      * LoanRepPaymentRel Module
      */
     server.get('/api/loanRepPaymentRel',loanRepPaymentRel.queryLoanRepPaymentRel);
+    server.get('/api/repayment/:repaymentId/repPaymentMoney',loanRepPaymentRel.queryRepPaymentMoney);
     server.post({path:'/api/user/:userId/loanRepPaymentRel',contentType: 'application/json'},loanRepPaymentRel.createLoanRepPaymentRel);
     server.put({path:'/api/user/:userId/repayment/:repaymentId/payment/:paymentId/repPaymentMoney',contentType: 'application/json'} ,loanRepPaymentRel.updateRepPaymentMoney);
     server.del('/api/user/:userId/repayment/:repaymentId/payment/:paymentId' , loanRepPaymentRel.removeLoanRepPaymentRel);
