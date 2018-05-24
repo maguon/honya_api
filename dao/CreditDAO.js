@@ -90,6 +90,21 @@ function getCredit(params,callback) {
     });
 }
 
+function getCreditRepMoney(params,callback) {
+    var query = " select sum(ct.actual_money) credit_actual_money from credit_info ct " +
+        " left join loan_rep_credit_rel lrcr on ct.id = lrcr.credit_id " +
+        " where ct.id is not null ";
+    var paramsArray=[],i=0;
+    if(params.repaymentId){
+        paramsArray[i++] = params.repaymentId;
+        query = query + " and lrcr.repayment_id= ? ";
+    }
+    db.dbQuery(query,paramsArray,function(error,rows){
+        logger.debug(' getCreditRepMoney ');
+        return callback(error,rows);
+    });
+}
+
 function updateCredit(params,callback){
     var query = " update credit_info set credit_number = ? , entrust_id = ? , credit_money = ? , actual_money = ? , " +
         " plan_return_date = ? , actual_return_date = ? , receive_card_date = ? , documents_date = ? , documents_send_date = ? , " +
@@ -131,6 +146,7 @@ function updateCreditStatus(params,callback){
 module.exports ={
     addCredit : addCredit,
     getCredit : getCredit,
+    getCreditRepMoney : getCreditRepMoney,
     updateCredit : updateCredit,
     updateCreditStatus : updateCreditStatus
 }

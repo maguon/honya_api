@@ -436,6 +436,7 @@ function createServer() {
      */
     server.get('/api/credit',credit.queryCredit);
     server.get('/api/credit.csv',credit.getCreditCsv);
+    server.get('/api/repayment/:repaymentId/creditRepMoney',credit.queryCreditRepMoney);
     server.post({path:'/api/user/:userId/credit',contentType: 'application/json'},credit.createCredit);
     server.put({path:'/api/user/:userId/credit/:creditId',contentType: 'application/json'} ,credit.updateCredit);
     server.put({path:'/api/user/:userId/credit/:creditId/creditStatus/:creditStatus',contentType: 'application/json'} ,credit.updateCreditStatus);

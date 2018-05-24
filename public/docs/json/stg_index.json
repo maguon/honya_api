@@ -10144,6 +10144,42 @@
         }
       }
     },
+    "/repayment/{repaymentId}/creditRepMoney": {
+      "get": {
+        "tags": [
+          "credit"
+        ],
+        "summary": "query  creditRep money",
+        "description": "query creditRepMoney",
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "repaymentId",
+            "in": "path",
+            "description": "repayment id",
+            "required": true,
+            "type": "integer"
+
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "successful operation",
+            "schema": {
+              "type": "object",
+              "items": {
+                "$ref": "#/definitions/credit"
+              }
+            }
+          },
+          "400": {
+            "description": "Invalid token value or invalid credit id"
+          }
+        }
+      }
+    },
     "/user/{userId}/credit": {
       "post": {
         "tags": [
