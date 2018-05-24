@@ -29,7 +29,7 @@ function createLoanRepayment(req,res,next){
                     that();
                 }else{
                     logger.warn(' getLoan ' + 'failed');
-                    resUtil.resetFailedRes(res," 不是已贷状态，无法进行还款 ");
+                    resUtil.resetFailedRes(res," 还未放款，无法进行还款 ");
                     return next();
                 }
             }
