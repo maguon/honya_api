@@ -50,9 +50,20 @@ function deleteLoanMortgageCarRel(params,callback){
     });
 }
 
+function deleteLoanMortgageCarRelAll(params,callback){
+    var query = " delete from loan_mortgage_car_rel where loan_id = ? ";
+    var paramsArray=[],i=0;
+    paramsArray[i++]=params.loanId;
+    db.dbQuery(query,paramsArray,function(error,rows){
+        logger.debug(' deleteLoanMortgageCarRelAll ');
+        return callback(error,rows);
+    });
+}
+
 
 module.exports ={
     addLoanMortgageCarRel : addLoanMortgageCarRel,
     getLoanMortgageCarRel : getLoanMortgageCarRel,
-    deleteLoanMortgageCarRel : deleteLoanMortgageCarRel
+    deleteLoanMortgageCarRel : deleteLoanMortgageCarRel,
+    deleteLoanMortgageCarRelAll : deleteLoanMortgageCarRelAll
 }
