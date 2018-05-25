@@ -87,6 +87,31 @@ function updateLoanStatus(req,res,next){
         }
     }).seq(function(){
         var that = this;
+        if(params.loanStatus==sysConst.LOAN_STATUS.completed){
+            params.endDateId = parseInt(strDate);
+            params.loanEndDate = myDate;
+            loanDAO.updateLoanStatus(params,function(error,result){
+                if (error) {
+                    logger.error(' updateLoanStatus ' + error.message);
+                    throw sysError.InternalError(error.message,sysMsg.SYS_INTERNAL_ERROR_MSG);
+                } else {
+                    if(result&&result.affectedRows>0){
+                        logger.info(' updateLoanStatus ' + 'success');
+                        that();
+                    }else{
+                        logger.warn(' updateLoanStatus ' + 'failed');
+                        resUtil.resetFailedRes(res," 操作状态失败 ");
+                        return next();
+                    }
+                }
+            })
+        }else{
+            logger.warn(' updateLoanStatus ' + 'failed');
+            resUtil.resetFailedRes(res," 操作状态错误 ");
+            return next();
+        }
+    }).seq(function(){
+        var that = this;
         loanMortgageCarRelDAO.getLoanMortgageCarRel({loanId:params.loanId},function(error,rows){
             if (error) {
                 logger.error(' getLoanMortgageCarRel ' + error.message);
@@ -155,24 +180,16 @@ function updateLoanStatus(req,res,next){
             that();
         }
     }).seq(function(){
-        if(params.loanStatus==sysConst.LOAN_STATUS.completed){
-            params.endDateId = parseInt(strDate);
-            params.loanEndDate = myDate;
-            loanDAO.updateLoanStatus(params,function(error,result){
+            loanDAO.updateMortgageCarCount(params,function(error,result){
                 if (error) {
-                    logger.error(' updateLoanStatus ' + error.message);
+                    logger.error(' updateMortgageCarCount ' + error.message);
                     throw sysError.InternalError(error.message,sysMsg.SYS_INTERNAL_ERROR_MSG);
                 } else {
-                    logger.info(' updateCreditStatus ' + 'success');
+                    logger.info(' updateMortgageCarCount ' + 'success');
                     resUtil.resetUpdateRes(res,result,null);
                     return next();
                 }
             })
-        }else{
-            logger.warn(' updateLoanStatus ' + 'failed');
-            resUtil.resetFailedRes(res," 操作状态失败 ");
-            return next();
-        }
     })
 }
 

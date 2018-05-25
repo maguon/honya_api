@@ -117,6 +117,16 @@ function updateMortgageCarCountMinus(params,callback){
     });
 }
 
+function updateMortgageCarCount(params,callback){
+    var query = " update loan_info set mortgage_car_count = 0 where id = ? " ;
+    var paramsArray=[],i=0;
+    paramsArray[i]=params.loanId;
+    db.dbQuery(query,paramsArray,function(error,rows){
+        logger.debug(' updateMortgageCarCount ');
+        return callback(error,rows);
+    });
+}
+
 function updateBuyCarCountPlus(params,callback){
     var query = " update loan_info set buy_car_count = buy_car_count +1 where id = ? " ;
     var paramsArray=[],i=0;
@@ -170,6 +180,7 @@ module.exports ={
     updateLoanNotRepaymentMoney : updateLoanNotRepaymentMoney,
     updateMortgageCarCountPlus : updateMortgageCarCountPlus,
     updateMortgageCarCountMinus : updateMortgageCarCountMinus,
+    updateMortgageCarCount : updateMortgageCarCount,
     updateBuyCarCountPlus : updateBuyCarCountPlus,
     updateBuyCarCountMinus : updateBuyCarCountMinus,
     updateLoanStatus : updateLoanStatus
