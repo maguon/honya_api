@@ -17,3 +17,143 @@ ADD COLUMN `actual_end_date`  datetime NULL DEFAULT NULL COMMENT '实际到港�
 -- ----------------------------
 ALTER TABLE `car_storage_rel`
 ADD COLUMN `mortgage_status`  tinyint(1) NOT NULL DEFAULT 1 COMMENT '抵押状态(1-未抵押,2-抵押)' AFTER `rel_status`;
+-- ----------------------------
+-- Table structure for credit_car_rel
+-- ----------------------------
+DROP TABLE IF EXISTS `credit_car_rel`;
+CREATE TABLE `credit_car_rel` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `credit_id` int(10) NOT NULL DEFAULT '0' COMMENT '信用证ID',
+  `car_id` int(10) NOT NULL DEFAULT '0' COMMENT '商品车ID',
+  `created_on` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP COMMENT '创建时间',
+  `updated_on` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP COMMENT '更新时间',
+  UNIQUE KEY `id` (`id`) USING BTREE,
+  UNIQUE KEY `car_id` (`car_id`) USING BTREE
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+-- ----------------------------
+-- Table structure for credit_info
+-- ----------------------------
+DROP TABLE IF EXISTS `credit_info`;
+CREATE TABLE `credit_info` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `credit_number` varchar(50) COLLATE utf8mb4_unicode_ci NOT NULL COMMENT '信用证编号',
+  `entrust_id` int(10) DEFAULT '0' COMMENT '委托方ID',
+  `credit_money` decimal(10,2) DEFAULT '0.00' COMMENT '信用证金额',
+  `actual_money` decimal(10,2) DEFAULT '0.00' COMMENT '实际到款金额',
+  `plan_return_date` date DEFAULT NULL COMMENT '预计回款日期',
+  `actual_return_date` date DEFAULT NULL COMMENT '实际回款日期',
+  `receive_card_date` date DEFAULT NULL COMMENT '接证日期',
+  `documents_date` date DEFAULT NULL COMMENT '交单日期',
+  `documents_send_date` date DEFAULT NULL COMMENT '文件发出日期',
+  `documents_receive_date` date DEFAULT NULL COMMENT '开户行文件接收日期',
+  `actual_remit_date` date DEFAULT NULL COMMENT '实际汇款日期',
+  `invoice_number` varchar(50) COLLATE utf8mb4_unicode_ci DEFAULT NULL COMMENT '发票号码',
+  `remark` varchar(200) COLLATE utf8mb4_unicode_ci DEFAULT NULL COMMENT '备注',
+  `credit_end_date` datetime DEFAULT NULL COMMENT '信用证完结时间',
+  `credit_status` tinyint(1) NOT NULL DEFAULT '1' COMMENT '信用证状态(1-未完结,2-已完结)',
+  `created_on` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP COMMENT '创建时间',
+  `updated_on` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP COMMENT '更新时间',
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+-- ----------------------------
+-- Table structure for loan_buy_car_rel
+-- ----------------------------
+DROP TABLE IF EXISTS `loan_buy_car_rel`;
+CREATE TABLE `loan_buy_car_rel` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `loan_id` int(10) NOT NULL DEFAULT '0' COMMENT '贷款ID',
+  `car_id` int(10) NOT NULL DEFAULT '0' COMMENT '商品车ID',
+  `created_on` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP COMMENT '创建时间',
+  `updated_on` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP COMMENT '更新时间',
+  UNIQUE KEY `id` (`id`) USING BTREE,
+  UNIQUE KEY `car_id` (`car_id`) USING BTREE
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+-- ----------------------------
+-- Table structure for loan_info
+-- ----------------------------
+DROP TABLE IF EXISTS `loan_info`;
+CREATE TABLE `loan_info` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `entrust_id` int(10) DEFAULT '0' COMMENT '委托方ID',
+  `deposit` decimal(10,2) DEFAULT '0.00' COMMENT '定金',
+  `loan_money` decimal(10,2) DEFAULT '0.00' COMMENT '贷款金额',
+  `not_repayment_money` decimal(10,2) DEFAULT '0.00' COMMENT '未还金额',
+  `mortgage_car_count` int(10) DEFAULT '0' COMMENT '抵押车数量',
+  `buy_car_count` int(10) DEFAULT '0' COMMENT '购买车数量',
+  `remark` varchar(200) COLLATE utf8mb4_unicode_ci DEFAULT NULL COMMENT '备注',
+  `start_date_id` int(4) DEFAULT NULL COMMENT '贷款起始统计时间',
+  `loan_start_date` datetime DEFAULT NULL COMMENT '贷款起始时间',
+  `end_date_id` int(4) DEFAULT NULL COMMENT '贷款完结统计时间',
+  `loan_end_date` datetime DEFAULT NULL COMMENT '贷款完结时间',
+  `loan_status` tinyint(1) NOT NULL DEFAULT '1' COMMENT '贷款状态(1-未贷,2-已贷,3-还款中,4-已完结)',
+  `created_on` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP COMMENT '创建时间',
+  `updated_on` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP COMMENT '更新时间',
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+-- ----------------------------
+-- Table structure for loan_mortgage_car_rel
+-- ----------------------------
+DROP TABLE IF EXISTS `loan_mortgage_car_rel`;
+CREATE TABLE `loan_mortgage_car_rel` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `loan_id` int(10) NOT NULL DEFAULT '0' COMMENT '贷款ID',
+  `car_id` int(10) NOT NULL DEFAULT '0' COMMENT '商品车ID',
+  `created_on` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP COMMENT '创建时间',
+  `updated_on` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP COMMENT '更新时间',
+  UNIQUE KEY `id` (`id`) USING BTREE,
+  UNIQUE KEY `car_id` (`car_id`) USING BTREE
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+-- ----------------------------
+-- Table structure for loan_rep_credit_rel
+-- ----------------------------
+DROP TABLE IF EXISTS `loan_rep_credit_rel`;
+CREATE TABLE `loan_rep_credit_rel` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `repayment_id` int(10) NOT NULL DEFAULT '0' COMMENT '还款ID',
+  `credit_id` int(10) NOT NULL DEFAULT '0' COMMENT '信用证ID',
+  `created_on` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP COMMENT '创建时间',
+  `updated_on` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP COMMENT '更新时间',
+  UNIQUE KEY `id` (`id`) USING BTREE,
+  UNIQUE KEY `credit_id` (`credit_id`) USING BTREE
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+-- ----------------------------
+-- Table structure for loan_rep_payment_rel
+-- ----------------------------
+DROP TABLE IF EXISTS `loan_rep_payment_rel`;
+CREATE TABLE `loan_rep_payment_rel` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `repayment_id` int(10) NOT NULL DEFAULT '0' COMMENT '还款ID',
+  `payment_id` int(10) NOT NULL DEFAULT '0' COMMENT '其他支付ID',
+  `this_payment_money` decimal(10,2) DEFAULT '0.00' COMMENT '本次支付金额',
+  `created_on` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP COMMENT '创建时间',
+  `updated_on` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP COMMENT '更新时间',
+  UNIQUE KEY `id` (`id`) USING BTREE,
+  UNIQUE KEY `payment_id` (`payment_id`) USING BTREE
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+-- ----------------------------
+-- Table structure for loan_repayment
+-- ----------------------------
+DROP TABLE IF EXISTS `loan_repayment`;
+CREATE TABLE `loan_repayment` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `loan_id` int(10) NOT NULL DEFAULT '0' COMMENT '贷款ID',
+  `repayment_money` decimal(10,2) DEFAULT '0.00' COMMENT '还款金额',
+  `rate` decimal(10,4) DEFAULT '0.0000' COMMENT '利率',
+  `create_interest_money` decimal(10,2) DEFAULT '0.00' COMMENT '产生利息金额',
+  `day_count` int(10) DEFAULT '0' COMMENT '产生利息天数',
+  `interest_money` decimal(10,2) DEFAULT '0.00' COMMENT '利息金额',
+  `fee` decimal(10,2) DEFAULT '0.00' COMMENT '手续费',
+  `remark` varchar(200) COLLATE utf8mb4_unicode_ci DEFAULT NULL COMMENT '备注',
+  `repayment_end_date` datetime DEFAULT NULL COMMENT '还款完结时间',
+  `repayment_status` tinyint(1) NOT NULL DEFAULT '1' COMMENT '还款状态(1-未完结,2-已完结)',
+  `created_on` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP COMMENT '创建时间',
+  `updated_on` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP COMMENT '更新时间',
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
