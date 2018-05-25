@@ -18,9 +18,11 @@ function addLoanBuyCarRel(params,callback){
 }
 
 function getLoanBuyCarRel(params,callback) {
-    var query = " select lbc.*,c.vin,c.make_name,c.model_name,c.pro_date,c.valuation " +
+    var query = " select lbc.*,c.vin,c.make_name,c.model_name,c.pro_date,c.valuation,ct.credit_number " +
         " from loan_buy_car_rel lbc " +
         " left join car_info c on lbc.car_id = c.id " +
+        " left join credit_car_rel ccr on c.id = ccr.car_id " +
+        " left join credit_info ct on ccr.credit_id = ct.id " +
         " where lbc.id is not null ";
     var paramsArray=[],i=0;
     if(params.loanId){
