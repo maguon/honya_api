@@ -18,9 +18,9 @@ function addLoanRepPaymentRel(params,callback){
 }
 
 function getLoanRepPaymentRel(params,callback) {
-    var query = " select lrpr.*,op.payment_type,op.number,op.payment_money,op.created_on as created_payment_date " +
+    var query = " select lrpr.*,p.payment_type,p.number,p.payment_money,p.created_on as created_payment_date " +
         " from loan_rep_payment_rel lrpr " +
-        " left join order_payment op on lrpr.payment_id = op.id " +
+        " left join payment_info p on lrpr.payment_id = p.id " +
         " where lrpr.id is not null ";
     var paramsArray=[],i=0;
     if(params.repaymentId){

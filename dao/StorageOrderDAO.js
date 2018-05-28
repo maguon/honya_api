@@ -25,13 +25,13 @@ function addStorageOrder(params,callback){
 function getStorageOrder(params,callback) {
     var query = " select so.*,u.real_name as storage_order_user_name,c.vin,c.make_id,c.make_name,c.model_id,c.model_name,c.colour,c.entrust_id, " +
         " e.short_name,e.entrust_name,csr.enter_time,csr.real_out_time, " +
-        " op.id as payment_id,op.payment_type,op.number,op.payment_money,op.remark,op.created_on as payment_date,op.payment_status " +
+        " p.id as payment_id,p.payment_type,p.number,p.payment_money,p.remark,p.created_on as payment_date,p.payment_status " +
         " from storage_order so " +
         " left join car_storage_rel csr on so.car_storage_rel_id = csr.id " +
         " left join car_info c on so.car_id = c.id " +
         " left join entrust_info e on c.entrust_id = e.id " +
-        " left join order_payment_rel opr on so.id = opr.storage_order_id " +
-        " left join order_payment op on opr.order_payment_id = op.id " +
+        " left join payment_storage_order_rel ptor on so.id = ptor.storage_order_id " +
+        " left join payment_info p on ptor.payment_id = p.id " +
         " left join user_info u on so.storage_order_user_id = u.uid " +
         " where so.id is not null ";
     var paramsArray=[],i=0;

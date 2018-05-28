@@ -8,34 +8,34 @@ var resUtil = require('../util/ResponseUtil.js');
 var encrypt = require('../util/Encrypt.js');
 var listOfValue = require('../util/ListOfValue.js');
 var sysConst = require('../util/SysConst.js');
-var orderPaymentRelDAO = require('../dao/OrderPaymentRelDAO.js');
+var paymentStorageOrderRelDAO = require('../dao/PaymentStorageOrderRelDAO.js');
 var storageOrderDAO = require('../dao/StorageOrderDAO.js');
 var oAuthUtil = require('../util/OAuthUtil.js');
 var Seq = require('seq');
 var serverLogger = require('../util/ServerLogger.js');
-var logger = serverLogger.createLogger('OrderPaymentRel.js');
+var logger = serverLogger.createLogger('PaymentStorageOrderRel.js');
 
-function createOrderPaymentRel(req,res,next){
+function createPaymentStorageOrderRel(req,res,next){
     var params = req.params ;
-    var orderPaymentRelId = 0;
+    var relId = 0;
     Seq().seq(function(){
         var that = this;
-        orderPaymentRelDAO.addOrderPaymentRel(params,function(error,result){
+        paymentStorageOrderRelDAO.addPaymentStorageOrderRel(params,function(error,result){
             if (error) {
                 if(error.message.indexOf("Duplicate") > 0) {
                     resUtil.resetFailedRes(res, "订单编号已经被关联，操作失败");
                     return next();
                 } else{
-                    logger.error(' createOrderPaymentRel ' + err.message);
+                    logger.error(' createPaymentStorageOrderRel ' + err.message);
                     throw sysError.InternalError(err.message,sysMsg.SYS_INTERNAL_ERROR_MSG);
                 }
             } else {
                 if(result&&result.insertId>0){
-                    logger.info(' createOrderPaymentRel ' + 'success');
-                    orderPaymentRelId = result.insertId;
+                    logger.info(' createPaymentStorageOrderRel ' + 'success');
+                    relId = result.insertId;
                     that();
                 }else{
-                    resUtil.resetFailedRes(res,"createOrderPaymentRel failed");
+                    resUtil.resetFailedRes(res,"createPaymentStorageOrderRel failed");
                     return next();
                 }
             }
@@ -57,40 +57,40 @@ function createOrderPaymentRel(req,res,next){
             }
         })
     }).seq(function(){
-        logger.info(' createOrderPaymentRel ' + 'success');
-        resUtil.resetCreateRes(res,{insertId:orderPaymentRelId},null);
+        logger.info(' createPaymentStorageOrderRel ' + 'success');
+        resUtil.resetCreateRes(res,{insertId:relId},null);
         return next();
     })
 }
 
-function queryOrderPaymentRel(req,res,next){
+function queryPaymentStorageOrderRel(req,res,next){
     var params = req.params ;
-    orderPaymentRelDAO.getOrderPaymentRel(params,function(error,result){
+    paymentStorageOrderRelDAO.getPaymentStorageOrderRel(params,function(error,result){
         if (error) {
-            logger.error(' queryOrderPaymentRel ' + error.message);
+            logger.error(' queryPaymentStorageOrderRel ' + error.message);
             throw sysError.InternalError(error.message,sysMsg.SYS_INTERNAL_ERROR_MSG);
         } else {
-            logger.info(' queryOrderPaymentRel ' + 'success');
+            logger.info(' queryPaymentStorageOrderRel ' + 'success');
             resUtil.resetQueryRes(res,result,null);
             return next();
         }
     })
 }
 
-function removeOrderPaymentRel(req,res,next){
+function removePaymentStorageOrderRel(req,res,next){
     var params = req.params;
     Seq().seq(function(){
         var that = this;
-        orderPaymentRelDAO.deleteOrderPaymentRel(params,function(error,result){
+        paymentStorageOrderRelDAO.deletePaymentStorageOrderRel(params,function(error,result){
             if (error) {
-                logger.error(' removeOrderPaymentRel ' + error.message);
+                logger.error(' removePaymentStorageOrderRel ' + error.message);
                 throw sysError.InternalError(error.message,sysMsg.SYS_INTERNAL_ERROR_MSG);
             } else {
                 if(result&&result.affectedRows>0){
-                    logger.info(' removeOrderPaymentRel ' + 'success');
+                    logger.info(' removePaymentStorageOrderRel ' + 'success');
                     that();
                 }else{
-                    logger.warn(' removeOrderPaymentRel ' + 'failed');
+                    logger.warn(' removePaymentStorageOrderRel ' + 'failed');
                     resUtil.resetFailedRes(res," 删除失败，请核对相关ID ");
                     return next();
                 }
@@ -113,7 +113,7 @@ function removeOrderPaymentRel(req,res,next){
 
 
 module.exports = {
-    createOrderPaymentRel : createOrderPaymentRel,
-    queryOrderPaymentRel : queryOrderPaymentRel,
-    removeOrderPaymentRel : removeOrderPaymentRel
+    createPaymentStorageOrderRel : createPaymentStorageOrderRel,
+    queryPaymentStorageOrderRel : queryPaymentStorageOrderRel,
+    removePaymentStorageOrderRel : removePaymentStorageOrderRel
 }

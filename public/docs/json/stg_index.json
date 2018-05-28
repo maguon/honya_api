@@ -61,6 +61,10 @@
       "description":"Ship of log api"
     },
     {
+      "name":"payment",
+      "description":"Payment of log api"
+    },
+    {
       "name":"loan",
       "description":"Loan of log api"
     },
@@ -3232,613 +3236,6 @@
           },
           "400": {
             "description": "Invalid token value or invalid storageOrder id"
-          }
-        }
-      }
-    },
-    "/orderPayment": {
-      "get": {
-        "tags": [
-          "storage"
-        ],
-        "summary": "query  orderPayment list",
-        "description": "query orderPayment",
-        "produces": [
-          "application/json"
-        ],
-        "parameters": [
-          {
-            "name": "orderPaymentId",
-            "in": "query",
-            "description": "orderPayment id",
-            "required": false,
-            "type": "integer"
-
-          },
-          {
-            "name": "entrustType",
-            "in": "query",
-            "description": "entrust type",
-            "required": false,
-            "type": "integer"
-
-          },
-          {
-            "name": "entrustId",
-            "in": "query",
-            "description": "entrust id",
-            "required": false,
-            "type": "integer"
-
-          },
-          {
-            "name": "paymentStatus",
-            "in": "query",
-            "description": "payment status",
-            "required": false,
-            "type": "integer"
-
-          },
-          {
-            "name": "paymentType",
-            "in": "query",
-            "description": "payment type",
-            "required": false,
-            "type": "integer"
-
-          },
-          {
-            "name": "number",
-            "in": "query",
-            "description": "number",
-            "required": false,
-            "type": "string"
-
-          },
-          {
-            "name": "createdOnStart",
-            "in": "query",
-            "description": "createdOn start",
-            "required": false,
-            "type": "string"
-
-          },
-          {
-            "name": "createdOnEnd",
-            "in": "query",
-            "description": "createdOn end",
-            "required": false,
-            "type": "string"
-
-          },
-          {
-            "name": "storageOrderId",
-            "in": "query",
-            "description": "storageOrder id",
-            "required": false,
-            "type": "integer"
-
-          },
-          {
-            "name": "shipTransOrderId",
-            "in": "query",
-            "description": "shipTransOrder id",
-            "required": false,
-            "type": "integer"
-
-          },
-          {
-            "name": "start",
-            "in": "query",
-            "description": " list start pos",
-            "required": false,
-            "type": "integer"
-
-          },
-          {
-            "name": "size",
-            "in": "query",
-            "description": "list size for pagination",
-            "required": false,
-            "type": "integer"
-
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "successful operation",
-            "schema": {
-              "type": "object",
-              "items": {
-                "$ref": "#/definitions/orderPayment"
-              }
-            }
-          },
-          "400": {
-            "description": "Invalid token value or invalid orderPayment id"
-          }
-        }
-      }
-    },
-    "/orderPaymentCount": {
-      "get": {
-        "tags": [
-          "storage"
-        ],
-        "summary": "query  orderPayment count",
-        "description": "query orderPaymentCount",
-        "produces": [
-          "application/json"
-        ],
-        "parameters": [
-          {
-            "name": "paymentStatus",
-            "in": "query",
-            "description": "payment status",
-            "required": false,
-            "type": "integer"
-
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "successful operation",
-            "schema": {
-              "type": "object",
-              "items": {
-                "$ref": "#/definitions/orderPayment"
-              }
-            }
-          },
-          "400": {
-            "description": "Invalid token value or invalid orderPayment id"
-          }
-        }
-      }
-    },
-    "/orderPayment.csv": {
-      "get": {
-        "tags": [
-          "storage"
-        ],
-        "summary": "query  orderPayment csv",
-        "description": "query orderPayment.csv",
-        "produces": [
-          "application/json"
-        ],
-        "parameters": [
-          {
-            "name": "orderPaymentId",
-            "in": "query",
-            "description": "orderPayment id",
-            "required": false,
-            "type": "integer"
-
-          },
-          {
-            "name": "entrustType",
-            "in": "query",
-            "description": "entrust type",
-            "required": false,
-            "type": "integer"
-
-          },
-          {
-            "name": "entrustId",
-            "in": "query",
-            "description": "entrust id",
-            "required": false,
-            "type": "integer"
-
-          },
-          {
-            "name": "paymentStatus",
-            "in": "query",
-            "description": "payment status",
-            "required": false,
-            "type": "integer"
-
-          },
-          {
-            "name": "paymentType",
-            "in": "query",
-            "description": "payment type",
-            "required": false,
-            "type": "integer"
-
-          },
-          {
-            "name": "number",
-            "in": "query",
-            "description": "number",
-            "required": false,
-            "type": "string"
-
-          },
-          {
-            "name": "createdOnStart",
-            "in": "query",
-            "description": "createdOn start",
-            "required": false,
-            "type": "string"
-
-          },
-          {
-            "name": "createdOnEnd",
-            "in": "query",
-            "description": "createdOn end",
-            "required": false,
-            "type": "string"
-
-          },
-          {
-            "name": "storageOrderId",
-            "in": "query",
-            "description": "storageOrder id",
-            "required": false,
-            "type": "integer"
-
-          },
-          {
-            "name": "shipTransOrderId",
-            "in": "query",
-            "description": "shipTransOrder id",
-            "required": false,
-            "type": "integer"
-
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "successful operation",
-            "schema": {
-              "type": "object",
-              "items": {
-                "$ref": "#/definitions/orderPayment"
-              }
-            }
-          },
-          "400": {
-            "description": "Invalid token value or invalid orderPayment id"
-          }
-        }
-      }
-    },
-    "/user/{userId}/payment": {
-      "post": {
-        "tags": [
-          "storage"
-        ],
-        "summary": "user create orderPayment",
-        "description": "user create orderPayment",
-        "produces": [
-          "application/json"
-        ],
-        "parameters": [
-          {
-            "name": "userId",
-            "in": "path",
-            "description": "user id",
-            "required": true,
-            "type": "integer"
-
-          },
-          {
-            "name": "payment",
-            "in": "body",
-            "description": "payment info",
-            "required": true,
-            "schema": {
-              "$ref": "#/definitions/payment"
-            }
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "successful operation",
-            "schema": {
-              "type": "object",
-              "items": {
-                "$ref": "#/definitions/ApiResponse"
-              }
-            }
-          },
-          "400": {
-            "description": "Invalid token value or invalid orderPayment id"
-          }
-        }
-      }
-    },
-    "/user/{userId}/orderPayment": {
-      "post": {
-        "tags": [
-          "storage"
-        ],
-        "summary": "user create orderPayment",
-        "description": "user create orderPayment",
-        "produces": [
-          "application/json"
-        ],
-        "parameters": [
-          {
-            "name": "userId",
-            "in": "path",
-            "description": "user id",
-            "required": true,
-            "type": "integer"
-
-          },
-          {
-            "name": "orderPayment",
-            "in": "body",
-            "description": "orderPayment info",
-            "required": true,
-            "schema": {
-              "$ref": "#/definitions/orderPayment"
-            }
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "successful operation",
-            "schema": {
-              "type": "object",
-              "items": {
-                "$ref": "#/definitions/ApiResponse"
-              }
-            }
-          },
-          "400": {
-            "description": "Invalid token value or invalid orderPayment id"
-          }
-        }
-      }
-    },
-    "/user/{userId}/orderPayment/{orderPaymentId}": {
-      "put": {
-        "tags": [
-          "storage"
-        ],
-        "summary": "update orderPayment info",
-        "description": "update orderPayment info",
-        "produces": [
-          "application/json"
-        ],
-        "parameters": [
-          {
-            "name": "userId",
-            "in": "path",
-            "description": "user id",
-            "required": true,
-            "type": "integer"
-
-          },
-          {
-            "name": "orderPaymentId",
-            "in": "path",
-            "description": "orderPayment id",
-            "required": true,
-            "type": "integer"
-
-          },
-          {
-            "name": "orderPayment",
-            "in": "body",
-            "description": "orderPayment info",
-            "required": true,
-            "schema": {
-              "$ref": "#/definitions/orderPayment"
-            }
-
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "successful operation",
-            "schema": {
-              "type": "object",
-              "items": {
-                "$ref": "#/definitions/ApiResponse"
-              }
-            }
-          },
-          "400": {
-            "description": "Invalid token value or invalid orderPayment id"
-          }
-        }
-      }
-    },
-    "/user/{userId}/orderPayment/{orderPaymentId}/paymentStatus/{paymentStatus}": {
-      "put": {
-        "tags": [
-          "storage"
-        ],
-        "summary": "update orderPayment status",
-        "description": "update orderPayment status",
-        "produces": [
-          "application/json"
-        ],
-        "parameters": [
-          {
-            "name": "userId",
-            "in": "path",
-            "description": "user Id",
-            "required": true,
-            "type": "integer"
-
-          },
-          {
-            "name": "orderPaymentId",
-            "in": "path",
-            "description": "orderPayment id",
-            "required": true,
-            "type": "integer"
-
-          },
-          {
-            "name": "paymentStatus",
-            "in": "path",
-            "description": "payment status",
-            "required": true,
-            "type": "integer"
-
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "successful operation",
-            "schema": {
-              "type": "object",
-              "items": {
-                "$ref": "#/definitions/ApiResponse"
-              }
-            }
-          },
-          "400": {
-            "description": "Invalid token value or invalid orderPayment id"
-          }
-        }
-      }
-    },
-    "/orderPaymentRel": {
-      "get": {
-        "tags": [
-          "storage"
-        ],
-        "summary": "query  orderPaymentRel list",
-        "description": "query orderPaymentRel",
-        "produces": [
-          "application/json"
-        ],
-        "parameters": [
-          {
-            "name": "orderPaymentId",
-            "in": "query",
-            "description": "orderPayment id",
-            "required": false,
-            "type": "integer"
-
-          },
-          {
-            "name": "start",
-            "in": "query",
-            "description": " list start pos",
-            "required": false,
-            "type": "integer"
-
-          },
-          {
-            "name": "size",
-            "in": "query",
-            "description": "list size for pagination",
-            "required": false,
-            "type": "integer"
-
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "successful operation",
-            "schema": {
-              "type": "object",
-              "items": {
-                "$ref": "#/definitions/orderPaymentRel"
-              }
-            }
-          },
-          "400": {
-            "description": "Invalid token value or invalid orderPaymentRel id"
-          }
-        }
-      }
-    },
-    "/user/{userId}/orderPaymentRel": {
-      "post": {
-        "tags": [
-          "storage"
-        ],
-        "summary": "user create orderPaymentRel",
-        "description": "user create orderPaymentRel",
-        "produces": [
-          "application/json"
-        ],
-        "parameters": [
-          {
-            "name": "userId",
-            "in": "path",
-            "description": "user id",
-            "required": true,
-            "type": "integer"
-
-          },
-          {
-            "name": "orderPaymentRel",
-            "in": "body",
-            "description": "orderPaymentRel info",
-            "required": true,
-            "schema": {
-              "$ref": "#/definitions/orderPaymentRel"
-            }
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "successful operation",
-            "schema": {
-              "type": "object",
-              "items": {
-                "$ref": "#/definitions/ApiResponse"
-              }
-            }
-          },
-          "400": {
-            "description": "Invalid token value or invalid orderPaymentRel id"
-          }
-        }
-      }
-    },
-    "/user/{userId}/storageOrder/{storageOrderId}/orderPayment/{orderPaymentId}": {
-      "delete": {
-        "tags": [
-          "storage"
-        ],
-        "summary": "Deletes a orderPaymentRel",
-        "description": "",
-        "operationId": "deleteOrderPaymentRel",
-        "produces": [
-          "application/json"
-        ],
-        "parameters": [
-          {
-            "name": "userId",
-            "in": "path",
-            "description": "user id",
-            "required": true,
-            "type": "integer"
-          },
-          {
-            "name": "storageOrderId",
-            "in": "path",
-            "description": "storageOrder id",
-            "required": true,
-            "type": "integer"
-
-          },
-          {
-            "name": "orderPaymentId",
-            "in": "path",
-            "description": "orderPayment id",
-            "required": true,
-            "type": "integer"
-
-          }
-        ],
-        "responses": {
-          "400": {
-            "description": "Invalid ID supplied"
-          },
-          "404": {
-            "description": "contacts not found"
           }
         }
       }
@@ -8665,21 +8062,94 @@
         }
       }
     },
-    "/shipTransOrderPaymentRel": {
+
+    "/payment": {
       "get": {
         "tags": [
-          "ship"
+          "payment"
         ],
-        "summary": "query  shipTransOrderPaymentRel list",
-        "description": "query shipTransOrderPaymentRel",
+        "summary": "query  payment list",
+        "description": "query payment",
         "produces": [
           "application/json"
         ],
         "parameters": [
           {
-            "name": "orderPaymentId",
+            "name": "paymentId",
             "in": "query",
-            "description": "orderPayment id",
+            "description": "payment id",
+            "required": false,
+            "type": "integer"
+
+          },
+          {
+            "name": "entrustType",
+            "in": "query",
+            "description": "entrust type",
+            "required": false,
+            "type": "integer"
+
+          },
+          {
+            "name": "entrustId",
+            "in": "query",
+            "description": "entrust id",
+            "required": false,
+            "type": "integer"
+
+          },
+          {
+            "name": "paymentStatus",
+            "in": "query",
+            "description": "payment status",
+            "required": false,
+            "type": "integer"
+
+          },
+          {
+            "name": "paymentType",
+            "in": "query",
+            "description": "payment type",
+            "required": false,
+            "type": "integer"
+
+          },
+          {
+            "name": "number",
+            "in": "query",
+            "description": "number",
+            "required": false,
+            "type": "string"
+
+          },
+          {
+            "name": "createdOnStart",
+            "in": "query",
+            "description": "createdOn start",
+            "required": false,
+            "type": "string"
+
+          },
+          {
+            "name": "createdOnEnd",
+            "in": "query",
+            "description": "createdOn end",
+            "required": false,
+            "type": "string"
+
+          },
+          {
+            "name": "storageOrderId",
+            "in": "query",
+            "description": "storageOrder id",
+            "required": false,
+            "type": "integer"
+
+          },
+          {
+            "name": "shipTransOrderId",
+            "in": "query",
+            "description": "shipTransOrder id",
             "required": false,
             "type": "integer"
 
@@ -8707,23 +8177,167 @@
             "schema": {
               "type": "object",
               "items": {
-                "$ref": "#/definitions/shipTransOrderPaymentRel"
+                "$ref": "#/definitions/payment"
               }
             }
           },
           "400": {
-            "description": "Invalid token value or invalid shipTransOrderPaymentRel id"
+            "description": "Invalid token value or invalid payment id"
           }
         }
       }
     },
-    "/user/{userId}/shipTransOrderPaymentRel": {
+    "/paymentCount": {
+      "get": {
+        "tags": [
+          "payment"
+        ],
+        "summary": "query  payment count",
+        "description": "query paymentCount",
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "paymentStatus",
+            "in": "query",
+            "description": "payment status",
+            "required": false,
+            "type": "integer"
+
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "successful operation",
+            "schema": {
+              "type": "object",
+              "items": {
+                "$ref": "#/definitions/payment"
+              }
+            }
+          },
+          "400": {
+            "description": "Invalid token value or invalid payment id"
+          }
+        }
+      }
+    },
+    "/payment.csv": {
+      "get": {
+        "tags": [
+          "payment"
+        ],
+        "summary": "query  payment csv",
+        "description": "query payment.csv",
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "paymentId",
+            "in": "query",
+            "description": "payment id",
+            "required": false,
+            "type": "integer"
+
+          },
+          {
+            "name": "entrustType",
+            "in": "query",
+            "description": "entrust type",
+            "required": false,
+            "type": "integer"
+
+          },
+          {
+            "name": "entrustId",
+            "in": "query",
+            "description": "entrust id",
+            "required": false,
+            "type": "integer"
+
+          },
+          {
+            "name": "paymentStatus",
+            "in": "query",
+            "description": "payment status",
+            "required": false,
+            "type": "integer"
+
+          },
+          {
+            "name": "paymentType",
+            "in": "query",
+            "description": "payment type",
+            "required": false,
+            "type": "integer"
+
+          },
+          {
+            "name": "number",
+            "in": "query",
+            "description": "number",
+            "required": false,
+            "type": "string"
+
+          },
+          {
+            "name": "createdOnStart",
+            "in": "query",
+            "description": "createdOn start",
+            "required": false,
+            "type": "string"
+
+          },
+          {
+            "name": "createdOnEnd",
+            "in": "query",
+            "description": "createdOn end",
+            "required": false,
+            "type": "string"
+
+          },
+          {
+            "name": "storageOrderId",
+            "in": "query",
+            "description": "storageOrder id",
+            "required": false,
+            "type": "integer"
+
+          },
+          {
+            "name": "shipTransOrderId",
+            "in": "query",
+            "description": "shipTransOrder id",
+            "required": false,
+            "type": "integer"
+
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "successful operation",
+            "schema": {
+              "type": "object",
+              "items": {
+                "$ref": "#/definitions/payment"
+              }
+            }
+          },
+          "400": {
+            "description": "Invalid token value or invalid payment id"
+          }
+        }
+      }
+    },
+    "/user/{userId}/payment": {
       "post": {
         "tags": [
-          "ship"
+          "payment"
         ],
-        "summary": "user create shipTransOrderPaymentRel",
-        "description": "user create shipTransOrderPaymentRel",
+        "summary": "user create payment",
+        "description": "user create payment",
         "produces": [
           "application/json"
         ],
@@ -8737,12 +8351,12 @@
 
           },
           {
-            "name": "shipTransOrderPaymentRel",
+            "name": "payment",
             "in": "body",
-            "description": "shipTransOrderPaymentRel info",
+            "description": "payment info",
             "required": true,
             "schema": {
-              "$ref": "#/definitions/shipTransOrderPaymentRel"
+              "$ref": "#/definitions/payment"
             }
           }
         ],
@@ -8757,19 +8371,410 @@
             }
           },
           "400": {
-            "description": "Invalid token value or invalid shipTransOrderPaymentRel id"
+            "description": "Invalid token value or invalid payment id"
           }
         }
       }
     },
-    "/user/{userId}/shipTransOrder/{shipTransOrderId}/orderPayment/{orderPaymentId}": {
+    "/user/{userId}/paymentOrder": {
+      "post": {
+        "tags": [
+          "payment"
+        ],
+        "summary": "user create paymentOrder",
+        "description": "user create paymentOrder",
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "userId",
+            "in": "path",
+            "description": "user id",
+            "required": true,
+            "type": "integer"
+
+          },
+          {
+            "name": "payment",
+            "in": "body",
+            "description": "payment info",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/payment"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "successful operation",
+            "schema": {
+              "type": "object",
+              "items": {
+                "$ref": "#/definitions/ApiResponse"
+              }
+            }
+          },
+          "400": {
+            "description": "Invalid token value or invalid payment id"
+          }
+        }
+      }
+    },
+    "/user/{userId}/payment/{paymentId}": {
+      "put": {
+        "tags": [
+          "payment"
+        ],
+        "summary": "update payment info",
+        "description": "update payment info",
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "userId",
+            "in": "path",
+            "description": "user id",
+            "required": true,
+            "type": "integer"
+
+          },
+          {
+            "name": "paymentId",
+            "in": "path",
+            "description": "payment id",
+            "required": true,
+            "type": "integer"
+
+          },
+          {
+            "name": "payment",
+            "in": "body",
+            "description": "payment info",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/payment"
+            }
+
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "successful operation",
+            "schema": {
+              "type": "object",
+              "items": {
+                "$ref": "#/definitions/ApiResponse"
+              }
+            }
+          },
+          "400": {
+            "description": "Invalid token value or invalid payment id"
+          }
+        }
+      }
+    },
+    "/user/{userId}/payment/{paymentId}/paymentStatus/{paymentStatus}": {
+      "put": {
+        "tags": [
+          "payment"
+        ],
+        "summary": "update payment status",
+        "description": "update payment status",
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "userId",
+            "in": "path",
+            "description": "user Id",
+            "required": true,
+            "type": "integer"
+
+          },
+          {
+            "name": "paymentId",
+            "in": "path",
+            "description": "payment id",
+            "required": true,
+            "type": "integer"
+
+          },
+          {
+            "name": "paymentStatus",
+            "in": "path",
+            "description": "payment status",
+            "required": true,
+            "type": "integer"
+
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "successful operation",
+            "schema": {
+              "type": "object",
+              "items": {
+                "$ref": "#/definitions/ApiResponse"
+              }
+            }
+          },
+          "400": {
+            "description": "Invalid token value or invalid payment id"
+          }
+        }
+      }
+    },
+    "/paymentStorageOrderRel": {
+      "get": {
+        "tags": [
+          "payment"
+        ],
+        "summary": "query  paymentStorageOrderRel list",
+        "description": "query paymentStorageOrderRel",
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "paymentId",
+            "in": "query",
+            "description": "payment id",
+            "required": false,
+            "type": "integer"
+
+          },
+          {
+            "name": "start",
+            "in": "query",
+            "description": " list start pos",
+            "required": false,
+            "type": "integer"
+
+          },
+          {
+            "name": "size",
+            "in": "query",
+            "description": "list size for pagination",
+            "required": false,
+            "type": "integer"
+
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "successful operation",
+            "schema": {
+              "type": "object",
+              "items": {
+                "$ref": "#/definitions/paymentStorageOrderRel"
+              }
+            }
+          },
+          "400": {
+            "description": "Invalid token value or invalid paymentStorageOrderRel id"
+          }
+        }
+      }
+    },
+    "/user/{userId}/paymentStorageOrderRel": {
+      "post": {
+        "tags": [
+          "payment"
+        ],
+        "summary": "user create paymentStorageOrderRel",
+        "description": "user create paymentStorageOrderRel",
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "userId",
+            "in": "path",
+            "description": "user id",
+            "required": true,
+            "type": "integer"
+
+          },
+          {
+            "name": "paymentStorageOrderRel",
+            "in": "body",
+            "description": "paymentStorageOrderRel info",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/paymentStorageOrderRel"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "successful operation",
+            "schema": {
+              "type": "object",
+              "items": {
+                "$ref": "#/definitions/ApiResponse"
+              }
+            }
+          },
+          "400": {
+            "description": "Invalid token value or invalid paymentStorageOrderRel id"
+          }
+        }
+      }
+    },
+    "/user/{userId}/storageOrder/{storageOrderId}/payment/{paymentId}": {
       "delete": {
         "tags": [
-          "ship"
+          "payment"
         ],
-        "summary": "Deletes a shipTransOrderPaymentRel",
+        "summary": "Deletes a paymentStorageOrderRel",
         "description": "",
-        "operationId": "deleteShipTransOrderPaymentRel",
+        "operationId": "deletePaymentStorageOrderRel",
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "userId",
+            "in": "path",
+            "description": "user id",
+            "required": true,
+            "type": "integer"
+          },
+          {
+            "name": "storageOrderId",
+            "in": "path",
+            "description": "storageOrder id",
+            "required": true,
+            "type": "integer"
+
+          },
+          {
+            "name": "paymentId",
+            "in": "path",
+            "description": "payment id",
+            "required": true,
+            "type": "integer"
+
+          }
+        ],
+        "responses": {
+          "400": {
+            "description": "Invalid ID supplied"
+          },
+          "404": {
+            "description": "contacts not found"
+          }
+        }
+      }
+    },
+    "/paymentShipOrderRel": {
+      "get": {
+        "tags": [
+          "payment"
+        ],
+        "summary": "query  paymentShipOrderRel list",
+        "description": "query paymentShipOrderRel",
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "paymentId",
+            "in": "query",
+            "description": "payment id",
+            "required": false,
+            "type": "integer"
+
+          },
+          {
+            "name": "start",
+            "in": "query",
+            "description": " list start pos",
+            "required": false,
+            "type": "integer"
+
+          },
+          {
+            "name": "size",
+            "in": "query",
+            "description": "list size for pagination",
+            "required": false,
+            "type": "integer"
+
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "successful operation",
+            "schema": {
+              "type": "object",
+              "items": {
+                "$ref": "#/definitions/paymentShipOrderRel"
+              }
+            }
+          },
+          "400": {
+            "description": "Invalid token value or invalid paymentShipOrderRel id"
+          }
+        }
+      }
+    },
+    "/user/{userId}/paymentShipOrderRel": {
+      "post": {
+        "tags": [
+          "payment"
+        ],
+        "summary": "user create paymentShipOrderRel",
+        "description": "user create paymentShipOrderRel",
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "userId",
+            "in": "path",
+            "description": "user id",
+            "required": true,
+            "type": "integer"
+
+          },
+          {
+            "name": "paymentShipOrderRel",
+            "in": "body",
+            "description": "paymentShipOrderRel info",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/paymentShipOrderRel"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "successful operation",
+            "schema": {
+              "type": "object",
+              "items": {
+                "$ref": "#/definitions/ApiResponse"
+              }
+            }
+          },
+          "400": {
+            "description": "Invalid token value or invalid paymentShipOrderRel id"
+          }
+        }
+      }
+    },
+    "/user/{userId}/shipTransOrder/{shipTransOrderId}/payment/{paymentId}": {
+      "delete": {
+        "tags": [
+          "payment"
+        ],
+        "summary": "Deletes a paymentShipOrderRel",
+        "description": "",
+        "operationId": "deletePaymentShipOrderRel",
         "produces": [
           "application/json"
         ],
@@ -8790,9 +8795,9 @@
 
           },
           {
-            "name": "orderPaymentId",
+            "name": "paymentId",
             "in": "path",
-            "description": "orderPayment id",
+            "description": "payment id",
             "required": true,
             "type": "integer"
 
@@ -9373,11 +9378,59 @@
 
           },
           {
+            "name": "entrustId",
+            "in": "query",
+            "description": "entrust id",
+            "required": false,
+            "type": "integer"
+
+          },
+          {
             "name": "loanId",
             "in": "query",
             "description": "loan id",
             "required": false,
             "type": "integer"
+
+          },
+          {
+            "name": "repaymentStatus",
+            "in": "query",
+            "description": "repayment status",
+            "required": false,
+            "type": "integer"
+
+          },
+          {
+            "name": "creditId",
+            "in": "query",
+            "description": "credit id",
+            "required": false,
+            "type": "integer"
+
+          },
+          {
+            "name": "paymentId",
+            "in": "query",
+            "description": "payment id",
+            "required": false,
+            "type": "integer"
+
+          },
+          {
+            "name": "createdOnStart",
+            "in": "query",
+            "description": "createdOn start",
+            "required": false,
+            "type": "string"
+
+          },
+          {
+            "name": "createdOnEnd",
+            "in": "query",
+            "description": "createdOn end",
+            "required": false,
+            "type": "string"
 
           },
           {

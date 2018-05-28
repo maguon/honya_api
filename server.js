@@ -21,8 +21,6 @@ var storage = require('./bl/Storage.js');
 var storageArea = require('./bl/StorageArea.js');
 var storageParking = require('./bl/StorageParking.js');
 var storageOrder = require('./bl/StorageOrder.js');
-var orderPayment = require('./bl/OrderPayment.js');
-var orderPaymentRel = require('./bl/OrderPaymentRel.js');
 var car = require('./bl/Car.js');
 var carStorageRel = require('./bl/CarStorageRel.js');
 var carMake = require('./bl/CarMake.js');
@@ -36,7 +34,9 @@ var shipCompany = require('./bl/ShipCompany.js');
 var shipTrans = require('./bl/ShipTrans.js');
 var shipTransOrder = require('./bl/ShipTransOrder.js');
 var shipTransCarRel = require('./bl/ShipTransCarRel.js');
-var shipTransOrderPaymentRel = require('./bl/ShipTransOrderPaymentRel.js');
+var payment = require('./bl/Payment.js');
+var paymentShipOrderRel = require('./bl/PaymentShipOrderRel.js');
+var paymentStorageOrderRel = require('./bl/PaymentStorageOrderRel.js');
 var loan = require('./bl/Loan.js');
 var loanMortgageCarRel = require('./bl/LoanMortgageCarRel.js');
 var loanBuyCarRel = require('./bl/LoanBuyCarRel.js');
@@ -244,24 +244,6 @@ function createServer() {
     server.put({path:'/api/user/:userId/storageOrder/:storageOrderId/orderStatus/:orderStatus',contentType: 'application/json'} ,storageOrder.updateStorageOrderStatus);
 
     /**
-     * OrderPayment Module
-     */
-    server.get('/api/orderPayment',orderPayment.queryOrderPayment);
-    server.get('/api/orderPaymentCount',orderPayment.queryOrderPaymentCount);
-    server.get('/api/orderPayment.csv',orderPayment.getOrderPaymentCsv);
-    server.post({path:'/api/user/:userId/payment',contentType: 'application/json'},orderPayment.createPayment);
-    server.post({path:'/api/user/:userId/orderPayment',contentType: 'application/json'},orderPayment.createOrderPayment);
-    server.put({path:'/api/user/:userId/orderPayment/:orderPaymentId',contentType: 'application/json'} ,orderPayment.updateOrderPayment);
-    server.put({path:'/api/user/:userId/orderPayment/:orderPaymentId/paymentStatus/:paymentStatus',contentType: 'application/json'} ,orderPayment.updateOrderPaymentStatus);
-
-    /**
-     * OrderPaymentRel Module
-     */
-    server.get('/api/orderPaymentRel',orderPaymentRel.queryOrderPaymentRel);
-    server.post({path:'/api/user/:userId/orderPaymentRel',contentType: 'application/json'},orderPaymentRel.createOrderPaymentRel);
-    server.del('/api/user/:userId/storageOrder/:storageOrderId/orderPayment/:orderPaymentId' , orderPaymentRel.removeOrderPaymentRel);
-
-    /**
      * Car Module
      */
     server.get('/api/user/:userId/car',car.queryCar);
@@ -380,11 +362,29 @@ function createServer() {
     server.del('/api/user/:userId/shipTrans/:shipTransId/car/:carId' , shipTransCarRel.removeShipTransCarRel,sysRecord.saveCarRecord);
 
     /**
-     * ShipTransOrderPaymentRel Module
+     * Payment Module
      */
-    server.get('/api/shipTransOrderPaymentRel',shipTransOrderPaymentRel.queryShipTransOrderPaymentRel);
-    server.post({path:'/api/user/:userId/shipTransOrderPaymentRel',contentType: 'application/json'},shipTransOrderPaymentRel.createShipTransOrderPaymentRel);
-    server.del('/api/user/:userId/shipTransOrder/:shipTransOrderId/orderPayment/:orderPaymentId' , shipTransOrderPaymentRel.removeShipTransOrderPaymentRel);
+    server.get('/api/payment',payment.queryPayment);
+    server.get('/api/paymentCount',payment.queryPaymentCount);
+    server.get('/api/payment.csv',payment.getPaymentCsv);
+    server.post({path:'/api/user/:userId/payment',contentType: 'application/json'},payment.createPayment);
+    server.post({path:'/api/user/:userId/paymentOrder',contentType: 'application/json'},payment.createPaymentOrder);
+    server.put({path:'/api/user/:userId/payment/:paymentId',contentType: 'application/json'} ,payment.updatePayment);
+    server.put({path:'/api/user/:userId/payment/:paymentId/paymentStatus/:paymentStatus',contentType: 'application/json'} ,payment.updatePaymentStatus);
+
+    /**
+     * PaymentStorageOrderRel Module
+     */
+    server.get('/api/paymentStorageOrderRel',paymentStorageOrderRel.queryPaymentStorageOrderRel);
+    server.post({path:'/api/user/:userId/paymentStorageOrderRel',contentType: 'application/json'},paymentStorageOrderRel.createPaymentStorageOrderRel);
+    server.del('/api/user/:userId/storageOrder/:storageOrderId/payment/:paymentId' , paymentStorageOrderRel.removePaymentStorageOrderRel);
+
+    /**
+     * PaymentShipOrderRel Module
+     */
+    server.get('/api/paymentShipOrderRel',paymentShipOrderRel.queryPaymentShipOrderRel);
+    server.post({path:'/api/user/:userId/paymentShipOrderRel',contentType: 'application/json'},paymentShipOrderRel.createPaymentShipOrderRel);
+    server.del('/api/user/:userId/shipTransOrder/:shipTransOrderId/payment/:paymentId' , paymentShipOrderRel.removePaymentShipOrderRel);
 
     /**
      * Loan Module

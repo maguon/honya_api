@@ -157,3 +157,14 @@ CREATE TABLE `loan_repayment` (
   `updated_on` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP COMMENT '更新时间',
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+-- ----------------------------
+-- 2018-05-28 更新
+-- ----------------------------
+rename table order_payment to payment_info;
+rename table order_payment_rel to payment_storage_order_rel;
+rename table ship_trans_order_payment_rel to payment_ship_order_rel;
+
+ALTER TABLE `payment_ship_order_rel`
+CHANGE COLUMN `order_payment_id` `payment_id`  int(10) NOT NULL DEFAULT 0 COMMENT '订单支付ID' AFTER `ship_trans_order_id`;
+ALTER TABLE `payment_storage_order_rel`
+CHANGE COLUMN `order_payment_id` `payment_id`  int(10) NOT NULL DEFAULT 0 COMMENT '订单支付ID' AFTER `storage_order_id`;

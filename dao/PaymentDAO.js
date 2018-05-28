@@ -4,10 +4,10 @@
 
 var db=require('../db/connection/MysqlDb.js');
 var serverLogger = require('../util/ServerLogger.js');
-var logger = serverLogger.createLogger('OrderPaymentDAO.js');
+var logger = serverLogger.createLogger('PaymentDAO.js');
 
-function addOrderPayment(params,callback){
-    var query = " insert into order_payment (entrust_id,payment_type,number,payment_money,payment_user_id,remark) values ( ? , ? , ? , ? , ? , ? )";
+function addPayment(params,callback){
+    var query = " insert into payment_info (entrust_id,payment_type,number,payment_money,payment_user_id,remark) values ( ? , ? , ? , ? , ? , ? )";
     var paramsArray=[],i=0;
     paramsArray[i++]=params.entrustId;
     paramsArray[i++]=params.paymentType;
@@ -16,22 +16,22 @@ function addOrderPayment(params,callback){
     paramsArray[i++]=params.userId;
     paramsArray[i]=params.remark;
     db.dbQuery(query,paramsArray,function(error,rows){
-        logger.debug(' addOrderPayment ');
+        logger.debug(' addPayment ');
         return callback(error,rows);
     });
 }
 
-function getOrderPayment(params,callback) {
-    var query = " select op.*,e.entrust_type,e.short_name,e.entrust_name,u.real_name as payment_user_name from order_payment op " +
-        " left join entrust_info e on op.entrust_id = e.id " +
-        " left join user_info u on op.payment_user_id = u.uid " +
-        " left join order_payment_rel opr on op.id = opr.order_payment_id " +
-        " left join ship_trans_order_payment_rel stopr on op.id = stopr.order_payment_id " +
-        " where op.id is not null ";
+function getPayment(params,callback) {
+    var query = " select p.*,e.entrust_type,e.short_name,e.entrust_name,u.real_name as payment_user_name from payment_info p " +
+        " left join entrust_info e on p.entrust_id = e.id " +
+        " left join user_info u on p.payment_user_id = u.uid " +
+        " left join payment_storage_order_rel ptor on p.id = ptor.payment_id " +
+        " left join payment_ship_order_rel psor on p.id = psor.payment_id " +
+        " where p.id is not null ";
     var paramsArray=[],i=0;
-    if(params.orderPaymentId){
-        paramsArray[i++] = params.orderPaymentId;
-        query = query + " and op.id = ? ";
+    if(params.paymentId){
+        paramsArray[i++] = params.paymentId;
+        query = query + " and p.id = ? ";
     }
     if(params.entrustType){
         paramsArray[i++] = params.entrustType;
@@ -39,95 +39,95 @@ function getOrderPayment(params,callback) {
     }
     if(params.entrustId){
         paramsArray[i++] = params.entrustId;
-        query = query + " and op.entrust_id = ? ";
+        query = query + " and p.entrust_id = ? ";
     }
     if(params.paymentStatus){
         paramsArray[i++] = params.paymentStatus;
-        query = query + " and op.payment_status = ? ";
+        query = query + " and p.payment_status = ? ";
     }
     if(params.paymentType){
         paramsArray[i++] = params.paymentType;
-        query = query + " and op.payment_type = ? ";
+        query = query + " and p.payment_type = ? ";
     }
     if(params.number){
         paramsArray[i++] = params.number;
-        query = query + " and op.number = ? ";
+        query = query + " and p.number = ? ";
     }
     if(params.createdOnStart){
         paramsArray[i++] = params.createdOnStart +" 00:00:00";
-        query = query + " and op.created_on >= ? ";
+        query = query + " and p.created_on >= ? ";
     }
     if(params.createdOnEnd){
         paramsArray[i++] = params.createdOnEnd +" 23:59:59";
-        query = query + " and op.created_on <= ? ";
+        query = query + " and p.created_on <= ? ";
     }
     if(params.storageOrderId){
         paramsArray[i++] = params.storageOrderId;
-        query = query + " and opr.storage_order_id = ? ";
+        query = query + " and ptor.storage_order_id = ? ";
     }
     if(params.shipTransOrderId){
         paramsArray[i++] = params.shipTransOrderId;
-        query = query + " and stopr.ship_trans_order_id = ? ";
+        query = query + " and psor.ship_trans_order_id = ? ";
     }
-    query = query + " group by op.id ";
-    query = query + " order by op.id desc ";
+    query = query + " group by p.id ";
+    query = query + " order by p.id desc ";
     if (params.start && params.size) {
         paramsArray[i++] = parseInt(params.start);
         paramsArray[i++] = parseInt(params.size);
         query += " limit ? , ? "
     }
     db.dbQuery(query,paramsArray,function(error,rows){
-        logger.debug(' getOrderPayment ');
+        logger.debug(' getPayment ');
         return callback(error,rows);
     });
 }
 
-function updateOrderPayment(params,callback){
-    var query = " update order_payment set entrust_id = ? , payment_type = ? , number = ? , payment_money = ? , remark = ? where id = ? " ;
+function updatePayment(params,callback){
+    var query = " update payment_info set entrust_id = ? , payment_type = ? , number = ? , payment_money = ? , remark = ? where id = ? " ;
     var paramsArray=[],i=0;
     paramsArray[i++]=params.entrustId;
     paramsArray[i++]=params.paymentType;
     paramsArray[i++]=params.number;
     paramsArray[i++]=params.paymentMoney;
     paramsArray[i++]=params.remark;
-    paramsArray[i]=params.orderPaymentId;
+    paramsArray[i]=params.paymentId;
     db.dbQuery(query,paramsArray,function(error,rows){
-        logger.debug(' updateOrderPayment ');
+        logger.debug(' updatePayment ');
         return callback(error,rows);
     });
 }
 
-function updateOrderPaymentStatus(params,callback){
-    var query = " update order_payment set date_id = ? , payment_end_date = ? , payment_status = ? where id = ? " ;
+function updatePaymentStatus(params,callback){
+    var query = " update payment_info set date_id = ? , payment_end_date = ? , payment_status = ? where id = ? " ;
     var paramsArray=[],i=0;
     paramsArray[i++]=params.dateId;
     paramsArray[i++]=params.paymentEndDate;
     paramsArray[i++]=params.paymentStatus;
-    paramsArray[i]=params.orderPaymentId;
+    paramsArray[i]=params.paymentId;
     db.dbQuery(query,paramsArray,function(error,rows){
-        logger.debug(' updateOrderPaymentStatus ');
+        logger.debug(' updatePaymentStatus ');
         return callback(error,rows);
     });
 }
 
-function getOrderPaymentCount(params,callback) {
-    var query = " select count(id) as payment_count,sum(payment_money) as payment_money from order_payment where id is not null ";
+function getPaymentCount(params,callback) {
+    var query = " select count(id) as payment_count,sum(payment_money) as payment_money from payment_info where id is not null ";
     var paramsArray=[],i=0;
     if(params.paymentStatus){
         paramsArray[i++] = params.paymentStatus;
         query = query + " and payment_status = ? ";
     }
     db.dbQuery(query,paramsArray,function(error,rows){
-        logger.debug(' getOrderPaymentCount ');
+        logger.debug(' getPaymentCount ');
         return callback(error,rows);
     });
 }
 
 
 module.exports ={
-    addOrderPayment : addOrderPayment,
-    getOrderPayment : getOrderPayment,
-    updateOrderPayment : updateOrderPayment,
-    updateOrderPaymentStatus : updateOrderPaymentStatus,
-    getOrderPaymentCount : getOrderPaymentCount
+    addPayment : addPayment,
+    getPayment : getPayment,
+    updatePayment : updatePayment,
+    updatePaymentStatus : updatePaymentStatus,
+    getPaymentCount : getPaymentCount
 }
