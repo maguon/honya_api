@@ -47,20 +47,20 @@ function createPayment(req,res,next){
                 storageOrderId : storageOrderIds[i],
                 row : i+1,
             }
-            orderPaymentRelDAO.addOrderPaymentRel(subParams,function(err,result){
+            orderPaymentRelDAO.addPaymentStorageOrderRel(subParams,function(err,result){
                 if (err) {
                     if(err.message.indexOf("Duplicate") > 0) {
                         resUtil.resetFailedRes(res, "订单已经被关联，操作失败");
                         return next();
                     } else{
-                        logger.error(' createOrderPaymentRel ' + err.message);
+                        logger.error(' createPaymentStorageOrderRel ' + err.message);
                         throw sysError.InternalError(err.message,sysMsg.SYS_INTERNAL_ERROR_MSG);
                     }
                 } else {
                     if(result&&result.insertId>0){
-                        logger.info(' createOrderPaymentRel ' + 'success');
+                        logger.info(' createPaymentStorageOrderRel ' + 'success');
                     }else{
-                        logger.warn(' createOrderPaymentRel ' + 'failed');
+                        logger.warn(' createPaymentStorageOrderRel ' + 'failed');
                     }
                     that(null,i);
                 }
@@ -69,7 +69,7 @@ function createPayment(req,res,next){
             that();
         })
     }).seq(function(){
-        logger.info(' createOrderPaymentRel ' + 'success');
+        logger.info(' createPayment ' + 'success');
         resUtil.resetCreateRes(res,{insertId:paymentId},null);
         return next();
     })

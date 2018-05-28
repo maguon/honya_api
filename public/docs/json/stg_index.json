@@ -8396,12 +8396,12 @@
 
           },
           {
-            "name": "payment",
+            "name": "paymentOrder",
             "in": "body",
-            "description": "payment info",
+            "description": "paymentOrder info",
             "required": true,
             "schema": {
-              "$ref": "#/definitions/payment"
+              "$ref": "#/definitions/paymentOrder"
             }
           }
         ],
@@ -8449,12 +8449,12 @@
 
           },
           {
-            "name": "payment",
+            "name": "paymentOrder",
             "in": "body",
-            "description": "payment info",
+            "description": "paymentOrder info",
             "required": true,
             "schema": {
-              "$ref": "#/definitions/payment"
+              "$ref": "#/definitions/paymentOrder"
             }
 
           }
@@ -11060,72 +11060,6 @@
         "name": "storageOrder"
       }
     },
-    "payment": {
-      "type": "object",
-      "properties": {
-
-        "entrustId": {
-          "type": "integer"
-        },
-        "paymentType": {
-          "type": "integer"
-        },
-        "number": {
-          "type": "string"
-        },
-        "paymentMoney": {
-          "type": "integer"
-        },
-        "remark": {
-          "type": "string"
-        },
-        "storageOrderIds": {
-          "type": "integer"
-        }
-      },
-      "xml": {
-        "name": "payment"
-      }
-    },
-    "orderPayment": {
-      "type": "object",
-      "properties": {
-
-        "entrustId": {
-          "type": "integer"
-        },
-        "paymentType": {
-          "type": "integer"
-        },
-        "number": {
-          "type": "string"
-        },
-        "paymentMoney": {
-          "type": "integer"
-        },
-        "remark": {
-          "type": "string"
-        }
-      },
-      "xml": {
-        "name": "orderPayment"
-      }
-    },
-    "orderPaymentRel": {
-      "type": "object",
-      "properties": {
-
-        "storageOrderId": {
-          "type": "integer"
-        },
-        "orderPaymentId": {
-          "type": "integer"
-        }
-      },
-      "xml": {
-        "name": "orderPaymentRel"
-      }
-    },
     "car": {
       "type": "object",
       "properties": {
@@ -11565,19 +11499,85 @@
         "name": "shipTransCarRel"
       }
     },
-    "shipTransOrderPaymentRel": {
+    "payment": {
+      "type": "object",
+      "properties": {
+
+        "entrustId": {
+          "type": "integer"
+        },
+        "paymentType": {
+          "type": "integer"
+        },
+        "number": {
+          "type": "string"
+        },
+        "paymentMoney": {
+          "type": "integer"
+        },
+        "remark": {
+          "type": "string"
+        },
+        "storageOrderIds": {
+          "type": "integer"
+        }
+      },
+      "xml": {
+        "name": "payment"
+      }
+    },
+    "paymentOrder": {
+      "type": "object",
+      "properties": {
+
+        "entrustId": {
+          "type": "integer"
+        },
+        "paymentType": {
+          "type": "integer"
+        },
+        "number": {
+          "type": "string"
+        },
+        "paymentMoney": {
+          "type": "integer"
+        },
+        "remark": {
+          "type": "string"
+        }
+      },
+      "xml": {
+        "name": "paymentOrder"
+      }
+    },
+    "paymentStorageOrderRel": {
+      "type": "object",
+      "properties": {
+
+        "storageOrderId": {
+          "type": "integer"
+        },
+        "paymentId": {
+          "type": "integer"
+        }
+      },
+      "xml": {
+        "name": "paymentStorageOrderRel"
+      }
+    },
+    "paymentShipOrderRel": {
       "type": "object",
       "properties": {
 
         "shipTransOrderId": {
           "type": "integer"
         },
-        "orderPaymentId": {
+        "paymentId": {
           "type": "integer"
         }
       },
       "xml": {
-        "name": "shipTransOrderPaymentRel"
+        "name": "paymentShipOrderRel"
       }
     },
     "loan": {
