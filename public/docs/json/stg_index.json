@@ -8921,6 +8921,42 @@
         }
       }
     },
+    "/loanNotCount": {
+      "get": {
+        "tags": [
+          "loan"
+        ],
+        "summary": "query  loanNot count",
+        "description": "query loanNotCount",
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "loanStatusArr",
+            "in": "query",
+            "description": "loanStatus arr",
+            "required": false,
+            "type": "string"
+
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "successful operation",
+            "schema": {
+              "type": "object",
+              "items": {
+                "$ref": "#/definitions/loan"
+              }
+            }
+          },
+          "400": {
+            "description": "Invalid token value or invalid loan id"
+          }
+        }
+      }
+    },
     "/user/{userId}/loan": {
       "post": {
         "tags": [

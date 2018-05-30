@@ -72,6 +72,19 @@ function getLoan(params,callback) {
     });
 }
 
+function getLoanNotCount(params,callback) {
+    var query = " select sum(l.not_repayment_money) as not_repayment_money,count(l.id) as loan_count " +
+        " from loan_info l where l.id is not null ";
+    var paramsArray=[],i=0;
+    if(params.loanStatusArr){
+        query = query + " and l.loan_status in ("+params.loanStatusArr + ") "
+    }
+    db.dbQuery(query,paramsArray,function(error,rows){
+        logger.debug(' getLoanNotCount ');
+        return callback(error,rows);
+    });
+}
+
 function updateLoan(params,callback){
     var query = " update loan_info set deposit = ? , loan_money = ? , not_repayment_money = ? , remark = ? where id = ? " ;
     var paramsArray=[],i=0;
@@ -176,6 +189,7 @@ function updateLoanStatus(params,callback){
 module.exports ={
     addLoan : addLoan,
     getLoan : getLoan,
+    getLoanNotCount : getLoanNotCount,
     updateLoan : updateLoan,
     updateLoanNotRepaymentMoney : updateLoanNotRepaymentMoney,
     updateMortgageCarCountPlus : updateMortgageCarCountPlus,

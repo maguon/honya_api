@@ -46,6 +46,20 @@ function queryLoan(req,res,next){
     })
 }
 
+function queryLoanNotCount(req,res,next){
+    var params = req.params ;
+    loanDAO.getLoanNotCount(params,function(error,result){
+        if (error) {
+            logger.error(' queryLoanNotCount ' + error.message);
+            throw sysError.InternalError(error.message,sysMsg.SYS_INTERNAL_ERROR_MSG);
+        } else {
+            logger.info(' queryLoanNotCount ' + 'success');
+            resUtil.resetQueryRes(res,result,null);
+            return next();
+        }
+    })
+}
+
 function updateLoan(req,res,next){
     var params = req.params ;
     params.notRepaymentMoney = params.loanMoney;
@@ -197,6 +211,7 @@ function updateLoanStatus(req,res,next){
 module.exports = {
     createLoan : createLoan,
     queryLoan : queryLoan,
+    queryLoanNotCount : queryLoanNotCount,
     updateLoan : updateLoan,
     updateLoanStatus : updateLoanStatus
 }
