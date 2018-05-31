@@ -84,6 +84,7 @@ CREATE TABLE `loan_info` (
   `mortgage_car_count` int(10) DEFAULT '0' COMMENT '抵押车数量',
   `buy_car_count` int(10) DEFAULT '0' COMMENT '购买车数量',
   `remark` varchar(200) COLLATE utf8mb4_unicode_ci DEFAULT NULL COMMENT '备注',
+  `last_repayment_date` datetime DEFAULT NULL COMMENT '最后还款时间',
   `start_date_id` int(4) DEFAULT NULL COMMENT '贷款起始统计时间',
   `loan_start_date` datetime DEFAULT NULL COMMENT '贷款起始时间',
   `end_date_id` int(4) DEFAULT NULL COMMENT '贷款完结统计时间',

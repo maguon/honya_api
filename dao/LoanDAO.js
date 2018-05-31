@@ -100,9 +100,10 @@ function updateLoan(params,callback){
 }
 
 function updateLoanNotRepaymentMoney(params,callback){
-    var query = " update loan_info set not_repayment_money = ? where id = ? " ;
+    var query = " update loan_info set not_repayment_money = ? , last_repayment_date = ? where id = ? " ;
     var paramsArray=[],i=0;
     paramsArray[i++]=params.notRepaymentMoney;
+    paramsArray[i++]=params.lastRepaymentDate;
     paramsArray[i]=params.loanId;
     db.dbQuery(query,paramsArray,function(error,rows){
         logger.debug(' updateLoanNotRepaymentMoney ');

@@ -13,6 +13,7 @@ var loanDAO = require('../dao/LoanDAO.js');
 var oAuthUtil = require('../util/OAuthUtil.js');
 var Seq = require('seq');
 var serverLogger = require('../util/ServerLogger.js');
+var moment = require('moment/moment.js');
 var logger = serverLogger.createLogger('LoanRepayment.js');
 
 function createLoanRepayment(req,res,next){
@@ -68,6 +69,8 @@ function createLoanRepayment(req,res,next){
         })
     }).seq(function () {
         var that = this;
+        var myDate = new Date();
+        params.lastRepaymentDate = myDate;
         loanDAO.updateLoanNotRepaymentMoney(params,function(err,result){
             if (err) {
                 logger.error(' updateLoanNotRepaymentMoney ' + err.message);
@@ -121,6 +124,8 @@ function updateLoanRepayment(req,res,next){
             }
         })
     }).seq(function () {
+        var myDate = new Date();
+        params.lastRepaymentDate = myDate;
         loanDAO.updateLoanNotRepaymentMoney(params,function(error,result){
             if (error) {
                 logger.error(' updateLoanNotRepaymentMoney ' + error.message);
