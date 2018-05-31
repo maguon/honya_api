@@ -123,6 +123,20 @@ function updateCar(req,res,next){
     })
 }
 
+function updateCarValuationMso(req,res,next){
+    var params = req.params ;
+    carDAO.updateCarValuationMso(params,function(error,result){
+        if (error) {
+            logger.error(' updateCarValuationMso ' + error.message);
+            throw sysError.InternalError(error.message,sysMsg.SYS_INTERNAL_ERROR_MSG);
+        } else {
+            logger.info(' updateCarValuationMso ' + 'success');
+            resUtil.resetUpdateRes(res,result,null);
+            return next();
+        }
+    })
+}
+
 function updateCarVin(req,res,next){
     var params = req.params ;
     Seq().seq(function(){
@@ -487,6 +501,7 @@ module.exports = {
     queryCarStorageCount : queryCarStorageCount,
     queryCarMortgageStatusCount : queryCarMortgageStatusCount,
     updateCar : updateCar,
+    updateCarValuationMso : updateCarValuationMso,
     updateCarVin : updateCarVin,
     getCarCsv : getCarCsv,
     getCarStorageShipTransCsv : getCarStorageShipTransCsv

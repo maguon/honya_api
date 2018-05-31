@@ -254,6 +254,7 @@ function createServer() {
     server.get('/api/carMortgageStatusCount', car.queryCarMortgageStatusCount);
     server.post({path:'/api/user/:userId/car',contentType: 'application/json'},car.createCar);
     server.put({path:'/api/user/:userId/car/:carId',contentType: 'application/json'} ,car.updateCar);
+    server.put({path:'/api/user/:userId/car/:carId/valuationMso',contentType: 'application/json'} ,car.updateCarValuationMso);
     server.get('/api/admin/:adminId/car',car.queryCar);
     server.put({path:'/api/admin/:adminId/car/:carId/vin',contentType: 'application/json'} ,car.updateCarVin);
 

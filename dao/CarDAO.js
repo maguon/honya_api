@@ -293,6 +293,18 @@ function updateCar(params,callback){
     });
 }
 
+function updateCarValuationMso(params,callback){
+    var query = " update car_info set valuation = ? , mso_status = ? where id = ? " ;
+    var paramsArray=[],i=0;
+    paramsArray[i++]=params.valuation;
+    paramsArray[i++]=params.msoStatus;
+    paramsArray[i]=params.carId;
+    db.dbQuery(query,paramsArray,function(error,rows){
+        logger.debug(' updateCarValuationMso ');
+        return callback(error,rows);
+    });
+}
+
 function updateCarVin(params,callback){
     var query = " update car_info set vin = ? where id = ? " ;
     var paramsArray=[],i=0;
@@ -313,5 +325,6 @@ module.exports ={
     getCarStorageCount : getCarStorageCount,
     getCarMortgageStatusCount : getCarMortgageStatusCount,
     updateCar : updateCar,
+    updateCarValuationMso : updateCarValuationMso,
     updateCarVin : updateCarVin
 }

@@ -4108,6 +4108,60 @@
         }
       }
     },
+    "/user/{userId}/car/{carId}/valuationMso": {
+      "put": {
+        "tags": [
+          "car"
+        ],
+        "summary": "update car valuationMso",
+        "description": "update car valuationMso",
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "userId",
+            "in": "path",
+            "description": "user Id",
+            "required": true,
+            "type": "integer"
+
+          },
+          {
+            "name": "carId",
+            "in": "path",
+            "description": "car id",
+            "required": true,
+            "type": "integer"
+
+          },
+          {
+            "name": "car",
+            "in": "body",
+            "description": "car valuationMso",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/carValuationMso"
+            }
+
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "successful operation",
+            "schema": {
+              "type": "object",
+              "items": {
+                "$ref": "#/definitions/ApiResponse"
+              }
+            }
+          },
+          "400": {
+            "description": "Invalid token value or invalid car id"
+          }
+        }
+      }
+    },
     "/admin/{admin}/car": {
       "get": {
         "tags": [
@@ -11238,6 +11292,21 @@
       },
       "xml": {
         "name": "car"
+      }
+    },
+    "carValuationMso": {
+      "type": "object",
+      "properties": {
+
+        "valuation": {
+          "type": "integer"
+        },
+        "msoStatus": {
+          "type": "integer"
+        }
+      },
+      "xml": {
+        "name": "carValuationMso"
       }
     },
     "vin": {
