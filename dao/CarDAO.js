@@ -36,7 +36,7 @@ function getCar(params,callback) {
         " r.id as r_id,r.storage_name,r.enter_time,r.plan_out_time,r.real_out_time,r.rel_status,r.mortgage_status, " +
         " ckp.id as car_key_position_id,ckc.id as key_cabinet_id,ckc.key_cabinet_name,ckca.area_name as car_key_cabinet_area, " +
         " ckp.row as car_key_position_row,ckp.col as car_key_position_col, " +
-        " st.id as ship_trans_id,st.start_port_name,st.end_port_name,st.start_ship_date,st.end_ship_date, " +
+        " st.id as ship_trans_id,st.start_port_name,st.end_port_name,st.start_ship_date,st.end_ship_date,st.actual_start_date,st.actual_end_date, " +
         " sc.ship_company_name,st.ship_name,st.container,st.booking,st.tab,st.ship_trans_status,st.remark as ship_trans_remark " +
         " from car_info c left join storage_parking p on c.id = p.car_id " +
         " left join car_storage_rel r on c.id = r.car_id " +
@@ -140,6 +140,22 @@ function getCar(params,callback) {
     if(params.endShipDateEnd){
         paramsArray[i++] = params.endShipDateEnd +" 23:59:59";
         query = query + " and st.end_ship_date  <= ? ";
+    }
+    if(params.actualStartDateStart){
+        paramsArray[i++] = params.actualStartDateStart +" 00:00:00";
+        query = query + " and  st.actual_start_date  >= ? ";
+    }
+    if(params.actualStartDateEnd){
+        paramsArray[i++] = params.actualStartDateEnd +" 23:59:59";
+        query = query + " and st.actual_start_date  <= ? ";
+    }
+    if(params.actualEndDateStart){
+        paramsArray[i++] = params.actualEndDateStart +" 00:00:00";
+        query = query + " and  st.actual_end_date  >= ? ";
+    }
+    if(params.actualEndDateEnd){
+        paramsArray[i++] = params.actualEndDateEnd +" 23:59:59";
+        query = query + " and st.actual_end_date  <= ? ";
     }
     query = query + '  order by c.id desc ';
     if (params.start && params.size) {
