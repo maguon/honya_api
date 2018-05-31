@@ -43,6 +43,9 @@ function getLoan(params,callback) {
         paramsArray[i++] = params.loanStatus;
         query = query + " and l.loan_status = ? ";
     }
+    if(params.loanStatusArr){
+        query = query + " and l.loan_status in ("+params.loanStatusArr + ") "
+    }
     if(params.createdOnStart){
         paramsArray[i++] = params.createdOnStart +" 00:00:00";
         query = query + " and l.created_on >= ? ";

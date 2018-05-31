@@ -250,6 +250,8 @@ function createServer() {
     server.get('/api/carList', car.queryCarList);
     server.get('/api/car.csv', car.getCarCsv);
     server.get('/api/carStorageShipTrans.csv', car.getCarStorageShipTransCsv);
+    server.get('/api/carStorageCount', car.queryCarStorageCount);
+    server.get('/api/carMortgageStatusCount', car.queryCarMortgageStatusCount);
     server.post({path:'/api/user/:userId/car',contentType: 'application/json'},car.createCar);
     server.put({path:'/api/user/:userId/car/:carId',contentType: 'application/json'} ,car.updateCar);
     server.get('/api/admin/:adminId/car',car.queryCar);

@@ -232,6 +232,43 @@ function getCarList(params,callback) {
     });
 }
 
+function getCarStorageCount(params,callback) {
+    var query = " select count(c.id) as car_storage_count,sum(c.valuation) as valuation from car_info c " +
+        " left join car_storage_rel csr on c.id = csr.car_id where c.id is not null ";
+    var paramsArray=[],i=0;
+    if(params.relStatus){
+        paramsArray[i++] = params.relStatus;
+        query = query + " and csr.rel_status = ? ";
+    }
+    if(params.active){
+        paramsArray[i++] = params.active;
+        query = query + " and csr.active = ? ";
+    }
+    db.dbQuery(query,paramsArray,function(error,rows){
+        logger.debug(' getCarStorageCount ');
+        return callback(error,rows);
+    });
+}
+
+function getCarMortgageStatusCount(params,callback) {
+    var query = " select csr.mortgage_status,sum(c.valuation) as valuation from car_info c " +
+        " left join car_storage_rel csr on c.id = csr.car_id where c.id is not null ";
+    var paramsArray=[],i=0;
+    if(params.relStatus){
+        paramsArray[i++] = params.relStatus;
+        query = query + " and csr.rel_status = ? ";
+    }
+    if(params.active){
+        paramsArray[i++] = params.active;
+        query = query + " and csr.active = ? ";
+    }
+    query = query + '  group by csr.mortgage_status ';
+    db.dbQuery(query,paramsArray,function(error,rows){
+        logger.debug(' getCarMortgageStatusCount ');
+        return callback(error,rows);
+    });
+}
+
 function updateCar(params,callback){
     var query = " update car_info set vin = ? , make_id = ? , make_name = ? , model_id = ? , model_name = ? ," +
         " pro_date = ? , colour = ? , engine_num = ? , entrust_id = ? , valuation = ? , mso_status = ? , purchase_type = ? , remark = ? where id = ? " ;
@@ -273,6 +310,8 @@ module.exports ={
     getCar : getCar,
     getCarBase : getCarBase,
     getCarList : getCarList,
+    getCarStorageCount : getCarStorageCount,
+    getCarMortgageStatusCount : getCarMortgageStatusCount,
     updateCar : updateCar,
     updateCarVin : updateCarVin
 }

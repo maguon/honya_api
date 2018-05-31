@@ -3966,6 +3966,94 @@
         }
       }
     },
+    "/carStorageCount": {
+      "get": {
+        "tags": [
+          "car"
+        ],
+        "summary": "query  carStorage count",
+        "description": "query carStorageCount",
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "relStatus",
+            "in": "query",
+            "description": "rel status",
+            "required": false,
+            "type": "integer"
+
+          },
+          {
+            "name": "active",
+            "in": "query",
+            "description": "rel active",
+            "required": false,
+            "type": "integer"
+
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "successful operation",
+            "schema": {
+              "type": "object",
+              "items": {
+                "$ref": "#/definitions/car"
+              }
+            }
+          },
+          "400": {
+            "description": "Invalid token value or invalid car id"
+          }
+        }
+      }
+    },
+    "/carMortgageStatusCount": {
+      "get": {
+        "tags": [
+          "car"
+        ],
+        "summary": "query  carMortgageStatus count",
+        "description": "query carMortgageStatusCount",
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "relStatus",
+            "in": "query",
+            "description": "rel status",
+            "required": false,
+            "type": "integer"
+
+          },
+          {
+            "name": "active",
+            "in": "query",
+            "description": "rel active",
+            "required": false,
+            "type": "integer"
+
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "successful operation",
+            "schema": {
+              "type": "object",
+              "items": {
+                "$ref": "#/definitions/car"
+              }
+            }
+          },
+          "400": {
+            "description": "Invalid token value or invalid car id"
+          }
+        }
+      }
+    },
     "/user/{userId}/car/{carId}": {
       "put": {
         "tags": [
@@ -8854,6 +8942,14 @@
             "description": "loan status",
             "required": false,
             "type": "integer"
+
+          },
+          {
+            "name": "loanStatusArr",
+            "in": "query",
+            "description": "loanStatus arr",
+            "required": false,
+            "type": "string"
 
           },
           {
