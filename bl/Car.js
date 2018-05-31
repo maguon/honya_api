@@ -109,6 +109,20 @@ function queryCarMortgageStatusCount(req,res,next){
     })
 }
 
+function queryCarPurchaseCount(req,res,next){
+    var params = req.params ;
+    carDAO.getCarPurchaseCount(params,function(error,result){
+        if (error) {
+            logger.error(' queryCarPurchaseCount ' + error.message);
+            throw sysError.InternalError(error.message,sysMsg.SYS_INTERNAL_ERROR_MSG);
+        } else {
+            logger.info(' queryCarPurchaseCount ' + 'success');
+            resUtil.resetQueryRes(res,result,null);
+            return next();
+        }
+    })
+}
+
 function updateCar(req,res,next){
     var params = req.params ;
     carDAO.updateCar(params,function(error,result){
@@ -500,6 +514,7 @@ module.exports = {
     queryCarList : queryCarList,
     queryCarStorageCount : queryCarStorageCount,
     queryCarMortgageStatusCount : queryCarMortgageStatusCount,
+    queryCarPurchaseCount : queryCarPurchaseCount,
     updateCar : updateCar,
     updateCarValuationMso : updateCarValuationMso,
     updateCarVin : updateCarVin,

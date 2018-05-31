@@ -285,6 +285,20 @@ function getCarMortgageStatusCount(params,callback) {
     });
 }
 
+function getCarPurchaseCount(params,callback) {
+    var query = " select count(c.id) as purchase_car_count,sum(c.valuation) as valuation from car_info c " +
+        " where c.id is not null ";
+    var paramsArray=[],i=0;
+    if(params.purchaseType){
+        paramsArray[i++] = params.purchaseType;
+        query = query + " and c.purchase_type = ? ";
+    }
+    db.dbQuery(query,paramsArray,function(error,rows){
+        logger.debug(' getCarPurchaseCount ');
+        return callback(error,rows);
+    });
+}
+
 function updateCar(params,callback){
     var query = " update car_info set vin = ? , make_id = ? , make_name = ? , model_id = ? , model_name = ? ," +
         " pro_date = ? , colour = ? , engine_num = ? , entrust_id = ? , valuation = ? , mso_status = ? , purchase_type = ? , remark = ? where id = ? " ;
@@ -340,6 +354,7 @@ module.exports ={
     getCarList : getCarList,
     getCarStorageCount : getCarStorageCount,
     getCarMortgageStatusCount : getCarMortgageStatusCount,
+    getCarPurchaseCount : getCarPurchaseCount,
     updateCar : updateCar,
     updateCarValuationMso : updateCarValuationMso,
     updateCarVin : updateCarVin
