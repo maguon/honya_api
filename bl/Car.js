@@ -39,7 +39,9 @@ function createCar(req,res,next){
         }
         var myDate = new Date();
         var strDate = moment(myDate).format('YYYYMMDD');
+        var strProDate = moment(params.proDate).format('YYYYMMDD');
         params.createdDateId = parseInt(strDate);
+        params.proDate = parseInt(strProDate);
         carDAO.addCar(params,function(error,result){
             if (error) {
                 logger.error(' createCar ' + error.message);
@@ -125,6 +127,8 @@ function queryCarPurchaseCount(req,res,next){
 
 function updateCar(req,res,next){
     var params = req.params ;
+    var strProDate = moment(params.proDate).format('YYYYMMDD');
+    params.proDate = parseInt(strProDate);
     carDAO.updateCar(params,function(error,result){
         if (error) {
             logger.error(' updateCar ' + error.message);
