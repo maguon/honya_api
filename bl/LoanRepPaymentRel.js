@@ -17,13 +17,8 @@ function createLoanRepPaymentRel(req,res,next){
     var params = req.params ;
     loanRepPaymentRelDAO.addLoanRepPaymentRel(params,function(error,result){
         if (error) {
-            if(error.message.indexOf("Duplicate") > 0) {
-                resUtil.resetFailedRes(res, "支付编号已经被关联，操作失败");
-                return next();
-            } else{
-                logger.error(' createLoanRepPaymentRel ' + err.message);
-                throw sysError.InternalError(err.message,sysMsg.SYS_INTERNAL_ERROR_MSG);
-            }
+            logger.error(' createLoanRepPaymentRel ' + error.message);
+            throw sysError.InternalError(error.message,sysMsg.SYS_INTERNAL_ERROR_MSG);
         } else {
             logger.info(' createLoanRepPaymentRel ' + 'success');
             resUtil.resetCreateRes(res,result,null);
