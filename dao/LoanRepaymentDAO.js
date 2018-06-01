@@ -25,7 +25,7 @@ function addLoanRepayment(params,callback){
 }
 
 function getLoanRepayment(params,callback) {
-    var query = " select lr.*,e.id as entrust_id,e.entrust_type,e.short_name,l.loan_start_date,lrpr.this_payment_money " +
+    var query = " select lr.*,e.id as entrust_id,e.entrust_type,e.short_name,l.loan_start_date,lrpr.payment_id,lrpr.this_payment_money " +
         " from loan_repayment lr " +
         " left join loan_info l on lr.loan_id = l.id " +
         " left join entrust_info e on l.entrust_id = e.id " +
