@@ -267,7 +267,7 @@ function getCarStorageCount(params,callback) {
 }
 
 function getCarMortgageStatusCount(params,callback) {
-    var query = " select csr.mortgage_status,sum(c.valuation) as valuation from car_info c " +
+    var query = " select csr.mortgage_status,count(c.id) as car_count,sum(c.valuation) as valuation from car_info c " +
         " left join car_storage_rel csr on c.id = csr.car_id where c.id is not null ";
     var paramsArray=[],i=0;
     if(params.relStatus){
