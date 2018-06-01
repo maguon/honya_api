@@ -11927,9 +11927,6 @@
         },
         "remark": {
           "type": "string"
-        },
-        "notRepaymentMoney": {
-          "type": "integer"
         }
       },
       "xml": {
