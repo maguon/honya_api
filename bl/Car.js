@@ -215,7 +215,7 @@ function getCarCsv(req,res,next){
                 if(rows[i].pro_date == null){
                     parkObj.proDate = "";
                 }else{
-                    parkObj.proDate = new Date(rows[i].pro_date).toLocaleDateString();
+                    parkObj.proDate = rows[i].pro_date;
                 }
                 if(rows[i].colour == null){
                     parkObj.colour = "";
@@ -344,7 +344,7 @@ function getCarStorageShipTransCsv(req,res,next){
                 if(rows[i].pro_date == null){
                     parkObj.proDate = "";
                 }else{
-                    parkObj.proDate = new Date(rows[i].pro_date).toLocaleDateString();
+                    parkObj.proDate = rows[i].pro_date;
                 }
                 if(rows[i].colour == null){
                     parkObj.colour = "";
