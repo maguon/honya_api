@@ -67,23 +67,6 @@ function createLoanRepayment(req,res,next){
                 that();
             }
         })
-    }).seq(function () {
-        var that = this;
-        var myDate = new Date();
-        params.lastRepaymentDate = myDate;
-        loanDAO.updateLoanNotRepaymentMoney(params,function(err,result){
-            if (err) {
-                logger.error(' updateLoanNotRepaymentMoney ' + err.message);
-                throw sysError.InternalError(err.message,sysMsg.SYS_INTERNAL_ERROR_MSG);
-            } else {
-                if(result&&result.affectedRows>0){
-                    logger.info(' updateLoanNotRepaymentMoney ' + 'success');
-                }else{
-                    logger.warn(' updateLoanNotRepaymentMoney ' + 'failed');
-                }
-                that();
-            }
-        })
     }).seq(function(){
         logger.info(' createLoanRepayment ' + 'success');
         resUtil.resetCreateRes(res,{insertId:repaymentId},null);
@@ -108,34 +91,15 @@ function queryLoanRepayment(req,res,next){
 
 function updateLoanRepayment(req,res,next){
     var params = req.params;
-    Seq().seq(function(){
-        var that = this;
-        loanRepaymentDAO.updateLoanRepayment(params,function(err,result){
-            if (err) {
-                logger.error(' updateLoanRepayment ' + err.message);
-                throw sysError.InternalError(err.message,sysMsg.SYS_INTERNAL_ERROR_MSG);
-            } else {
-                if(result&&result.affectedRows>0){
-                    logger.info(' updateLoanRepayment ' + 'success');
-                }else{
-                    logger.warn(' updateLoanRepayment ' + 'failed');
-                }
-                that();
-            }
-        })
-    }).seq(function () {
-        var myDate = new Date();
-        params.lastRepaymentDate = myDate;
-        loanDAO.updateLoanNotRepaymentMoney(params,function(error,result){
-            if (error) {
-                logger.error(' updateLoanNotRepaymentMoney ' + error.message);
-                throw sysError.InternalError(error.message,sysMsg.SYS_INTERNAL_ERROR_MSG);
-            } else {
-                logger.info(' updateLoanNotRepaymentMoney ' + 'success');
-                resUtil.resetUpdateRes(res,result,null);
-                return next();
-            }
-        })
+    loanRepaymentDAO.updateLoanRepayment(params,function(error,result){
+        if (error) {
+            logger.error(' updateLoanRepayment ' + error.message);
+            throw sysError.InternalError(error.message,sysMsg.SYS_INTERNAL_ERROR_MSG);
+        } else {
+            logger.info(' updateLoanRepayment ' + 'success');
+            resUtil.resetUpdateRes(res,result,null);
+            return next();
+        }
     })
 }
 

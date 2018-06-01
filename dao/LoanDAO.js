@@ -102,18 +102,6 @@ function updateLoan(params,callback){
     });
 }
 
-function updateLoanNotRepaymentMoney(params,callback){
-    var query = " update loan_info set not_repayment_money = ? , last_repayment_date = ? where id = ? " ;
-    var paramsArray=[],i=0;
-    paramsArray[i++]=params.notRepaymentMoney;
-    paramsArray[i++]=params.lastRepaymentDate;
-    paramsArray[i]=params.loanId;
-    db.dbQuery(query,paramsArray,function(error,rows){
-        logger.debug(' updateLoanNotRepaymentMoney ');
-        return callback(error,rows);
-    });
-}
-
 function updateMortgageCarCountPlus(params,callback){
     var query = " update loan_info set mortgage_car_count = mortgage_car_count +1 where id = ? " ;
     var paramsArray=[],i=0;
@@ -195,7 +183,6 @@ module.exports ={
     getLoan : getLoan,
     getLoanNotCount : getLoanNotCount,
     updateLoan : updateLoan,
-    updateLoanNotRepaymentMoney : updateLoanNotRepaymentMoney,
     updateMortgageCarCountPlus : updateMortgageCarCountPlus,
     updateMortgageCarCountMinus : updateMortgageCarCountMinus,
     updateMortgageCarCount : updateMortgageCarCount,

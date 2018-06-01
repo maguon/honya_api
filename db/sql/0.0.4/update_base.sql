@@ -84,7 +84,7 @@ CREATE TABLE `loan_info` (
   `mortgage_car_count` int(10) DEFAULT '0' COMMENT '抵押车数量',
   `buy_car_count` int(10) DEFAULT '0' COMMENT '购买车数量',
   `remark` varchar(200) COLLATE utf8mb4_unicode_ci DEFAULT NULL COMMENT '备注',
-  `last_repayment_date` datetime DEFAULT NULL COMMENT '最后还款时间',
+  `last_repayment_date` date DEFAULT NULL COMMENT '最后还款时间',
   `start_date_id` int(4) DEFAULT NULL COMMENT '贷款起始统计时间',
   `loan_start_date` datetime DEFAULT NULL COMMENT '贷款起始时间',
   `end_date_id` int(4) DEFAULT NULL COMMENT '贷款完结统计时间',
@@ -169,3 +169,22 @@ ALTER TABLE `payment_ship_order_rel`
 CHANGE COLUMN `order_payment_id` `payment_id`  int(10) NOT NULL DEFAULT 0 COMMENT '订单支付ID' AFTER `ship_trans_order_id`;
 ALTER TABLE `payment_storage_order_rel`
 CHANGE COLUMN `order_payment_id` `payment_id`  int(10) NOT NULL DEFAULT 0 COMMENT '订单支付ID' AFTER `storage_order_id`;
+-- ----------------------------
+-- 2018-06-01 更新
+-- ----------------------------
+DROP TRIGGER IF EXISTS `loan_repayment_update`;
+DELIMITER ;;
+CREATE TRIGGER `loan_repayment_update` AFTER UPDATE ON `loan_repayment` FOR EACH ROW BEGIN
+IF (old.repayment_money <>new.repayment_money)THEN
+update loan_info set last_repayment_date = CURRENT_DATE(),not_repayment_money = not_repayment_money -(new.repayment_money-old.repayment_money) where id=new.loan_id;
+END IF;
+END
+;;
+DELIMITER ;
+DROP TRIGGER IF EXISTS `loan_repayment_new`;
+DELIMITER ;;
+CREATE TRIGGER `loan_repayment_new` AFTER INSERT ON `loan_repayment` FOR EACH ROW BEGIN
+update loan_info set last_repayment_date = CURRENT_DATE(),not_repayment_money= not_repayment_money - new.repayment_money where id=new.loan_id;
+END
+;;
+DELIMITER ;
