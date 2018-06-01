@@ -193,7 +193,7 @@ DELIMITER ;
 -- ----------------------------
 ALTER TABLE `car_info`
 ADD COLUMN `pro_date_id`  int(4) NULL DEFAULT NULL COMMENT '商品车生产日期' AFTER `pro_date`;
-update car_info set pro_date_id = DATE_FORMAT(pro_date,'%Y%m%d');
+update car_info set pro_date_id = DATE_FORMAT(pro_date,'%Y');
 alter table car_info drop column pro_date;
 ALTER TABLE `car_info`
 CHANGE COLUMN `pro_date_id` `pro_date`  int(4) NULL DEFAULT NULL COMMENT '商品车生产日期' AFTER `model_name`;

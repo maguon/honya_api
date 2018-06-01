@@ -11334,7 +11334,7 @@
           "type": "string"
         },
         "proDate": {
-          "type": "string"
+          "type": "integer"
         },
         "colour": {
           "type": "string"
@@ -11409,7 +11409,7 @@
           "type": "string"
         },
         "proDate": {
-          "type": "string"
+          "type": "integer"
         },
         "colour": {
           "type": "string"
