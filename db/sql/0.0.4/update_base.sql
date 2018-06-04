@@ -134,7 +134,8 @@ CREATE TABLE `payment_loan_rep_rel` (
   `this_payment_money` decimal(10,2) DEFAULT '0.00' COMMENT '本次支付金额',
   `created_on` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP COMMENT '创建时间',
   `updated_on` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP COMMENT '更新时间',
-  UNIQUE KEY `id` (`id`) USING BTREE,
+  PRIMARY KEY (`repayment_id`,`payment_id`),
+  UNIQUE KEY `id` (`id`) USING BTREE
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 -- ----------------------------
