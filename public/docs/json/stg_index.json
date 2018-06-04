@@ -10255,6 +10255,51 @@
         }
       }
     },
+    "/user/{userId}/loanCompany": {
+      "post": {
+        "tags": [
+          "loan"
+        ],
+        "summary": "user create loanCompany",
+        "description": "user create loanCompany",
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "userId",
+            "in": "path",
+            "description": "user id",
+            "required": true,
+            "type": "integer"
+
+          },
+          {
+            "name": "loanCompany",
+            "in": "body",
+            "description": "loanCompany info",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/loanCompany"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "successful operation",
+            "schema": {
+              "type": "object",
+              "items": {
+                "$ref": "#/definitions/ApiResponse"
+              }
+            }
+          },
+          "400": {
+            "description": "Invalid token value or invalid loanCompany id"
+          }
+        }
+      }
+    },
     "/credit": {
       "get": {
         "tags": [
@@ -11973,6 +12018,33 @@
       },
       "xml": {
         "name": "repPaymentMoney"
+      }
+    },
+    "loanCompany": {
+      "type": "object",
+      "properties": {
+
+        "companyName": {
+          "type": "string"
+        },
+        "baseMoney": {
+          "type": "integer"
+        },
+        "contacts": {
+          "type": "string"
+        },
+        "tel": {
+          "type": "string"
+        },
+        "email": {
+          "type": "string"
+        },
+        "remark": {
+          "type": "string"
+        }
+      },
+      "xml": {
+        "name": "loanCompany"
       }
     },
     "credit": {
