@@ -10255,6 +10255,42 @@
         }
       }
     },
+    "/loanCompany": {
+      "get": {
+        "tags": [
+          "loan"
+        ],
+        "summary": "query  loanCompany list",
+        "description": "query loanCompany",
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "loanCompanyId",
+            "in": "query",
+            "description": "loanCompany id",
+            "required": false,
+            "type": "integer"
+
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "successful operation",
+            "schema": {
+              "type": "object",
+              "items": {
+                "$ref": "#/definitions/loanCompany"
+              }
+            }
+          },
+          "400": {
+            "description": "Invalid token value or invalid loanCompany id"
+          }
+        }
+      }
+    },
     "/user/{userId}/loanCompany": {
       "post": {
         "tags": [

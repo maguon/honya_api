@@ -27,7 +27,22 @@ function createLoanCompany(req,res,next){
     })
 }
 
+function queryLoanCompany(req,res,next){
+    var params = req.params ;
+    loanCompanyDAO.getLoanCompany(params,function(error,result){
+        if (error) {
+            logger.error(' queryLoanCompany ' + error.message);
+            throw sysError.InternalError(error.message,sysMsg.SYS_INTERNAL_ERROR_MSG);
+        } else {
+            logger.info(' queryLoanCompany ' + 'success');
+            resUtil.resetQueryRes(res,result,null);
+            return next();
+        }
+    })
+}
+
 
 module.exports = {
-    createLoanCompany : createLoanCompany
+    createLoanCompany : createLoanCompany,
+    queryLoanCompany : queryLoanCompany
 }

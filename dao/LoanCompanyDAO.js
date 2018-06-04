@@ -21,7 +21,21 @@ function addLoanCompany(params,callback){
     });
 }
 
+function getLoanCompany(params,callback) {
+    var query = " select * from loan_company_info where id is not null ";
+    var paramsArray=[],i=0;
+    if(params.loanCompanyId){
+        paramsArray[i++] = params.loanCompanyId;
+        query = query + " and id = ? ";
+    }
+    db.dbQuery(query,paramsArray,function(error,rows){
+        logger.debug(' getLoanCompany ');
+        return callback(error,rows);
+    });
+}
+
 
 module.exports ={
-    addLoanCompany : addLoanCompany
+    addLoanCompany : addLoanCompany,
+    getLoanCompany : getLoanCompany
 }

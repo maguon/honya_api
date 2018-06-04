@@ -441,6 +441,7 @@ function createServer() {
     /**
      * LoanCompany Module
      */
+    server.get('/api/loanCompany',loanCompany.queryLoanCompany);
     server.post({path:'/api/user/:userId/loanCompany',contentType: 'application/json'},loanCompany.createLoanCompany);
 
     /**
