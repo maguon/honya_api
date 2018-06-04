@@ -124,10 +124,10 @@ CREATE TABLE `loan_rep_credit_rel` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 -- ----------------------------
--- Table structure for loan_rep_payment_rel
+-- Table structure for payment_loan_rep_rel
 -- ----------------------------
-DROP TABLE IF EXISTS `loan_rep_payment_rel`;
-CREATE TABLE `loan_rep_payment_rel` (
+DROP TABLE IF EXISTS `payment_loan_rep_rel`;
+CREATE TABLE `payment_loan_rep_rel` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `repayment_id` int(10) NOT NULL DEFAULT '0' COMMENT '还款ID',
   `payment_id` int(10) NOT NULL DEFAULT '0' COMMENT '其他支付ID',

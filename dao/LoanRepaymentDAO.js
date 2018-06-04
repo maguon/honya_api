@@ -25,12 +25,12 @@ function addLoanRepayment(params,callback){
 }
 
 function getLoanRepayment(params,callback) {
-    var query = " select lr.*,e.id as entrust_id,e.entrust_type,e.short_name,l.loan_start_date,lrpr.payment_id,lrpr.this_payment_money " +
+    var query = " select lr.*,e.id as entrust_id,e.entrust_type,e.short_name,l.loan_start_date,plrr.payment_id,plrr.this_payment_money " +
         " from loan_repayment lr " +
         " left join loan_info l on lr.loan_id = l.id " +
         " left join entrust_info e on l.entrust_id = e.id " +
         " left join loan_rep_credit_rel lrcr on lr.id = lrcr.repayment_id " +
-        " left join loan_rep_payment_rel lrpr on lr.id = lrpr.repayment_id " +
+        " left join payment_loan_rep_rel plrr on lr.id = plrr.repayment_id " +
         " where lr.id is not null ";
     var paramsArray=[],i=0;
     if(params.repaymentId){
@@ -55,7 +55,7 @@ function getLoanRepayment(params,callback) {
     }
     if(params.paymentId){
         paramsArray[i++] = params.paymentId;
-        query = query + " and lrpr.payment_id = ? ";
+        query = query + " and plrr.payment_id = ? ";
     }
     if(params.createdOnStart){
         paramsArray[i++] = params.createdOnStart +" 00:00:00";

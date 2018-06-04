@@ -7,81 +7,81 @@ var sysError = require('../util/SystemError.js');
 var resUtil = require('../util/ResponseUtil.js');
 var encrypt = require('../util/Encrypt.js');
 var listOfValue = require('../util/ListOfValue.js');
-var loanRepPaymentRelDAO = require('../dao/LoanRepPaymentRelDAO.js');
+var paymentLoanRepRelDAO = require('../dao/PaymentLoanRepRelDAO.js');
 var oAuthUtil = require('../util/OAuthUtil.js');
 var Seq = require('seq');
 var serverLogger = require('../util/ServerLogger.js');
-var logger = serverLogger.createLogger('LoanRepPaymentRel.js');
+var logger = serverLogger.createLogger('PaymentLoanRepRel.js');
 
-function createLoanRepPaymentRel(req,res,next){
+function createPaymentLoanRepRel(req,res,next){
     var params = req.params ;
-    loanRepPaymentRelDAO.addLoanRepPaymentRel(params,function(error,result){
+    paymentLoanRepRelDAO.addPaymentLoanRepRel(params,function(error,result){
         if (error) {
             if(error.message.indexOf("Duplicate") > 0) {
                 resUtil.resetFailedRes(res, "还款编号已经被关联，操作失败");
                 return next();
             } else{
-                logger.error(' createLoanRepPaymentRel ' + err.message);
+                logger.error(' createPaymentLoanRepRel ' + err.message);
                 throw sysError.InternalError(err.message,sysMsg.SYS_INTERNAL_ERROR_MSG);
             }
         } else {
-            logger.info(' createLoanRepPaymentRel ' + 'success');
+            logger.info(' createPaymentLoanRepRel ' + 'success');
             resUtil.resetCreateRes(res,result,null);
             return next();
         }
     })
 }
 
-function queryLoanRepPaymentRel(req,res,next){
+function queryPaymentLoanRepRel(req,res,next){
     var params = req.params ;
-    loanRepPaymentRelDAO.getLoanRepPaymentRel(params,function(error,result){
+    paymentLoanRepRelDAO.getPaymentLoanRepRel(params,function(error,result){
         if (error) {
-            logger.error(' queryLoanRepPaymentRel ' + error.message);
+            logger.error(' queryPaymentLoanRepRel ' + error.message);
             throw sysError.InternalError(error.message,sysMsg.SYS_INTERNAL_ERROR_MSG);
         } else {
-            logger.info(' queryLoanRepPaymentRel ' + 'success');
+            logger.info(' queryPaymentLoanRepRel ' + 'success');
             resUtil.resetQueryRes(res,result,null);
             return next();
         }
     })
 }
 
-function queryRepPaymentMoney(req,res,next){
+function queryPaymentRepMoney(req,res,next){
     var params = req.params ;
-    loanRepPaymentRelDAO.getRepPaymentMoney(params,function(error,result){
+    paymentLoanRepRelDAO.getPaymentRepMoney(params,function(error,result){
         if (error) {
-            logger.error(' queryRepPaymentMoney ' + error.message);
+            logger.error(' queryPaymentRepMoney ' + error.message);
             throw sysError.InternalError(error.message,sysMsg.SYS_INTERNAL_ERROR_MSG);
         } else {
-            logger.info(' queryRepPaymentMoney ' + 'success');
+            logger.info(' queryPaymentRepMoney ' + 'success');
             resUtil.resetQueryRes(res,result,null);
             return next();
         }
     })
 }
 
-function updateRepPaymentMoney(req,res,next){
+function updatePaymentRepMoney(req,res,next){
     var params = req.params ;
-    loanRepPaymentRelDAO.updateRepPaymentMoney(params,function(error,result){
+    paymentLoanRepRelDAO.updatePaymentRepMoney(params,function(error,result){
         if (error) {
-            logger.error(' updateRepPaymentMoney ' + error.message);
+            logger.error(' updatePaymentRepMoney ' + error.message);
             throw sysError.InternalError(error.message,sysMsg.SYS_INTERNAL_ERROR_MSG);
         } else {
-            logger.info(' updateRepPaymentMoney ' + 'success');
+            logger.info(' updatePaymentRepMoney ' + 'success');
             resUtil.resetUpdateRes(res,result,null);
             return next();
         }
     })
 }
 
-function removeLoanRepPaymentRel(req,res,next){
+function removePaymentLoanRepRel(req,res,next){
     var params = req.params;
-    loanRepPaymentRelDAO.deleteLoanRepPaymentRel(params,function(error,result){
+    paymentLoanRepRelDAO.deletePaymentLoanRepRel(params,function(error,result){
         if (error) {
-            logger.error(' removeLoanRepPaymentRel ' + error.message);
+            logger.error(' removePaymentLoanRepRel ' + error.message);
             throw sysError.InternalError(error.message,sysMsg.SYS_INTERNAL_ERROR_MSG);
         } else {
-            logger.info(' removeLoanRepPaymentRel ' + 'success');
+            logger.info(' removePaymentLoanRepRel ' + 'success');
             resUtil.resetUpdateRes(res,result,null);
             return next();
         }
@@ -90,10 +90,10 @@ function removeLoanRepPaymentRel(req,res,next){
 
 
 module.exports = {
-    createLoanRepPaymentRel : createLoanRepPaymentRel,
-    queryLoanRepPaymentRel : queryLoanRepPaymentRel,
-    queryRepPaymentMoney : queryRepPaymentMoney,
-    updateRepPaymentMoney : updateRepPaymentMoney,
-    removeLoanRepPaymentRel : removeLoanRepPaymentRel
+    createPaymentLoanRepRel : createPaymentLoanRepRel,
+    queryPaymentLoanRepRel : queryPaymentLoanRepRel,
+    queryPaymentRepMoney : queryPaymentRepMoney,
+    updatePaymentRepMoney : updatePaymentRepMoney,
+    removePaymentLoanRepRel : removePaymentLoanRepRel
 }
 
