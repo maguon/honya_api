@@ -10336,6 +10336,112 @@
         }
       }
     },
+    "/user/{userId}/loanCompany/{loanCompanyId}": {
+      "put": {
+        "tags": [
+          "loan"
+        ],
+        "summary": "update loanCompany info",
+        "description": "update loanCompany info",
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "userId",
+            "in": "path",
+            "description": "user Id",
+            "required": true,
+            "type": "integer"
+
+          },
+          {
+            "name": "loanCompanyId",
+            "in": "path",
+            "description": "loanCompany id",
+            "required": true,
+            "type": "integer"
+
+          },
+          {
+            "name": "loanCompany",
+            "in": "body",
+            "description": "loanCompany info",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/loanCompany"
+            }
+
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "successful operation",
+            "schema": {
+              "type": "object",
+              "items": {
+                "$ref": "#/definitions/ApiResponse"
+              }
+            }
+          },
+          "400": {
+            "description": "Invalid token value or invalid loanCompany id"
+          }
+        }
+      }
+    },
+    "/user/{userId}/loanCompany/{loanCompanyId}/companyStatus/{companyStatus}": {
+      "put": {
+        "tags": [
+          "loan"
+        ],
+        "summary": "update loanCompany status",
+        "description": "update loanCompany status",
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "userId",
+            "in": "path",
+            "description": "user Id",
+            "required": true,
+            "type": "integer"
+
+          },
+          {
+            "name": "loanCompanyId",
+            "in": "path",
+            "description": "loanCompany id",
+            "required": true,
+            "type": "integer"
+
+          },
+          {
+            "name": "companyStatus",
+            "in": "path",
+            "description": "company status",
+            "required": true,
+            "type": "integer"
+
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "successful operation",
+            "schema": {
+              "type": "object",
+              "items": {
+                "$ref": "#/definitions/ApiResponse"
+              }
+            }
+          },
+          "400": {
+            "description": "Invalid token value or invalid loanCompany id"
+          }
+        }
+      }
+    },
     "/credit": {
       "get": {
         "tags": [

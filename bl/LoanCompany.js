@@ -41,8 +41,38 @@ function queryLoanCompany(req,res,next){
     })
 }
 
+function updateLoanCompany(req,res,next){
+    var params = req.params ;
+    loanCompanyDAO.updateLoanCompany(params,function(error,result){
+        if (error) {
+            logger.error(' updateLoanCompany ' + error.message);
+            throw sysError.InternalError(error.message,sysMsg.SYS_INTERNAL_ERROR_MSG);
+        } else {
+            logger.info(' updateLoanCompany ' + 'success');
+            resUtil.resetUpdateRes(res,result,null);
+            return next();
+        }
+    })
+}
+
+function updateLoanCompanyStatus(req,res,next){
+    var params = req.params;
+    loanCompanyDAO.updateLoanCompanyStatus(params,function(error,result){
+        if (error) {
+            logger.error(' updateLoanCompanyStatus ' + error.message);
+            throw sysError.InternalError(error.message,sysMsg.SYS_INTERNAL_ERROR_MSG);
+        } else {
+            logger.info(' updateLoanCompanyStatus ' + 'success');
+            resUtil.resetUpdateRes(res,result,null);
+            return next();
+        }
+    })
+}
+
 
 module.exports = {
     createLoanCompany : createLoanCompany,
-    queryLoanCompany : queryLoanCompany
+    queryLoanCompany : queryLoanCompany,
+    updateLoanCompany : updateLoanCompany,
+    updateLoanCompanyStatus : updateLoanCompanyStatus
 }

@@ -34,8 +34,37 @@ function getLoanCompany(params,callback) {
     });
 }
 
+function updateLoanCompany(params,callback){
+    var query = " update loan_company_info set company_name = ? , base_money = ? , contacts = ? , tel = ? , email = ? , remark = ? where id = ? " ;
+    var paramsArray=[],i=0;
+    paramsArray[i++]=params.companyName;
+    paramsArray[i++]=params.baseMoney;
+    paramsArray[i++]=params.contacts;
+    paramsArray[i++]=params.tel;
+    paramsArray[i++]=params.email;
+    paramsArray[i++]=params.remark;
+    paramsArray[i]=params.loanCompanyId;
+    db.dbQuery(query,paramsArray,function(error,rows){
+        logger.debug(' updateLoanCompany ');
+        return callback(error,rows);
+    });
+}
+
+function updateLoanCompanyStatus(params,callback){
+    var query = " update loan_company_info set company_status = ? where id = ?";
+    var paramsArray=[],i=0;
+    paramsArray[i++] = params.companyStatus;
+    paramsArray[i] = params.loanCompanyId;
+    db.dbQuery(query,paramsArray,function(error,rows){
+        logger.debug(' updateLoanCompanyStatus ');
+        return callback(error,rows);
+    });
+}
+
 
 module.exports ={
     addLoanCompany : addLoanCompany,
-    getLoanCompany : getLoanCompany
+    getLoanCompany : getLoanCompany,
+    updateLoanCompany : updateLoanCompany,
+    updateLoanCompanyStatus : updateLoanCompanyStatus
 }

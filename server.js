@@ -443,6 +443,8 @@ function createServer() {
      */
     server.get('/api/loanCompany',loanCompany.queryLoanCompany);
     server.post({path:'/api/user/:userId/loanCompany',contentType: 'application/json'},loanCompany.createLoanCompany);
+    server.put({path:'/api/user/:userId/loanCompany/:loanCompanyId',contentType: 'application/json'} ,loanCompany.updateLoanCompany);
+    server.put({path:'/api/user/:userId/loanCompany/:loanCompanyId/companyStatus/:companyStatus',contentType: 'application/json'} ,loanCompany.updateLoanCompanyStatus);
 
     /**
      * Credit Module
