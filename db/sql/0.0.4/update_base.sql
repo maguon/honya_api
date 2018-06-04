@@ -135,7 +135,6 @@ CREATE TABLE `payment_loan_rep_rel` (
   `created_on` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP COMMENT '创建时间',
   `updated_on` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP COMMENT '更新时间',
   UNIQUE KEY `id` (`id`) USING BTREE,
-  UNIQUE KEY `repayment_id` (`repayment_id`) USING BTREE
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 -- ----------------------------
@@ -197,3 +196,20 @@ update car_info set pro_date_id = DATE_FORMAT(pro_date,'%Y');
 alter table car_info drop column pro_date;
 ALTER TABLE `car_info`
 CHANGE COLUMN `pro_date_id` `pro_date`  int(4) NULL DEFAULT NULL COMMENT '商品车生产日期' AFTER `model_name`;
+-- ----------------------------
+-- Table structure for loan_company_info
+-- ----------------------------
+DROP TABLE IF EXISTS `loan_company_info`;
+CREATE TABLE `loan_company_info` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `company_name` varchar(50) COLLATE utf8mb4_unicode_ci NOT NULL COMMENT '公司名称',
+  `base_money` decimal(10,2) DEFAULT '0.00' COMMENT '基础金额',
+  `contacts` varchar(50) COLLATE utf8mb4_unicode_ci DEFAULT NULL COMMENT '联系人',
+  `tel` varchar(50) COLLATE utf8mb4_unicode_ci DEFAULT NULL COMMENT '电话',
+  `email` varchar(50) COLLATE utf8mb4_unicode_ci DEFAULT NULL COMMENT '邮箱',
+  `remark` varchar(200) COLLATE utf8mb4_unicode_ci DEFAULT NULL COMMENT '备注',
+  `company_status` tinyint(1) NOT NULL DEFAULT '1' COMMENT '贷入公司状态(0-不可用,1-可用)',
+  `created_on` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP COMMENT '创建时间',
+  `updated_on` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP COMMENT '更新时间',
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;

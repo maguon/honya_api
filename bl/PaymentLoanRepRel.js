@@ -17,13 +17,8 @@ function createPaymentLoanRepRel(req,res,next){
     var params = req.params ;
     paymentLoanRepRelDAO.addPaymentLoanRepRel(params,function(error,result){
         if (error) {
-            if(error.message.indexOf("Duplicate") > 0) {
-                resUtil.resetFailedRes(res, "还款编号已经被关联，操作失败");
-                return next();
-            } else{
-                logger.error(' createPaymentLoanRepRel ' + err.message);
-                throw sysError.InternalError(err.message,sysMsg.SYS_INTERNAL_ERROR_MSG);
-            }
+            logger.error(' createPaymentLoanRepRel ' + error.message);
+            throw sysError.InternalError(error.message,sysMsg.SYS_INTERNAL_ERROR_MSG);
         } else {
             logger.info(' createPaymentLoanRepRel ' + 'success');
             resUtil.resetCreateRes(res,result,null);
