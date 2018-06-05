@@ -308,7 +308,7 @@ function updateShipTransStatus(req,res,next){
 function getShipTransCsv(req,res,next){
     var csvString = "";
     var header = "海运编号" + ',' + "始发港口" + ',' + "目的港口" + ','+ "船公司" + ','+ "船名"+ ','+ "货柜" + ','+ "装载数" + ',' + "预计开船日期" + ',' + "预计到港日期"
-        + ',' + "实际开船日期" + ',' + "实际到港日期" + ','+ "是否分单" + ','+ "运送状态"+ ','+ "操作员" + ','+ "生成时间" + ','+ "备注"
+        + ',' + "实际开船日期" + ',' + "实际到港日期" + ','+ "是否分单" + ','+ "运送状态" + ','+ "生成时间" + ','+ "备注"
         + ','+ "VIN码"+ ','+ "制造商"+ ','+ "型号"+ ','+ "车辆年份"+ ','+ "车价(美元)"+ ','+ "委托方"+ ','+ "运费(美元)"+ ','+ "订单状态";
     csvString = header + '\r\n'+csvString;
     var params = req.params ;
@@ -359,7 +359,6 @@ function getShipTransCsv(req,res,next){
                 }else{
                     parkObj.shipTransStatus = "已到达";
                 }
-                parkObj.shipTransUserName = rows[i].ship_trans_user_name;
                 parkObj.createdOn = new Date(rows[i].created_on).toLocaleDateString();
                 if(rows[i].remark == null){
                     parkObj.remark = "";
@@ -407,8 +406,8 @@ function getShipTransCsv(req,res,next){
                     parkObj.orderStatus = "已支付";
                 }
                 csvString = csvString+parkObj.id+","+parkObj.startPortName+","+parkObj.endPortName+","+parkObj.shipCompanyName+","+parkObj.shipName
-                    +","+parkObj.container+","+parkObj.shipTransCount+","+parkObj.startShipDate+","+parkObj.endShipDate +","+parkObj.actualStartDate+","+parkObj.actualEndDate
-                    +","+parkObj.partStatus+","+parkObj.shipTransStatus+","+parkObj.shipTransUserName+","+parkObj.createdOn+","+parkObj.remark
+                    +","+parkObj.container+","+parkObj.shipTransCount+","+parkObj.startShipDate+","+parkObj.endShipDate +","+parkObj.actualStartDate
+                    +","+parkObj.actualEndDate +","+parkObj.partStatus+","+parkObj.shipTransStatus+","+parkObj.createdOn+","+parkObj.remark
                     +","+parkObj.vin+","+parkObj.makeName+","+parkObj.modelName+","+parkObj.proDate +","+parkObj.valuation+","+parkObj.shortName
                     +","+parkObj.shipTransFee+","+parkObj.orderStatus+ '\r\n';
             }
