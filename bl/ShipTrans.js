@@ -311,7 +311,7 @@ function updateShipTransStatus(req,res,next){
 
 function getShipTransCsv(req,res,next){
     var csvString = "";
-    var header = "海运编号" + ',' + "始发港口" + ',' + "目的港口" + ','+ "船公司" + ','+ "船名"+ ','+ "货柜" + ','+ "装载数" + ','+ "运费(美元)"
+    var header = "海运编号" + ',' + "始发港口" + ',' + "目的港口" + ','+ "船公司" + ','+ "船名"+ ','+ "货柜" + ','+ "装载数" + ','+ "VIN码"
         + ',' + "预计开船日期" + ',' + "预计到港日期"+ ',' + "实际开船日期" + ',' + "实际到港日期" + ','+ "是否分单" + ','+ "运送状态"+ ','+ "操作员" + ','+ "生成时间" + ','+ "备注";
     csvString = header + '\r\n'+csvString;
     var params = req.params ;
@@ -330,10 +330,10 @@ function getShipTransCsv(req,res,next){
                 parkObj.shipName = rows[i].ship_name;
                 parkObj.container = rows[i].container;
                 parkObj.shipTransCount = rows[i].ship_trans_count;
-                if(rows[i].ship_trans_fee == null){
-                    parkObj.shipTransFee = "";
+                if(rows[i].vin == null){
+                    parkObj.vin = "";
                 }else{
-                    parkObj.shipTransFee = rows[i].ship_trans_fee;
+                    parkObj.vin = rows[i].vin;
                 }
                 if(rows[i].start_ship_date == null){
                     parkObj.startShipDate = "";
@@ -375,7 +375,7 @@ function getShipTransCsv(req,res,next){
                     parkObj.remark = rows[i].remark;
                 }
                 csvString = csvString+parkObj.id+","+parkObj.startPortName+","+parkObj.endPortName+","+parkObj.shipCompanyName+","+parkObj.shipName
-                    +","+parkObj.container+","+parkObj.shipTransCount+","+parkObj.shipTransFee+","+parkObj.startShipDate+","+parkObj.endShipDate
+                    +","+parkObj.container+","+parkObj.shipTransCount+","+parkObj.vin+","+parkObj.startShipDate+","+parkObj.endShipDate
                     +","+parkObj.actualStartDate+","+parkObj.actualEndDate
                     +","+parkObj.partStatus+","+parkObj.shipTransStatus+","+parkObj.shipTransUserName+","+parkObj.createdOn+","+parkObj.remark+ '\r\n';
             }

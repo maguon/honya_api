@@ -33,7 +33,7 @@ function addShipTrans(params,callback){
 }
 
 function getShipTrans(params,callback) {
-    var query = " select st.*,sc.ship_company_name,u.real_name as ship_trans_user_name,sum(sto.ship_trans_fee) as ship_trans_fee " +
+    var query = " select st.*,sc.ship_company_name,u.real_name as ship_trans_user_name,c.vin " +
         " from ship_trans_info st " +
         " left join ship_trans_order sto on st.id = sto.ship_trans_id " +
         " left join ship_company_info sc on st.ship_company_id = sc.id " +
@@ -48,6 +48,9 @@ function getShipTrans(params,callback) {
     if(params.vin){
         paramsArray[i++] = params.vin;
         query = query + " and c.vin = ? ";
+    }
+    if(params.vinCode){
+        query = query + " and c.vin like '%"+params.vinCode+"%'";
     }
     if(params.entrustId){
         paramsArray[i++] = params.entrustId;
@@ -117,7 +120,6 @@ function getShipTrans(params,callback) {
         paramsArray[i++] = params.actualEndDateEnd +" 23:59:59";
         query = query + " and st.actual_end_date  <= ? ";
     }
-    query = query + ' group by st.id ';
     query = query + ' order by st.id desc ';
     if (params.start && params.size) {
         paramsArray[i++] = parseInt(params.start);
