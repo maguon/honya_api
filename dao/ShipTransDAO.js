@@ -33,12 +33,15 @@ function addShipTrans(params,callback){
 }
 
 function getShipTrans(params,callback) {
-    var query = " select st.*,sc.ship_company_name,u.real_name as ship_trans_user_name,c.vin " +
+    var query = " select st.*,sc.ship_company_name,u.real_name as ship_trans_user_name," +
+        " c.vin,c.make_name,c.model_name,c.pro_date,c.colour,c.valuation,sto.entrust_id,e.short_name," +
+        " sto.ship_trans_fee,sto.order_status " +
         " from ship_trans_info st " +
         " left join ship_trans_order sto on st.id = sto.ship_trans_id " +
         " left join ship_company_info sc on st.ship_company_id = sc.id " +
         " left join user_info u on st.ship_trans_user_id = u.uid " +
         " left join car_info c on sto.car_id = c.id " +
+        " left join entrust_info e on sto.entrust_id = e.id " +
         " where st.id is not null ";
     var paramsArray=[],i=0;
     if(params.shipTransId){

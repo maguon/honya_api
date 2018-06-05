@@ -166,7 +166,7 @@ function getShipTransOrderCsv(req,res,next){
                 if(rows[i].pro_date == null){
                     parkObj.proDate = "";
                 }else{
-                    parkObj.proDate = new Date(rows[i].pro_date).toLocaleDateString();
+                    parkObj.proDate = rows[i].pro_date;
                 }
                 parkObj.valuation = rows[i].valuation;
                 parkObj.shipCompanyName = rows[i].ship_company_name;

@@ -303,16 +303,13 @@ function updateShipTransStatus(req,res,next){
             })
         }
     })
-
-
-
-
 }
 
 function getShipTransCsv(req,res,next){
     var csvString = "";
-    var header = "海运编号" + ',' + "始发港口" + ',' + "目的港口" + ','+ "船公司" + ','+ "船名"+ ','+ "货柜" + ','+ "装载数" + ','+ "VIN码"
-        + ',' + "预计开船日期" + ',' + "预计到港日期"+ ',' + "实际开船日期" + ',' + "实际到港日期" + ','+ "是否分单" + ','+ "运送状态"+ ','+ "操作员" + ','+ "生成时间" + ','+ "备注";
+    var header = "海运编号" + ',' + "始发港口" + ',' + "目的港口" + ','+ "船公司" + ','+ "船名"+ ','+ "货柜" + ','+ "装载数" + ',' + "预计开船日期" + ',' + "预计到港日期"
+        + ',' + "实际开船日期" + ',' + "实际到港日期" + ','+ "是否分单" + ','+ "运送状态"+ ','+ "操作员" + ','+ "生成时间" + ','+ "备注"
+        + ','+ "VIN码"+ ','+ "制造商"+ ','+ "型号"+ ','+ "车辆年份"+ ','+ "车价(美元)"+ ','+ "委托方"+ ','+ "运费(美元)"+ ','+ "订单状态";
     csvString = header + '\r\n'+csvString;
     var params = req.params ;
     var parkObj = {};
@@ -330,11 +327,6 @@ function getShipTransCsv(req,res,next){
                 parkObj.shipName = rows[i].ship_name;
                 parkObj.container = rows[i].container;
                 parkObj.shipTransCount = rows[i].ship_trans_count;
-                if(rows[i].vin == null){
-                    parkObj.vin = "";
-                }else{
-                    parkObj.vin = rows[i].vin;
-                }
                 if(rows[i].start_ship_date == null){
                     parkObj.startShipDate = "";
                 }else{
@@ -374,10 +366,51 @@ function getShipTransCsv(req,res,next){
                 }else{
                     parkObj.remark = rows[i].remark;
                 }
+                if(rows[i].vin == null){
+                    parkObj.vin = "";
+                }else{
+                    parkObj.vin = rows[i].vin;
+                }
+                if(rows[i].make_name == null){
+                    parkObj.makeName = "";
+                }else{
+                    parkObj.makeName = rows[i].make_name;
+                }
+                if(rows[i].model_name == null){
+                    parkObj.modelName = "";
+                }else{
+                    parkObj.modelName = rows[i].model_name;
+                }
+                if(rows[i].pro_date == null){
+                    parkObj.proDate = "";
+                }else{
+                    parkObj.proDate = rows[i].pro_date;
+                }
+                if(rows[i].valuation == null){
+                    parkObj.valuation = "";
+                }else{
+                    parkObj.valuation = rows[i].valuation;
+                }
+                if(rows[i].short_name == null){
+                    parkObj.shortName = "";
+                }else{
+                    parkObj.shortName = rows[i].short_name;
+                }
+                if(rows[i].ship_trans_fee == null){
+                    parkObj.shipTransFee = "";
+                }else{
+                    parkObj.shipTransFee = rows[i].ship_trans_fee;
+                }
+                if(rows[i].order_status == 1){
+                    parkObj.orderStatus = "未支付";
+                }else{
+                    parkObj.orderStatus = "已支付";
+                }
                 csvString = csvString+parkObj.id+","+parkObj.startPortName+","+parkObj.endPortName+","+parkObj.shipCompanyName+","+parkObj.shipName
-                    +","+parkObj.container+","+parkObj.shipTransCount+","+parkObj.vin+","+parkObj.startShipDate+","+parkObj.endShipDate
-                    +","+parkObj.actualStartDate+","+parkObj.actualEndDate
-                    +","+parkObj.partStatus+","+parkObj.shipTransStatus+","+parkObj.shipTransUserName+","+parkObj.createdOn+","+parkObj.remark+ '\r\n';
+                    +","+parkObj.container+","+parkObj.shipTransCount+","+parkObj.startShipDate+","+parkObj.endShipDate +","+parkObj.actualStartDate+","+parkObj.actualEndDate
+                    +","+parkObj.partStatus+","+parkObj.shipTransStatus+","+parkObj.shipTransUserName+","+parkObj.createdOn+","+parkObj.remark
+                    +","+parkObj.vin+","+parkObj.makeName+","+parkObj.modelName+","+parkObj.proDate +","+parkObj.valuation+","+parkObj.shortName
+                    +","+parkObj.shipTransFee+","+parkObj.orderStatus+ '\r\n';
             }
             var csvBuffer = new Buffer(csvString,'utf8');
             res.set('content-type', 'application/csv');
