@@ -3308,9 +3308,9 @@
 
           },
           {
-            "name": "msoStatus",
+            "name": "purchaseType",
             "in": "query",
-            "description": "mso status",
+            "description": "purchase type",
             "required": false,
             "type": "integer"
 

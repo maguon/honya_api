@@ -70,9 +70,9 @@ function getCar(params,callback) {
         paramsArray[i++] = params.entrustId;
         query = query + " and c.entrust_id = ? ";
     }
-    if(params.msoStatus){
-        paramsArray[i++] = params.msoStatus;
-        query = query + " and c.mso_status = ? ";
+    if(params.purchaseType){
+        paramsArray[i++] = params.purchaseType;
+        query = query + " and c.purchase_type = ? ";
     }
     if(params.enterStart){
         paramsArray[i++] = params.enterStart +" 00:00:00";
