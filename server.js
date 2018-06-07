@@ -250,6 +250,7 @@ function createServer() {
     server.get('/api/user/:userId/car',car.queryCar);
     server.get('/api/carList', car.queryCarList);
     server.get('/api/car.csv', car.getCarCsv);
+    server.get('/api/carList.csv', car.getCarListCsv);
     server.get('/api/carStorageShipTrans.csv', car.getCarStorageShipTransCsv);
     server.get('/api/carStorageCount', car.queryCarStorageCount);
     server.get('/api/carMortgageStatusCount', car.queryCarMortgageStatusCount);
