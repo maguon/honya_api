@@ -18,23 +18,22 @@ function addShipTransCarRel(params,callback){
 }
 
 function getShipTransCarRel(params,callback) {
-    var query = " select stcr.*,c.vin,c.make_name,c.model_name,c.pro_date,c.valuation,c.purchase_type, " +
+    var query = " select c.vin,c.make_name,c.model_name,c.pro_date,c.valuation,c.purchase_type, " +
         " st.start_port_id,st.start_port_name,st.end_port_id,st.end_port_name,st.start_ship_date,st.end_ship_date, " +
         " st.actual_start_date,st.actual_end_date,sc.ship_company_name, " +
         " st.ship_name,st.container,st.booking,st.tab,st.ship_trans_user_id,u.real_name as ship_trans_user_name,st.part_status,st.remark, " +
-        " sto.id as ship_trans_order_id,sto.entrust_id,e.short_name,sto.ship_trans_fee,sto.order_status " +
-        " from ship_trans_car_rel stcr " +
-        " left join ship_trans_order sto on stcr.car_id = sto.car_id " +
-        " left join car_info c on stcr.car_id = c.id " +
+        " sto.id as ship_trans_order_id,sto.ship_trans_id,sto.car_id,sto.entrust_id,e.short_name,sto.ship_trans_fee,sto.order_status " +
+        " from ship_trans_order sto " +
+        " left join car_info c on sto.car_id = c.id " +
         " left join entrust_info e on sto.entrust_id = e.id " +
-        " left join ship_trans_info st on stcr.ship_trans_id = st.id " +
+        " left join ship_trans_info st on sto.ship_trans_id = st.id " +
         " left join ship_company_info sc on st.ship_company_id = sc.id" +
         " left join user_info u on st.ship_trans_user_id = u.uid " +
-        " where stcr.id is not null ";
+        " where sto.id is not null ";
     var paramsArray=[],i=0;
     if(params.shipTransId){
         paramsArray[i++] = params.shipTransId;
-        query = query + " and stcr.ship_trans_id = ? ";
+        query = query + " and sto.ship_trans_id = ? ";
     }
     if(params.vin){
         paramsArray[i++] = params.vin;
@@ -105,8 +104,9 @@ function getShipTransCarRel(params,callback) {
     }
     if(params.carId){
         paramsArray[i++] = params.carId;
-        query = query + " and stcr.car_id = ? ";
+        query = query + " and sto.car_id = ? ";
     }
+    query = query + ' group by sto.id ';
     if (params.start && params.size) {
         paramsArray[i++] = parseInt(params.start);
         paramsArray[i++] = parseInt(params.size);
