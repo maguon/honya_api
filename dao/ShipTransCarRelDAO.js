@@ -107,7 +107,6 @@ function getShipTransCarRel(params,callback) {
         paramsArray[i++] = params.carId;
         query = query + " and stcr.car_id = ? ";
     }
-    query = query + ' group by stcr.id ';
     if (params.start && params.size) {
         paramsArray[i++] = parseInt(params.start);
         paramsArray[i++] = parseInt(params.size);

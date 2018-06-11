@@ -214,3 +214,13 @@ CREATE TABLE `loan_company_info` (
   `updated_on` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP COMMENT '更新时间',
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+-- ----------------------------
+-- 2018-06-11 更新
+-- ----------------------------
+ALTER TABLE `ship_trans_car_rel`
+ADD PRIMARY KEY (`ship_trans_id`, `car_id`),
+DROP INDEX `car_id`;
+ALTER TABLE `ship_trans_order`
+ADD PRIMARY KEY (`ship_trans_id`, `car_id`),
+DROP INDEX `car_id`;
+
