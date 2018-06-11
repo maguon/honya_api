@@ -79,6 +79,7 @@ function getCredit(params,callback) {
         query = query + " and ct.actual_return_date <= ? ";
     }
     query = query + " group by ct.id ";
+    query = query + " order by ct.id desc ";
     if (params.start && params.size) {
         paramsArray[i++] = parseInt(params.start);
         paramsArray[i++] = parseInt(params.size);
