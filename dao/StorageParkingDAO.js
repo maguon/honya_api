@@ -73,7 +73,7 @@ function getStorageParkingBase(params,callback) {
 }
 
 function getStorageParkingBalanceCount(params,callback) {
-    var query = " select count(sp.id) as parking_balance_count from storage_parking sp where sp.car_id = 0 and sp.id is not null ";
+    var query = " select sp.storage_id, count(sp.id) as parking_balance_count from storage_parking sp where sp.car_id = 0 and sp.id is not null ";
     var paramsArray=[],i=0;
     if(params.storageId){
         paramsArray[i++] = params.storageId;
@@ -83,6 +83,7 @@ function getStorageParkingBalanceCount(params,callback) {
         paramsArray[i++] = params.areaId;
         query = query + " and sp.area_id = ? ";
     }
+    query = query + ' group by sp.storage_id ';
     db.dbQuery(query,paramsArray,function(error,rows){
         logger.debug(' getStorageParkingBalanceCount ');
         return callback(error,rows);
