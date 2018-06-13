@@ -33,8 +33,7 @@ function getShipTransOrder(params,callback) {
         " where sto.id is not null ";
     var paramsArray=[],i=0;
     if(params.vin){
-        paramsArray[i++] = params.vin;
-        query = query + " and c.vin = ? ";
+        query = query + " and c.vin like '%"+params.vin+"%'";
     }
     if(params.makeId){
         paramsArray[i++] = params.makeId;

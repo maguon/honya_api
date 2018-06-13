@@ -40,8 +40,7 @@ function getStorageOrder(params,callback) {
         query = query + " and so.id = ? ";
     }
     if(params.vin){
-        paramsArray[i++] = params.vin;
-        query = query + " and c.vin = ? ";
+        query = query + " and c.vin like '%"+params.vin+"%'";
     }
     if(params.makeId){
         paramsArray[i++] = params.makeId;
