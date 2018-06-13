@@ -4124,6 +4124,13 @@
             "required": false,
             "type": "integer"
 
+          },
+          {
+            "name": "entrustId",
+            "in": "query",
+            "description": "entrust id",
+            "required": false,
+            "type": "integer"
           }
         ],
         "responses": {
@@ -4168,6 +4175,13 @@
             "required": false,
             "type": "integer"
 
+          },
+          {
+            "name": "entrustId",
+            "in": "query",
+            "description": "entrust id",
+            "required": false,
+            "type": "integer"
           }
         ],
         "responses": {
@@ -4204,6 +4218,13 @@
             "required": false,
             "type": "integer"
 
+          },
+          {
+            "name": "entrustId",
+            "in": "query",
+            "description": "entrust id",
+            "required": false,
+            "type": "integer"
           }
         ],
         "responses": {

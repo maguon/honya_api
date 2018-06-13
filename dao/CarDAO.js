@@ -260,6 +260,10 @@ function getCarStorageCount(params,callback) {
         paramsArray[i++] = params.active;
         query = query + " and csr.active = ? ";
     }
+    if(params.entrustId){
+        paramsArray[i++] = params.entrustId;
+        query = query + " and c.entrust_id = ? ";
+    }
     db.dbQuery(query,paramsArray,function(error,rows){
         logger.debug(' getCarStorageCount ');
         return callback(error,rows);
@@ -278,6 +282,10 @@ function getCarMortgageStatusCount(params,callback) {
         paramsArray[i++] = params.active;
         query = query + " and csr.active = ? ";
     }
+    if(params.entrustId){
+        paramsArray[i++] = params.entrustId;
+        query = query + " and c.entrust_id = ? ";
+    }
     query = query + '  group by csr.mortgage_status ';
     db.dbQuery(query,paramsArray,function(error,rows){
         logger.debug(' getCarMortgageStatusCount ');
@@ -292,6 +300,10 @@ function getCarPurchaseCount(params,callback) {
     if(params.purchaseType){
         paramsArray[i++] = params.purchaseType;
         query = query + " and c.purchase_type = ? ";
+    }
+    if(params.entrustId){
+        paramsArray[i++] = params.entrustId;
+        query = query + " and c.entrust_id = ? ";
     }
     db.dbQuery(query,paramsArray,function(error,rows){
         logger.debug(' getCarPurchaseCount ');
