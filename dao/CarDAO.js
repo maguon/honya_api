@@ -286,6 +286,10 @@ function getCarMortgageStatusCount(params,callback) {
         paramsArray[i++] = params.entrustId;
         query = query + " and c.entrust_id = ? ";
     }
+    if(params.purchaseType){
+        paramsArray[i++] = params.purchaseType;
+        query = query + " and c.purchase_type = ? ";
+    }
     query = query + '  group by csr.mortgage_status ';
     db.dbQuery(query,paramsArray,function(error,rows){
         logger.debug(' getCarMortgageStatusCount ');
