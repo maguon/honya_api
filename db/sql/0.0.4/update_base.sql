@@ -223,4 +223,9 @@ DROP INDEX `car_id`;
 ALTER TABLE `ship_trans_order`
 ADD PRIMARY KEY (`ship_trans_id`, `car_id`),
 DROP INDEX `car_id`;
+-- ----------------------------
+-- 2018-06-14 更新
+-- ----------------------------
+ALTER TABLE `loan_repayment`
+MODIFY COLUMN `rate`  decimal(10,6) NULL DEFAULT 0.000000 COMMENT '利率' AFTER `repayment_money`;
 
