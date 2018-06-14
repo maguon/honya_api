@@ -74,6 +74,10 @@ function getCar(params,callback) {
         paramsArray[i++] = params.purchaseType;
         query = query + " and c.purchase_type = ? ";
     }
+    if(params.mortgageStatus){
+        paramsArray[i++] = params.mortgageStatus;
+        query = query + " and r.mortgage_status = ? ";
+    }
     if(params.enterStart){
         paramsArray[i++] = params.enterStart +" 00:00:00";
         query = query + " and  r.enter_time  >= ? ";

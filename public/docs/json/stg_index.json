@@ -3324,6 +3324,14 @@
 
           },
           {
+            "name": "mortgageStatus",
+            "in": "query",
+            "description": "mortgage status",
+            "required": false,
+            "type": "integer"
+
+          },
+          {
             "name": "enterStart",
             "in": "query",
             "description": "enter start",
