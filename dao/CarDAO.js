@@ -302,8 +302,9 @@ function getCarMortgageStatusCount(params,callback) {
 }
 
 function getCarPurchaseCount(params,callback) {
-    var query = " select count(c.id) as purchase_car_count,sum(c.valuation) as valuation, " +
-        " count(sp.car_id) parking_car_count,sum(case when sp.car_id >0 then c.valuation end) as parking_car_valuation " +
+    var query = " select count(c.id) as purchase_car_count,if(isnull(sum(c.valuation)),0,sum(c.valuation)) as valuation, " +
+        " count(sp.car_id) parking_car_count,if(isnull(sum(case when sp.car_id >0 then c.valuation end)),0, " +
+        " sum(case when sp.car_id >0 then c.valuation end)) as parking_car_valuation " +
         " from car_info c left join storage_parking sp on c.id = sp.car_id " +
         " where c.id is not null ";
     var paramsArray=[],i=0;
