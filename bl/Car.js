@@ -613,6 +613,20 @@ function getCarStorageShipTransCsv(req,res,next){
     })
 }
 
+function queryCarEntrustStat(req,res,next){
+    var params = req.params ;
+    carDAO.getCarEntrustStat(params,function(error,result){
+        if (error) {
+            logger.error(' queryCarEntrustStat ' + error.message);
+            throw sysError.InternalError(error.message,sysMsg.SYS_INTERNAL_ERROR_MSG);
+        } else {
+            logger.info(' queryCarEntrustStat ' + 'success');
+            resUtil.resetQueryRes(res,result,null);
+            return next();
+        }
+    })
+}
+
 
 module.exports = {
     createCar : createCar,
@@ -626,5 +640,6 @@ module.exports = {
     updateCarVin : updateCarVin,
     getCarCsv : getCarCsv,
     getCarListCsv : getCarListCsv,
-    getCarStorageShipTransCsv : getCarStorageShipTransCsv
+    getCarStorageShipTransCsv : getCarStorageShipTransCsv,
+    queryCarEntrustStat : queryCarEntrustStat
 }

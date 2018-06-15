@@ -368,6 +368,21 @@ function updateCarVin(params,callback){
     });
 }
 
+function getCarEntrustStat(params,callback) {
+    var query = " select e.id,e.short_name,count(case when csr.active = 1 and csr.rel_status = "+params.relStatus+" then c.id end) as car_count " +
+        " from entrust_info e " +
+        " left join car_info c on e.id = c.entrust_id " +
+        " left join car_storage_rel csr on c.id = csr.car_id " +
+        " where e.id is not null ";
+    var paramsArray=[],i=0;
+
+    query = query + '  group by e.id ';
+    db.dbQuery(query,paramsArray,function(error,rows){
+        logger.debug(' getCarEntrustStat ');
+        return callback(error,rows);
+    });
+}
+
 
 module.exports ={
     addCar : addCar,
@@ -379,5 +394,6 @@ module.exports ={
     getCarPurchaseCount : getCarPurchaseCount,
     updateCar : updateCar,
     updateCarValuationMso : updateCarValuationMso,
-    updateCarVin : updateCarVin
+    updateCarVin : updateCarVin,
+    getCarEntrustStat : getCarEntrustStat
 }
