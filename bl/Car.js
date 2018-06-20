@@ -186,7 +186,7 @@ function updateCarVin(req,res,next){
 
 function getCarCsv(req,res,next){
     var csvString = "";
-    var header = "VIN码" + ',' + "制造商" + ',' + "型号" + ','+ "年份" + ','+ "颜色" + ','+ "发动机号" + ','+ "委托方" + ','+ "是否MSO" + ','+ "车辆估值(美元)"
+    var header = "VIN" + ',' + "制造商" + ',' + "型号" + ','+ "年份" + ','+ "颜色" + ','+ "发动机号" + ','+ "委托方" + ','+ "是否MSO" + ','+ "车辆估值(美元)"
         + ','+ "入库时间"+ ','+ "所在仓库" + ','+ "存放区域" + ','+ "存放位置" + ','+ "计划出库时间" + ',' + "实际出库时间" + ',' + "车辆状态";
     csvString = header + '\r\n'+csvString;
     var params = req.params ;
@@ -313,7 +313,7 @@ function getCarCsv(req,res,next){
 
 function getCarListCsv(req,res,next){
     var csvString = "";
-    var header = "VIN码" + ',' + "制造商" + ',' + "型号" + ','+ "年份" + ','+ "颜色" + ','+ "发动机号" + ','+ "委托方" + ','+ "是否MSO" + ','+ "车辆估值(美元)"
+    var header = "VIN" + ',' + "制造商" + ',' + "型号" + ','+ "年份" + ','+ "颜色" + ','+ "发动机号" + ','+ "委托方" + ','+ "是否MSO" + ','+ "车辆估值(美元)"
         + ','+ "金融车辆"+ ','+ "录入时间" + ','+ "备注";
     csvString = header + '\r\n'+csvString;
     var params = req.params ;
@@ -419,7 +419,7 @@ function getCarListCsv(req,res,next){
 
 function getCarStorageShipTransCsv(req,res,next){
     var csvString = "";
-    var header = "VIN码" + ',' + "制造商" + ',' + "型号" + ','+ "年份" + ','+ "颜色" + ','+ "发动机号" + ','+ "委托方" + ','+ "是否MSO" + ','+ "车辆估值(美元)"
+    var header = "VIN" + ',' + "制造商" + ',' + "型号" + ','+ "年份" + ','+ "颜色" + ','+ "发动机号" + ','+ "委托方" + ','+ "是否MSO" + ','+ "车辆估值(美元)"
         + ','+ "入库时间"+ ','+ "所在仓库" + ','+ "存放区域" + ','+ "存放位置" + ','+ "计划出库时间" + ',' + "实际出库时间" + ',' + "车辆状态"
         + ','+ "海运编号"+ ','+ "始发港口" + ','+ "目的港口" + ','+ "开船日期" + ','+ "到港日期" + ',' + "船公司" + ',' + "船名"
         + ','+ "货柜"+ ','+ "booking" + ','+ "封签" + ','+ "海运状态" + ','+ "订舱备注";
