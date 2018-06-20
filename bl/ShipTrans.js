@@ -24,7 +24,7 @@ function createShipTrans(req,res,next){
         var that = this;
         if(params.carIds.length==0){
             logger.warn(' createShipTrans ' + 'failed');
-            resUtil.resetFailedRes(res," 未关联VIN码，保存失败 ");
+            resUtil.resetFailedRes(res," 未关联VIN，保存失败 ");
             return next();
         }
         params.shipTransCount = params.carIds.length;
