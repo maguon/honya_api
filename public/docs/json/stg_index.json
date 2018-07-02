@@ -10639,6 +10639,167 @@
         }
       }
     },
+    "/loanInto": {
+      "get": {
+        "tags": [
+          "loan"
+        ],
+        "summary": "query  loanInto list",
+        "description": "query loanInto",
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "loanIntoId",
+            "in": "query",
+            "description": "loanInto id",
+            "required": false,
+            "type": "integer"
+
+          },
+          {
+            "name": "loanIntoCompanyId",
+            "in": "query",
+            "description": "loanIntoCompany id",
+            "required": false,
+            "type": "integer"
+
+          },
+          {
+            "name": "companyName",
+            "in": "query",
+            "description": "company name",
+            "required": false,
+            "type": "string"
+
+          },
+          {
+            "name": "loanIntoStatus",
+            "in": "query",
+            "description": "loanInto status",
+            "required": false,
+            "type": "integer"
+
+          },
+          {
+            "name": "loanIntoStatusArr",
+            "in": "query",
+            "description": "loanIntoStatus arr",
+            "required": false,
+            "type": "string"
+
+          },
+          {
+            "name": "loanIntoStartDateStart",
+            "in": "query",
+            "description": "loanIntoStartDate start",
+            "required": false,
+            "type": "string"
+
+          },
+          {
+            "name": "loanIntoStartDateEnd",
+            "in": "query",
+            "description": "loanIntoStartDate end",
+            "required": false,
+            "type": "string"
+
+          },
+          {
+            "name": "loanIntoEndDateStart",
+            "in": "query",
+            "description": "loanIntoEndDate start",
+            "required": false,
+            "type": "string"
+
+          },
+          {
+            "name": "loanIntoEndDateEnd",
+            "in": "query",
+            "description": "loanIntoEndDate end",
+            "required": false,
+            "type": "string"
+
+          },
+          {
+            "name": "start",
+            "in": "query",
+            "description": " list start pos",
+            "required": false,
+            "type": "integer"
+
+          },
+          {
+            "name": "size",
+            "in": "query",
+            "description": "list size for pagination",
+            "required": false,
+            "type": "integer"
+
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "successful operation",
+            "schema": {
+              "type": "object",
+              "items": {
+                "$ref": "#/definitions/loanInto"
+              }
+            }
+          },
+          "400": {
+            "description": "Invalid token value or invalid loanInto id"
+          }
+        }
+      }
+    },
+    "/user/{userId}/loanInto": {
+      "post": {
+        "tags": [
+          "loan"
+        ],
+        "summary": "user create loanInto",
+        "description": "user create loanInto",
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "userId",
+            "in": "path",
+            "description": "user id",
+            "required": true,
+            "type": "integer"
+
+          },
+          {
+            "name": "loanInto",
+            "in": "body",
+            "description": "loanInto info",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/loanInto"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "successful operation",
+            "schema": {
+              "type": "object",
+              "items": {
+                "$ref": "#/definitions/ApiResponse"
+              }
+            }
+          },
+          "400": {
+            "description": "Invalid token value or invalid loanInto id"
+          }
+        }
+      }
+    },
     "/credit": {
       "get": {
         "tags": [
@@ -12384,6 +12545,24 @@
       },
       "xml": {
         "name": "loanIntoCompany"
+      }
+    },
+    "loanInto": {
+      "type": "object",
+      "properties": {
+
+        "loanIntoCompanyId": {
+          "type": "integer"
+        },
+        "loanIntoMoney": {
+          "type": "integer"
+        },
+        "remark": {
+          "type": "string"
+        }
+      },
+      "xml": {
+        "name": "loanInto"
       }
     },
     "credit": {

@@ -30,7 +30,22 @@ function createLoanInto(req,res,next){
     })
 }
 
+function queryLoanInto(req,res,next){
+    var params = req.params ;
+    loanIntoDAO.getLoanInto(params,function(error,result){
+        if (error) {
+            logger.error(' queryLoanInto ' + error.message);
+            throw sysError.InternalError(error.message,sysMsg.SYS_INTERNAL_ERROR_MSG);
+        } else {
+            logger.info(' queryLoanInto ' + 'success');
+            resUtil.resetQueryRes(res,result,null);
+            return next();
+        }
+    })
+}
+
 
 module.exports = {
-    createLoanInto : createLoanInto
+    createLoanInto : createLoanInto,
+    queryLoanInto : queryLoanInto
 }

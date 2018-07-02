@@ -452,6 +452,7 @@ function createServer() {
     /**
      * LoanInto Module
      */
+    server.get('/api/loanInto',loanInto.queryLoanInto);
     server.post({path:'/api/user/:userId/loanInto',contentType: 'application/json'},loanInto.createLoanInto);
 
     /**
