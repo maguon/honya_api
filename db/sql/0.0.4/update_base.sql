@@ -228,4 +228,7 @@ DROP INDEX `car_id`;
 -- ----------------------------
 ALTER TABLE `loan_repayment`
 MODIFY COLUMN `rate`  decimal(10,6) NULL DEFAULT 0.000000 COMMENT '利率' AFTER `repayment_money`;
-
+-- ----------------------------
+-- 2018-07-02 更新
+-- ----------------------------
+alter table loan_company_info rename loan_into_company_info;

@@ -7,62 +7,62 @@ var sysError = require('../util/SystemError.js');
 var resUtil = require('../util/ResponseUtil.js');
 var encrypt = require('../util/Encrypt.js');
 var listOfValue = require('../util/ListOfValue.js');
-var loanCompanyDAO = require('../dao/LoanCompanyDAO.js');
+var loanIntoCompanyDAO = require('../dao/LoanIntoCompanyDAO.js');
 var oAuthUtil = require('../util/OAuthUtil.js');
 var Seq = require('seq');
 var serverLogger = require('../util/ServerLogger.js');
-var logger = serverLogger.createLogger('LoanCompany.js');
+var logger = serverLogger.createLogger('LoanIntoCompany.js');
 
-function createLoanCompany(req,res,next){
+function createLoanIntoCompany(req,res,next){
     var params = req.params ;
-    loanCompanyDAO.addLoanCompany(params,function(error,result){
+    loanIntoCompanyDAO.addLoanIntoCompany(params,function(error,result){
         if (error) {
-            logger.error(' createLoanCompany ' + error.message);
+            logger.error(' createLoanIntoCompany ' + error.message);
             throw sysError.InternalError(error.message,sysMsg.SYS_INTERNAL_ERROR_MSG);
         } else {
-            logger.info(' createLoanCompany ' + 'success');
+            logger.info(' createLoanIntoCompany ' + 'success');
             resUtil.resetCreateRes(res,result,null);
             return next();
         }
     })
 }
 
-function queryLoanCompany(req,res,next){
+function queryLoanIntoCompany(req,res,next){
     var params = req.params ;
-    loanCompanyDAO.getLoanCompany(params,function(error,result){
+    loanIntoCompanyDAO.getLoanIntoCompany(params,function(error,result){
         if (error) {
-            logger.error(' queryLoanCompany ' + error.message);
+            logger.error(' queryLoanIntoCompany ' + error.message);
             throw sysError.InternalError(error.message,sysMsg.SYS_INTERNAL_ERROR_MSG);
         } else {
-            logger.info(' queryLoanCompany ' + 'success');
+            logger.info(' queryLoanIntoCompany ' + 'success');
             resUtil.resetQueryRes(res,result,null);
             return next();
         }
     })
 }
 
-function updateLoanCompany(req,res,next){
+function updateLoanIntoCompany(req,res,next){
     var params = req.params ;
-    loanCompanyDAO.updateLoanCompany(params,function(error,result){
+    loanIntoCompanyDAO.updateLoanIntoCompany(params,function(error,result){
         if (error) {
-            logger.error(' updateLoanCompany ' + error.message);
+            logger.error(' updateLoanIntoCompany ' + error.message);
             throw sysError.InternalError(error.message,sysMsg.SYS_INTERNAL_ERROR_MSG);
         } else {
-            logger.info(' updateLoanCompany ' + 'success');
+            logger.info(' updateLoanIntoCompany ' + 'success');
             resUtil.resetUpdateRes(res,result,null);
             return next();
         }
     })
 }
 
-function updateLoanCompanyStatus(req,res,next){
+function updateLoanIntoCompanyStatus(req,res,next){
     var params = req.params;
-    loanCompanyDAO.updateLoanCompanyStatus(params,function(error,result){
+    loanIntoCompanyDAO.updateLoanIntoCompanyStatus(params,function(error,result){
         if (error) {
-            logger.error(' updateLoanCompanyStatus ' + error.message);
+            logger.error(' updateLoanIntoCompanyStatus ' + error.message);
             throw sysError.InternalError(error.message,sysMsg.SYS_INTERNAL_ERROR_MSG);
         } else {
-            logger.info(' updateLoanCompanyStatus ' + 'success');
+            logger.info(' updateLoanIntoCompanyStatus ' + 'success');
             resUtil.resetUpdateRes(res,result,null);
             return next();
         }
@@ -71,8 +71,8 @@ function updateLoanCompanyStatus(req,res,next){
 
 
 module.exports = {
-    createLoanCompany : createLoanCompany,
-    queryLoanCompany : queryLoanCompany,
-    updateLoanCompany : updateLoanCompany,
-    updateLoanCompanyStatus : updateLoanCompanyStatus
+    createLoanIntoCompany : createLoanIntoCompany,
+    queryLoanIntoCompany : queryLoanIntoCompany,
+    updateLoanIntoCompany : updateLoanIntoCompany,
+    updateLoanIntoCompanyStatus : updateLoanIntoCompanyStatus
 }

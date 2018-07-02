@@ -43,7 +43,7 @@ var loanMortgageCarRel = require('./bl/LoanMortgageCarRel.js');
 var loanBuyCarRel = require('./bl/LoanBuyCarRel.js');
 var loanRepayment = require('./bl/LoanRepayment.js');
 var loanRepCreditRel = require('./bl/LoanRepCreditRel.js');
-var loanCompany = require('./bl/LoanCompany.js');
+var loanIntoCompany = require('./bl/LoanIntoCompany.js');
 var credit = require('./bl/Credit.js');
 var creditCarRel = require('./bl/CreditCarRel.js');
 var app = require('./bl/App.js');
@@ -441,12 +441,12 @@ function createServer() {
     server.del('/api/user/:userId/repayment/:repaymentId/credit/:creditId' , loanRepCreditRel.removeLoanRepCreditRel);
 
     /**
-     * LoanCompany Module
+     * LoanIntoCompany Module
      */
-    server.get('/api/loanCompany',loanCompany.queryLoanCompany);
-    server.post({path:'/api/user/:userId/loanCompany',contentType: 'application/json'},loanCompany.createLoanCompany);
-    server.put({path:'/api/user/:userId/loanCompany/:loanCompanyId',contentType: 'application/json'} ,loanCompany.updateLoanCompany);
-    server.put({path:'/api/user/:userId/loanCompany/:loanCompanyId/companyStatus/:companyStatus',contentType: 'application/json'} ,loanCompany.updateLoanCompanyStatus);
+    server.get('/api/loanIntoCompany',loanIntoCompany.queryLoanIntoCompany);
+    server.post({path:'/api/user/:userId/loanIntoCompany',contentType: 'application/json'},loanIntoCompany.createLoanIntoCompany);
+    server.put({path:'/api/user/:userId/loanIntoCompany/:loanIntoCompanyId',contentType: 'application/json'} ,loanIntoCompany.updateLoanIntoCompany);
+    server.put({path:'/api/user/:userId/loanIntoCompany/:loanIntoCompanyId/companyStatus/:companyStatus',contentType: 'application/json'} ,loanIntoCompany.updateLoanIntoCompanyStatus);
 
     /**
      * Credit Module
