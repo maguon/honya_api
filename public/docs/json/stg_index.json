@@ -9513,17 +9513,17 @@
 
           },
           {
-            "name": "createdOnStart",
+            "name": "loanStartDateStart",
             "in": "query",
-            "description": "createdOn start",
+            "description": "loanStartDate start",
             "required": false,
             "type": "string"
 
           },
           {
-            "name": "createdOnEnd",
+            "name": "loanStartDateEnd",
             "in": "query",
-            "description": "createdOn end",
+            "description": "loanStartDate end",
             "required": false,
             "type": "string"
 

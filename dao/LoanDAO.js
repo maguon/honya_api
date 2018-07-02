@@ -46,13 +46,13 @@ function getLoan(params,callback) {
     if(params.loanStatusArr){
         query = query + " and l.loan_status in ("+params.loanStatusArr + ") "
     }
-    if(params.createdOnStart){
-        paramsArray[i++] = params.createdOnStart +" 00:00:00";
-        query = query + " and l.created_on >= ? ";
+    if(params.loanStartDateStart){
+        paramsArray[i++] = params.loanStartDateStart +" 00:00:00";
+        query = query + " and l.loan_start_date >= ? ";
     }
-    if(params.createdOnEnd){
-        paramsArray[i++] = params.createdOnEnd +" 23:59:59";
-        query = query + " and l.created_on <= ? ";
+    if(params.loanStartDateEnd){
+        paramsArray[i++] = params.loanStartDateEnd +" 23:59:59";
+        query = query + " and l.loan_start_date <= ? ";
     }
     if(params.loanEndDateStart){
         paramsArray[i++] = params.loanEndDateStart +" 00:00:00";
