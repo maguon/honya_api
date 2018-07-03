@@ -10906,6 +10906,249 @@
         }
       }
     },
+    "/loanIntoRepayment": {
+      "get": {
+        "tags": [
+          "loan"
+        ],
+        "summary": "query  loanIntoRepayment list",
+        "description": "query loanIntoRepayment",
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "repaymentId",
+            "in": "query",
+            "description": "repayment id",
+            "required": false,
+            "type": "integer"
+
+          },
+          {
+            "name": "loanIntoCompanyId",
+            "in": "query",
+            "description": "loanIntoCompany id",
+            "required": false,
+            "type": "integer"
+
+          },
+          {
+            "name": "loanIntoId",
+            "in": "query",
+            "description": "loanInto id",
+            "required": false,
+            "type": "integer"
+
+          },
+          {
+            "name": "createdOnStart",
+            "in": "query",
+            "description": "createdOn start",
+            "required": false,
+            "type": "string"
+
+          },
+          {
+            "name": "createdOnEnd",
+            "in": "query",
+            "description": "createdOn end",
+            "required": false,
+            "type": "string"
+
+          },
+          {
+            "name": "repaymentStatus",
+            "in": "query",
+            "description": "repayment status",
+            "required": false,
+            "type": "integer"
+
+          },
+          {
+            "name": "start",
+            "in": "query",
+            "description": " list start pos",
+            "required": false,
+            "type": "integer"
+
+          },
+          {
+            "name": "size",
+            "in": "query",
+            "description": "list size for pagination",
+            "required": false,
+            "type": "integer"
+
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "successful operation",
+            "schema": {
+              "type": "object",
+              "items": {
+                "$ref": "#/definitions/loanIntoRepayment"
+              }
+            }
+          },
+          "400": {
+            "description": "Invalid token value or invalid loanIntoRepayment id"
+          }
+        }
+      }
+    },
+    "/user/{userId}/loanIntoRepayment": {
+      "post": {
+        "tags": [
+          "loan"
+        ],
+        "summary": "user create loanIntoRepayment",
+        "description": "user create loanIntoRepayment",
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "userId",
+            "in": "path",
+            "description": "user id",
+            "required": true,
+            "type": "integer"
+
+          },
+          {
+            "name": "loanIntoRepayment",
+            "in": "body",
+            "description": "loanIntoRepayment info",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/loanIntoRepayment"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "successful operation",
+            "schema": {
+              "type": "object",
+              "items": {
+                "$ref": "#/definitions/ApiResponse"
+              }
+            }
+          },
+          "400": {
+            "description": "Invalid token value or invalid loanIntoRepayment id"
+          }
+        }
+      }
+    },
+    "/user/{userId}/loanIntoRepayment/{repaymentId}": {
+      "put": {
+        "tags": [
+          "loan"
+        ],
+        "summary": "update loanIntoRepayment info",
+        "description": "update loanIntoRepayment info",
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "userId",
+            "in": "path",
+            "description": "user Id",
+            "required": true,
+            "type": "integer"
+
+          },
+          {
+            "name": "repaymentId",
+            "in": "path",
+            "description": "repayment id",
+            "required": true,
+            "type": "integer"
+
+          },
+          {
+            "name": "loanIntoRepayment",
+            "in": "body",
+            "description": "loanIntoRepayment info",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/loanIntoRepayment"
+            }
+
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "successful operation",
+            "schema": {
+              "type": "object",
+              "items": {
+                "$ref": "#/definitions/ApiResponse"
+              }
+            }
+          },
+          "400": {
+            "description": "Invalid token value or invalid repayment id"
+          }
+        }
+      }
+    },
+    "/user/{userId}/loanIntoRepayment/{repaymentId}/repaymentStatus/{repaymentStatus}": {
+      "put": {
+        "tags": [
+          "loan"
+        ],
+        "summary": "update repayment status",
+        "description": "update repayment status",
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "userId",
+            "in": "path",
+            "description": "user Id",
+            "required": true,
+            "type": "integer"
+
+          },
+          {
+            "name": "repaymentId",
+            "in": "path",
+            "description": "repayment id",
+            "required": true,
+            "type": "integer"
+
+          },
+          {
+            "name": "repaymentStatus",
+            "in": "path",
+            "description": "repayment status",
+            "required": true,
+            "type": "integer"
+
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "successful operation",
+            "schema": {
+              "type": "object",
+              "items": {
+                "$ref": "#/definitions/ApiResponse"
+              }
+            }
+          },
+          "400": {
+            "description": "Invalid token value or invalid repayment id"
+          }
+        }
+      }
+    },
     "/credit": {
       "get": {
         "tags": [
@@ -12669,6 +12912,39 @@
       },
       "xml": {
         "name": "loanInto"
+      }
+    },
+    "loanIntoRepayment": {
+      "type": "object",
+      "properties": {
+
+        "loanIntoId": {
+          "type": "integer"
+        },
+        "repaymentMoney": {
+          "type": "integer"
+        },
+        "rate": {
+          "type": "integer"
+        },
+        "dayCount": {
+          "type": "integer"
+        },
+        "interestMoney": {
+          "type": "integer"
+        },
+        "fee": {
+          "type": "integer"
+        },
+        "repaymentTotalMoney": {
+          "type": "integer"
+        },
+        "remark": {
+          "type": "string"
+        }
+      },
+      "xml": {
+        "name": "loanIntoRepayment"
       }
     },
     "credit": {

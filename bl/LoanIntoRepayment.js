@@ -102,9 +102,26 @@ function updateLoanIntoRepayment(req,res,next){
     })
 }
 
+function updateLoanIntoRepaymentStatus(req,res,next){
+    var params = req.params ;
+    var myDate = new Date();
+    params.repaymentEndDate = myDate;
+    loanIntoRepaymentDAO.updateLoanIntoRepaymentStatus(params,function(error,result){
+        if (error) {
+            logger.error(' updateLoanIntoRepaymentStatus ' + error.message);
+            throw sysError.InternalError(error.message,sysMsg.SYS_INTERNAL_ERROR_MSG);
+        } else {
+            logger.info(' updateLoanIntoRepaymentStatus ' + 'success');
+            resUtil.resetUpdateRes(res,result,null);
+            return next();
+        }
+    })
+}
+
 
 module.exports = {
     createLoanIntoRepayment : createLoanIntoRepayment,
     queryLoanIntoRepayment : queryLoanIntoRepayment,
-    updateLoanIntoRepayment : updateLoanIntoRepayment
+    updateLoanIntoRepayment : updateLoanIntoRepayment,
+    updateLoanIntoRepaymentStatus : updateLoanIntoRepaymentStatus
 }

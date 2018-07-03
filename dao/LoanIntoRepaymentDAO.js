@@ -85,9 +85,22 @@ function updateLoanIntoRepayment(params,callback){
     });
 }
 
+function updateLoanIntoRepaymentStatus(params,callback){
+    var query = " update loan_into_repayment set repayment_end_date = ? , repayment_status = ? where id = ? " ;
+    var paramsArray=[],i=0;
+    paramsArray[i++]=params.repaymentEndDate;
+    paramsArray[i++]=params.repaymentStatus;
+    paramsArray[i]=params.repaymentId;
+    db.dbQuery(query,paramsArray,function(error,rows){
+        logger.debug(' updateLoanIntoRepaymentStatus ');
+        return callback(error,rows);
+    });
+}
+
 
 module.exports ={
     addLoanIntoRepayment : addLoanIntoRepayment,
     getLoanIntoRepayment : getLoanIntoRepayment,
-    updateLoanIntoRepayment : updateLoanIntoRepayment
+    updateLoanIntoRepayment : updateLoanIntoRepayment,
+    updateLoanIntoRepaymentStatus : updateLoanIntoRepaymentStatus
 }
