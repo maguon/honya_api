@@ -24,7 +24,7 @@ function addLoanIntoRepayment(params,callback){
 }
 
 function getLoanIntoRepayment(params,callback) {
-    var query = " select lir.*,lic.company_name " +
+    var query = " select lir.*,lic.company_name,li.loan_into_start_date " +
         " from loan_into_repayment lir " +
         " left join loan_into_info li on lir.loan_into_id = li.id " +
         " left join loan_into_company_info lic on li.loan_into_company_id = lic.id " +
@@ -67,8 +67,27 @@ function getLoanIntoRepayment(params,callback) {
     });
 }
 
+function updateLoanIntoRepayment(params,callback){
+    var query = " update loan_into_repayment set repayment_money = ? , rate = ? , day_count = ? , interest_money = ? , " +
+        " fee = ? , repayment_total_money = ? , remark = ? where id = ? " ;
+    var paramsArray=[],i=0;
+    paramsArray[i++]=params.repaymentMoney;
+    paramsArray[i++]=params.rate;
+    paramsArray[i++]=params.dayCount;
+    paramsArray[i++]=params.interestMoney;
+    paramsArray[i++]=params.fee;
+    paramsArray[i++]=params.repaymentTotalMoney;
+    paramsArray[i++]=params.remark;
+    paramsArray[i]=params.repaymentId;
+    db.dbQuery(query,paramsArray,function(error,rows){
+        logger.debug(' updateLoanIntoRepayment ');
+        return callback(error,rows);
+    });
+}
+
 
 module.exports ={
     addLoanIntoRepayment : addLoanIntoRepayment,
-    getLoanIntoRepayment : getLoanIntoRepayment
+    getLoanIntoRepayment : getLoanIntoRepayment,
+    updateLoanIntoRepayment : updateLoanIntoRepayment
 }

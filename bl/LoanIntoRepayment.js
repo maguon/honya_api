@@ -88,8 +88,23 @@ function queryLoanIntoRepayment(req,res,next){
     })
 }
 
+function updateLoanIntoRepayment(req,res,next){
+    var params = req.params;
+    loanIntoRepaymentDAO.updateLoanIntoRepayment(params,function(error,result){
+        if (error) {
+            logger.error(' updateLoanIntoRepayment ' + error.message);
+            throw sysError.InternalError(error.message,sysMsg.SYS_INTERNAL_ERROR_MSG);
+        } else {
+            logger.info(' updateLoanIntoRepayment ' + 'success');
+            resUtil.resetUpdateRes(res,result,null);
+            return next();
+        }
+    })
+}
+
 
 module.exports = {
     createLoanIntoRepayment : createLoanIntoRepayment,
-    queryLoanIntoRepayment : queryLoanIntoRepayment
+    queryLoanIntoRepayment : queryLoanIntoRepayment,
+    updateLoanIntoRepayment : updateLoanIntoRepayment
 }
