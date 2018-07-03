@@ -17,7 +17,6 @@ var logger = serverLogger.createLogger('LoanInto.js');
 
 function createLoanInto(req,res,next){
     var params = req.params ;
-    params.notRepaymentMoney = params.loanIntoMoney;
     loanIntoDAO.addLoanInto(params,function(error,result){
         if (error) {
             logger.error(' createLoanInto ' + error.message);
@@ -46,7 +45,6 @@ function queryLoanInto(req,res,next){
 
 function updateLoanInto(req,res,next){
     var params = req.params ;
-    params.notRepaymentMoney = params.loanIntoMoney;
     loanIntoDAO.updateLoanInto(params,function(error,result){
         if (error) {
             logger.error(' updateLoanInto ' + error.message);
@@ -59,9 +57,53 @@ function updateLoanInto(req,res,next){
     })
 }
 
+function updateLoanIntoStatus(req,res,next){
+    var params = req.params;
+    var loanIntoMoney = 0;
+    var myDate = new Date();
+    var strDate = moment(myDate).format('YYYYMMDD');
+    Seq().seq(function(){
+        var that = this;
+        loanIntoDAO.getLoanInto({loanIntoId:params.loanIntoId},function(error,rows){
+            if (error) {
+                logger.error(' getLoanInto ' + error.message);
+                throw sysError.InternalError(error.message,sysMsg.SYS_INTERNAL_ERROR_MSG);
+            } else{
+                if(rows&&rows.length>0&&rows[0].loan_into_status == sysConst.LOAN_INTO_STATUS.not_loan_into){
+                    loanIntoMoney = rows[0].loan_into_money;
+                    that();
+                }else{
+                    that();
+                }
+            }
+        })
+    }).seq(function () {
+        if(params.loanIntoStatus==sysConst.LOAN_INTO_STATUS.loan_into){
+            params.notRepaymentMoney = loanIntoMoney;
+            params.startDateId = parseInt(strDate);
+            params.loanIntoStartDate = myDate;
+        }
+        if(params.loanIntoStatus==sysConst.LOAN_INTO_STATUS.completed){
+            params.endDateId = parseInt(strDate);
+            params.loanIntoEndDate = myDate;
+        }
+        loanIntoDAO.updateLoanIntoStatus(params,function(error,result){
+            if (error) {
+                logger.error(' updateLoanIntoStatus ' + error.message);
+                throw sysError.InternalError(error.message,sysMsg.SYS_INTERNAL_ERROR_MSG);
+            } else {
+                logger.info(' updateLoanIntoStatus ' + 'success');
+                resUtil.resetUpdateRes(res,result,null);
+                return next();
+            }
+        })
+    })
+}
+
 
 module.exports = {
     createLoanInto : createLoanInto,
     queryLoanInto : queryLoanInto,
-    updateLoanInto : updateLoanInto
+    updateLoanInto : updateLoanInto,
+    updateLoanIntoStatus : updateLoanIntoStatus
 }

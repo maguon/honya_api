@@ -10800,6 +10800,112 @@
         }
       }
     },
+    "/user/{userId}/loanInto/{loanIntoId}": {
+      "put": {
+        "tags": [
+          "loan"
+        ],
+        "summary": "update loanInto info",
+        "description": "update loanInto info",
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "userId",
+            "in": "path",
+            "description": "user Id",
+            "required": true,
+            "type": "integer"
+
+          },
+          {
+            "name": "loanIntoId",
+            "in": "path",
+            "description": "loanInto id",
+            "required": true,
+            "type": "integer"
+
+          },
+          {
+            "name": "loanInto",
+            "in": "body",
+            "description": "loanInto info",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/loanInto"
+            }
+
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "successful operation",
+            "schema": {
+              "type": "object",
+              "items": {
+                "$ref": "#/definitions/ApiResponse"
+              }
+            }
+          },
+          "400": {
+            "description": "Invalid token value or invalid loanInto id"
+          }
+        }
+      }
+    },
+    "/user/{userId}/loanInto/{loanIntoId}/loanIntoStatus/{loanIntoStatus}": {
+      "put": {
+        "tags": [
+          "loan"
+        ],
+        "summary": "update loanInto status",
+        "description": "update loanInto status",
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "userId",
+            "in": "path",
+            "description": "user Id",
+            "required": true,
+            "type": "integer"
+
+          },
+          {
+            "name": "loanIntoId",
+            "in": "path",
+            "description": "loanInto id",
+            "required": true,
+            "type": "integer"
+
+          },
+          {
+            "name": "loanIntoStatus",
+            "in": "path",
+            "description": "loanInto status",
+            "required": true,
+            "type": "integer"
+
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "successful operation",
+            "schema": {
+              "type": "object",
+              "items": {
+                "$ref": "#/definitions/ApiResponse"
+              }
+            }
+          },
+          "400": {
+            "description": "Invalid token value or invalid loanInto id"
+          }
+        }
+      }
+    },
     "/credit": {
       "get": {
         "tags": [

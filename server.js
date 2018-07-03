@@ -455,6 +455,7 @@ function createServer() {
     server.get('/api/loanInto',loanInto.queryLoanInto);
     server.post({path:'/api/user/:userId/loanInto',contentType: 'application/json'},loanInto.createLoanInto);
     server.put({path:'/api/user/:userId/loanInto/:loanIntoId',contentType: 'application/json'} ,loanInto.updateLoanInto);
+    server.put({path:'/api/user/:userId/loanInto/:loanIntoId/loanIntoStatus/:loanIntoStatus',contentType: 'application/json'} ,loanInto.updateLoanIntoStatus);
 
     /**
      * Credit Module

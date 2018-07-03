@@ -7,11 +7,10 @@ var serverLogger = require('../util/ServerLogger.js');
 var logger = serverLogger.createLogger('LoanIntoDAO.js');
 
 function addLoanInto(params,callback){
-    var query = " insert into loan_into_info (loan_into_company_id,loan_into_money,not_repayment_money,remark) values ( ? , ? , ? , ? ) ";
+    var query = " insert into loan_into_info (loan_into_company_id,loan_into_money,remark) values ( ? , ? , ? ) ";
     var paramsArray=[],i=0;
     paramsArray[i++]=params.loanIntoCompanyId;
     paramsArray[i++]=params.loanIntoMoney;
-    paramsArray[i++]=params.notRepaymentMoney;
     paramsArray[i]=params.remark;
     db.dbQuery(query,paramsArray,function(error,rows){
         logger.debug(' addLoanInto ');
@@ -42,7 +41,7 @@ function getLoanInto(params,callback) {
         query = query + " and li.loan_into_status = ? ";
     }
     if(params.loanIntoStatusArr){
-        query = query + " and li.loan_into_status in ("+params.loanIntoStatusArr + ") "
+        query = query + " and li.loan_into_status in ("+params.loanIntoStatusArr + ") ";
     }
     if(params.loanIntoStartDateStart){
         paramsArray[i++] = params.loanIntoStartDateStart +" 00:00:00";
@@ -74,11 +73,10 @@ function getLoanInto(params,callback) {
 }
 
 function updateLoanInto(params,callback){
-    var query = " update loan_into_info set loan_into_company_id = ? , loan_into_money = ? , not_repayment_money = ? , remark = ? where id = ? " ;
+    var query = " update loan_into_info set loan_into_company_id = ? , loan_into_money = ? , remark = ? where id = ? " ;
     var paramsArray=[],i=0;
     paramsArray[i++]=params.loanIntoCompanyId;
     paramsArray[i++]=params.loanIntoMoney;
-    paramsArray[i++]=params.notRepaymentMoney;
     paramsArray[i++]=params.remark;
     paramsArray[i]=params.loanIntoId;
     db.dbQuery(query,paramsArray,function(error,rows){
@@ -87,9 +85,36 @@ function updateLoanInto(params,callback){
     });
 }
 
+function updateLoanIntoStatus(params,callback){
+    if(params.loanIntoStatus==2){
+        var query = " update loan_into_info set not_repayment_money = ? , start_date_id = ? , loan_into_start_date = ? , loan_into_status = ? where id = ? " ;
+    }else if(params.loanIntoStatus==4){
+        var query = " update loan_into_info set end_date_id = ? , loan_into_end_date = ? , loan_into_status = ? where id = ? " ;
+    }else{
+        var query = " update loan_into_info set loan_into_status = ? where id = ? " ;
+    }
+    var paramsArray=[],i=0;
+    if(params.loanIntoStartDate){
+        paramsArray[i++] = params.notRepaymentMoney;
+        paramsArray[i++] = params.startDateId;
+        paramsArray[i++] = params.loanIntoStartDate;
+    }
+    if(params.loanIntoEndDate){
+        paramsArray[i++] = params.endDateId;
+        paramsArray[i++] = params.loanIntoEndDate;
+    }
+    paramsArray[i++]=params.loanIntoStatus;
+    paramsArray[i]=params.loanIntoId;
+    db.dbQuery(query,paramsArray,function(error,rows){
+        logger.debug(' updateLoanIntoStatus ');
+        return callback(error,rows);
+    });
+}
+
 
 module.exports ={
     addLoanInto : addLoanInto,
     getLoanInto : getLoanInto,
-    updateLoanInto : updateLoanInto
+    updateLoanInto : updateLoanInto,
+    updateLoanIntoStatus : updateLoanIntoStatus
 }

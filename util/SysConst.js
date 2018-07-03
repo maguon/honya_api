@@ -23,7 +23,6 @@ var PAYMENT_TYPE  ={ //支付类型
     cheque : 1, //支票
     remittance : 2   //电汇
 };
-
 var FEE_MONEY  ={ //仓储计费金额
     five : 5
 };
@@ -32,13 +31,11 @@ var SHIP_TRANS_STATUS  ={ //订单支付状态
     start : 2,   //已出发
     arrive : 3  //到达
 };
-
 var COUNTRY_TYPE ={
     usa : 1,    //美国
     china : 2   //中国
 
 };
-
 var RECORD_OP_TYPE  ={
     car_import : 11,    //商品车入库
     car_moving : 12,    //商品车移位
@@ -49,19 +46,23 @@ var RECORD_OP_TYPE  ={
     ship_trans_arrive : 33, //海运到达
     ship_trans_cancel : 34  //海运取消
 };
-
-var LOAN_STATUS  ={ //贷款状态
-    not_loan : 1,  //未贷
-    loan : 2, //已贷
-    repayment : 3,  //还款中
-    completed : 4   //完结
-
-};
-
 var MORTGAGE_STATUS  ={ //抵押状态
     not_mortgage : 1,  //未抵押
     mortgage : 2 //抵押
 };
+var LOAN_STATUS  ={ //贷出状态
+    not_loan : 1,  //未贷
+    loan : 2, //已贷
+    repayment : 3,  //还款中
+    completed : 4   //完结
+};
+var LOAN_INTO_STATUS  ={ //贷入状态
+    not_loan_into : 1,  //未贷入
+    loan_into : 2, //已贷入
+    repayment : 3,  //还款中
+    completed : 4   //完结
+};
+
 
 module.exports = {
     USER_TYPE : USER_TYPE,
@@ -73,5 +74,6 @@ module.exports = {
     COUNTRY_TYPE : COUNTRY_TYPE,
     RECORD_OP_TYPE : RECORD_OP_TYPE,
     MORTGAGE_STATUS : MORTGAGE_STATUS,
-    LOAN_STATUS : LOAN_STATUS
+    LOAN_STATUS : LOAN_STATUS,
+    LOAN_INTO_STATUS : LOAN_INTO_STATUS
 }
