@@ -233,6 +233,47 @@ MODIFY COLUMN `rate`  decimal(10,6) NULL DEFAULT 0.000000 COMMENT '利率' AFTER
 -- ----------------------------
 alter table loan_company_info rename loan_into_company_info;
 -- ----------------------------
+-- Table structure for loan_into_info
+-- ----------------------------
+DROP TABLE IF EXISTS `loan_into_info`;
+CREATE TABLE `loan_into_info` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `loan_into_company_id` int(10) NOT NULL COMMENT '贷入公司ID',
+  `loan_into_money` decimal(10,2) NOT NULL DEFAULT '0.00' COMMENT '贷入金额',
+  `not_repayment_money` decimal(10,2) DEFAULT '0.00' COMMENT '未还金额',
+  `start_date_id` int(4) DEFAULT NULL COMMENT '贷入起始统计时间',
+  `loan_into_start_date` datetime DEFAULT NULL COMMENT '贷入起始时间',
+  `end_date_id` int(4) DEFAULT NULL COMMENT '贷入完结统计时间',
+  `loan_into_end_date` datetime DEFAULT NULL COMMENT '贷入完结时间',
+  `last_repayment_date` date DEFAULT NULL COMMENT '最后还款时间',
+  `loan_into_status` tinyint(1) NOT NULL DEFAULT '1' COMMENT '贷入状态(1-未贷入,2-已贷入,3-还款中,4-已完结)',
+  `remark` varchar(200) COLLATE utf8mb4_unicode_ci DEFAULT NULL COMMENT '备注',
+  `created_on` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP COMMENT '创建时间',
+  `updated_on` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP COMMENT '更新时间',
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+-- ----------------------------
+-- Table structure for loan_into_repayment
+-- ----------------------------
+DROP TABLE IF EXISTS `loan_into_repayment`;
+CREATE TABLE `loan_into_repayment` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `loan_into_id` int(10) NOT NULL DEFAULT '0' COMMENT '贷入ID',
+  `repayment_money` decimal(10,2) DEFAULT '0.00' COMMENT '还款金额',
+  `rate` decimal(10,6) DEFAULT '0.000000' COMMENT '利率',
+  `day_count` int(10) DEFAULT '0' COMMENT '产生利息天数',
+  `interest_money` decimal(10,2) DEFAULT '0.00' COMMENT '利息金额',
+  `fee` decimal(10,2) DEFAULT '0.00' COMMENT '手续费',
+  `repayment_total_money` decimal(10,2) DEFAULT '0.00' COMMENT '还款总金额',
+  `remark` varchar(200) COLLATE utf8mb4_unicode_ci DEFAULT NULL COMMENT '备注',
+  `repayment_end_date` datetime DEFAULT NULL COMMENT '还款完结时间',
+  `repayment_status` tinyint(1) NOT NULL DEFAULT '1' COMMENT '还款状态(1-已支付,2-已完结)',
+  `created_on` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP COMMENT '创建时间',
+  `updated_on` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP COMMENT '更新时间',
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+-- ----------------------------
 -- 2018-07-03 更新
 -- ----------------------------
 DROP TRIGGER IF EXISTS `loan_into_repayment_update`;
