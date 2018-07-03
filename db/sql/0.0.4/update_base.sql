@@ -232,3 +232,22 @@ MODIFY COLUMN `rate`  decimal(10,6) NULL DEFAULT 0.000000 COMMENT '利率' AFTER
 -- 2018-07-02 更新
 -- ----------------------------
 alter table loan_company_info rename loan_into_company_info;
+-- ----------------------------
+-- 2018-07-03 更新
+-- ----------------------------
+DROP TRIGGER IF EXISTS `loan_into_repayment_update`;
+DELIMITER ;;
+CREATE TRIGGER `loan_into_repayment_update` AFTER UPDATE ON `loan_into_repayment` FOR EACH ROW BEGIN
+IF (old.repayment_money <>new.repayment_money)THEN
+update loan_into_info set last_repayment_date = CURRENT_DATE(),not_repayment_money = not_repayment_money -(new.repayment_money-old.repayment_money) where id=new.loan_into_id;
+END IF;
+END
+;;
+DELIMITER ;
+DROP TRIGGER IF EXISTS `loan_into_repayment_new`;
+DELIMITER ;;
+CREATE TRIGGER `loan_into_repayment_new` AFTER INSERT ON `loan_into_repayment` FOR EACH ROW BEGIN
+update loan_into_info set last_repayment_date = CURRENT_DATE(),not_repayment_money= not_repayment_money - new.repayment_money where id=new.loan_into_id;
+END
+;;
+DELIMITER ;
