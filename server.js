@@ -461,6 +461,7 @@ function createServer() {
     /**
      * LoanIntoRepayment Module
      */
+    server.get('/api/loanIntoRepayment',loanIntoRepayment.queryLoanIntoRepayment);
     server.post({path:'/api/user/:userId/loanIntoRepayment',contentType: 'application/json'},loanIntoRepayment.createLoanIntoRepayment);
 
     /**
