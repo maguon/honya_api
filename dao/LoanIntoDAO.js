@@ -19,9 +19,10 @@ function addLoanInto(params,callback){
 }
 
 function getLoanInto(params,callback) {
-    var query = " select li.*,lic.company_name " +
+    var query = " select li.*,lic.company_name,sum(lir.repayment_total_money) as repayment_total_money " +
         " from loan_into_info li " +
         " left join loan_into_company_info lic on li.loan_into_company_id = lic.id " +
+        " left join loan_into_repayment lir on li.id = lir.loan_into_id " +
         " where li.id is not null ";
     var paramsArray=[],i=0;
     if(params.loanIntoId){
