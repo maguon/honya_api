@@ -44,8 +44,24 @@ function queryLoanInto(req,res,next){
     })
 }
 
+function updateLoanInto(req,res,next){
+    var params = req.params ;
+    params.notRepaymentMoney = params.loanIntoMoney;
+    loanIntoDAO.updateLoanInto(params,function(error,result){
+        if (error) {
+            logger.error(' updateLoanInto ' + error.message);
+            throw sysError.InternalError(error.message,sysMsg.SYS_INTERNAL_ERROR_MSG);
+        } else {
+            logger.info(' updateLoanInto ' + 'success');
+            resUtil.resetUpdateRes(res,result,null);
+            return next();
+        }
+    })
+}
+
 
 module.exports = {
     createLoanInto : createLoanInto,
-    queryLoanInto : queryLoanInto
+    queryLoanInto : queryLoanInto,
+    updateLoanInto : updateLoanInto
 }

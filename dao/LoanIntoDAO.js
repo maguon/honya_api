@@ -73,8 +73,23 @@ function getLoanInto(params,callback) {
     });
 }
 
+function updateLoanInto(params,callback){
+    var query = " update loan_into_info set loan_into_company_id = ? , loan_into_money = ? , not_repayment_money = ? , remark = ? where id = ? " ;
+    var paramsArray=[],i=0;
+    paramsArray[i++]=params.loanIntoCompanyId;
+    paramsArray[i++]=params.loanIntoMoney;
+    paramsArray[i++]=params.notRepaymentMoney;
+    paramsArray[i++]=params.remark;
+    paramsArray[i]=params.loanIntoId;
+    db.dbQuery(query,paramsArray,function(error,rows){
+        logger.debug(' updateLoanInto ');
+        return callback(error,rows);
+    });
+}
+
 
 module.exports ={
     addLoanInto : addLoanInto,
-    getLoanInto : getLoanInto
+    getLoanInto : getLoanInto,
+    updateLoanInto : updateLoanInto
 }
