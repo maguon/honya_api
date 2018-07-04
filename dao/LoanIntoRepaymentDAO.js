@@ -44,11 +44,11 @@ function getLoanIntoRepayment(params,callback) {
     }
     if(params.createdOnStart){
         paramsArray[i++] = params.createdOnStart +" 00:00:00";
-        query = query + " and lr.created_on >= ? ";
+        query = query + " and lir.created_on >= ? ";
     }
     if(params.createdOnEnd){
         paramsArray[i++] = params.createdOnEnd +" 23:59:59";
-        query = query + " and lr.created_on <= ? ";
+        query = query + " and lir.created_on <= ? ";
     }
     if(params.repaymentStatus){
         paramsArray[i++] = params.repaymentStatus;
