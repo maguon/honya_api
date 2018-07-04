@@ -10755,6 +10755,42 @@
         }
       }
     },
+    "/loanIntoNotCount": {
+      "get": {
+        "tags": [
+          "loan"
+        ],
+        "summary": "query  loanIntoNot count",
+        "description": "query loanIntoNotCount",
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "loanIntoStatusArr",
+            "in": "query",
+            "description": "loanIntoStatus arr",
+            "required": false,
+            "type": "string"
+
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "successful operation",
+            "schema": {
+              "type": "object",
+              "items": {
+                "$ref": "#/definitions/loanInto"
+              }
+            }
+          },
+          "400": {
+            "description": "Invalid token value or invalid loanInto id"
+          }
+        }
+      }
+    },
     "/user/{userId}/loanInto": {
       "post": {
         "tags": [

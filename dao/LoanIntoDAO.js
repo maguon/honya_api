@@ -73,6 +73,19 @@ function getLoanInto(params,callback) {
     });
 }
 
+function getLoanIntoNotCount(params,callback) {
+    var query = " select sum(li.loan_into_money) as loan_into_money,sum(li.not_repayment_money) as not_repayment_money,count(li.id) as loan_count " +
+        " from loan_into_info li where li.id is not null ";
+    var paramsArray=[],i=0;
+    if(params.loanIntoStatusArr){
+        query = query + " and li.loan_into_status in ("+params.loanIntoStatusArr + ") "
+    }
+    db.dbQuery(query,paramsArray,function(error,rows){
+        logger.debug(' getLoanIntoNotCount ');
+        return callback(error,rows);
+    });
+}
+
 function updateLoanInto(params,callback){
     var query = " update loan_into_info set loan_into_company_id = ? , loan_into_money = ? , remark = ? where id = ? " ;
     var paramsArray=[],i=0;
@@ -116,6 +129,7 @@ function updateLoanIntoStatus(params,callback){
 module.exports ={
     addLoanInto : addLoanInto,
     getLoanInto : getLoanInto,
+    getLoanIntoNotCount : getLoanIntoNotCount,
     updateLoanInto : updateLoanInto,
     updateLoanIntoStatus : updateLoanIntoStatus
 }

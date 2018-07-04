@@ -454,6 +454,7 @@ function createServer() {
      * LoanInto Module
      */
     server.get('/api/loanInto',loanInto.queryLoanInto);
+    server.get('/api/loanIntoNotCount',loanInto.queryLoanIntoNotCount);
     server.post({path:'/api/user/:userId/loanInto',contentType: 'application/json'},loanInto.createLoanInto);
     server.put({path:'/api/user/:userId/loanInto/:loanIntoId',contentType: 'application/json'} ,loanInto.updateLoanInto);
     server.put({path:'/api/user/:userId/loanInto/:loanIntoId/loanIntoStatus/:loanIntoStatus',contentType: 'application/json'} ,loanInto.updateLoanIntoStatus);
