@@ -34,6 +34,19 @@ function getLoanIntoCompany(params,callback) {
     });
 }
 
+function getLoanIntoCompanyTotalMoney(params,callback) {
+    var query = " select sum(lic.base_money) as company_total_money  from loan_into_company_info lic where lic.id is not null ";
+    var paramsArray=[],i=0;
+    if(params.companyStatus){
+        paramsArray[i++] = params.companyStatus;
+        query = query + " and lic.company_status = ? ";
+    }
+    db.dbQuery(query,paramsArray,function(error,rows){
+        logger.debug(' getLoanIntoCompanyTotalMoney ');
+        return callback(error,rows);
+    });
+}
+
 function updateLoanIntoCompany(params,callback){
     var query = " update loan_into_company_info set company_name = ? , base_money = ? , contacts = ? , tel = ? , email = ? , remark = ? where id = ? " ;
     var paramsArray=[],i=0;
@@ -65,6 +78,7 @@ function updateLoanIntoCompanyStatus(params,callback){
 module.exports ={
     addLoanIntoCompany : addLoanIntoCompany,
     getLoanIntoCompany : getLoanIntoCompany,
+    getLoanIntoCompanyTotalMoney : getLoanIntoCompanyTotalMoney,
     updateLoanIntoCompany : updateLoanIntoCompany,
     updateLoanIntoCompanyStatus : updateLoanIntoCompanyStatus
 }

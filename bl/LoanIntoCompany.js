@@ -41,6 +41,20 @@ function queryLoanIntoCompany(req,res,next){
     })
 }
 
+function queryLoanIntoCompanyTotalMoney(req,res,next){
+    var params = req.params ;
+    loanIntoCompanyDAO.getLoanIntoCompanyTotalMoney(params,function(error,result){
+        if (error) {
+            logger.error(' queryLoanIntoCompanyTotalMoney ' + error.message);
+            throw sysError.InternalError(error.message,sysMsg.SYS_INTERNAL_ERROR_MSG);
+        } else {
+            logger.info(' queryLoanIntoCompanyTotalMoney ' + 'success');
+            resUtil.resetQueryRes(res,result,null);
+            return next();
+        }
+    })
+}
+
 function updateLoanIntoCompany(req,res,next){
     var params = req.params ;
     loanIntoCompanyDAO.updateLoanIntoCompany(params,function(error,result){
@@ -73,6 +87,7 @@ function updateLoanIntoCompanyStatus(req,res,next){
 module.exports = {
     createLoanIntoCompany : createLoanIntoCompany,
     queryLoanIntoCompany : queryLoanIntoCompany,
+    queryLoanIntoCompanyTotalMoney : queryLoanIntoCompanyTotalMoney,
     updateLoanIntoCompany : updateLoanIntoCompany,
     updateLoanIntoCompanyStatus : updateLoanIntoCompanyStatus
 }

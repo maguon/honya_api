@@ -446,6 +446,7 @@ function createServer() {
      * LoanIntoCompany Module
      */
     server.get('/api/loanIntoCompany',loanIntoCompany.queryLoanIntoCompany);
+    server.get('/api/loanIntoCompanyTotalMoney',loanIntoCompany.queryLoanIntoCompanyTotalMoney);
     server.post({path:'/api/user/:userId/loanIntoCompany',contentType: 'application/json'},loanIntoCompany.createLoanIntoCompany);
     server.put({path:'/api/user/:userId/loanIntoCompany/:loanIntoCompanyId',contentType: 'application/json'} ,loanIntoCompany.updateLoanIntoCompany);
     server.put({path:'/api/user/:userId/loanIntoCompany/:loanIntoCompanyId/companyStatus/:companyStatus',contentType: 'application/json'} ,loanIntoCompany.updateLoanIntoCompanyStatus);

@@ -10488,6 +10488,42 @@
         }
       }
     },
+    "/loanIntoCompanyTotalMoney": {
+      "get": {
+        "tags": [
+          "loan"
+        ],
+        "summary": "query  loanIntoCompanyTotalMoney",
+        "description": "query loanIntoCompanyTotalMoney",
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "companyStatus",
+            "in": "query",
+            "description": "company status",
+            "required": false,
+            "type": "integer"
+
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "successful operation",
+            "schema": {
+              "type": "object",
+              "items": {
+                "$ref": "#/definitions/loanIntoCompany"
+              }
+            }
+          },
+          "400": {
+            "description": "Invalid token value or invalid loanIntoCompany id"
+          }
+        }
+      }
+    },
     "/user/{userId}/loanIntoCompany": {
       "post": {
         "tags": [
