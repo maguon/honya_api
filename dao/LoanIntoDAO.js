@@ -86,6 +86,35 @@ function getLoanIntoNotCount(params,callback) {
     });
 }
 
+function getLoanIntoStatDate(params,callback) {
+    var query = " select * from loan_into_stat_date where date_id is not null ";
+    var paramsArray=[],i=0;
+    if(params.yearMonth){
+        paramsArray[i++] = params.yearMonth;
+        query = query + " and date_format(date_id,'%Y%m') = ? ";
+    }
+    if(params.yearMonthStart){
+        paramsArray[i++] = params.yearMonthStart;
+        query = query + " and date_format(date_id,'%Y%m') >= ? ";
+    }
+    if(params.yearMonthEnd){
+        paramsArray[i] = params.yearMonthEnd;
+        query = query + " and date_format(date_id,'%Y%m') <= ? ";
+    }
+    if(params.dateStart){
+        paramsArray[i++] = params.dateStart;
+        query = query + " and date_id >= ? ";
+    }
+    if(params.dateEnd){
+        paramsArray[i++] = params.dateEnd;
+        query = query + " and date_id <= ? ";
+    }
+    db.dbQuery(query,paramsArray,function(error,rows){
+        logger.debug(' getLoanIntoStatDate ');
+        return callback(error,rows);
+    });
+}
+
 function updateLoanInto(params,callback){
     var query = " update loan_into_info set loan_into_company_id = ? , loan_into_money = ? , remark = ? where id = ? " ;
     var paramsArray=[],i=0;
@@ -130,6 +159,7 @@ module.exports ={
     addLoanInto : addLoanInto,
     getLoanInto : getLoanInto,
     getLoanIntoNotCount : getLoanIntoNotCount,
+    getLoanIntoStatDate : getLoanIntoStatDate,
     updateLoanInto : updateLoanInto,
     updateLoanIntoStatus : updateLoanIntoStatus
 }

@@ -10827,6 +10827,74 @@
         }
       }
     },
+    "/loanIntoStatDate": {
+      "get": {
+        "tags": [
+          "loan"
+        ],
+        "summary": "query  loanIntoStatDate list",
+        "description": "query loanIntoStatDate",
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "yearMonth",
+            "in": "query",
+            "description": "yearMonth",
+            "required": false,
+            "type": "integer"
+
+          },
+          {
+            "name": "yearMonthStart",
+            "in": "query",
+            "description": "yearMonth start",
+            "required": false,
+            "type": "integer"
+
+          },
+          {
+            "name": "yearMonthEnd",
+            "in": "query",
+            "description": "yearMonth end",
+            "required": false,
+            "type": "integer"
+
+          },
+          {
+            "name": "dateStart",
+            "in": "query",
+            "description": "date start",
+            "required": false,
+            "type": "integer"
+
+          },
+          {
+            "name": "dateEnd",
+            "in": "query",
+            "description": "date end",
+            "required": false,
+            "type": "integer"
+
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "successful operation",
+            "schema": {
+              "type": "object",
+              "items": {
+                "$ref": "#/definitions/loanIntoStatDate"
+              }
+            }
+          },
+          "400": {
+            "description": "Invalid token value or invalid date id"
+          }
+        }
+      }
+    },
     "/user/{userId}/loanInto": {
       "post": {
         "tags": [

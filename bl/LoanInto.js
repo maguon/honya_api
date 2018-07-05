@@ -57,6 +57,20 @@ function queryLoanIntoNotCount(req,res,next){
     })
 }
 
+function queryLoanIntoStatDate(req,res,next){
+    var params = req.params ;
+    loanIntoDAO.getLoanIntoStatDate(params,function(error,result){
+        if (error) {
+            logger.error(' queryLoanIntoStatDate ' + error.message);
+            throw sysError.InternalError(error.message,sysMsg.SYS_INTERNAL_ERROR_MSG);
+        } else {
+            logger.info(' queryLoanIntoStatDate ' + 'success');
+            resUtil.resetQueryRes(res,result,null);
+            return next();
+        }
+    })
+}
+
 function updateLoanInto(req,res,next){
     var params = req.params ;
     loanIntoDAO.updateLoanInto(params,function(error,result){
@@ -119,6 +133,7 @@ module.exports = {
     createLoanInto : createLoanInto,
     queryLoanInto : queryLoanInto,
     queryLoanIntoNotCount : queryLoanIntoNotCount,
+    queryLoanIntoStatDate : queryLoanIntoStatDate,
     updateLoanInto : updateLoanInto,
     updateLoanIntoStatus : updateLoanIntoStatus
 }
