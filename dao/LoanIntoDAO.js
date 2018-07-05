@@ -74,7 +74,7 @@ function getLoanInto(params,callback) {
 }
 
 function getLoanIntoNotCount(params,callback) {
-    var query = " select sum(lic.base_money) as company_base_money,sum(li.not_repayment_money) as not_repayment_money,count(li.id) as loan_count " +
+    var query = " select sum(distinct lic.base_money) as company_base_money,sum(li.not_repayment_money) as not_repayment_money,count(li.id) as loan_count " +
         " from loan_into_info li " +
         " left join loan_into_company_info lic on li.loan_into_company_id = lic.id " +
         " where li.id is not null ";
