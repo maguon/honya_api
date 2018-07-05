@@ -292,3 +292,26 @@ update loan_into_info set last_repayment_date = CURRENT_DATE(),not_repayment_mon
 END
 ;;
 DELIMITER ;
+-- ----------------------------
+-- 2018-07-05 更新
+-- ----------------------------
+DROP TRIGGER IF EXISTS `trg_loan_into_stat_update`;
+DELIMITER ;;
+CREATE TRIGGER `trg_loan_into_stat_update` AFTER UPDATE ON `loan_into_info` FOR EACH ROW BEGIN
+IF (old.loan_into_status <>2 and new.loan_into_status=2)THEN
+update loan_into_stat_date set loan_into_count = loan_into_count+1,loan_into_money= loan_into_money +(select loan_into_money from loan_into_info where loan_into_status = 2 and id=new.id)
+where date_id=DATE_FORMAT(CURRENT_DATE(),'%Y%m%d');
+END IF;
+END
+;;
+DELIMITER ;
+DROP TRIGGER IF EXISTS `trg_loan_into_repayment_stat_update`;
+DELIMITER ;;
+CREATE TRIGGER `trg_loan_into_repayment_stat_update` AFTER UPDATE ON `loan_into_repayment` FOR EACH ROW BEGIN
+IF (old.repayment_status <>2 and new.repayment_status=2)THEN
+update loan_into_stat_date set repayment_count = repayment_count+1,repayment_money= repayment_money +(select repayment_money from loan_into_repayment where repayment_status = 2 and id=new.id)
+where date_id=DATE_FORMAT(CURRENT_DATE(),'%Y%m%d');
+END IF;
+END
+;;
+DELIMITER ;
