@@ -409,6 +409,7 @@ function createServer() {
      */
     server.get('/api/loan',loan.queryLoan);
     server.get('/api/loanNotCount',loan.queryLoanNotCount);
+    server.get('/api/loanStatDate',loan.queryLoanStatDate);
     server.post({path:'/api/user/:userId/loan',contentType: 'application/json'},loan.createLoan);
     server.put({path:'/api/user/:userId/loan/:loanId',contentType: 'application/json'} ,loan.updateLoan);
     server.put({path:'/api/user/:userId/loan/:loanId/loanStatus/:loanStatus',contentType: 'application/json'} ,loan.updateLoanStatus);

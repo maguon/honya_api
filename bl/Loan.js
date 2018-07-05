@@ -60,6 +60,20 @@ function queryLoanNotCount(req,res,next){
     })
 }
 
+function queryLoanStatDate(req,res,next){
+    var params = req.params ;
+    loanDAO.getLoanStatDate(params,function(error,result){
+        if (error) {
+            logger.error(' queryLoanStatDate ' + error.message);
+            throw sysError.InternalError(error.message,sysMsg.SYS_INTERNAL_ERROR_MSG);
+        } else {
+            logger.info(' queryLoanStatDate ' + 'success');
+            resUtil.resetQueryRes(res,result,null);
+            return next();
+        }
+    })
+}
+
 function updateLoan(req,res,next){
     var params = req.params ;
     params.notRepaymentMoney = params.loanMoney;
@@ -212,6 +226,7 @@ module.exports = {
     createLoan : createLoan,
     queryLoan : queryLoan,
     queryLoanNotCount : queryLoanNotCount,
+    queryLoanStatDate : queryLoanStatDate,
     updateLoan : updateLoan,
     updateLoanStatus : updateLoanStatus
 }

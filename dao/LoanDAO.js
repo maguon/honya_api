@@ -88,6 +88,35 @@ function getLoanNotCount(params,callback) {
     });
 }
 
+function getLoanStatDate(params,callback) {
+    var query = " select * from loan_stat_date where date_id is not null ";
+    var paramsArray=[],i=0;
+    if(params.yearMonth){
+        paramsArray[i++] = params.yearMonth;
+        query = query + " and date_format(date_id,'%Y%m') = ? ";
+    }
+    if(params.yearMonthStart){
+        paramsArray[i++] = params.yearMonthStart;
+        query = query + " and date_format(date_id,'%Y%m') >= ? ";
+    }
+    if(params.yearMonthEnd){
+        paramsArray[i] = params.yearMonthEnd;
+        query = query + " and date_format(date_id,'%Y%m') <= ? ";
+    }
+    if(params.dateStart){
+        paramsArray[i++] = params.dateStart;
+        query = query + " and date_id >= ? ";
+    }
+    if(params.dateEnd){
+        paramsArray[i++] = params.dateEnd;
+        query = query + " and date_id <= ? ";
+    }
+    db.dbQuery(query,paramsArray,function(error,rows){
+        logger.debug(' getLoanStatDate ');
+        return callback(error,rows);
+    });
+}
+
 function updateLoan(params,callback){
     var query = " update loan_info set deposit = ? , loan_money = ? , not_repayment_money = ? , remark = ? where id = ? " ;
     var paramsArray=[],i=0;
@@ -182,6 +211,7 @@ module.exports ={
     addLoan : addLoan,
     getLoan : getLoan,
     getLoanNotCount : getLoanNotCount,
+    getLoanStatDate : getLoanStatDate,
     updateLoan : updateLoan,
     updateMortgageCarCountPlus : updateMortgageCarCountPlus,
     updateMortgageCarCountMinus : updateMortgageCarCountMinus,
