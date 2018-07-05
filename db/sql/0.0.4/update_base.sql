@@ -327,3 +327,38 @@ END IF;
 END
 ;;
 DELIMITER ;
+-- ----------------------------
+-- Table structure for loan_stat_date
+-- ----------------------------
+DROP TABLE IF EXISTS `loan_stat_date`;
+CREATE TABLE `loan_stat_date` (
+  `date_id` int(11) NOT NULL,
+  `loan_count` int(11) NOT NULL DEFAULT '0' COMMENT '贷出数',
+  `loan_money` decimal(10,2) NOT NULL DEFAULT '0.00' COMMENT '贷出金额',
+  `repayment_count` int(11) NOT NULL DEFAULT '0' COMMENT '还款数',
+  `repayment_money` decimal(10,2) NOT NULL DEFAULT '0.00' COMMENT '还款金额',
+  PRIMARY KEY (`date_id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+-- ----------------------------
+-- 2018-07-05 更新
+-- ----------------------------
+DROP TRIGGER IF EXISTS `trg_loan_stat_update`;
+DELIMITER ;;
+CREATE TRIGGER `trg_loan_stat_update` AFTER UPDATE ON `loan_info` FOR EACH ROW BEGIN
+IF (old.loan_status <>2 and new.loan_status=2)THEN
+update loan_stat_date set loan_count = loan_count+1,loan_money= loan_money +(select loan_money from loan_info where loan_status = 2 and id=new.id)
+where date_id=DATE_FORMAT(CURRENT_DATE(),'%Y%m%d');
+END IF;
+END
+;;
+DELIMITER ;
+DROP TRIGGER IF EXISTS `trg_loan_repayment_stat_update`;
+DELIMITER ;;
+CREATE TRIGGER `trg_loan_repayment_stat_update` AFTER UPDATE ON `loan_repayment` FOR EACH ROW BEGIN
+IF (old.repayment_status <>2 and new.repayment_status=2)THEN
+update loan_stat_date set repayment_count = repayment_count+1,repayment_money= repayment_money +(select repayment_money from loan_repayment where repayment_status = 2 and id=new.id)
+where date_id=DATE_FORMAT(CURRENT_DATE(),'%Y%m%d');
+END IF;
+END
+;;
+DELIMITER ;
