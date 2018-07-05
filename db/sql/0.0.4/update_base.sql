@@ -293,6 +293,18 @@ END
 ;;
 DELIMITER ;
 -- ----------------------------
+-- Table structure for loan_into_stat_date
+-- ----------------------------
+DROP TABLE IF EXISTS `loan_into_stat_date`;
+CREATE TABLE `loan_into_stat_date` (
+  `date_id` int(11) NOT NULL,
+  `loan_into_count` int(11) NOT NULL DEFAULT '0' COMMENT '贷入数',
+  `loan_into_money` decimal(10,2) NOT NULL DEFAULT '0.00' COMMENT '贷入金额',
+  `repayment_count` int(11) NOT NULL DEFAULT '0' COMMENT '还款数',
+  `repayment_money` decimal(10,2) NOT NULL DEFAULT '0.00' COMMENT '还款金额',
+  PRIMARY KEY (`date_id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+-- ----------------------------
 -- 2018-07-05 更新
 -- ----------------------------
 DROP TRIGGER IF EXISTS `trg_loan_into_stat_update`;
