@@ -9681,6 +9681,106 @@
         }
       }
     },
+    "/loan.csv": {
+      "get": {
+        "tags": [
+          "loan"
+        ],
+        "summary": "query loan csv",
+        "description": "query loanCsv",
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "loanId",
+            "in": "query",
+            "description": "loan id",
+            "required": false,
+            "type": "integer"
+
+          },
+          {
+            "name": "entrustType",
+            "in": "query",
+            "description": "entrust type",
+            "required": false,
+            "type": "integer"
+
+          },
+          {
+            "name": "entrustId",
+            "in": "query",
+            "description": "entrust id",
+            "required": false,
+            "type": "integer"
+
+          },
+          {
+            "name": "loanStatus",
+            "in": "query",
+            "description": "loan status",
+            "required": false,
+            "type": "integer"
+
+          },
+          {
+            "name": "loanStatusArr",
+            "in": "query",
+            "description": "loanStatus arr",
+            "required": false,
+            "type": "string"
+
+          },
+          {
+            "name": "loanStartDateStart",
+            "in": "query",
+            "description": "loanStartDate start",
+            "required": false,
+            "type": "string"
+
+          },
+          {
+            "name": "loanStartDateEnd",
+            "in": "query",
+            "description": "loanStartDate end",
+            "required": false,
+            "type": "string"
+
+          },
+          {
+            "name": "loanEndDateStart",
+            "in": "query",
+            "description": "loanEndDate start",
+            "required": false,
+            "type": "string"
+
+          },
+          {
+            "name": "loanEndDateEnd",
+            "in": "query",
+            "description": "loanEndDate end",
+            "required": false,
+            "type": "string"
+
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "successful operation",
+            "schema": {
+              "type": "object",
+              "items": {
+                "$ref": "#/definitions/loan"
+              }
+            }
+          },
+          "400": {
+            "description": "Invalid token value or invalid loan id"
+          }
+        }
+      }
+    },
     "/user/{userId}/loan": {
       "post": {
         "tags": [
