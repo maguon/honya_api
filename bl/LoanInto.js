@@ -128,6 +128,66 @@ function updateLoanIntoStatus(req,res,next){
     })
 }
 
+function getLoanIntoCsv(req,res,next){
+    var csvString = "";
+    var header = "贷入编号" + ',' + "贷入公司" + ',' + "贷入金额" + ','+ "贷入时间" + ','+ "已还总金额"+ ','+ "未还本金" + ','+ "完结时间" + ',' + "状态" + ',' + "备注";
+    csvString = header + '\r\n'+csvString;
+    var params = req.params ;
+    var parkObj = {};
+    loanIntoDAO.getLoanInto(params,function(error,rows){
+        if (error) {
+            logger.error(' getLoan ' + error.message);
+            throw sysError.InternalError(error.message,sysMsg.SYS_INTERNAL_ERROR_MSG);
+        } else {
+            for(var i=0;i<rows.length;i++){
+                parkObj.id = rows[i].id;
+                parkObj.companyName = rows[i].company_name;
+                parkObj.loanIntoMoney = rows[i].loan_into_money;
+                if(rows[i].loan_into_start_date == null){
+                    parkObj.loanIntStartDate = "";
+                }else{
+                    parkObj.loanIntStartDate = new Date(rows[i].loan_into_start_date).toLocaleDateString();
+                }
+                if(rows[i].repayment_total_money == null){
+                    parkObj.repaymentTotalMoney = "";
+                }else{
+                    parkObj.repaymentTotalMoney = rows[i].repayment_total_money;
+                }
+                parkObj.notRepaymentMoney = rows[i].not_repayment_money;
+                if(rows[i].loan_into_end_date == null){
+                    parkObj.loanIntoEndDate = "";
+                }else{
+                    parkObj.loanIntoEndDate = new Date(rows[i].loan_into_end_date).toLocaleDateString();
+                }
+                if(rows[i].loan_into_status == 1){
+                    parkObj.loanIntoStatus = "未贷";
+                }else if(rows[i].loan_into_status == 2){
+                    parkObj.loanIntoStatus = "已贷";
+                }else if(rows[i].loan_into_status == 3){
+                    parkObj.loanIntoStatus = "还款中";
+                }else{
+                    parkObj.loanIntoStatus = "完结";
+                }
+                if(rows[i].remark == null){
+                    parkObj.remark = "";
+                }else{
+                    parkObj.remark = rows[i].remark;
+                }
+                csvString = csvString+parkObj.id+","+parkObj.companyName+","+parkObj.loanIntoMoney+","+parkObj.loanIntStartDate+","+parkObj.repaymentTotalMoney
+                    +","+parkObj.notRepaymentMoney+","+parkObj.loanIntoEndDate+","+parkObj.loanIntoStatus+","+parkObj.remark + '\r\n';
+            }
+            var csvBuffer = new Buffer(csvString,'utf8');
+            res.set('content-type', 'application/csv');
+            res.set('charset', 'utf8');
+            res.set('content-length', csvBuffer.length);
+            res.writeHead(200);
+            res.write(csvBuffer);//TODO
+            res.end();
+            return next(false);
+        }
+    })
+}
+
 
 module.exports = {
     createLoanInto : createLoanInto,
@@ -135,5 +195,6 @@ module.exports = {
     queryLoanIntoNotCount : queryLoanIntoNotCount,
     queryLoanIntoStatDate : queryLoanIntoStatDate,
     updateLoanInto : updateLoanInto,
-    updateLoanIntoStatus : updateLoanIntoStatus
+    updateLoanIntoStatus : updateLoanIntoStatus,
+    getLoanIntoCsv : getLoanIntoCsv
 }
