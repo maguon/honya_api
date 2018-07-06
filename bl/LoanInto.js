@@ -171,7 +171,7 @@ function getLoanIntoCsv(req,res,next){
                 if(rows[i].remark == null){
                     parkObj.remark = "";
                 }else{
-                    parkObj.remark = rows[i].remark;
+                    parkObj.remark = rows[i].remark.replace(/[\r\n]/g, '');
                 }
                 csvString = csvString+parkObj.id+","+parkObj.companyName+","+parkObj.loanIntoMoney+","+parkObj.loanIntStartDate+","+parkObj.repaymentTotalMoney
                     +","+parkObj.notRepaymentMoney+","+parkObj.loanIntoEndDate+","+parkObj.loanIntoStatus+","+parkObj.remark + '\r\n';
