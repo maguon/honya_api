@@ -433,6 +433,7 @@ function createServer() {
      * LoanRepayment Module
      */
     server.get('/api/loanRepayment',loanRepayment.queryLoanRepayment);
+    server.get('/api/loanRepayment.csv',loanRepayment.getLoanRepaymentCsv);
     server.post({path:'/api/user/:userId/loanRepayment',contentType: 'application/json'},loanRepayment.createLoanRepayment);
     server.put({path:'/api/user/:userId/repayment/:repaymentId',contentType: 'application/json'} ,loanRepayment.updateLoanRepayment);
     server.put({path:'/api/user/:userId/repayment/:repaymentId/repaymentStatus/:repaymentStatus',contentType: 'application/json'} ,loanRepayment.updateLoanRepaymentStatus);

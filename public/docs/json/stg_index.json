@@ -10326,6 +10326,98 @@
         }
       }
     },
+    "/loanRepayment.csv": {
+      "get": {
+        "tags": [
+          "loan"
+        ],
+        "summary": "query loanRepayment csv",
+        "description": "query loanRepaymentCsv",
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "repaymentId",
+            "in": "query",
+            "description": "repayment id",
+            "required": false,
+            "type": "integer"
+
+          },
+          {
+            "name": "entrustId",
+            "in": "query",
+            "description": "entrust id",
+            "required": false,
+            "type": "integer"
+
+          },
+          {
+            "name": "loanId",
+            "in": "query",
+            "description": "loan id",
+            "required": false,
+            "type": "integer"
+
+          },
+          {
+            "name": "repaymentStatus",
+            "in": "query",
+            "description": "repayment status",
+            "required": false,
+            "type": "integer"
+
+          },
+          {
+            "name": "creditId",
+            "in": "query",
+            "description": "credit id",
+            "required": false,
+            "type": "integer"
+
+          },
+          {
+            "name": "paymentId",
+            "in": "query",
+            "description": "payment id",
+            "required": false,
+            "type": "integer"
+
+          },
+          {
+            "name": "createdOnStart",
+            "in": "query",
+            "description": "createdOn start",
+            "required": false,
+            "type": "string"
+
+          },
+          {
+            "name": "createdOnEnd",
+            "in": "query",
+            "description": "createdOn end",
+            "required": false,
+            "type": "string"
+
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "successful operation",
+            "schema": {
+              "type": "object",
+              "items": {
+                "$ref": "#/definitions/loanRepayment"
+              }
+            }
+          },
+          "400": {
+            "description": "Invalid token value or invalid loanRepayment id"
+          }
+        }
+      }
+    },
     "/user/{userId}/loanRepayment": {
       "post": {
         "tags": [

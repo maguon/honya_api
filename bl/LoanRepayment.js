@@ -119,10 +119,58 @@ function updateLoanRepaymentStatus(req,res,next){
     })
 }
 
+function getLoanRepaymentCsv(req,res,next){
+    var csvString = "";
+    var header = "贷出还款编号" + ',' + "委托方" + ',' + "贷出编号" + ','+ "还款金额" + ','+ "利率(%)"+ ','+ "计息天数"+ ','+ "利息" + ','+ "手续费" + ',' + "还款时间"
+        + ',' + "状态" + ',' + "备注";
+    csvString = header + '\r\n'+csvString;
+    var params = req.params ;
+    var parkObj = {};
+    loanRepaymentDAO.getLoanRepayment(params,function(error,rows){
+        if (error) {
+            logger.error(' getLoanRepayment ' + error.message);
+            throw sysError.InternalError(error.message,sysMsg.SYS_INTERNAL_ERROR_MSG);
+        } else {
+            for(var i=0;i<rows.length;i++){
+                parkObj.id = rows[i].id;
+                parkObj.shortName = rows[i].short_name;
+                parkObj.loanId = rows[i].loan_id;
+                parkObj.repaymentMoney = rows[i].repayment_money;
+                parkObj.rate = rows[i].rate;
+                parkObj.dayCount = rows[i].day_count;
+                parkObj.interestMoney = rows[i].interest_money;
+                parkObj.fee = rows[i].fee;
+                parkObj.createdOn = new Date(rows[i].created_on).toLocaleDateString();
+                if(rows[i].repayment_status == 1){
+                    parkObj.repaymentStatus = "未完结";
+                }else{
+                    parkObj.repaymentStatus = "已完结";
+                }
+                if(rows[i].remark == null){
+                    parkObj.remark = "";
+                }else{
+                    parkObj.remark = rows[i].remark;
+                }
+                csvString = csvString+parkObj.id+","+parkObj.shortName+","+parkObj.loanId+","+parkObj.repaymentMoney+","+parkObj.rate+","+parkObj.dayCount
+                    +","+parkObj.interestMoney+","+parkObj.fee+","+parkObj.createdOn +","+parkObj.repaymentStatus+","+parkObj.remark + '\r\n';
+            }
+            var csvBuffer = new Buffer(csvString,'utf8');
+            res.set('content-type', 'application/csv');
+            res.set('charset', 'utf8');
+            res.set('content-length', csvBuffer.length);
+            res.writeHead(200);
+            res.write(csvBuffer);//TODO
+            res.end();
+            return next(false);
+        }
+    })
+}
+
 
 module.exports = {
     createLoanRepayment : createLoanRepayment,
     queryLoanRepayment : queryLoanRepayment,
     updateLoanRepayment : updateLoanRepayment,
-    updateLoanRepaymentStatus : updateLoanRepaymentStatus
+    updateLoanRepaymentStatus : updateLoanRepaymentStatus,
+    getLoanRepaymentCsv : getLoanRepaymentCsv
 }
