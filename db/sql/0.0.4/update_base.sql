@@ -268,7 +268,7 @@ CREATE TABLE `loan_into_repayment` (
   `repayment_total_money` decimal(10,2) DEFAULT '0.00' COMMENT '还款总金额',
   `remark` varchar(200) COLLATE utf8mb4_unicode_ci DEFAULT NULL COMMENT '备注',
   `repayment_end_date` datetime DEFAULT NULL COMMENT '还款完结时间',
-  `repayment_status` tinyint(1) NOT NULL DEFAULT '1' COMMENT '还款状态(1-已支付,2-已完结)',
+  `repayment_status` tinyint(1) NOT NULL DEFAULT '1' COMMENT '还款状态(1-未完结,2-已完结)',
   `created_on` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP COMMENT '创建时间',
   `updated_on` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP COMMENT '更新时间',
   PRIMARY KEY (`id`)

@@ -10963,6 +10963,106 @@
         }
       }
     },
+    "/loanInto.csv": {
+      "get": {
+        "tags": [
+          "loan"
+        ],
+        "summary": "query  loanInto csv",
+        "description": "query loanIntoCsv",
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "loanIntoId",
+            "in": "query",
+            "description": "loanInto id",
+            "required": false,
+            "type": "integer"
+
+          },
+          {
+            "name": "loanIntoCompanyId",
+            "in": "query",
+            "description": "loanIntoCompany id",
+            "required": false,
+            "type": "integer"
+
+          },
+          {
+            "name": "companyName",
+            "in": "query",
+            "description": "company name",
+            "required": false,
+            "type": "string"
+
+          },
+          {
+            "name": "loanIntoStatus",
+            "in": "query",
+            "description": "loanInto status",
+            "required": false,
+            "type": "integer"
+
+          },
+          {
+            "name": "loanIntoStatusArr",
+            "in": "query",
+            "description": "loanIntoStatus arr",
+            "required": false,
+            "type": "string"
+
+          },
+          {
+            "name": "loanIntoStartDateStart",
+            "in": "query",
+            "description": "loanIntoStartDate start",
+            "required": false,
+            "type": "string"
+
+          },
+          {
+            "name": "loanIntoStartDateEnd",
+            "in": "query",
+            "description": "loanIntoStartDate end",
+            "required": false,
+            "type": "string"
+
+          },
+          {
+            "name": "loanIntoEndDateStart",
+            "in": "query",
+            "description": "loanIntoEndDate start",
+            "required": false,
+            "type": "string"
+
+          },
+          {
+            "name": "loanIntoEndDateEnd",
+            "in": "query",
+            "description": "loanIntoEndDate end",
+            "required": false,
+            "type": "string"
+
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "successful operation",
+            "schema": {
+              "type": "object",
+              "items": {
+                "$ref": "#/definitions/loanInto"
+              }
+            }
+          },
+          "400": {
+            "description": "Invalid token value or invalid loanInto id"
+          }
+        }
+      }
+    },
     "/user/{userId}/loanInto": {
       "post": {
         "tags": [
@@ -11185,6 +11285,82 @@
             "name": "size",
             "in": "query",
             "description": "list size for pagination",
+            "required": false,
+            "type": "integer"
+
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "successful operation",
+            "schema": {
+              "type": "object",
+              "items": {
+                "$ref": "#/definitions/loanIntoRepayment"
+              }
+            }
+          },
+          "400": {
+            "description": "Invalid token value or invalid loanIntoRepayment id"
+          }
+        }
+      }
+    },
+    "/loanIntoRepayment.csv": {
+      "get": {
+        "tags": [
+          "loan"
+        ],
+        "summary": "query  loanIntoRepayment csv",
+        "description": "query loanIntoRepaymentCsv",
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "repaymentId",
+            "in": "query",
+            "description": "repayment id",
+            "required": false,
+            "type": "integer"
+
+          },
+          {
+            "name": "loanIntoCompanyId",
+            "in": "query",
+            "description": "loanIntoCompany id",
+            "required": false,
+            "type": "integer"
+
+          },
+          {
+            "name": "loanIntoId",
+            "in": "query",
+            "description": "loanInto id",
+            "required": false,
+            "type": "integer"
+
+          },
+          {
+            "name": "createdOnStart",
+            "in": "query",
+            "description": "createdOn start",
+            "required": false,
+            "type": "string"
+
+          },
+          {
+            "name": "createdOnEnd",
+            "in": "query",
+            "description": "createdOn end",
+            "required": false,
+            "type": "string"
+
+          },
+          {
+            "name": "repaymentStatus",
+            "in": "query",
+            "description": "repayment status",
             "required": false,
             "type": "integer"
 

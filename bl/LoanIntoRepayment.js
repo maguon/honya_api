@@ -118,10 +118,62 @@ function updateLoanIntoRepaymentStatus(req,res,next){
     })
 }
 
+function getLoanIntoRepaymentCsv(req,res,next){
+    var csvString = "";
+    var header = "贷入还款编号" + ',' + "贷入公司" + ',' + "贷入编号" + ','+ "归还本金" + ','+ "计息天数"+ ','+ "利息" + ','+ "手续费" + ',' + "实际还款金额"
+        + ',' + "还款时间"+ ',' + "状态" + ',' + "备注";
+    csvString = header + '\r\n'+csvString;
+    var params = req.params ;
+    var parkObj = {};
+    loanIntoRepaymentDAO.getLoanIntoRepayment(params,function(error,rows){
+        if (error) {
+            logger.error(' getLoan ' + error.message);
+            throw sysError.InternalError(error.message,sysMsg.SYS_INTERNAL_ERROR_MSG);
+        } else {
+            for(var i=0;i<rows.length;i++){
+                parkObj.id = rows[i].id;
+                parkObj.companyName = rows[i].company_name;
+                parkObj.loanIntoId = rows[i].loan_into_id;
+                parkObj.repaymentMoney = rows[i].repayment_money;
+                parkObj.dayCount = rows[i].day_count;
+                parkObj.rate = rows[i].rate;
+                parkObj.fee = rows[i].fee;
+                parkObj.repaymentTotalMoney = rows[i].repayment_total_money;
+                if(rows[i].repayment_end_date == null){
+                    parkObj.repaymentEndDate = "";
+                }else{
+                    parkObj.repaymentEndDate = new Date(rows[i].repayment_end_date).toLocaleDateString();
+                }
+                if(rows[i].repayment_status == 1){
+                    parkObj.repaymentStatus = "未完结";
+                }else{
+                    parkObj.repaymentStatus = "已完结";
+                }
+                if(rows[i].remark == null){
+                    parkObj.remark = "";
+                }else{
+                    parkObj.remark = rows[i].remark;
+                }
+                csvString = csvString+parkObj.id+","+parkObj.companyName+","+parkObj.loanIntoId+","+parkObj.repaymentMoney+","+parkObj.dayCount
+                    +","+parkObj.rate+","+parkObj.fee+","+parkObj.repaymentTotalMoney+","+parkObj.repaymentEndDate +","+parkObj.repaymentStatus+","+parkObj.remark + '\r\n';
+            }
+            var csvBuffer = new Buffer(csvString,'utf8');
+            res.set('content-type', 'application/csv');
+            res.set('charset', 'utf8');
+            res.set('content-length', csvBuffer.length);
+            res.writeHead(200);
+            res.write(csvBuffer);//TODO
+            res.end();
+            return next(false);
+        }
+    })
+}
+
 
 module.exports = {
     createLoanIntoRepayment : createLoanIntoRepayment,
     queryLoanIntoRepayment : queryLoanIntoRepayment,
     updateLoanIntoRepayment : updateLoanIntoRepayment,
-    updateLoanIntoRepaymentStatus : updateLoanIntoRepaymentStatus
+    updateLoanIntoRepaymentStatus : updateLoanIntoRepaymentStatus,
+    getLoanIntoRepaymentCsv : getLoanIntoRepaymentCsv
 }
