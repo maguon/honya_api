@@ -120,14 +120,14 @@ function updateLoanIntoRepaymentStatus(req,res,next){
 
 function getLoanIntoRepaymentCsv(req,res,next){
     var csvString = "";
-    var header = "贷入还款编号" + ',' + "贷入公司" + ',' + "贷入编号" + ','+ "归还本金" + ','+ "计息天数"+ ','+ "利息" + ','+ "手续费" + ',' + "实际还款金额"
+    var header = "贷入还款编号" + ',' + "贷入公司" + ',' + "贷入编号" + ','+ "归还本金" + ','+ "利率(%)"+ ','+ "计息天数"+ ','+ "利息" + ','+ "手续费" + ',' + "实际还款金额"
         + ',' + "还款时间"+ ',' + "状态" + ',' + "备注";
     csvString = header + '\r\n'+csvString;
     var params = req.params ;
     var parkObj = {};
     loanIntoRepaymentDAO.getLoanIntoRepayment(params,function(error,rows){
         if (error) {
-            logger.error(' getLoan ' + error.message);
+            logger.error(' getLoanIntoRepayment ' + error.message);
             throw sysError.InternalError(error.message,sysMsg.SYS_INTERNAL_ERROR_MSG);
         } else {
             for(var i=0;i<rows.length;i++){
@@ -135,15 +135,12 @@ function getLoanIntoRepaymentCsv(req,res,next){
                 parkObj.companyName = rows[i].company_name;
                 parkObj.loanIntoId = rows[i].loan_into_id;
                 parkObj.repaymentMoney = rows[i].repayment_money;
-                parkObj.dayCount = rows[i].day_count;
                 parkObj.rate = rows[i].rate;
+                parkObj.dayCount = rows[i].day_count;
+                parkObj.interestMoney = rows[i].interest_money;
                 parkObj.fee = rows[i].fee;
                 parkObj.repaymentTotalMoney = rows[i].repayment_total_money;
-                if(rows[i].repayment_end_date == null){
-                    parkObj.repaymentEndDate = "";
-                }else{
-                    parkObj.repaymentEndDate = new Date(rows[i].repayment_end_date).toLocaleDateString();
-                }
+                parkObj.createdOn = new Date(rows[i].created_on).toLocaleDateString();
                 if(rows[i].repayment_status == 1){
                     parkObj.repaymentStatus = "未完结";
                 }else{
@@ -154,8 +151,8 @@ function getLoanIntoRepaymentCsv(req,res,next){
                 }else{
                     parkObj.remark = rows[i].remark;
                 }
-                csvString = csvString+parkObj.id+","+parkObj.companyName+","+parkObj.loanIntoId+","+parkObj.repaymentMoney+","+parkObj.dayCount
-                    +","+parkObj.rate+","+parkObj.fee+","+parkObj.repaymentTotalMoney+","+parkObj.repaymentEndDate +","+parkObj.repaymentStatus+","+parkObj.remark + '\r\n';
+                csvString = csvString+parkObj.id+","+parkObj.companyName+","+parkObj.loanIntoId+","+parkObj.repaymentMoney+","+parkObj.rate+","+parkObj.dayCount
+                    +","+parkObj.interestMoney+","+parkObj.fee+","+parkObj.repaymentTotalMoney+","+parkObj.createdOn +","+parkObj.repaymentStatus+","+parkObj.remark + '\r\n';
             }
             var csvBuffer = new Buffer(csvString,'utf8');
             res.set('content-type', 'application/csv');
