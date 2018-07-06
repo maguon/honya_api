@@ -268,7 +268,7 @@ function getLoanCsv(req,res,next){
                 if(rows[i].remark == null){
                     parkObj.remark = "";
                 }else{
-                    parkObj.remark = rows[i].remark;
+                    parkObj.remark = rows[i].remark.replace(/[\r\n]/g, '');
                 }
                 csvString = csvString+parkObj.id+","+parkObj.shortName+","+parkObj.mortgageCarCount+","+parkObj.mortgageValuation+","+parkObj.deposit
                     +","+parkObj.buyCarCount+","+parkObj.loanMoney+","+parkObj.loanStartDate+","+parkObj.notRepaymentMoney +","+parkObj.loanEndDate
