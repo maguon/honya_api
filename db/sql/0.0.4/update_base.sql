@@ -172,25 +172,6 @@ CHANGE COLUMN `order_payment_id` `payment_id`  int(10) NOT NULL DEFAULT 0 COMMEN
 -- ----------------------------
 -- 2018-06-01 更新
 -- ----------------------------
-DROP TRIGGER IF EXISTS `loan_repayment_update`;
-DELIMITER ;;
-CREATE TRIGGER `loan_repayment_update` AFTER UPDATE ON `loan_repayment` FOR EACH ROW BEGIN
-IF (old.repayment_money <>new.repayment_money)THEN
-update loan_info set last_repayment_date = CURRENT_DATE(),not_repayment_money = not_repayment_money -(new.repayment_money-old.repayment_money) where id=new.loan_id;
-END IF;
-END
-;;
-DELIMITER ;
-DROP TRIGGER IF EXISTS `loan_repayment_new`;
-DELIMITER ;;
-CREATE TRIGGER `loan_repayment_new` AFTER INSERT ON `loan_repayment` FOR EACH ROW BEGIN
-update loan_info set last_repayment_date = CURRENT_DATE(),not_repayment_money= not_repayment_money - new.repayment_money where id=new.loan_id;
-END
-;;
-DELIMITER ;
--- ----------------------------
--- 2018-06-01 更新
--- ----------------------------
 ALTER TABLE `car_info`
 ADD COLUMN `pro_date_id`  int(4) NULL DEFAULT NULL COMMENT '商品车生产日期' AFTER `pro_date`;
 update car_info set pro_date_id = DATE_FORMAT(pro_date,'%Y');
@@ -274,25 +255,6 @@ CREATE TABLE `loan_into_repayment` (
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 -- ----------------------------
--- 2018-07-03 更新
--- ----------------------------
-DROP TRIGGER IF EXISTS `loan_into_repayment_update`;
-DELIMITER ;;
-CREATE TRIGGER `loan_into_repayment_update` AFTER UPDATE ON `loan_into_repayment` FOR EACH ROW BEGIN
-IF (old.repayment_money <>new.repayment_money)THEN
-update loan_into_info set last_repayment_date = CURRENT_DATE(),not_repayment_money = not_repayment_money -(new.repayment_money-old.repayment_money) where id=new.loan_into_id;
-END IF;
-END
-;;
-DELIMITER ;
-DROP TRIGGER IF EXISTS `loan_into_repayment_new`;
-DELIMITER ;;
-CREATE TRIGGER `loan_into_repayment_new` AFTER INSERT ON `loan_into_repayment` FOR EACH ROW BEGIN
-update loan_into_info set last_repayment_date = CURRENT_DATE(),not_repayment_money= not_repayment_money - new.repayment_money where id=new.loan_into_id;
-END
-;;
-DELIMITER ;
--- ----------------------------
 -- Table structure for loan_into_stat_date
 -- ----------------------------
 DROP TABLE IF EXISTS `loan_into_stat_date`;
@@ -312,16 +274,6 @@ DELIMITER ;;
 CREATE TRIGGER `trg_loan_into_stat_update` AFTER UPDATE ON `loan_into_info` FOR EACH ROW BEGIN
 IF (old.loan_into_status <>2 and new.loan_into_status=2)THEN
 update loan_into_stat_date set loan_into_count = loan_into_count+1,loan_into_money= loan_into_money +(select loan_into_money from loan_into_info where loan_into_status = 2 and id=new.id)
-where date_id=DATE_FORMAT(CURRENT_DATE(),'%Y%m%d');
-END IF;
-END
-;;
-DELIMITER ;
-DROP TRIGGER IF EXISTS `trg_loan_into_repayment_stat_update`;
-DELIMITER ;;
-CREATE TRIGGER `trg_loan_into_repayment_stat_update` AFTER UPDATE ON `loan_into_repayment` FOR EACH ROW BEGIN
-IF (old.repayment_status <>2 and new.repayment_status=2)THEN
-update loan_into_stat_date set repayment_count = repayment_count+1,repayment_money= repayment_money +(select repayment_money from loan_into_repayment where repayment_status = 2 and id=new.id)
 where date_id=DATE_FORMAT(CURRENT_DATE(),'%Y%m%d');
 END IF;
 END
@@ -352,13 +304,49 @@ END IF;
 END
 ;;
 DELIMITER ;
-DROP TRIGGER IF EXISTS `trg_loan_repayment_stat_update`;
+-- ----------------------------
+-- 2018-07-10 更新
+-- ----------------------------
+DROP TRIGGER IF EXISTS `loan_repayment_update`;
 DELIMITER ;;
-CREATE TRIGGER `trg_loan_repayment_stat_update` AFTER UPDATE ON `loan_repayment` FOR EACH ROW BEGIN
+CREATE TRIGGER `loan_repayment_update` AFTER UPDATE ON `loan_repayment` FOR EACH ROW BEGIN
+IF (old.repayment_money <>new.repayment_money)THEN
+update loan_info set last_repayment_date = CURRENT_DATE(),not_repayment_money = not_repayment_money -(new.repayment_money-old.repayment_money) where id=new.loan_id;
+END IF;
 IF (old.repayment_status <>2 and new.repayment_status=2)THEN
 update loan_stat_date set repayment_count = repayment_count+1,repayment_money= repayment_money +(select repayment_money from loan_repayment where repayment_status = 2 and id=new.id)
 where date_id=DATE_FORMAT(CURRENT_DATE(),'%Y%m%d');
 END IF;
+END
+;;
+DELIMITER ;
+DROP TRIGGER IF EXISTS `loan_repayment_new`;
+DELIMITER ;;
+CREATE TRIGGER `loan_repayment_new` AFTER INSERT ON `loan_repayment` FOR EACH ROW BEGIN
+update loan_info set last_repayment_date = CURRENT_DATE(),not_repayment_money= not_repayment_money - new.repayment_money where id=new.loan_id;
+END
+;;
+DELIMITER ;
+-- ----------------------------
+-- 2018-07-10 更新
+-- ----------------------------
+DROP TRIGGER IF EXISTS `loan_into_repayment_update`;
+DELIMITER ;;
+CREATE TRIGGER `loan_into_repayment_update` AFTER UPDATE ON `loan_into_repayment` FOR EACH ROW BEGIN
+IF (old.repayment_money <>new.repayment_money)THEN
+update loan_into_info set last_repayment_date = CURRENT_DATE(),not_repayment_money = not_repayment_money -(new.repayment_money-old.repayment_money) where id=new.loan_into_id;
+END IF;
+IF (old.repayment_status <>2 and new.repayment_status=2)THEN
+update loan_into_stat_date set repayment_count = repayment_count+1,repayment_money= repayment_money +(select repayment_money from loan_into_repayment where repayment_status = 2 and id=new.id)
+where date_id=DATE_FORMAT(CURRENT_DATE(),'%Y%m%d');
+END IF;
+END
+;;
+DELIMITER ;
+DROP TRIGGER IF EXISTS `loan_into_repayment_new`;
+DELIMITER ;;
+CREATE TRIGGER `loan_into_repayment_new` AFTER INSERT ON `loan_into_repayment` FOR EACH ROW BEGIN
+update loan_into_info set last_repayment_date = CURRENT_DATE(),not_repayment_money= not_repayment_money - new.repayment_money where id=new.loan_into_id;
 END
 ;;
 DELIMITER ;
