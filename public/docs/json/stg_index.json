@@ -9240,6 +9240,14 @@
 
           },
           {
+            "name": "paymentId",
+            "in": "query",
+            "description": "payment id",
+            "required": false,
+            "type": "integer"
+
+          },
+          {
             "name": "start",
             "in": "query",
             "description": " list start pos",
