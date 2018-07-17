@@ -497,6 +497,7 @@ function createServer() {
      */
     server.get('/api/invoice',invoice.queryInvoice);
     server.post({path:'/api/user/:userId/invoice',contentType: 'application/json'},invoice.createInvoice);
+    server.put({path:'/api/user/:userId/invoice/:invoiceId',contentType: 'application/json'} ,invoice.updateInvoice);
 
     /**
      * App Module

@@ -70,8 +70,23 @@ function getInvoice(params,callback) {
     });
 }
 
+function updateInvoice(params,callback){
+    var query = " update invoice_info set invoice_num = ? , invoice_money = ? , entrust_id = ? , remark = ? where id = ? " ;
+    var paramsArray=[],i=0;
+    paramsArray[i++]=params.invoiceNum;
+    paramsArray[i++]=params.invoiceMoney;
+    paramsArray[i++]=params.entrustId;
+    paramsArray[i++]=params.remark;
+    paramsArray[i]=params.invoiceId;
+    db.dbQuery(query,paramsArray,function(error,rows){
+        logger.debug(' updateInvoice ');
+        return callback(error,rows);
+    });
+}
+
 
 module.exports ={
     addInvoice : addInvoice,
-    getInvoice : getInvoice
+    getInvoice : getInvoice,
+    updateInvoice : updateInvoice
 }

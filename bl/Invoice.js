@@ -17,8 +17,13 @@ function createInvoice(req,res,next){
     var params = req.params ;
     invoiceDAO.addInvoice(params,function(error,result){
         if (error) {
-            logger.error(' createInvoice ' + error.message);
-            throw sysError.InternalError(error.message,sysMsg.SYS_INTERNAL_ERROR_MSG);
+            if(error.message.indexOf("Duplicate") > 0) {
+                resUtil.resetFailedRes(res, "发票编号已经存在，请重新输入");
+                return next();
+            } else{
+                logger.error(' createInvoice ' + error.message);
+                throw sysError.InternalError(error.message,sysMsg.SYS_INTERNAL_ERROR_MSG);
+            }
         } else {
             logger.info(' createInvoice ' + 'success');
             resUtil.resetCreateRes(res,result,null);
@@ -41,8 +46,28 @@ function queryInvoice(req,res,next){
     })
 }
 
+function updateInvoice(req,res,next){
+    var params = req.params ;
+    invoiceDAO.updateInvoice(params,function(error,result){
+        if (error) {
+            if(error.message.indexOf("Duplicate") > 0) {
+                resUtil.resetFailedRes(res, "发票编号已经存在，请重新输入");
+                return next();
+            } else{
+                logger.error(' updateInvoice ' + error.message);
+                throw sysError.InternalError(error.message,sysMsg.SYS_INTERNAL_ERROR_MSG);
+            }
+        } else {
+            logger.info(' updateInvoice ' + 'success');
+            resUtil.resetUpdateRes(res,result,null);
+            return next();
+        }
+    })
+}
+
 
 module.exports = {
     createInvoice : createInvoice,
-    queryInvoice : queryInvoice
+    queryInvoice : queryInvoice,
+    updateInvoice : updateInvoice
 }
