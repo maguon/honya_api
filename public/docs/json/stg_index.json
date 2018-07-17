@@ -73,6 +73,10 @@
       "description":"Credit of log api"
     },
     {
+      "name":"invoice",
+      "description":"Invoice of log api"
+    },
+    {
       "name":"app",
       "description":"app version"
     }
@@ -12295,6 +12299,51 @@
         }
       }
     },
+    "/user/{userId}/invoice": {
+      "post": {
+        "tags": [
+          "invoice"
+        ],
+        "summary": "user create invoice",
+        "description": "user create invoice",
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "userId",
+            "in": "path",
+            "description": "user id",
+            "required": true,
+            "type": "integer"
+
+          },
+          {
+            "name": "invoice",
+            "in": "body",
+            "description": "invoice info",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/invoice"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "successful operation",
+            "schema": {
+              "type": "object",
+              "items": {
+                "$ref": "#/definitions/ApiResponse"
+              }
+            }
+          },
+          "400": {
+            "description": "Invalid token value or invalid invoice id"
+          }
+        }
+      }
+    },
     "/app": {
       "get": {
         "tags": [
@@ -13592,6 +13641,27 @@
       },
       "xml": {
         "name": "creditCarRel"
+      }
+    },
+    "invoice": {
+      "type": "object",
+      "properties": {
+
+        "invoiceNum": {
+          "type": "string"
+        },
+        "invoiceMoney": {
+          "type": "integer"
+        },
+        "entrustId": {
+          "type": "integer"
+        },
+        "remark": {
+          "type": "string"
+        }
+      },
+      "xml": {
+        "name": "invoice"
       }
     }
   },

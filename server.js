@@ -48,6 +48,7 @@ var loanInto = require('./bl/LoanInto.js');
 var loanIntoRepayment = require('./bl/LoanIntoRepayment.js');
 var credit = require('./bl/Credit.js');
 var creditCarRel = require('./bl/CreditCarRel.js');
+var invoice = require('./bl/Invoice.js');
 var app = require('./bl/App.js');
 var sysRecord = require('./bl/SysRecord.js');
 
@@ -490,6 +491,11 @@ function createServer() {
     server.get('/api/creditCarRel',creditCarRel.queryCreditCarRel);
     server.post({path:'/api/user/:userId/creditCarRel',contentType: 'application/json'},creditCarRel.createCreditCarRel);
     server.del('/api/user/:userId/credit/:creditId/car/:carId' , creditCarRel.removeCreditCarRel);
+
+    /**
+     * Invoice Module
+     */
+    server.post({path:'/api/user/:userId/invoice',contentType: 'application/json'},invoice.createInvoice);
 
     /**
      * App Module
