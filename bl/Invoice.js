@@ -27,7 +27,22 @@ function createInvoice(req,res,next){
     })
 }
 
+function queryInvoice(req,res,next){
+    var params = req.params ;
+    invoiceDAO.getInvoice(params,function(error,result){
+        if (error) {
+            logger.error(' queryInvoice ' + error.message);
+            throw sysError.InternalError(error.message,sysMsg.SYS_INTERNAL_ERROR_MSG);
+        } else {
+            logger.info(' queryInvoice ' + 'success');
+            resUtil.resetQueryRes(res,result,null);
+            return next();
+        }
+    })
+}
+
 
 module.exports = {
-    createInvoice : createInvoice
+    createInvoice : createInvoice,
+    queryInvoice : queryInvoice
 }

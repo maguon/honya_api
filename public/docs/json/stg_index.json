@@ -12299,6 +12299,114 @@
         }
       }
     },
+    "/invoice": {
+      "get": {
+        "tags": [
+          "invoice"
+        ],
+        "summary": "query invoice list",
+        "description": "query invoice",
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "invoiceId",
+            "in": "query",
+            "description": "invoice id",
+            "required": false,
+            "type": "integer"
+
+          },
+          {
+            "name": "invoiceNum",
+            "in": "query",
+            "description": "invoice num",
+            "required": false,
+            "type": "string"
+
+          },
+          {
+            "name": "entrustId",
+            "in": "query",
+            "description": "entrust id",
+            "required": false,
+            "type": "integer"
+
+          },
+          {
+            "name": "invoiceStatus",
+            "in": "query",
+            "description": "invoice status",
+            "required": false,
+            "type": "integer"
+
+          },
+          {
+            "name": "createdOnStart",
+            "in": "query",
+            "description": "createdOn start",
+            "required": false,
+            "type": "string"
+
+          },
+          {
+            "name": "createdOnEnd",
+            "in": "query",
+            "description": "createdOn end",
+            "required": false,
+            "type": "string"
+
+          },
+          {
+            "name": "grantDateStart",
+            "in": "query",
+            "description": "grantDate start",
+            "required": false,
+            "type": "string"
+
+          },
+          {
+            "name": "grantDateEnd",
+            "in": "query",
+            "description": "grantDate end",
+            "required": false,
+            "type": "string"
+
+          },
+          {
+            "name": "start",
+            "in": "query",
+            "description": " list start pos",
+            "required": false,
+            "type": "integer"
+
+          },
+          {
+            "name": "size",
+            "in": "query",
+            "description": "list size for pagination",
+            "required": false,
+            "type": "integer"
+
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "successful operation",
+            "schema": {
+              "type": "object",
+              "items": {
+                "$ref": "#/definitions/invoice"
+              }
+            }
+          },
+          "400": {
+            "description": "Invalid token value or invalid invoice id"
+          }
+        }
+      }
+    },
     "/user/{userId}/invoice": {
       "post": {
         "tags": [
