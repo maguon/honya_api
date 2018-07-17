@@ -11,6 +11,7 @@ var invoiceDAO = require('../dao/InvoiceDAO.js');
 var oAuthUtil = require('../util/OAuthUtil.js');
 var Seq = require('seq');
 var serverLogger = require('../util/ServerLogger.js');
+var moment = require('moment/moment.js');
 var logger = serverLogger.createLogger('Invoice.js');
 
 function createInvoice(req,res,next){
@@ -65,9 +66,28 @@ function updateInvoice(req,res,next){
     })
 }
 
+function updateInvoiceStatus(req,res,next){
+    var params = req.params ;
+    var myDate = new Date();
+    var strDate = moment(myDate).format('YYYYMMDD');
+    params.dateId = parseInt(strDate);
+    params.grantDate = myDate;
+    invoiceDAO.updateInvoiceStatus(params,function(error,result){
+        if (error) {
+            logger.error(' updateInvoiceStatus ' + error.message);
+            throw sysError.InternalError(error.message,sysMsg.SYS_INTERNAL_ERROR_MSG);
+        } else {
+            logger.info(' updateInvoiceStatus ' + 'success');
+            resUtil.resetUpdateRes(res,result,null);
+            return next();
+        }
+    })
+}
+
 
 module.exports = {
     createInvoice : createInvoice,
     queryInvoice : queryInvoice,
-    updateInvoice : updateInvoice
+    updateInvoice : updateInvoice,
+    updateInvoiceStatus : updateInvoiceStatus
 }

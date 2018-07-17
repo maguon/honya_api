@@ -84,9 +84,23 @@ function updateInvoice(params,callback){
     });
 }
 
+function updateInvoiceStatus(params,callback){
+    var query = " update invoice_info set date_id = ? ,  grant_date = ? , invoice_status = ? where id = ? " ;
+    var paramsArray=[],i=0;
+    paramsArray[i++]=params.dateId;
+    paramsArray[i++]=params.grantDate;
+    paramsArray[i++]=params.invoiceStatus;
+    paramsArray[i]=params.invoiceId;
+    db.dbQuery(query,paramsArray,function(error,rows){
+        logger.debug(' updateInvoiceStatus ');
+        return callback(error,rows);
+    });
+}
+
 
 module.exports ={
     addInvoice : addInvoice,
     getInvoice : getInvoice,
-    updateInvoice : updateInvoice
+    updateInvoice : updateInvoice,
+    updateInvoiceStatus : updateInvoiceStatus
 }

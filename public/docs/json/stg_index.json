@@ -12452,6 +12452,112 @@
         }
       }
     },
+    "/user/{userId}/invoice/{invoiceId}": {
+      "put": {
+        "tags": [
+          "invoice"
+        ],
+        "summary": "update invoice info",
+        "description": "update invoice info",
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "userId",
+            "in": "path",
+            "description": "user Id",
+            "required": true,
+            "type": "integer"
+
+          },
+          {
+            "name": "invoiceId",
+            "in": "path",
+            "description": "invoice id",
+            "required": true,
+            "type": "integer"
+
+          },
+          {
+            "name": "invoice",
+            "in": "body",
+            "description": "invoice info",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/invoice"
+            }
+
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "successful operation",
+            "schema": {
+              "type": "object",
+              "items": {
+                "$ref": "#/definitions/ApiResponse"
+              }
+            }
+          },
+          "400": {
+            "description": "Invalid token value or invalid invoice id"
+          }
+        }
+      }
+    },
+    "/user/{userId}/invoice/{invoiceId}/invoiceStatus/{invoiceStatus}": {
+      "put": {
+        "tags": [
+          "invoice"
+        ],
+        "summary": "update invoice status",
+        "description": "update invoice status",
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "userId",
+            "in": "path",
+            "description": "user Id",
+            "required": true,
+            "type": "integer"
+
+          },
+          {
+            "name": "invoiceId",
+            "in": "path",
+            "description": "invoice id",
+            "required": true,
+            "type": "integer"
+
+          },
+          {
+            "name": "invoiceStatus",
+            "in": "path",
+            "description": "invoice status",
+            "required": true,
+            "type": "integer"
+
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "successful operation",
+            "schema": {
+              "type": "object",
+              "items": {
+                "$ref": "#/definitions/ApiResponse"
+              }
+            }
+          },
+          "400": {
+            "description": "Invalid token value or invalid invoice id"
+          }
+        }
+      }
+    },
     "/app": {
       "get": {
         "tags": [

@@ -62,6 +62,10 @@ var LOAN_INTO_STATUS  ={ //贷入状态
     repayment : 3,  //还款中
     completed : 4   //完结
 };
+var INVOICE_STATUS  ={ //发票状态
+    not_grant : 1,  //未发放
+    grant : 2 //已发放
+};
 
 
 module.exports = {
@@ -75,5 +79,6 @@ module.exports = {
     RECORD_OP_TYPE : RECORD_OP_TYPE,
     MORTGAGE_STATUS : MORTGAGE_STATUS,
     LOAN_STATUS : LOAN_STATUS,
-    LOAN_INTO_STATUS : LOAN_INTO_STATUS
+    LOAN_INTO_STATUS : LOAN_INTO_STATUS,
+    INVOICE_STATUS : INVOICE_STATUS
 }
