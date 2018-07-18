@@ -47,8 +47,23 @@ function queryInvoiceShipOrderRel(req,res,next){
     })
 }
 
+function removeInvoiceShipOrderRel(req,res,next){
+    var params = req.params;
+    invoiceShipOrderRelDAO.deleteInvoiceShipOrderRel(params,function(error,result){
+        if (error) {
+            logger.error(' removeInvoiceShipOrderRel ' + error.message);
+            throw sysError.InternalError(error.message,sysMsg.SYS_INTERNAL_ERROR_MSG);
+        } else {
+            logger.info(' removeInvoiceShipOrderRel ' + 'success');
+            resUtil.resetUpdateRes(res,result,null);
+            return next();
+        }
+    })
+}
+
 
 module.exports = {
     createInvoiceShipOrderRel : createInvoiceShipOrderRel,
-    queryInvoiceShipOrderRel : queryInvoiceShipOrderRel
+    queryInvoiceShipOrderRel : queryInvoiceShipOrderRel,
+    removeInvoiceShipOrderRel : removeInvoiceShipOrderRel
 }

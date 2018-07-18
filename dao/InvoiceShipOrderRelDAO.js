@@ -35,8 +35,20 @@ function getInvoiceShipOrderRel(params,callback) {
     });
 }
 
+function deleteInvoiceShipOrderRel(params,callback){
+    var query = " delete from invoice_ship_order_rel where ship_trans_order_id = ? and invoice_id = ? ";
+    var paramsArray=[],i=0;
+    paramsArray[i++]=params.shipTransOrderId;
+    paramsArray[i]=params.invoiceId;
+    db.dbQuery(query,paramsArray,function(error,rows){
+        logger.debug(' deleteInvoiceShipOrderRel ');
+        return callback(error,rows);
+    });
+}
+
 
 module.exports ={
     addInvoiceShipOrderRel : addInvoiceShipOrderRel,
-    getInvoiceShipOrderRel : getInvoiceShipOrderRel
+    getInvoiceShipOrderRel : getInvoiceShipOrderRel,
+    deleteInvoiceShipOrderRel : deleteInvoiceShipOrderRel
 }

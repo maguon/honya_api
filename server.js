@@ -514,6 +514,7 @@ function createServer() {
      */
     server.get('/api/invoiceShipOrderRel',invoiceShipOrderRel.queryInvoiceShipOrderRel);
     server.post({path:'/api/user/:userId/invoiceShipOrderRel',contentType: 'application/json'},invoiceShipOrderRel.createInvoiceShipOrderRel);
+    server.del('/api/user/:userId/shipTransOrder/:shipTransOrderId/invoice/:invoiceId' , invoiceShipOrderRel.removeInvoiceShipOrderRel);
 
     /**
      * App Module
