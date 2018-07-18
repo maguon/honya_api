@@ -51,6 +51,7 @@ var creditCarRel = require('./bl/CreditCarRel.js');
 var invoice = require('./bl/Invoice.js');
 var invoiceStorageOrderRel = require('./bl/InvoiceStorageOrderRel.js');
 var invoiceShipOrderRel = require('./bl/InvoiceShipOrderRel.js');
+var invoiceLoanRepRel = require('./bl/InvoiceLoanRepRel.js');
 var app = require('./bl/App.js');
 var sysRecord = require('./bl/SysRecord.js');
 
@@ -515,6 +516,11 @@ function createServer() {
     server.get('/api/invoiceShipOrderRel',invoiceShipOrderRel.queryInvoiceShipOrderRel);
     server.post({path:'/api/user/:userId/invoiceShipOrderRel',contentType: 'application/json'},invoiceShipOrderRel.createInvoiceShipOrderRel);
     server.del('/api/user/:userId/shipTransOrder/:shipTransOrderId/invoice/:invoiceId' , invoiceShipOrderRel.removeInvoiceShipOrderRel);
+
+    /**
+     * InvoiceLoanRepRel Module
+     */
+    server.post({path:'/api/user/:userId/invoiceLoanRepRel',contentType: 'application/json'},invoiceLoanRepRel.createInvoiceLoanRepRel);
 
     /**
      * App Module
