@@ -12820,6 +12820,133 @@
         }
       }
     },
+    "/invoiceLoanRepRel": {
+      "get": {
+        "tags": [
+          "invoice"
+        ],
+        "summary": "query  invoiceLoanRepRel list",
+        "description": "query invoiceLoanRepRel",
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "invoiceId",
+            "in": "query",
+            "description": "invoice id",
+            "required": false,
+            "type": "integer"
+
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "successful operation",
+            "schema": {
+              "type": "object",
+              "items": {
+                "$ref": "#/definitions/invoiceLoanRepRel"
+              }
+            }
+          },
+          "400": {
+            "description": "Invalid token value or invalid invoiceLoanRepRel id"
+          }
+        }
+      }
+    },
+    "/user/{userId}/invoiceLoanRepRel": {
+      "post": {
+        "tags": [
+          "invoice"
+        ],
+        "summary": "user create invoiceLoanRepRel",
+        "description": "user create invoiceLoanRepRel",
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "userId",
+            "in": "path",
+            "description": "user id",
+            "required": true,
+            "type": "integer"
+
+          },
+          {
+            "name": "invoiceLoanRepRel",
+            "in": "body",
+            "description": "invoiceLoanRepRel info",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/invoiceLoanRepRel"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "successful operation",
+            "schema": {
+              "type": "object",
+              "items": {
+                "$ref": "#/definitions/ApiResponse"
+              }
+            }
+          },
+          "400": {
+            "description": "Invalid token value or invalid invoiceLoanRepRel id"
+          }
+        }
+      }
+    },
+    "/user/{userId}/repayment/{repaymentId}/invoice/{invoiceId}": {
+      "delete": {
+        "tags": [
+          "invoice"
+        ],
+        "summary": "Deletes a invoiceLoanRepRel",
+        "description": "",
+        "operationId": "deleteInvoiceLoanRepRel",
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "userId",
+            "in": "path",
+            "description": "user id",
+            "required": true,
+            "type": "integer"
+          },
+          {
+            "name": "repaymentId",
+            "in": "path",
+            "description": "repayment id",
+            "required": true,
+            "type": "integer"
+
+          },
+          {
+            "name": "invoiceId",
+            "in": "path",
+            "description": "invoice id",
+            "required": true,
+            "type": "integer"
+
+          }
+        ],
+        "responses": {
+          "400": {
+            "description": "Invalid ID supplied"
+          },
+          "404": {
+            "description": "contacts not found"
+          }
+        }
+      }
+    },
     "/app": {
       "get": {
         "tags": [
@@ -14168,6 +14295,21 @@
       },
       "xml": {
         "name": "invoiceShipOrderRel"
+      }
+    },
+    "invoiceLoanRepRel": {
+      "type": "object",
+      "properties": {
+
+        "repaymentId": {
+          "type": "integer"
+        },
+        "invoiceId": {
+          "type": "integer"
+        }
+      },
+      "xml": {
+        "name": "invoiceLoanRepRel"
       }
     }
   },

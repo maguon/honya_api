@@ -522,6 +522,7 @@ function createServer() {
      */
     server.get('/api/invoiceLoanRepRel',invoiceLoanRepRel.queryInvoiceLoanRepRel);
     server.post({path:'/api/user/:userId/invoiceLoanRepRel',contentType: 'application/json'},invoiceLoanRepRel.createInvoiceLoanRepRel);
+    server.del('/api/user/:userId/repayment/:repaymentId/invoice/:invoiceId' , invoiceLoanRepRel.removeInvoiceLoanRepRel);
 
     /**
      * App Module

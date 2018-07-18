@@ -35,8 +35,20 @@ function getInvoiceLoanRepRel(params,callback) {
     });
 }
 
+function deleteInvoiceLoanRepRel(params,callback){
+    var query = " delete from invoice_loan_rep_rel where repayment_id = ? and invoice_id = ? ";
+    var paramsArray=[],i=0;
+    paramsArray[i++]=params.repaymentId;
+    paramsArray[i]=params.invoiceId;
+    db.dbQuery(query,paramsArray,function(error,rows){
+        logger.debug(' deleteInvoiceLoanRepRel ');
+        return callback(error,rows);
+    });
+}
+
 
 module.exports ={
     addInvoiceLoanRepRel : addInvoiceLoanRepRel,
-    getInvoiceLoanRepRel : getInvoiceLoanRepRel
+    getInvoiceLoanRepRel : getInvoiceLoanRepRel,
+    deleteInvoiceLoanRepRel : deleteInvoiceLoanRepRel
 }

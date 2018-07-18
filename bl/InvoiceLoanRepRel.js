@@ -47,8 +47,23 @@ function queryInvoiceLoanRepRel(req,res,next){
     })
 }
 
+function removeInvoiceLoanRepRel(req,res,next){
+    var params = req.params;
+    invoiceLoanRepRelDAO.deleteInvoiceLoanRepRel(params,function(error,result){
+        if (error) {
+            logger.error(' removeInvoiceLoanRepRel ' + error.message);
+            throw sysError.InternalError(error.message,sysMsg.SYS_INTERNAL_ERROR_MSG);
+        } else {
+            logger.info(' removeInvoiceLoanRepRel ' + 'success');
+            resUtil.resetUpdateRes(res,result,null);
+            return next();
+        }
+    })
+}
+
 
 module.exports = {
     createInvoiceLoanRepRel : createInvoiceLoanRepRel,
-    queryInvoiceLoanRepRel : queryInvoiceLoanRepRel
+    queryInvoiceLoanRepRel : queryInvoiceLoanRepRel,
+    removeInvoiceLoanRepRel : removeInvoiceLoanRepRel
 }
