@@ -33,7 +33,22 @@ function createInvoiceLoanRepRel(req,res,next){
     })
 }
 
+function queryInvoiceLoanRepRel(req,res,next){
+    var params = req.params ;
+    invoiceLoanRepRelDAO.getInvoiceLoanRepRel(params,function(error,result){
+        if (error) {
+            logger.error(' queryInvoiceLoanRepRel ' + error.message);
+            throw sysError.InternalError(error.message,sysMsg.SYS_INTERNAL_ERROR_MSG);
+        } else {
+            logger.info(' queryInvoiceLoanRepRel ' + 'success');
+            resUtil.resetQueryRes(res,result,null);
+            return next();
+        }
+    })
+}
+
 
 module.exports = {
-    createInvoiceLoanRepRel : createInvoiceLoanRepRel
+    createInvoiceLoanRepRel : createInvoiceLoanRepRel,
+    queryInvoiceLoanRepRel : queryInvoiceLoanRepRel
 }

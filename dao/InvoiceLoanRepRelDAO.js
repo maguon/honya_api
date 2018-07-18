@@ -17,7 +17,26 @@ function addInvoiceLoanRepRel(params,callback){
     });
 }
 
+function getInvoiceLoanRepRel(params,callback) {
+    var query = " select ilrr.*,l.loan_money,l.loan_start_date,l.loan_end_date, " +
+        " lr.create_interest_money,lr.rate,lr.day_count,lr.interest_money,lr.fee,lr.repayment_money " +
+        " from invoice_loan_rep_rel ilrr " +
+        " left join loan_repayment lr on ilrr.repayment_id = lr.id " +
+        " left join loan_info l on lr.loan_id = l.id " +
+        " where ilrr.id is not null ";
+    var paramsArray=[],i=0;
+    if(params.invoiceId){
+        paramsArray[i++] = params.invoiceId;
+        query = query + " and ilrr.invoice_id = ? ";
+    }
+    db.dbQuery(query,paramsArray,function(error,rows){
+        logger.debug(' getInvoiceLoanRepRel ');
+        return callback(error,rows);
+    });
+}
+
 
 module.exports ={
-    addInvoiceLoanRepRel : addInvoiceLoanRepRel
+    addInvoiceLoanRepRel : addInvoiceLoanRepRel,
+    getInvoiceLoanRepRel : getInvoiceLoanRepRel
 }

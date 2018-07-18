@@ -520,6 +520,7 @@ function createServer() {
     /**
      * InvoiceLoanRepRel Module
      */
+    server.get('/api/invoiceLoanRepRel',invoiceLoanRepRel.queryInvoiceLoanRepRel);
     server.post({path:'/api/user/:userId/invoiceLoanRepRel',contentType: 'application/json'},invoiceLoanRepRel.createInvoiceLoanRepRel);
 
     /**
