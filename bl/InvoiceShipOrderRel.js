@@ -33,7 +33,22 @@ function createInvoiceShipOrderRel(req,res,next){
     })
 }
 
+function queryInvoiceShipOrderRel(req,res,next){
+    var params = req.params ;
+    invoiceShipOrderRelDAO.getInvoiceShipOrderRel(params,function(error,result){
+        if (error) {
+            logger.error(' queryInvoiceShipOrderRel ' + error.message);
+            throw sysError.InternalError(error.message,sysMsg.SYS_INTERNAL_ERROR_MSG);
+        } else {
+            logger.info(' queryInvoiceShipOrderRel ' + 'success');
+            resUtil.resetQueryRes(res,result,null);
+            return next();
+        }
+    })
+}
+
 
 module.exports = {
-    createInvoiceShipOrderRel : createInvoiceShipOrderRel
+    createInvoiceShipOrderRel : createInvoiceShipOrderRel,
+    queryInvoiceShipOrderRel : queryInvoiceShipOrderRel
 }
