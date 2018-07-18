@@ -12327,6 +12327,14 @@
 
           },
           {
+            "name": "entrustType",
+            "in": "query",
+            "description": "entrust type",
+            "required": false,
+            "type": "integer"
+
+          },
+          {
             "name": "entrustId",
             "in": "query",
             "description": "entrust id",

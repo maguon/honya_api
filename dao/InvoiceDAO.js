@@ -35,6 +35,10 @@ function getInvoice(params,callback) {
         paramsArray[i++] = params.invoiceNum;
         query = query + " and i.invoice_num = ? ";
     }
+    if(params.entrustType){
+        paramsArray[i++] = params.entrustType;
+        query = query + " and e.entrust_type = ? ";
+    }
     if(params.entrustId){
         paramsArray[i++] = params.entrustId;
         query = query + " and i.entrust_id = ? ";
