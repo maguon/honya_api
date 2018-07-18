@@ -78,6 +78,10 @@ function getStorageOrder(params,callback) {
         paramsArray[i++] = params.orderStatus;
         query = query + " and so.order_status = ? ";
     }
+    if(params.invoiceStatus){
+        paramsArray[i++] = params.invoiceStatus;
+        query = query + " and so.invoice_status = ? ";
+    }
     query = query + " group by so.id ";
     query = query + " order by so.id ";
     if (params.start && params.size) {
@@ -113,6 +117,17 @@ function updateStorageOrderStatus(params,callback){
     });
 }
 
+function updateStorageOrderInvoiceStatus(params,callback){
+    var query = " update storage_order set invoice_status = ? where id = ? " ;
+    var paramsArray=[],i=0;
+    paramsArray[i++]=params.invoiceStatus;
+    paramsArray[i]=params.storageOrderId;
+    db.dbQuery(query,paramsArray,function(error,rows){
+        logger.debug(' updateStorageOrderInvoiceStatus ');
+        return callback(error,rows);
+    });
+}
+
 function getStorageOrderCount(params,callback) {
     var query = " select count(id) as order_count , sum(actual_fee) as actual_fee from storage_order where id is not null ";
     var paramsArray=[],i=0;
@@ -132,5 +147,6 @@ module.exports ={
     getStorageOrder : getStorageOrder,
     updateStorageOrderActualFee : updateStorageOrderActualFee,
     updateStorageOrderStatus : updateStorageOrderStatus,
+    updateStorageOrderInvoiceStatus : updateStorageOrderInvoiceStatus,
     getStorageOrderCount : getStorageOrderCount
 }

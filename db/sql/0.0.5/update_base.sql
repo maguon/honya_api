@@ -59,3 +59,12 @@ CREATE TABLE `invoice_storage_order_rel` (
   UNIQUE KEY `id` (`id`) USING BTREE,
   UNIQUE KEY `storage_order_id` (`storage_order_id`) USING BTREE
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+-- ----------------------------
+-- 2018-07-18 更新
+-- ----------------------------
+ALTER TABLE `storage_order`
+ADD COLUMN `invoice_status`  tinyint(1) NOT NULL DEFAULT 1 COMMENT '发票状态(1-未发放,2-已发放)' AFTER `order_status`;
+ALTER TABLE `ship_trans_order`
+ADD COLUMN `invoice_status`  tinyint(1) NOT NULL DEFAULT 1 COMMENT '发票状态(1-未发放,2-已发放)' AFTER `order_status`;
+ALTER TABLE `loan_repayment`
+ADD COLUMN `invoice_status`  tinyint(1) NOT NULL DEFAULT 1 COMMENT '发票状态(1-未发放,2-已发放)' AFTER `repayment_status`;
