@@ -35,8 +35,20 @@ function getInvoiceStorageOrderRel(params,callback) {
     });
 }
 
+function deleteInvoiceStorageOrderRel(params,callback){
+    var query = " delete from invoice_storage_order_rel where storage_order_id = ? and invoice_id = ? ";
+    var paramsArray=[],i=0;
+    paramsArray[i++]=params.storageOrderId;
+    paramsArray[i]=params.invoiceId;
+    db.dbQuery(query,paramsArray,function(error,rows){
+        logger.debug(' deleteInvoiceStorageOrderRel ');
+        return callback(error,rows);
+    });
+}
+
 
 module.exports ={
     addInvoiceStorageOrderRel : addInvoiceStorageOrderRel,
-    getInvoiceStorageOrderRel : getInvoiceStorageOrderRel
+    getInvoiceStorageOrderRel : getInvoiceStorageOrderRel,
+    deleteInvoiceStorageOrderRel : deleteInvoiceStorageOrderRel
 }

@@ -506,6 +506,7 @@ function createServer() {
      */
     server.get('/api/invoiceStorageOrderRel',invoiceStorageOrderRel.queryInvoiceStorageOrderRel);
     server.post({path:'/api/user/:userId/invoiceStorageOrderRel',contentType: 'application/json'},invoiceStorageOrderRel.createInvoiceStorageOrderRel);
+    server.del('/api/user/:userId/storageOrder/:storageOrderId/invoice/:invoiceId' , invoiceStorageOrderRel.removeInvoiceStorageOrderRel);
 
     /**
      * App Module

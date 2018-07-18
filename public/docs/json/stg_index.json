@@ -12566,6 +12566,133 @@
         }
       }
     },
+    "/invoiceStorageOrderRel": {
+      "get": {
+        "tags": [
+          "invoice"
+        ],
+        "summary": "query  invoiceStorageOrderRel list",
+        "description": "query invoiceStorageOrderRel",
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "invoiceId",
+            "in": "query",
+            "description": "invoice id",
+            "required": false,
+            "type": "integer"
+
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "successful operation",
+            "schema": {
+              "type": "object",
+              "items": {
+                "$ref": "#/definitions/invoiceStorageOrderRel"
+              }
+            }
+          },
+          "400": {
+            "description": "Invalid token value or invalid invoiceStorageOrderRel id"
+          }
+        }
+      }
+    },
+    "/user/{userId}/invoiceStorageOrderRel": {
+      "post": {
+        "tags": [
+          "invoice"
+        ],
+        "summary": "user create invoiceStorageOrderRel",
+        "description": "user create invoiceStorageOrderRel",
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "userId",
+            "in": "path",
+            "description": "user id",
+            "required": true,
+            "type": "integer"
+
+          },
+          {
+            "name": "invoiceStorageOrderRel",
+            "in": "body",
+            "description": "invoiceStorageOrderRel info",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/invoiceStorageOrderRel"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "successful operation",
+            "schema": {
+              "type": "object",
+              "items": {
+                "$ref": "#/definitions/ApiResponse"
+              }
+            }
+          },
+          "400": {
+            "description": "Invalid token value or invalid invoiceStorageOrderRel id"
+          }
+        }
+      }
+    },
+    "/user/{userId}/storageOrder/{storageOrderId}/invoice/{invoiceId}": {
+      "delete": {
+        "tags": [
+          "invoice"
+        ],
+        "summary": "Deletes a invoiceStorageOrderRel",
+        "description": "",
+        "operationId": "deleteInvoiceStorageOrderRel",
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "userId",
+            "in": "path",
+            "description": "user id",
+            "required": true,
+            "type": "integer"
+          },
+          {
+            "name": "storageOrderId",
+            "in": "path",
+            "description": "storageOrder id",
+            "required": true,
+            "type": "integer"
+
+          },
+          {
+            "name": "invoiceId",
+            "in": "path",
+            "description": "invoice id",
+            "required": true,
+            "type": "integer"
+
+          }
+        ],
+        "responses": {
+          "400": {
+            "description": "Invalid ID supplied"
+          },
+          "404": {
+            "description": "contacts not found"
+          }
+        }
+      }
+    },
     "/app": {
       "get": {
         "tags": [
@@ -13884,6 +14011,21 @@
       },
       "xml": {
         "name": "invoice"
+      }
+    },
+    "invoiceStorageOrderRel": {
+      "type": "object",
+      "properties": {
+
+        "storageOrderId": {
+          "type": "integer"
+        },
+        "invoiceId": {
+          "type": "integer"
+        }
+      },
+      "xml": {
+        "name": "invoiceStorageOrderRel"
       }
     }
   },
