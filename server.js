@@ -49,6 +49,7 @@ var loanIntoRepayment = require('./bl/LoanIntoRepayment.js');
 var credit = require('./bl/Credit.js');
 var creditCarRel = require('./bl/CreditCarRel.js');
 var invoice = require('./bl/Invoice.js');
+var invoiceStorageOrderRel = require('./bl/InvoiceStorageOrderRel.js');
 var app = require('./bl/App.js');
 var sysRecord = require('./bl/SysRecord.js');
 
@@ -499,6 +500,11 @@ function createServer() {
     server.post({path:'/api/user/:userId/invoice',contentType: 'application/json'},invoice.createInvoice);
     server.put({path:'/api/user/:userId/invoice/:invoiceId',contentType: 'application/json'} ,invoice.updateInvoice);
     server.put({path:'/api/user/:userId/invoice/:invoiceId/invoiceStatus/:invoiceStatus',contentType: 'application/json'} ,invoice.updateInvoiceStatus);
+
+    /**
+     * InvoiceStorageOrderRel Module
+     */
+    server.post({path:'/api/user/:userId/invoiceStorageOrderRel',contentType: 'application/json'},invoiceStorageOrderRel.createInvoiceStorageOrderRel);
 
     /**
      * App Module
