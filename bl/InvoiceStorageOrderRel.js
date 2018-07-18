@@ -33,7 +33,22 @@ function createInvoiceStorageOrderRel(req,res,next){
     })
 }
 
+function queryInvoiceStorageOrderRel(req,res,next){
+    var params = req.params ;
+    invoiceStorageOrderRelDAO.getInvoiceStorageOrderRel(params,function(error,result){
+        if (error) {
+            logger.error(' queryInvoiceStorageOrderRel ' + error.message);
+            throw sysError.InternalError(error.message,sysMsg.SYS_INTERNAL_ERROR_MSG);
+        } else {
+            logger.info(' queryInvoiceStorageOrderRel ' + 'success');
+            resUtil.resetQueryRes(res,result,null);
+            return next();
+        }
+    })
+}
+
 
 module.exports = {
-    createInvoiceStorageOrderRel : createInvoiceStorageOrderRel
+    createInvoiceStorageOrderRel : createInvoiceStorageOrderRel,
+    queryInvoiceStorageOrderRel : queryInvoiceStorageOrderRel
 }

@@ -504,6 +504,7 @@ function createServer() {
     /**
      * InvoiceStorageOrderRel Module
      */
+    server.get('/api/invoiceStorageOrderRel',invoiceStorageOrderRel.queryInvoiceStorageOrderRel);
     server.post({path:'/api/user/:userId/invoiceStorageOrderRel',contentType: 'application/json'},invoiceStorageOrderRel.createInvoiceStorageOrderRel);
 
     /**
