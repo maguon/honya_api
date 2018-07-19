@@ -79,7 +79,7 @@ function queryInvoiceStorageOrderRel(req,res,next){
 
 function removeInvoiceStorageOrderRel(req,res,next){
     var params = req.params;
-    invoiceStorageOrderRelDAO.deleteInvoiceStorageOrderRel(params,function(error,result){
+/*    invoiceStorageOrderRelDAO.deleteInvoiceStorageOrderRel(params,function(error,result){
         if (error) {
             logger.error(' removeInvoiceStorageOrderRel ' + error.message);
             throw sysError.InternalError(error.message,sysMsg.SYS_INTERNAL_ERROR_MSG);
@@ -88,6 +88,36 @@ function removeInvoiceStorageOrderRel(req,res,next){
             resUtil.resetUpdateRes(res,result,null);
             return next();
         }
+    })*/
+    Seq().seq(function(){
+        var that = this;
+        invoiceStorageOrderRelDAO.deleteInvoiceStorageOrderRel(params,function(error,result){
+            if (error) {
+                logger.error(' removeInvoiceStorageOrderRel ' + error.message);
+                throw sysError.InternalError(error.message,sysMsg.SYS_INTERNAL_ERROR_MSG);
+            } else {
+                if(result&&result.affectedRows>0){
+                    logger.info(' removeInvoiceStorageOrderRel ' + 'success');
+                    that();
+                }else{
+                    logger.warn(' removeInvoiceStorageOrderRel ' + 'failed');
+                    resUtil.resetFailedRes(res," 删除失败，请核对相关ID ");
+                    return next();
+                }
+            }
+        })
+    }).seq(function () {
+        params.invoiceStatus = sysConst.INVOICE_STATUS.not_grant;
+        storageOrderDAO.updateStorageOrderInvoiceStatus(params,function(error,result){
+            if (error) {
+                logger.error(' updateStorageOrderInvoiceStatus ' + error.message);
+                throw sysError.InternalError(error.message,sysMsg.SYS_INTERNAL_ERROR_MSG);
+            } else {
+                logger.info(' updateStorageOrderInvoiceStatus ' + 'success');
+                resUtil.resetUpdateRes(res,result,null);
+                return next();
+            }
+        })
     })
 }
 
