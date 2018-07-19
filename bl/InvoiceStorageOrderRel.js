@@ -79,16 +79,6 @@ function queryInvoiceStorageOrderRel(req,res,next){
 
 function removeInvoiceStorageOrderRel(req,res,next){
     var params = req.params;
-/*    invoiceStorageOrderRelDAO.deleteInvoiceStorageOrderRel(params,function(error,result){
-        if (error) {
-            logger.error(' removeInvoiceStorageOrderRel ' + error.message);
-            throw sysError.InternalError(error.message,sysMsg.SYS_INTERNAL_ERROR_MSG);
-        } else {
-            logger.info(' removeInvoiceStorageOrderRel ' + 'success');
-            resUtil.resetUpdateRes(res,result,null);
-            return next();
-        }
-    })*/
     Seq().seq(function(){
         var that = this;
         invoiceStorageOrderRelDAO.deleteInvoiceStorageOrderRel(params,function(error,result){

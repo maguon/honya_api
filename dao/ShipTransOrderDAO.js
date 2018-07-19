@@ -127,6 +127,10 @@ function getShipTransOrder(params,callback) {
         paramsArray[i++] = params.actualEndDateEnd +" 23:59:59";
         query = query + " and st.actual_end_date  <= ? ";
     }
+    if(params.invoiceStatus){
+        paramsArray[i++] = params.invoiceStatus;
+        query = query + " and sto.invoice_status = ? ";
+    }
     query = query + ' group by sto.id ';
     if (params.start && params.size) {
         paramsArray[i++] = parseInt(params.start);
@@ -161,6 +165,17 @@ function updateShipTransOrderStatus(params,callback){
     });
 }
 
+function updateShipTransOrderInvoiceStatus(params,callback){
+    var query = " update ship_trans_order set invoice_status = ? where id = ? " ;
+    var paramsArray=[],i=0;
+    paramsArray[i++]=params.invoiceStatus;
+    paramsArray[i]=params.shipTransOrderId;
+    db.dbQuery(query,paramsArray,function(error,rows){
+        logger.debug(' updateShipTransOrderInvoiceStatus ');
+        return callback(error,rows);
+    });
+}
+
 function deleteShipTransOrder(params,callback){
     var query = " delete from ship_trans_order where ship_trans_id = ? and car_id = ? ";
     var paramsArray=[],i=0;
@@ -191,6 +206,7 @@ module.exports ={
     getShipTransOrder : getShipTransOrder,
     updateShipTransOrderFee : updateShipTransOrderFee,
     updateShipTransOrderStatus : updateShipTransOrderStatus,
+    updateShipTransOrderInvoiceStatus : updateShipTransOrderInvoiceStatus,
     deleteShipTransOrder : deleteShipTransOrder,
     getShipTransOrderCount : getShipTransOrderCount
 }
