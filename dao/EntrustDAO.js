@@ -39,6 +39,9 @@ function getEntrust(params,callback) {
         paramsArray[i++] = params.shortName;
         query = query + " and short_name = ? ";
     }
+    if(params.shortNameCode){
+        query = query + " and short_name like '%"+params.shortNameCode+"%'";
+    }
     if(params.entrustName){
         paramsArray[i++] = params.entrustName;
         query = query + " and entrust_name = ? ";

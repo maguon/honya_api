@@ -6174,6 +6174,14 @@
 
           },
           {
+            "name": "shortNameCode",
+            "in": "query",
+            "description": "shortName code",
+            "required": false,
+            "type": "string"
+
+          },
+          {
             "name": "entrustName",
             "in": "query",
             "description": "entrust name",
