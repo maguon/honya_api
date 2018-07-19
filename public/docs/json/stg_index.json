@@ -7777,6 +7777,14 @@
 
           },
           {
+            "name": "invoiceStatus",
+            "in": "query",
+            "description": "invoice status",
+            "required": false,
+            "type": "integer"
+
+          },
+          {
             "name": "start",
             "in": "query",
             "description": " list start pos",
@@ -10311,6 +10319,14 @@
             "description": "createdOn end",
             "required": false,
             "type": "string"
+
+          },
+          {
+            "name": "invoiceStatus",
+            "in": "query",
+            "description": "invoice status",
+            "required": false,
+            "type": "integer"
 
           },
           {

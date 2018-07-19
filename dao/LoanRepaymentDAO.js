@@ -65,6 +65,10 @@ function getLoanRepayment(params,callback) {
         paramsArray[i++] = params.createdOnEnd +" 23:59:59";
         query = query + " and lr.created_on <= ? ";
     }
+    if(params.invoiceStatus){
+        paramsArray[i++] = params.invoiceStatus;
+        query = query + " and lr.invoice_status = ? ";
+    }
     query = query + " group by lr.id ";
     query = query + " order by lr.id desc ";
     if (params.start && params.size) {
@@ -108,10 +112,22 @@ function updateLoanRepaymentStatus(params,callback){
     });
 }
 
+function updateLoanRepaymentInvoiceStatus(params,callback){
+    var query = " update loan_repayment set invoice_status = ? where id = ? " ;
+    var paramsArray=[],i=0;
+    paramsArray[i++]=params.invoiceStatus;
+    paramsArray[i]=params.repaymentId;
+    db.dbQuery(query,paramsArray,function(error,rows){
+        logger.debug(' updateLoanRepaymentInvoiceStatus ');
+        return callback(error,rows);
+    });
+}
+
 
 module.exports ={
     addLoanRepayment : addLoanRepayment,
     getLoanRepayment : getLoanRepayment,
     updateLoanRepayment : updateLoanRepayment,
-    updateLoanRepaymentStatus : updateLoanRepaymentStatus
+    updateLoanRepaymentStatus : updateLoanRepaymentStatus,
+    updateLoanRepaymentInvoiceStatus : updateLoanRepaymentInvoiceStatus
 }
