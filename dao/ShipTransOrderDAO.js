@@ -142,6 +142,19 @@ function getShipTransOrder(params,callback) {
     });
 }
 
+function getShipTransOrderBase(params,callback) {
+    var query = " select sto.* from ship_trans_order sto where sto.id is not null ";
+    var paramsArray=[],i=0;
+    if(params.shipTransOrderId){
+        paramsArray[i++] = params.shipTransOrderId;
+        query = query + " and sto.id = ? ";
+    }
+    db.dbQuery(query,paramsArray,function(error,rows){
+        logger.debug(' getShipTransOrderBase ');
+        return callback(error,rows);
+    });
+}
+
 function updateShipTransOrderFeePlus(params,callback){
     var query = " update ship_trans_order set total_fee = total_fee + ? where id = ? " ;
     var paramsArray=[],i=0;
@@ -214,6 +227,7 @@ function getShipTransOrderCount(params,callback) {
 module.exports ={
     addShipTransOrder : addShipTransOrder,
     getShipTransOrder : getShipTransOrder,
+    getShipTransOrderBase : getShipTransOrderBase,
     updateShipTransOrderFeePlus : updateShipTransOrderFeePlus,
     updateShipTransOrderFeeReduce : updateShipTransOrderFeeReduce,
     updateShipTransOrderStatus : updateShipTransOrderStatus,

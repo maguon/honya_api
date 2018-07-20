@@ -19,7 +19,9 @@ function addShipTransOrderFeeRel(params,callback){
 }
 
 function getShipTransOrderFeeRel(params,callback) {
-    var query = " select stofr.* from ship_trans_order_fee_rel stofr where stofr.id is not null ";
+    var query = " select stofr.*,sto.order_status from ship_trans_order_fee_rel stofr " +
+        " left join ship_trans_order sto on stofr.ship_trans_order_id = sto.id " +
+        " where stofr.id is not null ";
     var paramsArray=[],i=0;
     if(params.shipTransOrderId){
         paramsArray[i++] = params.shipTransOrderId;

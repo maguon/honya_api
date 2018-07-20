@@ -7,6 +7,7 @@ var sysError = require('../util/SystemError.js');
 var resUtil = require('../util/ResponseUtil.js');
 var encrypt = require('../util/Encrypt.js');
 var listOfValue = require('../util/ListOfValue.js');
+var sysConst = require('../util/SysConst.js');
 var shipTransOrderFeeRelDAO = require('../dao/ShipTransOrderFeeRelDAO.js');
 var shipTransOrderDAO = require('../dao/ShipTransOrderDAO.js');
 var oAuthUtil = require('../util/OAuthUtil.js');
@@ -18,6 +19,22 @@ function createShipTransOrderFeeRel(req,res,next){
     var params = req.params ;
     var shipTransOrderFeeRelId = 0;
     Seq().seq(function(){
+        var that = this;
+        shipTransOrderDAO.getShipTransOrderBase({shipTransOrderId:params.shipTransOrderId},function(error,rows){
+            if (error) {
+                logger.error(' getShipTransOrderBase ' + error.message);
+                throw sysError.InternalError(error.message,sysMsg.SYS_INTERNAL_ERROR_MSG);
+            } else{
+                if(rows&&rows.length>0&&rows[0].order_status == sysConst.ORDER_STATUS.not_payment){
+                    that();
+                }else{
+                    logger.warn(' getShipTransOrderBase ' + 'failed');
+                    resUtil.resetFailedRes(res," 已支付，不能在进行操作 ");
+                    return next();
+                }
+            }
+        })
+    }).seq(function(){
         var that = this;
         shipTransOrderFeeRelDAO.addShipTransOrderFeeRel(params,function(error,result){
             if (error) {
@@ -80,14 +97,15 @@ function removeShipTransOrderFeeRel(req,res,next){
                 logger.error(' getShipTransOrderFeeRel ' + error.message);
                 throw sysError.InternalError(error.message,sysMsg.SYS_INTERNAL_ERROR_MSG);
             } else{
-                if(rows&&rows.length==1){
+                if(rows&&rows.length>0&&rows[0].order_status == sysConst.ORDER_STATUS.not_payment){
                     parkObj.shipTransOrderId = rows[0].ship_trans_order_id;
                     parkObj.payMoney = rows[0].pay_money;
                     that();
                 }else{
                     logger.warn(' getShipTransOrderFeeRel ' + 'failed');
-                    resUtil.resetFailedRes(res," 付费项目不存在，或已被删除 ");
+                    resUtil.resetFailedRes(res," 已支付，不能在进行操作 ");
                     return next();
+
                 }
             }
         })
