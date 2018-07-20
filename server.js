@@ -378,6 +378,7 @@ function createServer() {
      */
     server.get('/api/shipTransOrderFeeRel',shipTransOrderFeeRel.queryShipTransOrderFeeRel);
     server.post({path:'/api/user/:userId/shipTransOrder/:shipTransOrderId/shipTransOrderFeeRel',contentType: 'application/json'},shipTransOrderFeeRel.createShipTransOrderFeeRel);
+    server.put({path:'/api/user/:userId/shipTransOrderFeeRel/:shipTransOrderFeeRelId',contentType: 'application/json'} ,shipTransOrderFeeRel.updateShipTransOrderFeeRel);
     server.del('/api/user/:userId/shipTransOrderFeeRel/:shipTransOrderFeeRelId' , shipTransOrderFeeRel.removeShipTransOrderFeeRel);
 
     /**

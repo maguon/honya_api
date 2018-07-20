@@ -19,7 +19,7 @@ function addShipTransOrderFeeRel(params,callback){
 }
 
 function getShipTransOrderFeeRel(params,callback) {
-    var query = " select stofr.*,sto.order_status from ship_trans_order_fee_rel stofr " +
+    var query = " select stofr.*,sto.order_status,sto.total_fee from ship_trans_order_fee_rel stofr " +
         " left join ship_trans_order sto on stofr.ship_trans_order_id = sto.id " +
         " where stofr.id is not null ";
     var paramsArray=[],i=0;
@@ -33,6 +33,17 @@ function getShipTransOrderFeeRel(params,callback) {
     }
     db.dbQuery(query,paramsArray,function(error,rows){
         logger.debug(' getShipTransOrderFeeRel ');
+        return callback(error,rows);
+    });
+}
+
+function updateShipTransOrderFeeRel(params,callback){
+    var query = " update ship_trans_order_fee_rel set pay_money = ? where id = ? " ;
+    var paramsArray=[],i=0;
+    paramsArray[i++]=params.payMoney;
+    paramsArray[i]=params.shipTransOrderFeeRelId;
+    db.dbQuery(query,paramsArray,function(error,rows){
+        logger.debug(' updateShipTransOrderFeeRel ');
         return callback(error,rows);
     });
 }
@@ -51,5 +62,6 @@ function deleteShipTransOrderFeeRel(params,callback){
 module.exports ={
     addShipTransOrderFeeRel : addShipTransOrderFeeRel,
     getShipTransOrderFeeRel: getShipTransOrderFeeRel,
+    updateShipTransOrderFeeRel : updateShipTransOrderFeeRel,
     deleteShipTransOrderFeeRel : deleteShipTransOrderFeeRel
 }

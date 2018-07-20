@@ -8489,6 +8489,58 @@
       }
     },
     "/user/{userId}/shipTransOrderFeeRel/{shipTransOrderFeeRelId}": {
+      "put": {
+        "tags": [
+          "ship"
+        ],
+        "summary": "update shipTransOrderFeeRel info",
+        "description": "update shipTransOrderFeeRel info",
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "userId",
+            "in": "path",
+            "description": "user id",
+            "required": true,
+            "type": "integer"
+
+          },
+          {
+            "name": "shipTransOrderFeeRelId",
+            "in": "path",
+            "description": "shipTransOrderFeeRel id",
+            "required": true,
+            "type": "integer"
+
+          },
+          {
+            "name": "shipTransOrderFeeRel",
+            "in": "body",
+            "description": "shipTransOrderFeeRel info",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/shipTransOrderFeeRel"
+            }
+
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "successful operation",
+            "schema": {
+              "type": "object",
+              "items": {
+                "$ref": "#/definitions/ApiResponse"
+              }
+            }
+          },
+          "400": {
+            "description": "Invalid token value or invalid shipTransOrderFeeRel id"
+          }
+        }
+      },
       "delete": {
         "tags": [
           "ship"

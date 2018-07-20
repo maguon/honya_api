@@ -87,6 +87,59 @@ function queryShipTransOrderFeeRel(req,res,next){
     })
 }
 
+function updateShipTransOrderFeeRel(req,res,next){
+    var params = req.params ;
+    var parkObj = {};
+    Seq().seq(function(){
+        var that = this;
+        shipTransOrderFeeRelDAO.getShipTransOrderFeeRel({shipTransOrderFeeRelId:params.shipTransOrderFeeRelId},function(error,rows){
+            if (error) {
+                logger.error(' getShipTransOrderFeeRel ' + error.message);
+                throw sysError.InternalError(error.message,sysMsg.SYS_INTERNAL_ERROR_MSG);
+            } else{
+                if(rows&&rows.length>0&&rows[0].order_status == sysConst.ORDER_STATUS.not_payment){
+                    parkObj.shipTransOrderId = rows[0].ship_trans_order_id;
+                    parkObj.payMoney = rows[0].pay_money;
+                    parkObj.totalFee = rows[0].total_fee;
+                    that();
+                }else{
+                    logger.warn(' getShipTransOrderBase ' + 'failed');
+                    resUtil.resetFailedRes(res," 已支付，不能在进行操作 ");
+                    return next();
+                }
+            }
+        })
+    }).seq(function () {
+        var that = this;
+        shipTransOrderFeeRelDAO.updateShipTransOrderFeeRel(params,function(error,result){
+            if (error) {
+                logger.error(' updateShipTransOrderFeeRel ' + error.message);
+                throw sysError.InternalError(error.message,sysMsg.SYS_INTERNAL_ERROR_MSG);
+            } else {
+                if(result&&result.affectedRows>0){
+                    logger.info(' updateShipTransOrderFeeRel ' + 'success');
+                }else{
+                    logger.warn(' updateShipTransOrderFeeRel ' + 'failed');
+                }
+                that();
+            }
+        })
+    }).seq(function(){
+        params.shipTransOrderId =parkObj.shipTransOrderId;
+        params.totalFee = parkObj.totalFee -(parkObj.payMoney -params.payMoney);
+        shipTransOrderDAO.updateShipTransOrderFee(params,function(error,result){
+            if (error) {
+                logger.error(' updateShipTransOrderFee ' + error.message);
+                throw sysError.InternalError(error.message,sysMsg.SYS_INTERNAL_ERROR_MSG);
+            } else {
+                logger.info(' updateShipTransOrderFee ' + 'success');
+                resUtil.resetUpdateRes(res,result,null);
+                return next();
+            }
+        })
+    })
+}
+
 function removeShipTransOrderFeeRel(req,res,next){
     var params = req.params;
     var parkObj = {};
@@ -146,5 +199,6 @@ function removeShipTransOrderFeeRel(req,res,next){
 module.exports = {
     createShipTransOrderFeeRel : createShipTransOrderFeeRel,
     queryShipTransOrderFeeRel : queryShipTransOrderFeeRel,
+    updateShipTransOrderFeeRel : updateShipTransOrderFeeRel,
     removeShipTransOrderFeeRel : removeShipTransOrderFeeRel
 }
