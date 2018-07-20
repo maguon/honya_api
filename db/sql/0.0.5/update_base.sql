@@ -73,3 +73,16 @@ ADD COLUMN `invoice_status`  tinyint(1) NOT NULL DEFAULT 1 COMMENT '发票状态
 -- ----------------------------
 ALTER TABLE `ship_trans_order`
 CHANGE COLUMN `ship_trans_fee` `total_fee`  decimal(10,2) NULL DEFAULT 0.00 COMMENT '合计费用' AFTER `entrust_id`;
+-- ----------------------------
+-- Table structure for ship_trans_order_fee_rel
+-- ----------------------------
+DROP TABLE IF EXISTS `ship_trans_order_fee_rel`;
+CREATE TABLE `ship_trans_order_fee_rel` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `ship_trans_order_id` int(10) NOT NULL DEFAULT '0' COMMENT '海运订单ID',
+  `pay_type` tinyint(10) NOT NULL DEFAULT '1' COMMENT '付费项目种类',
+  `pay_money` decimal(10,2) NOT NULL DEFAULT '0.00' COMMENT '付费金额',
+  `created_on` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP COMMENT '创建时间',
+  `updated_on` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP COMMENT '更新时间',
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
