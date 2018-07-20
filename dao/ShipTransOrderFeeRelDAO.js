@@ -18,7 +18,21 @@ function addShipTransOrderFeeRel(params,callback){
     });
 }
 
+function getShipTransOrderFeeRel(params,callback) {
+    var query = " select stofr.* from ship_trans_order_fee_rel stofr where stofr.id is not null ";
+    var paramsArray=[],i=0;
+    if(params.shipTransOrderId){
+        paramsArray[i++] = params.shipTransOrderId;
+        query = query + " and stofr.ship_trans_order_id = ? ";
+    }
+    db.dbQuery(query,paramsArray,function(error,rows){
+        logger.debug(' getShipTransOrderFeeRel ');
+        return callback(error,rows);
+    });
+}
+
 
 module.exports ={
-    addShipTransOrderFeeRel : addShipTransOrderFeeRel
+    addShipTransOrderFeeRel : addShipTransOrderFeeRel,
+    getShipTransOrderFeeRel: getShipTransOrderFeeRel
 }
