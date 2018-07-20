@@ -13821,18 +13821,6 @@
         },
         "remark": {
           "type": "string"
-        },
-        "carIds": {
-          "type": "integer"
-        },
-        "vins": {
-          "type": "integer"
-        },
-        "entrustIds": {
-          "type": "integer"
-        },
-        "shipTransFees": {
-          "type": "integer"
         }
       },
       "xml": {
