@@ -66,6 +66,15 @@ var INVOICE_STATUS  ={ //发票状态
     not_grant : 1,  //未发放
     grant : 2 //已发放
 };
+var PAY_TYPE  ={ //付费项目类别
+    fee : 1,  //运费
+    Amendment_fee : 2, //Amendment fee
+    pier_pass : 3, //pier pass fee
+    hmm_miscellaneous_fee : 4,//hmm miscellaneous fee
+    OB_EXAM_fee : 5, //O/B EXAM fee
+    refund_fee : 6, //退柜费用
+    COD : 7 //COD
+};
 
 
 module.exports = {
@@ -80,5 +89,6 @@ module.exports = {
     MORTGAGE_STATUS : MORTGAGE_STATUS,
     LOAN_STATUS : LOAN_STATUS,
     LOAN_INTO_STATUS : LOAN_INTO_STATUS,
-    INVOICE_STATUS : INVOICE_STATUS
+    INVOICE_STATUS : INVOICE_STATUS,
+    PAY_TYPE : PAY_TYPE
 }
