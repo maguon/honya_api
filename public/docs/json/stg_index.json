@@ -8067,105 +8067,6 @@
         }
       }
     },
-    "/user/{userId}/shipTransOrder": {
-      "post": {
-        "tags": [
-          "ship"
-        ],
-        "summary": "user create shipTransOrder",
-        "description": "user create shipTransOrder",
-        "produces": [
-          "application/json"
-        ],
-        "parameters": [
-          {
-            "name": "userId",
-            "in": "path",
-            "description": "user id",
-            "required": true,
-            "type": "integer"
-
-          },
-          {
-            "name": "shipTransOrder",
-            "in": "body",
-            "description": "shipTransOrder info",
-            "required": true,
-            "schema": {
-              "$ref": "#/definitions/shipTransOrder"
-            }
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "successful operation",
-            "schema": {
-              "type": "object",
-              "items": {
-                "$ref": "#/definitions/ApiResponse"
-              }
-            }
-          },
-          "400": {
-            "description": "Invalid token value or invalid shipTransOrder id"
-          }
-        }
-      }
-    },
-    "/user/{userId}/shipTransOrder/{shipTransOrderId}/ShipTransOrderFee": {
-      "put": {
-        "tags": [
-          "ship"
-        ],
-        "summary": "update shipTransOrder info",
-        "description": "update shipTransOrder info",
-        "produces": [
-          "application/json"
-        ],
-        "parameters": [
-          {
-            "name": "userId",
-            "in": "path",
-            "description": "user id",
-            "required": true,
-            "type": "integer"
-
-          },
-          {
-            "name": "shipTransOrderId",
-            "in": "path",
-            "description": "shipTransOrder id",
-            "required": true,
-            "type": "integer"
-
-          },
-          {
-            "name": "shipTransOrderFee",
-            "in": "body",
-            "description": "shipTransOrderFee info",
-            "required": true,
-            "schema": {
-              "$ref": "#/definitions/shipTransOrderFee"
-            }
-
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "successful operation",
-            "schema": {
-              "type": "object",
-              "items": {
-                "$ref": "#/definitions/ApiResponse"
-              }
-            }
-          },
-          "400": {
-            "description": "Invalid token value or invalid shipTransOrder id"
-          }
-        }
-      }
-    },
     "/user/{userId}/shipTransOrder/{shipTransOrderId}/orderStatus/{orderStatus}": {
       "put": {
         "tags": [
@@ -8497,7 +8398,134 @@
         }
       }
     },
+    "/shipTransOrderFeeRel": {
+      "get": {
+        "tags": [
+          "ship"
+        ],
+        "summary": "query  shipTransOrderFeeRel list",
+        "description": "query shipTransOrderFeeRel",
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
 
+          {
+            "name": "shipTransOrderId",
+            "in": "query",
+            "description": "shipTransOrder id",
+            "required": true,
+            "type": "integer"
+
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "successful operation",
+            "schema": {
+              "type": "object",
+              "items": {
+                "$ref": "#/definitions/shipTransOrderFeeRel"
+              }
+            }
+          },
+          "400": {
+            "description": "Invalid token value or invalid shipTransOrderFeeRel id"
+          }
+        }
+      }
+    },
+    "/user/{userId}/shipTransOrderFeeRel": {
+      "post": {
+        "tags": [
+          "ship"
+        ],
+        "summary": "user create shipTransOrderFeeRel",
+        "description": "user create shipTransOrderFeeRel",
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "userId",
+            "in": "path",
+            "description": "user id",
+            "required": true,
+            "type": "integer"
+
+          },
+          {
+            "name": "shipTransOrderId",
+            "in": "query",
+            "description": "shipTransOrder id",
+            "required": true,
+            "type": "integer"
+
+          },
+          {
+            "name": "shipTransOrderFeeRel",
+            "in": "body",
+            "description": "shipTransOrderFeeRel info",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/shipTransOrderFeeRel"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "successful operation",
+            "schema": {
+              "type": "object",
+              "items": {
+                "$ref": "#/definitions/ApiResponse"
+              }
+            }
+          },
+          "400": {
+            "description": "Invalid token value or invalid shipTransOrderFeeRel id"
+          }
+        }
+      }
+    },
+    "/user/{userId}/shipTransOrderFeeRel/{shipTransOrderFeeRelId}": {
+      "delete": {
+        "tags": [
+          "ship"
+        ],
+        "summary": "Deletes a shipTransOrderFeeRel",
+        "description": "",
+        "operationId": "deleteShipTransOrderFeeRel",
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "userId",
+            "in": "path",
+            "description": "user id",
+            "required": true,
+            "type": "integer"
+          },
+          {
+            "name": "shipTransOrderFeeRelId",
+            "in": "path",
+            "description": "shipTransOrderFeeRel id",
+            "required": true,
+            "type": "integer"
+
+          }
+        ],
+        "responses": {
+          "400": {
+            "description": "Invalid ID supplied"
+          },
+          "404": {
+            "description": "contacts not found"
+          }
+        }
+      }
+    },
     "/payment": {
       "get": {
         "tags": [
@@ -13827,73 +13855,6 @@
         "name": "shipTrans"
       }
     },
-    "shipTransOrder": {
-      "type": "object",
-      "properties": {
-
-        "startPortId": {
-          "type": "integer"
-        },
-        "startPortName": {
-          "type": "string"
-        },
-        "endPortId": {
-          "type": "integer"
-        },
-        "endPortName": {
-          "type": "string"
-        },
-        "startShipDate": {
-          "type": "string"
-        },
-        "endShipDate": {
-          "type": "string"
-        },
-        "shipCompanyId": {
-          "type": "integer"
-        },
-        "shipName": {
-          "type": "string"
-        },
-        "container": {
-          "type": "string"
-        },
-        "booking": {
-          "type": "string"
-        },
-        "tab": {
-          "type": "string"
-        },
-        "partStatus": {
-          "type": "integer"
-        },
-        "remark": {
-          "type": "string"
-        },
-        "carIds": {
-          "type": "integer"
-        },
-
-        "shipTransFees": {
-          "type": "integer"
-        }
-      },
-      "xml": {
-        "name": "shipTransOrder"
-      }
-    },
-    "shipTransOrderFee": {
-      "type": "object",
-      "properties": {
-
-        "shipTransFee": {
-          "type": "integer"
-        }
-      },
-      "xml": {
-        "name": "shipTransOrderFee"
-      }
-    },
     "shipTransCarRel": {
       "type": "object",
       "properties": {
@@ -13909,13 +13870,25 @@
         },
         "entrustId": {
           "type": "integer"
-        },
-        "shipTransFee": {
-          "type": "integer"
         }
       },
       "xml": {
         "name": "shipTransCarRel"
+      }
+    },
+    "shipTransOrderFeeRel": {
+      "type": "object",
+      "properties": {
+
+        "payType": {
+          "type": "integer"
+        },
+        "payMoney": {
+          "type": "integer"
+        }
+      },
+      "xml": {
+        "name": "shipTransOrderFeeRel"
       }
     },
     "payment": {

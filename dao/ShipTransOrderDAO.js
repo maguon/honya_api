@@ -7,12 +7,11 @@ var serverLogger = require('../util/ServerLogger.js');
 var logger = serverLogger.createLogger('ShipTransOrderDAO.js');
 
 function addShipTransOrder(params,callback){
-    var query = " insert into ship_trans_order (ship_trans_id,car_id,entrust_id,total_fee) values ( ? , ? , ? , ? )";
+    var query = " insert into ship_trans_order (ship_trans_id,car_id,entrust_id) values ( ? , ? , ? )";
     var paramsArray=[],i=0;
     paramsArray[i++]=params.shipTransId;
     paramsArray[i++]=params.carId;
     paramsArray[i++]=params.entrustId;
-    paramsArray[i++]=params.totalFee;
     db.dbQuery(query,paramsArray,function(error,rows){
         logger.debug(' addShipTransOrder ');
         return callback(error,rows);
