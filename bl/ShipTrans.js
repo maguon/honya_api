@@ -269,10 +269,10 @@ function getShipTransCsv(req,res,next){
                 }else{
                     parkObj.shortName = rows[i].short_name;
                 }
-                if(rows[i].ship_trans_fee == null){
-                    parkObj.shipTransFee = "";
+                if(rows[i].total_fee == null){
+                    parkObj.totalFee = "";
                 }else{
-                    parkObj.shipTransFee = rows[i].ship_trans_fee;
+                    parkObj.totalFee = rows[i].total_fee;
                 }
                 if(rows[i].order_status == 1){
                     parkObj.orderStatus = "未支付";
@@ -283,7 +283,7 @@ function getShipTransCsv(req,res,next){
                     +","+parkObj.container+","+parkObj.shipTransCount+","+parkObj.startShipDate+","+parkObj.endShipDate +","+parkObj.actualStartDate
                     +","+parkObj.actualEndDate +","+parkObj.partStatus+","+parkObj.shipTransStatus+","+parkObj.createdOn+","+parkObj.remark
                     +","+parkObj.vin+","+parkObj.makeName+","+parkObj.modelName+","+parkObj.proDate +","+parkObj.valuation+","+parkObj.shortName
-                    +","+parkObj.shipTransFee+","+parkObj.orderStatus+ '\r\n';
+                    +","+parkObj.totalFee+","+parkObj.orderStatus+ '\r\n';
             }
             var csvBuffer = new Buffer(csvString,'utf8');
             res.set('content-type', 'application/csv');

@@ -31,8 +31,19 @@ function getShipTransOrderFeeRel(params,callback) {
     });
 }
 
+function deleteShipTransOrderFeeRel(params,callback){
+    var query = " delete from ship_trans_order_fee_rel where id = ? ";
+    var paramsArray=[],i=0;
+    paramsArray[i]=params.shipTransOrderFeeRelId;
+    db.dbQuery(query,paramsArray,function(error,rows){
+        logger.debug(' deleteShipTransOrderFeeRel ');
+        return callback(error,rows);
+    });
+}
+
 
 module.exports ={
     addShipTransOrderFeeRel : addShipTransOrderFeeRel,
-    getShipTransOrderFeeRel: getShipTransOrderFeeRel
+    getShipTransOrderFeeRel: getShipTransOrderFeeRel,
+    deleteShipTransOrderFeeRel : deleteShipTransOrderFeeRel
 }

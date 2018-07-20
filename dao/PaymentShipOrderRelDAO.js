@@ -20,7 +20,7 @@ function addPaymentShipOrderRel(params,callback){
 function getPaymentShipOrderRel(params,callback) {
     var query = " select psor.*,c.vin,c.make_name,c.model_name, " +
         " st.start_port_name,st.end_port_name,st.start_ship_date,st.end_ship_date," +
-        " st.actual_start_date,st.actual_end_date,sto.ship_trans_fee " +
+        " st.actual_start_date,st.actual_end_date,sto.total_fee " +
         " from payment_ship_order_rel psor " +
         " left join ship_trans_order sto on psor.ship_trans_order_id = sto.id " +
         " left join car_info c on sto.car_id = c.id " +

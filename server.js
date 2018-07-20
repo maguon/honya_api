@@ -380,6 +380,7 @@ function createServer() {
      */
     server.get('/api/shipTransOrderFeeRel',shipTransOrderFeeRel.queryShipTransOrderFeeRel);
     server.post({path:'/api/user/:userId/shipTransOrderFeeRel',contentType: 'application/json'},shipTransOrderFeeRel.createShipTransOrderFeeRel);
+    server.del('/api/user/:userId/shipTransOrderFeeRel/:shipTransOrderFeeRelId' , shipTransOrderFeeRel.removeShipTransOrderFeeRel);
 
     /**
      * Payment Module

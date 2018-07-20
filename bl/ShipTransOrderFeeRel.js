@@ -41,8 +41,23 @@ function queryShipTransOrderFeeRel(req,res,next){
     })
 }
 
+function removeShipTransOrderFeeRel(req,res,next){
+    var params = req.params;
+    shipTransOrderFeeRelDAO.deleteShipTransOrderFeeRel(params,function(error,result){
+        if (error) {
+            logger.error(' removeShipTransOrderFeeRel ' + error.message);
+            throw sysError.InternalError(error.message,sysMsg.SYS_INTERNAL_ERROR_MSG);
+        } else {
+            logger.info(' removeShipTransOrderFeeRel ' + 'success');
+            resUtil.resetUpdateRes(res,result,null);
+            return next();
+        }
+    })
+}
+
 
 module.exports = {
     createShipTransOrderFeeRel : createShipTransOrderFeeRel,
-    queryShipTransOrderFeeRel : queryShipTransOrderFeeRel
+    queryShipTransOrderFeeRel : queryShipTransOrderFeeRel,
+    removeShipTransOrderFeeRel : removeShipTransOrderFeeRel
 }

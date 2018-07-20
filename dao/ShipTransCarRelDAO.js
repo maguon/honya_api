@@ -22,7 +22,7 @@ function getShipTransCarRel(params,callback) {
         " st.start_port_id,st.start_port_name,st.end_port_id,st.end_port_name,st.start_ship_date,st.end_ship_date, " +
         " st.actual_start_date,st.actual_end_date,sc.ship_company_name, " +
         " st.ship_name,st.container,st.booking,st.tab,st.ship_trans_user_id,u.real_name as ship_trans_user_name,st.part_status,st.remark, " +
-        " sto.id as ship_trans_order_id,sto.ship_trans_id,sto.car_id,sto.entrust_id,e.short_name,sto.ship_trans_fee,sto.order_status " +
+        " sto.id as ship_trans_order_id,sto.ship_trans_id,sto.car_id,sto.entrust_id,e.short_name,sto.total_fee,sto.order_status " +
         " from ship_trans_order sto " +
         " left join car_info c on sto.car_id = c.id " +
         " left join entrust_info e on sto.entrust_id = e.id " +

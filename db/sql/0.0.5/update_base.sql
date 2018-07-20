@@ -68,3 +68,8 @@ ALTER TABLE `ship_trans_order`
 ADD COLUMN `invoice_status`  tinyint(1) NOT NULL DEFAULT 1 COMMENT '发票状态(1-未发放,2-已发放)' AFTER `order_status`;
 ALTER TABLE `loan_repayment`
 ADD COLUMN `invoice_status`  tinyint(1) NOT NULL DEFAULT 1 COMMENT '发票状态(1-未发放,2-已发放)' AFTER `repayment_status`;
+-- ----------------------------
+-- 2018-07-20 更新
+-- ----------------------------
+ALTER TABLE `ship_trans_order`
+CHANGE COLUMN `ship_trans_fee` `total_fee`  decimal(10,2) NULL DEFAULT 0.00 COMMENT '合计费用' AFTER `entrust_id`;

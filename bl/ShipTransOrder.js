@@ -62,16 +62,16 @@ function createShipTransOrder(req,res,next){
     }).seq(function(){
         var that = this;
         var carIds = params.carIds;
-        var shipTransFees = params.shipTransFees;
+        var totalFees = params.totalFees;
         var rowArray = [] ;
         rowArray.length= carIds.length;
-        rowArray.length= shipTransFees.length;
+        rowArray.length= totalFees.length;
         Seq(rowArray).seqEach(function(rowObj,i){
             var that = this;
             var subParams ={
                 shipTransId : shipTransId,
                 carId : carIds[i],
-                shipTransFee : shipTransFees[i],
+                totalFee : totalFees[i],
                 row : i+1,
             }
             shipTransCarRelDAO.addShipTransCarRel(subParams,function(err,result){

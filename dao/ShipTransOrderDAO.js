@@ -7,12 +7,12 @@ var serverLogger = require('../util/ServerLogger.js');
 var logger = serverLogger.createLogger('ShipTransOrderDAO.js');
 
 function addShipTransOrder(params,callback){
-    var query = " insert into ship_trans_order (ship_trans_id,car_id,entrust_id,ship_trans_fee) values ( ? , ? , ? , ? )";
+    var query = " insert into ship_trans_order (ship_trans_id,car_id,entrust_id,total_fee) values ( ? , ? , ? , ? )";
     var paramsArray=[],i=0;
     paramsArray[i++]=params.shipTransId;
     paramsArray[i++]=params.carId;
     paramsArray[i++]=params.entrustId;
-    paramsArray[i++]=params.shipTransFee;
+    paramsArray[i++]=params.totalFee;
     db.dbQuery(query,paramsArray,function(error,rows){
         logger.debug(' addShipTransOrder ');
         return callback(error,rows);
@@ -144,9 +144,9 @@ function getShipTransOrder(params,callback) {
 }
 
 function updateShipTransOrderFee(params,callback){
-    var query = " update ship_trans_order set ship_trans_fee = ? where id = ? " ;
+    var query = " update ship_trans_order set total_fee = ? where id = ? " ;
     var paramsArray=[],i=0;
-    paramsArray[i++]=params.shipTransFee;
+    paramsArray[i++]=params.totalFee;
     paramsArray[i]=params.shipTransOrderId;
     db.dbQuery(query,paramsArray,function(error,rows){
         logger.debug(' updateShipTransOrderFee ');
@@ -188,7 +188,7 @@ function deleteShipTransOrder(params,callback){
 }
 
 function getShipTransOrderCount(params,callback) {
-    var query = " select count(id) as order_count , sum(ship_trans_fee) as ship_trans_fee from ship_trans_order where id is not null ";
+    var query = " select count(id) as order_count , sum(total_fee) as total_fee from ship_trans_order where id is not null ";
     var paramsArray=[],i=0;
     if(params.orderStatus){
         paramsArray[i++] = params.orderStatus;
