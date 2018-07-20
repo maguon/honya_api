@@ -377,7 +377,7 @@ function createServer() {
      * ShipTransOrderFeeRel Module
      */
     server.get('/api/shipTransOrderFeeRel',shipTransOrderFeeRel.queryShipTransOrderFeeRel);
-    server.post({path:'/api/user/:userId/shipTransOrderFeeRel',contentType: 'application/json'},shipTransOrderFeeRel.createShipTransOrderFeeRel);
+    server.post({path:'/api/user/:userId/shipTransOrder/:shipTransOrderId/shipTransOrderFeeRel',contentType: 'application/json'},shipTransOrderFeeRel.createShipTransOrderFeeRel);
     server.del('/api/user/:userId/shipTransOrderFeeRel/:shipTransOrderFeeRelId' , shipTransOrderFeeRel.removeShipTransOrderFeeRel);
 
     /**

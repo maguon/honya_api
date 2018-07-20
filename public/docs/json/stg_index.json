@@ -8435,7 +8435,7 @@
         }
       }
     },
-    "/user/{userId}/shipTransOrderFeeRel": {
+    "/user/{userId}/shipTransOrder/{shipTransOrderId}/shipTransOrderFeeRel": {
       "post": {
         "tags": [
           "ship"
@@ -8456,7 +8456,7 @@
           },
           {
             "name": "shipTransOrderId",
-            "in": "query",
+            "in": "path",
             "description": "shipTransOrder id",
             "required": true,
             "type": "integer"
