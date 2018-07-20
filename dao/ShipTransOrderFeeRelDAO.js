@@ -25,6 +25,10 @@ function getShipTransOrderFeeRel(params,callback) {
         paramsArray[i++] = params.shipTransOrderId;
         query = query + " and stofr.ship_trans_order_id = ? ";
     }
+    if(params.shipTransOrderFeeRelId){
+        paramsArray[i++] = params.shipTransOrderFeeRelId;
+        query = query + " and stofr.id = ? ";
+    }
     db.dbQuery(query,paramsArray,function(error,rows){
         logger.debug(' getShipTransOrderFeeRel ');
         return callback(error,rows);

@@ -143,13 +143,24 @@ function getShipTransOrder(params,callback) {
     });
 }
 
-function updateShipTransOrderFee(params,callback){
-    var query = " update ship_trans_order set total_fee = ? where id = ? " ;
+function updateShipTransOrderFeePlus(params,callback){
+    var query = " update ship_trans_order set total_fee = total_fee + ? where id = ? " ;
     var paramsArray=[],i=0;
-    paramsArray[i++]=params.totalFee;
+    paramsArray[i++]=params.payMoney;
     paramsArray[i]=params.shipTransOrderId;
     db.dbQuery(query,paramsArray,function(error,rows){
-        logger.debug(' updateShipTransOrderFee ');
+        logger.debug(' updateShipTransOrderFeePlus ');
+        return callback(error,rows);
+    });
+}
+
+function updateShipTransOrderFeeReduce(params,callback){
+    var query = " update ship_trans_order set total_fee = total_fee - ? where id = ? " ;
+    var paramsArray=[],i=0;
+    paramsArray[i++]=params.payMoney;
+    paramsArray[i]=params.shipTransOrderId;
+    db.dbQuery(query,paramsArray,function(error,rows){
+        logger.debug(' updateShipTransOrderFeeReduce ');
         return callback(error,rows);
     });
 }
@@ -204,7 +215,8 @@ function getShipTransOrderCount(params,callback) {
 module.exports ={
     addShipTransOrder : addShipTransOrder,
     getShipTransOrder : getShipTransOrder,
-    updateShipTransOrderFee : updateShipTransOrderFee,
+    updateShipTransOrderFeePlus : updateShipTransOrderFeePlus,
+    updateShipTransOrderFeeReduce : updateShipTransOrderFeeReduce,
     updateShipTransOrderStatus : updateShipTransOrderStatus,
     updateShipTransOrderInvoiceStatus : updateShipTransOrderInvoiceStatus,
     deleteShipTransOrder : deleteShipTransOrder,
