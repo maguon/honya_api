@@ -18,11 +18,12 @@ function addLoanIntoBuyCarRel(params,callback){
 }
 
 function getLoanIntoBuyCarRel(params,callback) {
-    var query = " select libcr.*,c.vin,c.make_name,c.model_name,c.pro_date,c.valuation,ct.credit_number " +
+    var query = " select libcr.*,c.vin,c.make_name,c.model_name,c.pro_date,c.valuation,ct.credit_number,c.entrust_id,e.short_name " +
         " from loan_into_buy_car_rel libcr " +
         " left join car_info c on libcr.car_id = c.id " +
         " left join credit_car_rel ccr on c.id = ccr.car_id " +
         " left join credit_info ct on ccr.credit_id = ct.id " +
+        " left join entrust_info e on c.entrust_id = e.id " +
         " where libcr.id is not null ";
     var paramsArray=[],i=0;
     if(params.loanIntoId){
