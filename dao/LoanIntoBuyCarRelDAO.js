@@ -17,7 +17,27 @@ function addLoanIntoBuyCarRel(params,callback){
     });
 }
 
+function getLoanIntoBuyCarRel(params,callback) {
+    var query = " select libcr.*,c.vin,c.make_name,c.model_name,c.pro_date,c.valuation,ct.credit_number " +
+        " from loan_into_buy_car_rel libcr " +
+        " left join car_info c on libcr.car_id = c.id " +
+        " left join credit_car_rel ccr on c.id = ccr.car_id " +
+        " left join credit_info ct on ccr.credit_id = ct.id " +
+        " where libcr.id is not null ";
+    var paramsArray=[],i=0;
+    if(params.loanIntoId){
+        paramsArray[i++] = params.loanIntoId;
+        query = query + " and libcr.loan_into_id = ? ";
+    }
+    query = query + ' group by libcr.id ';
+    db.dbQuery(query,paramsArray,function(error,rows){
+        logger.debug(' getLoanIntoBuyCarRel ');
+        return callback(error,rows);
+    });
+}
+
 
 module.exports ={
-    addLoanIntoBuyCarRel : addLoanIntoBuyCarRel
+    addLoanIntoBuyCarRel : addLoanIntoBuyCarRel,
+    getLoanIntoBuyCarRel : getLoanIntoBuyCarRel
 }

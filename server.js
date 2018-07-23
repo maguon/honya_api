@@ -480,6 +480,7 @@ function createServer() {
     /**
      * loanIntoBuyCarRel Module
      */
+    server.get('/api/loanIntoBuyCarRel',loanIntoBuyCarRel.queryLoanIntoBuyCarRel);
     server.post({path:'/api/user/:userId/loanIntoBuyCarRel',contentType: 'application/json'},loanIntoBuyCarRel.createLoanIntoBuyCarRel);
 
     /**

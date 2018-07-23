@@ -32,7 +32,22 @@ function createLoanIntoBuyCarRel(req,res,next){
     })
 }
 
+function queryLoanIntoBuyCarRel(req,res,next){
+    var params = req.params ;
+    loanIntoBuyCarRelDAO.getLoanIntoBuyCarRel(params,function(error,result){
+        if (error) {
+            logger.error(' queryLoanIntoBuyCarRel ' + error.message);
+            throw sysError.InternalError(error.message,sysMsg.SYS_INTERNAL_ERROR_MSG);
+        } else {
+            logger.info(' queryLoanIntoBuyCarRel ' + 'success');
+            resUtil.resetQueryRes(res,result,null);
+            return next();
+        }
+    })
+}
+
 
 module.exports = {
-    createLoanIntoBuyCarRel : createLoanIntoBuyCarRel
+    createLoanIntoBuyCarRel : createLoanIntoBuyCarRel,
+    queryLoanIntoBuyCarRel : queryLoanIntoBuyCarRel
 }

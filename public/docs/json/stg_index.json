@@ -11530,6 +11530,87 @@
         }
       }
     },
+    "/loanIntoBuyCarRel": {
+      "get": {
+        "tags": [
+          "loan"
+        ],
+        "summary": "query  loanIntoBuyCarRel list",
+        "description": "query loanIntoBuyCarRel",
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "loanIntoId",
+            "in": "query",
+            "description": "loanInto id",
+            "required": false,
+            "type": "integer"
+
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "successful operation",
+            "schema": {
+              "type": "object",
+              "items": {
+                "$ref": "#/definitions/loanIntoBuyCarRel"
+              }
+            }
+          },
+          "400": {
+            "description": "Invalid token value or invalid loanIntoBuyCarRel id"
+          }
+        }
+      }
+    },
+    "/user/{userId}/loanIntoBuyCarRel": {
+      "post": {
+        "tags": [
+          "loan"
+        ],
+        "summary": "user create loanIntoBuyCarRel",
+        "description": "user create loanIntoBuyCarRel",
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "userId",
+            "in": "path",
+            "description": "user id",
+            "required": true,
+            "type": "integer"
+
+          },
+          {
+            "name": "loanIntoBuyCarRel",
+            "in": "body",
+            "description": "loanIntoBuyCarRel info",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/loanIntoBuyCarRel"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "successful operation",
+            "schema": {
+              "type": "object",
+              "items": {
+                "$ref": "#/definitions/ApiResponse"
+              }
+            }
+          },
+          "400": {
+            "description": "Invalid token value or invalid loanIntoBuyCarRel id"
+          }
+        }
+      }
+    },
     "/loanIntoRepayment": {
       "get": {
         "tags": [
@@ -14193,6 +14274,21 @@
       },
       "xml": {
         "name": "loanInto"
+      }
+    },
+    "loanIntoBuyCarRel": {
+      "type": "object",
+      "properties": {
+
+        "loanIntoId": {
+          "type": "integer"
+        },
+        "carId": {
+          "type": "integer"
+        }
+      },
+      "xml": {
+        "name": "loanIntoBuyCarRel"
       }
     },
     "loanIntoRepayment": {
