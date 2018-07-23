@@ -46,8 +46,23 @@ function queryLoanIntoBuyCarRel(req,res,next){
     })
 }
 
+function removeLoanIntoBuyCarRel(req,res,next){
+    var params = req.params;
+    loanIntoBuyCarRelDAO.deleteLoanIntoBuyCarRel(params,function(error,result){
+        if (error) {
+            logger.error(' removeLoanIntoBuyCarRel ' + error.message);
+            throw sysError.InternalError(error.message,sysMsg.SYS_INTERNAL_ERROR_MSG);
+        } else {
+            logger.info(' removeLoanIntoBuyCarRel ' + 'success');
+            resUtil.resetUpdateRes(res,result,null);
+            return next();
+        }
+    })
+}
+
 
 module.exports = {
     createLoanIntoBuyCarRel : createLoanIntoBuyCarRel,
-    queryLoanIntoBuyCarRel : queryLoanIntoBuyCarRel
+    queryLoanIntoBuyCarRel : queryLoanIntoBuyCarRel,
+    removeLoanIntoBuyCarRel : removeLoanIntoBuyCarRel
 }

@@ -11611,6 +11611,52 @@
         }
       }
     },
+    "/user/{userId}/loanInto/{loanIntoId}/car/{carId}": {
+      "delete": {
+        "tags": [
+          "loan"
+        ],
+        "summary": "Deletes a loanIntoBuyCarRel",
+        "description": "",
+        "operationId": "deleteLoanIntoBuyCarRel",
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "userId",
+            "in": "path",
+            "description": "user id",
+            "required": true,
+            "type": "integer"
+          },
+          {
+            "name": "loanIntoId",
+            "in": "path",
+            "description": "loanInto id",
+            "required": true,
+            "type": "integer"
+
+          },
+          {
+            "name": "carId",
+            "in": "path",
+            "description": "car id",
+            "required": true,
+            "type": "integer"
+
+          }
+        ],
+        "responses": {
+          "400": {
+            "description": "Invalid ID supplied"
+          },
+          "404": {
+            "description": "contacts not found"
+          }
+        }
+      }
+    },
     "/loanIntoRepayment": {
       "get": {
         "tags": [

@@ -482,6 +482,7 @@ function createServer() {
      */
     server.get('/api/loanIntoBuyCarRel',loanIntoBuyCarRel.queryLoanIntoBuyCarRel);
     server.post({path:'/api/user/:userId/loanIntoBuyCarRel',contentType: 'application/json'},loanIntoBuyCarRel.createLoanIntoBuyCarRel);
+    server.del('/api/user/:userId/loanInto/:loanIntoId/car/:carId' , loanIntoBuyCarRel.removeLoanIntoBuyCarRel);
 
     /**
      * LoanIntoRepayment Module

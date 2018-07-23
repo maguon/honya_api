@@ -17,7 +17,6 @@ CREATE TABLE `invoice_info` (
   PRIMARY KEY (`id`),
   UNIQUE KEY `invoice_num` (`invoice_num`) USING BTREE
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
-
 -- ----------------------------
 -- Table structure for invoice_loan_rep_rel
 -- ----------------------------
@@ -31,7 +30,6 @@ CREATE TABLE `invoice_loan_rep_rel` (
   UNIQUE KEY `id` (`id`) USING BTREE,
   UNIQUE KEY `repayment_id` (`repayment_id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
-
 -- ----------------------------
 -- Table structure for invoice_ship_order_rel
 -- ----------------------------
@@ -45,7 +43,6 @@ CREATE TABLE `invoice_ship_order_rel` (
   UNIQUE KEY `id` (`id`) USING BTREE,
   UNIQUE KEY `ship_trans_order_id` (`ship_trans_order_id`) USING BTREE
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
-
 -- ----------------------------
 -- Table structure for invoice_storage_order_rel
 -- ----------------------------
@@ -85,4 +82,17 @@ CREATE TABLE `ship_trans_order_fee_rel` (
   `created_on` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP COMMENT '创建时间',
   `updated_on` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP COMMENT '更新时间',
   PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+-- ----------------------------
+-- Table structure for loan_into_buy_car_rel
+-- ----------------------------
+DROP TABLE IF EXISTS `loan_into_buy_car_rel`;
+CREATE TABLE `loan_into_buy_car_rel` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `loan_into_id` int(10) NOT NULL DEFAULT '0' COMMENT '贷入ID',
+  `car_id` int(10) NOT NULL DEFAULT '0' COMMENT '商品车ID',
+  `created_on` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP COMMENT '创建时间',
+  `updated_on` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP COMMENT '更新时间',
+  UNIQUE KEY `id` (`id`) USING BTREE,
+  UNIQUE KEY `car_id` (`car_id`) USING BTREE
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
