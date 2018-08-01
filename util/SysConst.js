@@ -63,8 +63,8 @@ var LOAN_INTO_STATUS  ={ //贷入状态
     completed : 4   //完结
 };
 var INVOICE_STATUS  ={ //发票状态
-    not_grant : 1,  //未发放
-    grant : 2 //已发放
+    not_grant : 1,  //未开票
+    grant : 2 //已开票
 };
 var PAY_TYPE  ={ //付费项目类别
     fee : 1,  //运费
