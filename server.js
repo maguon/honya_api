@@ -363,7 +363,6 @@ function createServer() {
      * ShipTransOrder Module
      */
     server.get('/api/shipTransOrder',shipTransOrder.queryShipTransOrder);
-    server.get('/api/shipTransOrderList',shipTransOrder.queryShipTransOrderList);
     server.get('/api/shipTransOrder.csv',shipTransOrder.getShipTransOrderCsv);
     server.get('/api/shipTransOrderCount',shipTransOrder.queryShipTransOrderCount);
     server.put({path:'/api/user/:userId/shipTransOrder/:shipTransOrderId/orderStatus/:orderStatus',contentType: 'application/json'} ,shipTransOrder.updateShipTransOrderStatus);

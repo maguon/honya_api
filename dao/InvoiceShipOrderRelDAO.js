@@ -19,10 +19,9 @@ function addInvoiceShipOrderRel(params,callback){
 
 function getInvoiceShipOrderRel(params,callback) {
     var query = " select isor.*,c.vin,st.start_port_name,st.end_port_name,st.actual_start_date,st.actual_end_date,st.booking, " +
-        " stofr.pay_type,stofr.pay_money,sto.total_fee,sto.created_on as ship_trans_order_date " +
+        " sto.total_fee,sto.created_on as ship_trans_order_date " +
         " from invoice_ship_order_rel isor " +
         " left join ship_trans_order sto on isor.ship_trans_order_id = sto.id " +
-        " left join ship_trans_order_fee_rel stofr on sto.id = stofr.ship_trans_order_id " +
         " left join car_info c on sto.car_id = c.id " +
         " left join ship_trans_info st on sto.ship_trans_id = st.id " +
         " where isor.id is not null ";
