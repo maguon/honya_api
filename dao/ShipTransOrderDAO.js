@@ -155,6 +155,37 @@ function getShipTransOrderBase(params,callback) {
     });
 }
 
+function getShipTransOrderList(params,callback) {
+    var query = " select sto.*,c.vin,st.booking,stofr.pay_type,stofr.pay_money " +
+        " from ship_trans_order sto " +
+        " left join ship_trans_order_fee_rel stofr on sto.id = stofr.ship_trans_order_id " +
+        " left join car_info c on sto.car_id = c.id " +
+        " left join ship_trans_info st on sto.ship_trans_id = st.id " +
+        " where sto.id is not null ";
+    var paramsArray=[],i=0;
+    if(params.entrustId){
+        paramsArray[i++] = params.entrustId;
+        query = query + " and sto.entrust_id = ? ";
+    }
+    if(params.orderStatus){
+        paramsArray[i++] = params.orderStatus;
+        query = query + " and sto.order_status = ? ";
+    }
+    if(params.shipTransStatus){
+        paramsArray[i++] = params.shipTransStatus;
+        query = query + " and st.ship_trans_status = ? ";
+    }
+    if(params.invoiceStatus){
+        paramsArray[i++] = params.invoiceStatus;
+        query = query + " and sto.invoice_status = ? ";
+    }
+    query = query + ' order by sto.id ';
+    db.dbQuery(query,paramsArray,function(error,rows){
+        logger.debug(' getShipTransOrderList ');
+        return callback(error,rows);
+    });
+}
+
 function updateShipTransOrderFee(params,callback){
     var query = " update ship_trans_order set total_fee = ? where id = ? " ;
     var paramsArray=[],i=0;
@@ -239,6 +270,7 @@ module.exports ={
     addShipTransOrder : addShipTransOrder,
     getShipTransOrder : getShipTransOrder,
     getShipTransOrderBase : getShipTransOrderBase,
+    getShipTransOrderList : getShipTransOrderList,
     updateShipTransOrderFee : updateShipTransOrderFee,
     updateShipTransOrderFeePlus : updateShipTransOrderFeePlus,
     updateShipTransOrderFeeReduce : updateShipTransOrderFeeReduce,
