@@ -72,8 +72,12 @@ var PAY_TYPE  ={ //付费项目类别
     pier_pass : 3, //pier pass fee
     hmm_miscellaneous_fee : 4,//hmm miscellaneous fee
     OB_EXAM_fee : 5, //O/B EXAM fee
-    refund_fee : 6, //退柜费用
-    COD : 7 //COD
+    GATEOUT_FEE : 6, //退柜GATEOUT_FEE
+    STORAGE_FEE : 7, //退柜STORAGE_FEE
+    CHASSIS_FEE : 8, //退柜CHASSIS_FEE
+    RUN_FEE : 9, //退柜RUN_FEE
+    UNLOADING_FEE : 10, //退柜UNLOADING_FEE
+    COD : 11 //COD
 };
 
 
