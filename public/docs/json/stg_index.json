@@ -14062,8 +14062,14 @@
         "payType": {
           "type": "integer"
         },
+        "qty": {
+          "type": "integer"
+        },
         "payMoney": {
           "type": "integer"
+        },
+        "remark": {
+          "type": "string"
         }
       },
       "xml": {

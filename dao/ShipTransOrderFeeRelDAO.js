@@ -7,11 +7,13 @@ var serverLogger = require('../util/ServerLogger.js');
 var logger = serverLogger.createLogger('ShipTransOrderFeeRelDAO.js');
 
 function addShipTransOrderFeeRel(params,callback){
-    var query = " insert into ship_trans_order_fee_rel (ship_trans_order_id,pay_type,pay_money) values ( ? , ? , ? )";
+    var query = " insert into ship_trans_order_fee_rel (ship_trans_order_id,pay_type,qty,pay_money,remark) values ( ? , ? , ? , ? , ? )";
     var paramsArray=[],i=0;
     paramsArray[i++]=params.shipTransOrderId;
     paramsArray[i++]=params.payType;
-    paramsArray[i]=params.payMoney;
+    paramsArray[i++]=params.qty;
+    paramsArray[i++]=params.payMoney;
+    paramsArray[i]=params.remark;
     db.dbQuery(query,paramsArray,function(error,rows){
         logger.debug(' addShipTransOrderFeeRel ');
         return callback(error,rows);
@@ -38,9 +40,12 @@ function getShipTransOrderFeeRel(params,callback) {
 }
 
 function updateShipTransOrderFeeRel(params,callback){
-    var query = " update ship_trans_order_fee_rel set pay_money = ? where id = ? " ;
+    var query = " update ship_trans_order_fee_rel set pay_type = ? , qty = ? , pay_money = ? , remark = ? where id = ? " ;
     var paramsArray=[],i=0;
+    paramsArray[i++]=params.payType;
+    paramsArray[i++]=params.qty;
     paramsArray[i++]=params.payMoney;
+    paramsArray[i++]=params.remark;
     paramsArray[i]=params.shipTransOrderFeeRelId;
     db.dbQuery(query,paramsArray,function(error,rows){
         logger.debug(' updateShipTransOrderFeeRel ');

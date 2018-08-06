@@ -96,3 +96,9 @@ CREATE TABLE `loan_into_buy_car_rel` (
   UNIQUE KEY `id` (`id`) USING BTREE,
   UNIQUE KEY `car_id` (`car_id`) USING BTREE
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+-- ----------------------------
+-- 2018-08-06 更新
+-- ----------------------------
+ALTER TABLE `ship_trans_order_fee_rel`
+ADD COLUMN `qty`  int(10) NULL DEFAULT 0 AFTER `pay_type`,
+ADD COLUMN `remark`  varchar(200) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NULL DEFAULT NULL AFTER `pay_money`;
