@@ -77,7 +77,8 @@ var PAY_TYPE  ={ //付费项目类别
     CHASSIS_FEE : 8, //退柜CHASSIS_FEE
     RUN_FEE : 9, //退柜RUN_FEE
     UNLOADING_FEE : 10, //退柜UNLOADING_FEE
-    COD : 11 //COD
+    COD : 11, //COD
+    other : 12 //其他
 };
 
 
