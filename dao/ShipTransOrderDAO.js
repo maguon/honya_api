@@ -166,7 +166,7 @@ function getInvoiceShipTransOrderList(params,callback) {
     var paramsArray=[],i=0;
     if(params.invoiceId){
         paramsArray[i++] = params.invoiceId;
-        query = query + " and sto.invoice_id = ? ";
+        query = query + " and isor.invoice_id = ? ";
     }
     query = query + ' order by sto.id ';
     db.dbQuery(query,paramsArray,function(error,rows){
