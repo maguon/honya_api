@@ -12654,13 +12654,13 @@
         }
       }
     },
-    "/InvoiceShipTransOrderList": {
+    "/invoiceShipTransOrderList": {
       "get": {
         "tags": [
           "invoice"
         ],
-        "summary": "query InvoiceShipTransOrder list",
-        "description": "query InvoiceShipTransOrderList",
+        "summary": "query invoiceShipTransOrder list",
+        "description": "query invoiceShipTransOrderList",
         "produces": [
           "application/json"
         ],
