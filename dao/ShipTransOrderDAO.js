@@ -162,7 +162,7 @@ function getInvoiceShipTransOrderList(params,callback) {
         " left join car_info c on sto.car_id = c.id " +
         " left join ship_trans_info st on sto.ship_trans_id = st.id " +
         " left join invoice_ship_order_rel isor on sto.id = isor.ship_trans_order_id " +
-        " where sto.id is not null ";
+        " where sto.id is not null and stofr.pay_type is not null ";
     var paramsArray=[],i=0;
     if(params.invoiceId){
         paramsArray[i++] = params.invoiceId;
