@@ -7825,67 +7825,6 @@
         }
       }
     },
-    "/shipTransOrderList": {
-      "get": {
-        "tags": [
-          "ship"
-        ],
-        "summary": "query shipTransOrder list",
-        "description": "query shipTransOrder",
-        "produces": [
-          "application/json"
-        ],
-        "parameters": [
-
-          {
-            "name": "entrustId",
-            "in": "query",
-            "description": "entrust id",
-            "required": false,
-            "type": "integer"
-
-          },
-          {
-            "name": "orderStatus",
-            "in": "query",
-            "description": "order status",
-            "required": false,
-            "type": "integer"
-
-          },
-          {
-            "name": "shipTransStatus",
-            "in": "query",
-            "description": "shipTrans status",
-            "required": false,
-            "type": "integer"
-
-          },
-          {
-            "name": "invoiceStatus",
-            "in": "query",
-            "description": "invoice status",
-            "required": false,
-            "type": "integer"
-
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "successful operation",
-            "schema": {
-              "type": "object",
-              "items": {
-                "$ref": "#/definitions/shipTransOrder"
-              }
-            }
-          },
-          "400": {
-            "description": "Invalid token value or invalid shipTransOrder id"
-          }
-        }
-      }
-    },
     "/shipTransOrder.csv": {
       "get": {
         "tags": [
@@ -12711,6 +12650,43 @@
           },
           "400": {
             "description": "Invalid token value or invalid invoice id"
+          }
+        }
+      }
+    },
+    "/InvoiceShipTransOrderList": {
+      "get": {
+        "tags": [
+          "invoice"
+        ],
+        "summary": "query InvoiceShipTransOrder list",
+        "description": "query InvoiceShipTransOrderList",
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+
+          {
+            "name": "invoiceId",
+            "in": "query",
+            "description": "invoice id",
+            "required": false,
+            "type": "integer"
+
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "successful operation",
+            "schema": {
+              "type": "object",
+              "items": {
+                "$ref": "#/definitions/shipTransOrder"
+              }
+            }
+          },
+          "400": {
+            "description": "Invalid token value or invalid shipTransOrder id"
           }
         }
       }

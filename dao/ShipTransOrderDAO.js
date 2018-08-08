@@ -155,29 +155,18 @@ function getShipTransOrderBase(params,callback) {
     });
 }
 
-function getShipTransOrderList(params,callback) {
+function getInvoiceShipTransOrderList(params,callback) {
     var query = " select sto.*,c.vin,st.booking,stofr.pay_type,stofr.qty,stofr.pay_money,stofr.remark " +
         " from ship_trans_order sto " +
         " left join ship_trans_order_fee_rel stofr on sto.id = stofr.ship_trans_order_id " +
         " left join car_info c on sto.car_id = c.id " +
         " left join ship_trans_info st on sto.ship_trans_id = st.id " +
+        " left join invoice_ship_order_rel isor on sto.id = isor.ship_trans_order_id " +
         " where sto.id is not null ";
     var paramsArray=[],i=0;
-    if(params.entrustId){
-        paramsArray[i++] = params.entrustId;
-        query = query + " and sto.entrust_id = ? ";
-    }
-    if(params.orderStatus){
-        paramsArray[i++] = params.orderStatus;
-        query = query + " and sto.order_status = ? ";
-    }
-    if(params.shipTransStatus){
-        paramsArray[i++] = params.shipTransStatus;
-        query = query + " and st.ship_trans_status = ? ";
-    }
-    if(params.invoiceStatus){
-        paramsArray[i++] = params.invoiceStatus;
-        query = query + " and sto.invoice_status = ? ";
+    if(params.invoiceId){
+        paramsArray[i++] = params.invoiceId;
+        query = query + " and sto.invoice_id = ? ";
     }
     query = query + ' order by sto.id ';
     db.dbQuery(query,paramsArray,function(error,rows){
@@ -270,7 +259,7 @@ module.exports ={
     addShipTransOrder : addShipTransOrder,
     getShipTransOrder : getShipTransOrder,
     getShipTransOrderBase : getShipTransOrderBase,
-    getShipTransOrderList : getShipTransOrderList,
+    getInvoiceShipTransOrderList : getInvoiceShipTransOrderList,
     updateShipTransOrderFee : updateShipTransOrderFee,
     updateShipTransOrderFeePlus : updateShipTransOrderFeePlus,
     updateShipTransOrderFeeReduce : updateShipTransOrderFeeReduce,

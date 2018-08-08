@@ -27,14 +27,14 @@ function queryShipTransOrder(req,res,next){
     })
 }
 
-function queryShipTransOrderList(req,res,next){
+function queryInvoiceShipTransOrderList(req,res,next){
     var params = req.params ;
-    shipTransOrderDAO.getShipTransOrderList(params,function(error,result){
+    shipTransOrderDAO.getInvoiceShipTransOrderList(params,function(error,result){
         if (error) {
-            logger.error(' queryShipTransOrderList ' + error.message);
+            logger.error(' queryInvoiceShipTransOrderList ' + error.message);
             throw sysError.InternalError(error.message,sysMsg.SYS_INTERNAL_ERROR_MSG);
         } else {
-            logger.info(' queryShipTransOrderList ' + 'success');
+            logger.info(' queryInvoiceShipTransOrderList ' + 'success');
             resUtil.resetQueryRes(res,result,null);
             return next();
         }
@@ -145,7 +145,7 @@ function queryShipTransOrderCount(req,res,next){
 
 module.exports = {
     queryShipTransOrder : queryShipTransOrder,
-    queryShipTransOrderList : queryShipTransOrderList,
+    queryInvoiceShipTransOrderList : queryInvoiceShipTransOrderList,
     updateShipTransOrderStatus : updateShipTransOrderStatus,
     getShipTransOrderCsv : getShipTransOrderCsv,
     queryShipTransOrderCount : queryShipTransOrderCount
