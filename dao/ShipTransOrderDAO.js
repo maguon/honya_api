@@ -131,6 +131,7 @@ function getShipTransOrder(params,callback) {
         query = query + " and sto.invoice_status = ? ";
     }
     query = query + ' group by sto.id ';
+    query = query + ' order by sto.id desc ';
     if (params.start && params.size) {
         paramsArray[i++] = parseInt(params.start);
         paramsArray[i++] = parseInt(params.size);

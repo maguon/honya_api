@@ -63,6 +63,7 @@ function getInvoice(params,callback) {
         paramsArray[i++] = params.grantDateEnd +" 23:59:59";
         query = query + " and i.grant_date <= ? ";
     }
+    query = query + ' order by i.id desc ';
     if (params.start && params.size) {
         paramsArray[i++] = parseInt(params.start);
         paramsArray[i++] = parseInt(params.size);

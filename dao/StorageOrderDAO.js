@@ -83,7 +83,7 @@ function getStorageOrder(params,callback) {
         query = query + " and so.invoice_status = ? ";
     }
     query = query + " group by so.id ";
-    query = query + " order by so.id ";
+    query = query + " order by so.id desc ";
     if (params.start && params.size) {
         paramsArray[i++] = parseInt(params.start);
         paramsArray[i++] = parseInt(params.size);
