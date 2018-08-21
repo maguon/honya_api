@@ -25,6 +25,7 @@ function getInvoice(params,callback) {
         " from invoice_info i " +
         " left join entrust_info e on i.entrust_id = e.id " +
         " left join user_info u on i.invoice_user_id = u.uid " +
+        " left join invoice_ship_order_rel isor on i.id = isor.invoice_id " +
         " where i.id is not null ";
     var paramsArray=[],i=0;
     if(params.invoiceId){
@@ -62,6 +63,10 @@ function getInvoice(params,callback) {
     if(params.grantDateEnd){
         paramsArray[i++] = params.grantDateEnd +" 23:59:59";
         query = query + " and i.grant_date <= ? ";
+    }
+    if(params.shipTransOrderId){
+        paramsArray[i++] = params.shipTransOrderId;
+        query = query + " and isor.ship_trans_order_id = ? ";
     }
     query = query + ' order by i.id desc ';
     if (params.start && params.size) {

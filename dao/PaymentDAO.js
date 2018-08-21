@@ -22,7 +22,8 @@ function addPayment(params,callback){
 }
 
 function getPayment(params,callback) {
-    var query = " select p.*,e.entrust_type,e.short_name,e.entrust_name,u.real_name as payment_user_name from payment_info p " +
+    var query = " select p.*,e.entrust_type,e.short_name,e.entrust_name,u.real_name as payment_user_name " +
+        " from payment_info p " +
         " left join entrust_info e on p.entrust_id = e.id " +
         " left join user_info u on p.payment_user_id = u.uid " +
         " left join payment_storage_order_rel ptor on p.id = ptor.payment_id " +
