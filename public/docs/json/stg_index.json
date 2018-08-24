@@ -12558,14 +12558,6 @@
 
           },
           {
-            "name": "invoiceNum",
-            "in": "query",
-            "description": "invoice num",
-            "required": false,
-            "type": "string"
-
-          },
-          {
             "name": "entrustType",
             "in": "query",
             "description": "entrust type",
@@ -14488,9 +14480,6 @@
       "type": "object",
       "properties": {
 
-        "invoiceNum": {
-          "type": "string"
-        },
         "invoiceMoney": {
           "type": "integer"
         },

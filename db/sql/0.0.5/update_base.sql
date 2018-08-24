@@ -102,3 +102,9 @@ CREATE TABLE `loan_into_buy_car_rel` (
 ALTER TABLE `ship_trans_order_fee_rel`
 ADD COLUMN `qty`  int(10) NULL DEFAULT 0 AFTER `pay_type`,
 ADD COLUMN `remark`  varchar(200) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NULL DEFAULT NULL AFTER `pay_money`;
+-- ----------------------------
+-- 2018-08-24 更新
+-- ----------------------------
+ALTER TABLE `invoice_info`
+DROP COLUMN `invoice_num`;
+alter table invoice_info AUTO_INCREMENT=1000;

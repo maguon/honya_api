@@ -7,9 +7,8 @@ var serverLogger = require('../util/ServerLogger.js');
 var logger = serverLogger.createLogger('InvoiceDAO.js');
 
 function addInvoice(params,callback){
-    var query = " insert into invoice_info (invoice_num,invoice_money,entrust_id,invoice_user_id,remark) values ( ? , ? , ? , ? , ? )";
+    var query = " insert into invoice_info (invoice_money,entrust_id,invoice_user_id,remark) values ( ? , ? , ? , ? )";
     var paramsArray=[],i=0;
-    paramsArray[i++]=params.invoiceNum;
     paramsArray[i++]=params.invoiceMoney;
     paramsArray[i++]=params.entrustId;
     paramsArray[i++]=params.userId;
@@ -31,10 +30,6 @@ function getInvoice(params,callback) {
     if(params.invoiceId){
         paramsArray[i++] = params.invoiceId;
         query = query + " and i.id = ? ";
-    }
-    if(params.invoiceNum){
-        paramsArray[i++] = params.invoiceNum;
-        query = query + " and i.invoice_num = ? ";
     }
     if(params.entrustType){
         paramsArray[i++] = params.entrustType;
@@ -81,9 +76,8 @@ function getInvoice(params,callback) {
 }
 
 function updateInvoice(params,callback){
-    var query = " update invoice_info set invoice_num = ? , invoice_money = ? , entrust_id = ? , remark = ? where id = ? " ;
+    var query = " update invoice_info set invoice_money = ? , entrust_id = ? , remark = ? where id = ? " ;
     var paramsArray=[],i=0;
-    paramsArray[i++]=params.invoiceNum;
     paramsArray[i++]=params.invoiceMoney;
     paramsArray[i++]=params.entrustId;
     paramsArray[i++]=params.remark;
