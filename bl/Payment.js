@@ -7,8 +7,10 @@ var sysError = require('../util/SystemError.js');
 var resUtil = require('../util/ResponseUtil.js');
 var encrypt = require('../util/Encrypt.js');
 var listOfValue = require('../util/ListOfValue.js');
+var sysConst = require('../util/SysConst.js');
 var paymentDAO = require('../dao/PaymentDAO.js');
 var orderPaymentRelDAO = require('../dao/PaymentStorageOrderRelDAO.js');
+var storageOrderDAO = require('../dao/StorageOrderDAO.js');
 var oAuthUtil = require('../util/OAuthUtil.js');
 var Seq = require('seq');
 var serverLogger = require('../util/ServerLogger.js');
@@ -66,6 +68,33 @@ function createPayment(req,res,next){
                 }
             })
         }).seq(function(){
+            that();
+        })
+    }).seq(function () {
+        var that = this;
+        var storageOrderIds = params.storageOrderIds;
+        var rowArray = [] ;
+        rowArray.length= storageOrderIds.length;
+        Seq(rowArray).seqEach(function (rowObj, i) {
+            var that = this;
+            var subParams = {
+                orderStatus : sysConst.ORDER_STATUS.payment,
+                storageOrderId : storageOrderIds[i],
+                row: i + 1,
+            }
+            storageOrderDAO.updateStorageOrderStatus(subParams,function (err,result) {
+                if (err) {
+                    logger.error('updateStorageOrderStatus ' + err.stack);
+                } else {
+                    if(result&&result.affectedRows>0){
+                        logger.info(' updateStorageOrderStatus ' + 'success');
+                    }else{
+                        logger.warn(' updateStorageOrderStatus ' + 'failed');
+                    }
+                    that(null, i);
+                }
+            })
+        }).seq(function () {
             that();
         })
     }).seq(function(){
