@@ -7,14 +7,25 @@ var serverLogger = require('../util/ServerLogger.js');
 var logger = serverLogger.createLogger('CreditDAO.js');
 
 function addCredit(params,callback){
-    var query = " insert into credit_info (credit_number,entrust_id,credit_money,actual_money,plan_return_date,actual_return_date," +
-        "receive_card_date,documents_date,documents_send_date,documents_receive_date,actual_remit_date,invoice_number,remark) " +
-        " values ( ? , ? , ? , ? , ? , ? , ? , ? , ? , ? , ? , ? , ? ) ";
+    var query = " insert into credit_info (credit_number,entrust_id,credit_money," +
+        " receive_card_money,express_fee,inform_fee,update_inform_fee,proce_fee,leave_shore_fee,us_receipts_fee,us_remit_fee," +
+        " actual_money,difference_fee,plan_return_date,actual_return_date," +
+        " receive_card_date,documents_date,documents_send_date,documents_receive_date,actual_remit_date,invoice_number,remark) " +
+        " values ( ? , ? , ? , ? , ? , ? , ? , ? , ? , ? , ? , ? , ? , ? , ? , ? , ? , ? , ? , ? , ? , ? ) ";
     var paramsArray=[],i=0;
     paramsArray[i++]=params.creditNumber;
     paramsArray[i++]=params.entrustId;
     paramsArray[i++]=params.creditMoney;
+    paramsArray[i++]=params.receiveCardMoney;
+    paramsArray[i++]=params.expressFee;
+    paramsArray[i++]=params.informFee;
+    paramsArray[i++]=params.updateInformFee;
+    paramsArray[i++]=params.proceFee;
+    paramsArray[i++]=params.leaveShoreFee;
+    paramsArray[i++]=params.usReceiptsFee;
+    paramsArray[i++]=params.usRemitFee;
     paramsArray[i++]=params.actualMoney;
+    paramsArray[i++]=params.differenceFee;
     paramsArray[i++]=params.planReturnDate;
     paramsArray[i++]=params.actualReturnDate;
     paramsArray[i++]=params.receiveCardDate;
@@ -107,14 +118,25 @@ function getCreditRepMoney(params,callback) {
 }
 
 function updateCredit(params,callback){
-    var query = " update credit_info set credit_number = ? , entrust_id = ? , credit_money = ? , actual_money = ? , " +
+    var query = " update credit_info set credit_number = ? , entrust_id = ? , credit_money = ? , " +
+        " receive_card_money = ? , express_fee = ? , inform_fee = ? , update_inform_fee = ? , proce_fee = ? , " +
+        " leave_shore_fee = ? , us_receipts_fee = ? , us_remit_fee = ? , actual_money = ? , difference_fee = ? , " +
         " plan_return_date = ? , actual_return_date = ? , receive_card_date = ? , documents_date = ? , documents_send_date = ? , " +
         " documents_receive_date = ? , actual_remit_date = ? , invoice_number = ? , remark = ? where id = ? " ;
     var paramsArray=[],i=0;
     paramsArray[i++]=params.creditNumber;
     paramsArray[i++]=params.entrustId;
     paramsArray[i++]=params.creditMoney;
+    paramsArray[i++]=params.receiveCardMoney;
+    paramsArray[i++]=params.expressFee;
+    paramsArray[i++]=params.informFee;
+    paramsArray[i++]=params.updateInformFee;
+    paramsArray[i++]=params.proceFee;
+    paramsArray[i++]=params.leaveShoreFee;
+    paramsArray[i++]=params.usReceiptsFee;
+    paramsArray[i++]=params.usRemitFee;
     paramsArray[i++]=params.actualMoney;
+    paramsArray[i++]=params.differenceFee;
     paramsArray[i++]=params.planReturnDate;
     paramsArray[i++]=params.actualReturnDate;
     paramsArray[i++]=params.receiveCardDate;

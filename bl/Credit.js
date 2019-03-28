@@ -89,7 +89,8 @@ function updateCreditStatus(req,res,next){
 
 function getCreditCsv(req,res,next){
     var csvString = "";
-    var header = "信用证号" + ',' + "委托方" + ',' + "委托方性质" + ','+ "信用证金额" + ','+ "实际到款金额"+ ','+ "预计回款日期" + ','+ "实际回款日期" + ','+ "接证日期"
+    var header = "信用证号" + ',' + "委托方" + ',' + "委托方性质" + ','+ "信用证金额" + ','+ "接证行金额"+ ','+ "实际到款金额"+ ','+ "借还款金额差额"
+        + ','+ "预计回款日期" + ','+ "实际回款日期" + ','+ "接证日期"
         + ','+ "交单日期"+ ','+ "文件发出日期" + ','+ "开户行文件接收日期"+ ',' + "实际汇款日期" + ',' + "发票号"+ ',' + "备注" + ',' + "完结时间" + ','+ "状态" + ','+ "关联还款编号"
         + ','+ "VIN" + ','+ "制造商"+ ',' + "型号" + ',' + "商品车估值"+ ',' + "是否金融车"+ ',' + "商品车备注" + ',' + "始发港口" + ','+ "目的港口" + ','+ "预计开船日期" + ','+ "预计到港日期"
         + ','+ "实际开船日期"+ ',' + "实际到港日期" + ',' + "船公司"+ ',' + "船名" + ',' + "货柜" + ','+ "booking" + ','+ "封签";
@@ -111,7 +112,17 @@ function getCreditCsv(req,res,next){
                     parkObj.entrustType = "企业";
                 }
                 parkObj.creditMoney = rows[i].credit_money;
+                if(rows[i].receive_card_money == null){
+                    parkObj.receiveCardMoney = "";
+                }else{
+                    parkObj.receiveCardMoney = rows[i].receive_card_money;
+                }
                 parkObj.actualMoney = rows[i].actual_money;
+                if(rows[i].difference_fee == null){
+                    parkObj.differenceFee = "";
+                }else{
+                    parkObj.differenceFee = rows[i].difference_fee;
+                }
                 if(rows[i].plan_return_date == null){
                     parkObj.planReturnDate = "";
                 }else{
@@ -212,8 +223,8 @@ function getCreditCsv(req,res,next){
                 parkObj.booking = rows[i].booking;
                 parkObj.tab = rows[i].tab;
 
-                csvString = csvString+parkObj.creditNumber+","+parkObj.shortName+","+parkObj.entrustType+","+parkObj.creditMoney+","+parkObj.actualMoney
-                    +","+parkObj.planReturnDate+","+parkObj.actualReturnDate+","+parkObj.receiveCardDate+","+parkObj.documentsDate
+                csvString = csvString+parkObj.creditNumber+","+parkObj.shortName+","+parkObj.entrustType+","+parkObj.creditMoney+","+parkObj.receiveCardMoney
+                    +","+parkObj.actualMoney+","+parkObj.differenceFee+","+parkObj.planReturnDate+","+parkObj.actualReturnDate+","+parkObj.receiveCardDate+","+parkObj.documentsDate
                     +","+parkObj.documentsSendDate +","+parkObj.documentsReceiveDate+","+parkObj.actualRemitDate+","+parkObj.invoiceNumber
                     +","+parkObj.remark+","+parkObj.creditEndDate +","+parkObj.creditStatus+","+parkObj.repaymentId
                     +","+parkObj.vin+","+parkObj.makeName+","+parkObj.modelName+","+parkObj.valuation+","+parkObj.purchaseType+","+parkObj.carRemark

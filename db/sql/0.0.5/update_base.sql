@@ -108,3 +108,16 @@ ADD COLUMN `remark`  varchar(200) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_
 ALTER TABLE `invoice_info`
 DROP COLUMN `invoice_num`;
 alter table invoice_info AUTO_INCREMENT=1000;
+-- ----------------------------
+-- 2019-03-28 更新
+-- ----------------------------
+ALTER TABLE `credit_info`
+ADD COLUMN `receive_card_money`  decimal(10,2) NULL DEFAULT 0 COMMENT '接证行金额' AFTER `credit_money`,
+ADD COLUMN `express_fee`  decimal(10,2) NULL DEFAULT 0 COMMENT '快递费' AFTER `receive_card_money`,
+ADD COLUMN `inform_fee`  decimal(10,2) NULL DEFAULT 0 COMMENT '通知费' AFTER `express_fee`,
+ADD COLUMN `update_inform_fee`  decimal(10,2) NULL DEFAULT 0 COMMENT '修改通知费' AFTER `inform_fee`,
+ADD COLUMN `proce_fee`  decimal(10,2) NULL DEFAULT 0 COMMENT '手续费' AFTER `update_inform_fee`,
+ADD COLUMN `leave_shore_fee`  decimal(10,2) NULL DEFAULT 0 COMMENT '离岸汇款手续费' AFTER `proce_fee`,
+ADD COLUMN `us_receipts_fee`  decimal(10,2) NULL DEFAULT 0 COMMENT '美国收款手续费' AFTER `leave_shore_fee`,
+ADD COLUMN `us_remit_fee`  decimal(10,2) NULL DEFAULT 0 COMMENT '美国汇款手续费' AFTER `us_receipts_fee`,
+ADD COLUMN `difference_fee`  decimal(10,2) NULL DEFAULT 0 COMMENT '借还款金额差额' AFTER `actual_money`;
