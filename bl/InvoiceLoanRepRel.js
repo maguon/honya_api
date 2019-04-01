@@ -26,8 +26,8 @@ function createInvoiceLoanRepRel(req,res,next){
                     resUtil.resetFailedRes(res, "还款编号已经被关联，操作失败");
                     return next();
                 } else{
-                    logger.error(' createInvoiceLoanRepRel ' + err.message);
-                    throw sysError.InternalError(err.message,sysMsg.SYS_INTERNAL_ERROR_MSG);
+                    logger.error(' createInvoiceLoanRepRel ' + error.message);
+                    throw sysError.InternalError(error.message,sysMsg.SYS_INTERNAL_ERROR_MSG);
                 }
             } else {
                 if(result&&result.insertId>0){

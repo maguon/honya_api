@@ -21,10 +21,10 @@ function queryAdminUser(params,callback){
 }
 
 function queryAdminInfo(params,callback){
-    var query = " select * from admin_user where id is not null";
+    var query = " select id,user_name,real_name,mobile,status from admin_user where id is not null";
     var paramsArray=[],i=0;
     if(params.adminId){
-        query = query + " and id = ? "
+        query = query + " and id = ? ";
         paramsArray[i++]=params.adminId;
     }
     db.dbQuery(query,paramsArray,function(error,rows){

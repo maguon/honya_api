@@ -55,7 +55,7 @@ function getUser(params,callback) {
 }
 
 function getUserBase(params,callback){
-    var query = " select uid,mobile,real_name,password,type,gender,status from user_info where uid is not null ";
+    var query = " select uid,mobile,real_name,type,gender,status from user_info where uid is not null ";
     var paramsArray=[],i=0;
     if(params.userId){
         paramsArray[i++] = params.userId;

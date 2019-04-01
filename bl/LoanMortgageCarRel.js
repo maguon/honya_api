@@ -27,8 +27,8 @@ function createLoanMortgageCarRel(req,res,next){
                     resUtil.resetFailedRes(res, "VIN已经被关联，操作失败");
                     return next();
                 } else{
-                    logger.error(' createLoanMortgageCarRel ' + err.message);
-                    throw sysError.InternalError(err.message,sysMsg.SYS_INTERNAL_ERROR_MSG);
+                    logger.error(' createLoanMortgageCarRel ' + error.message);
+                    throw sysError.InternalError(error.message,sysMsg.SYS_INTERNAL_ERROR_MSG);
                 }
             } else {
                 if(result&&result.insertId>0){

@@ -21,8 +21,8 @@ function createPaymentLoanRepRel(req,res,next){
                 resUtil.resetFailedRes(res, "已经存在相同编号关联，操作失败");
                 return next();
             } else{
-                logger.error(' createPaymentLoanRepRel ' + err.message);
-                throw sysError.InternalError(err.message,sysMsg.SYS_INTERNAL_ERROR_MSG);
+                logger.error(' createPaymentLoanRepRel ' + error.message);
+                throw sysError.InternalError(error.message,sysMsg.SYS_INTERNAL_ERROR_MSG);
             }
         } else {
             logger.info(' createPaymentLoanRepRel ' + 'success');

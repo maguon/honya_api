@@ -26,8 +26,8 @@ function createPaymentShipOrderRel(req,res,next){
                     resUtil.resetFailedRes(res, "订单编号已经被关联，操作失败");
                     return next();
                 } else{
-                    logger.error(' createPaymentShipOrderRel ' + err.message);
-                    throw sysError.InternalError(err.message,sysMsg.SYS_INTERNAL_ERROR_MSG);
+                    logger.error(' createPaymentShipOrderRel ' + error.message);
+                    throw sysError.InternalError(error.message,sysMsg.SYS_INTERNAL_ERROR_MSG);
                 }
             } else {
                 if(result&&result.insertId>0){

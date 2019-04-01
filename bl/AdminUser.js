@@ -59,7 +59,7 @@ function adminUserLogin(req,res,next){
 
 function getAdminUserInfo(req,res,next){
     var params = req.params;
-    adminUserDao.queryAdminUser(params,function(error,rows){
+    adminUserDao.queryAdminInfo(params,function(error,rows){
         if (error) {
             logger.error(' getAdminUserInfo ' + error.message);
             throw sysError.InternalError(error.message,sysMsg.SYS_INTERNAL_ERROR_MSG);

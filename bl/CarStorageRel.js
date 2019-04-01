@@ -49,12 +49,12 @@ function createCarStorageRel(req,res,next){
         var that = this;
         carDAO.getCarList({vin:params.vin},function(error,rows){
             if (error) {
-                if(err.message.indexOf("Duplicate") > 0) {
+                if(error.message.indexOf("Duplicate") > 0) {
                     resUtil.resetFailedRes(res,sysMsg.SYS_INTERNAL_ERROR_MSG);
                     return next();
                 } else{
-                    logger.error(' getCarList ' + err.message);
-                    throw sysError.InternalError(err.message,sysMsg.SYS_INTERNAL_ERROR_MSG);
+                    logger.error(' getCarList ' + error.message);
+                    throw sysError.InternalError(error.message,sysMsg.SYS_INTERNAL_ERROR_MSG);
                 }
             } else {
                 if(rows && rows.length>0){

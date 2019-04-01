@@ -21,8 +21,8 @@ function createLoanIntoBuyCarRel(req,res,next){
                 resUtil.resetFailedRes(res, "VIN已经被关联，操作失败");
                 return next();
             } else{
-                logger.error(' createLoanIntoBuyCarRel ' + err.message);
-                throw sysError.InternalError(err.message,sysMsg.SYS_INTERNAL_ERROR_MSG);
+                logger.error(' createLoanIntoBuyCarRel ' + error.message);
+                throw sysError.InternalError(error.message,sysMsg.SYS_INTERNAL_ERROR_MSG);
             }
         } else {
             logger.info(' createLoanIntoBuyCarRel ' + 'success');
