@@ -126,3 +126,5 @@ ADD COLUMN `difference_fee`  decimal(10,2) NULL DEFAULT 0 COMMENT '借还款金�
 -- ----------------------------
 ALTER TABLE `loan_rep_credit_rel`
 DROP INDEX `credit_id`;
+ALTER TABLE `loan_rep_credit_rel`
+ADD UNIQUE INDEX `credit_id` (`repayment_id`, `credit_id`) USING BTREE ;
