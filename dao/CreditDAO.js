@@ -89,7 +89,6 @@ function getCredit(params,callback) {
         paramsArray[i++] = params.actualReturnDateEnd +" 23:59:59";
         query = query + " and ct.actual_return_date <= ? ";
     }
-    query = query + " group by ct.id ";
     query = query + " order by ct.id desc ";
     if (params.start && params.size) {
         paramsArray[i++] = parseInt(params.start);

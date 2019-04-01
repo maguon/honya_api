@@ -121,3 +121,8 @@ ADD COLUMN `leave_shore_fee`  decimal(10,2) NULL DEFAULT 0 COMMENT '离岸汇款
 ADD COLUMN `us_receipts_fee`  decimal(10,2) NULL DEFAULT 0 COMMENT '美国收款手续费' AFTER `leave_shore_fee`,
 ADD COLUMN `us_remit_fee`  decimal(10,2) NULL DEFAULT 0 COMMENT '美国汇款手续费' AFTER `us_receipts_fee`,
 ADD COLUMN `difference_fee`  decimal(10,2) NULL DEFAULT 0 COMMENT '借还款金额差额' AFTER `actual_money`;
+-- ----------------------------
+-- 2019-04-01 更新
+-- ----------------------------
+ALTER TABLE `loan_rep_credit_rel`
+DROP INDEX `credit_id`;
