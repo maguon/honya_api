@@ -91,7 +91,7 @@ function getCreditCsv(req,res,next){
     var csvString = "";
     var header = "信用证号" + ',' + "委托方" + ',' + "委托方性质" + ','+ "信用证金额" + ','+ "接证行金额"+ ','+ "实际到款金额"+ ','+ "借还款金额差额"
         + ','+ "预计回款日期" + ','+ "实际回款日期" + ','+ "接证日期"
-        + ','+ "交单日期"+ ','+ "文件发出日期" + ','+ "开户行文件接收日期"+ ',' + "实际汇款日期" + ',' + "发票号"+ ',' + "备注" + ',' + "完结时间" + ','+ "状态" + ','+ "关联还款编号"
+        + ','+ "交单日期"+ ','+ "文件发出日期" + ','+ "开户行文件接收日期"+ ',' + "实际汇款日期" + ',' + "发票号"+ ',' + "备注" + ',' + "完结时间" + ','+ "状态"
         + ','+ "VIN" + ','+ "制造商"+ ',' + "型号" + ',' + "商品车估值"+ ',' + "是否金融车"+ ',' + "商品车备注" + ',' + "始发港口" + ','+ "目的港口" + ','+ "预计开船日期" + ','+ "预计到港日期"
         + ','+ "实际开船日期"+ ',' + "实际到港日期" + ',' + "船公司"+ ',' + "船名" + ',' + "货柜" + ','+ "booking" + ','+ "封签";
     csvString = header + '\r\n'+csvString;
@@ -174,11 +174,6 @@ function getCreditCsv(req,res,next){
                 }else{
                     parkObj.creditStatus = "已完结";
                 }
-                if(rows[i].repayment_id == null){
-                    parkObj.repaymentId = "";
-                }else{
-                    parkObj.repaymentId = rows[i].repayment_id;
-                }
 
                 parkObj.vin = rows[i].vin;
                 parkObj.makeName = rows[i].make_name;
@@ -226,7 +221,7 @@ function getCreditCsv(req,res,next){
                 csvString = csvString+parkObj.creditNumber+","+parkObj.shortName+","+parkObj.entrustType+","+parkObj.creditMoney+","+parkObj.receiveCardMoney
                     +","+parkObj.actualMoney+","+parkObj.differenceFee+","+parkObj.planReturnDate+","+parkObj.actualReturnDate+","+parkObj.receiveCardDate+","+parkObj.documentsDate
                     +","+parkObj.documentsSendDate +","+parkObj.documentsReceiveDate+","+parkObj.actualRemitDate+","+parkObj.invoiceNumber
-                    +","+parkObj.remark+","+parkObj.creditEndDate +","+parkObj.creditStatus+","+parkObj.repaymentId
+                    +","+parkObj.remark+","+parkObj.creditEndDate +","+parkObj.creditStatus
                     +","+parkObj.vin+","+parkObj.makeName+","+parkObj.modelName+","+parkObj.valuation+","+parkObj.purchaseType+","+parkObj.carRemark
                     +","+parkObj.startPortName+","+parkObj.endPortName+","+parkObj.startShipDate+","+parkObj.endShipDate+","+parkObj.actualStartDate
                     +","+parkObj.actualEndDate+","+parkObj.shipCompanyName+","+parkObj.shipName+","+parkObj.container+","+parkObj.booking +","+parkObj.tab + '\r\n';
