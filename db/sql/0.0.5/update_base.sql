@@ -133,3 +133,9 @@ ADD UNIQUE INDEX `credit_id` (`repayment_id`, `credit_id`) USING BTREE ;
 -- ----------------------------
 ALTER TABLE `loan_info`
 ADD COLUMN `contract_num`  varchar(50) NULL COMMENT '合同编号' AFTER `entrust_id`;
+-- ----------------------------
+-- 2019-04-04 更新
+-- ----------------------------
+ALTER TABLE `credit_car_rel`
+ADD COLUMN `lc_handling_fee`  decimal(10,2) NULL DEFAULT 0 COMMENT '手续费' AFTER `car_id`,
+ADD COLUMN `bank_services_fee`  decimal(10,2) NULL DEFAULT 0 COMMENT '银行服务费' AFTER `lc_handling_fee`;

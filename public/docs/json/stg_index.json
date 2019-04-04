@@ -14501,6 +14501,12 @@
         },
         "carId": {
           "type": "integer"
+        },
+        "lcHandlingFee": {
+          "type": "integer"
+        },
+        "bankServicesFee": {
+          "type": "integer"
         }
       },
       "xml": {

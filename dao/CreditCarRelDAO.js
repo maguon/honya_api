@@ -7,10 +7,13 @@ var serverLogger = require('../util/ServerLogger.js');
 var logger = serverLogger.createLogger('CreditCarRelDAO.js');
 
 function addCreditCarRel(params,callback){
-    var query = " insert into credit_car_rel (credit_id,car_id) values ( ? , ? )";
+    var query = " insert into credit_car_rel (credit_id,car_id,lc_handling_fee,bank_services_fee) " +
+        " values ( ? , ? , ? , ? )";
     var paramsArray=[],i=0;
     paramsArray[i++]=params.creditId;
     paramsArray[i++]=params.carId;
+    paramsArray[i++]=params.lcHandlingFee;
+    paramsArray[i++]=params.bankServicesFee;
     db.dbQuery(query,paramsArray,function(error,rows){
         logger.debug(' addCreditCarRel ');
         return callback(error,rows);
