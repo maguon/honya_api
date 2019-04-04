@@ -88,6 +88,19 @@ function getCreditCarRel(params,callback) {
     });
 }
 
+function updateCreditCarRel(params,callback){
+    var query = " update credit_car_rel set lc_handling_fee = ? , bank_services_fee = ? where credit_id = ? and car_id = ? " ;
+    var paramsArray=[],i=0;
+    paramsArray[i++]=params.lcHandlingFee;
+    paramsArray[i++]=params.bankServicesFee;
+    paramsArray[i++]=params.creditId;
+    paramsArray[i]=params.carId;
+    db.dbQuery(query,paramsArray,function(error,rows){
+        logger.debug(' updateCreditCarRel ');
+        return callback(error,rows);
+    });
+}
+
 function deleteCreditCarRel(params,callback){
     var query = " delete from credit_car_rel where credit_id = ? and car_id = ? ";
     var paramsArray=[],i=0;
@@ -103,5 +116,6 @@ function deleteCreditCarRel(params,callback){
 module.exports ={
     addCreditCarRel : addCreditCarRel,
     getCreditCarRel : getCreditCarRel,
+    updateCreditCarRel : updateCreditCarRel,
     deleteCreditCarRel : deleteCreditCarRel
 }

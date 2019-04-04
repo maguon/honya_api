@@ -12493,6 +12493,66 @@
       }
     },
     "/user/{userId}/credit/{creditId}/car/{carId}": {
+      "put": {
+        "tags": [
+          "credit"
+        ],
+        "summary": "update creditCarRel info",
+        "description": "update creditCarRel info",
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "userId",
+            "in": "path",
+            "description": "user Id",
+            "required": true,
+            "type": "integer"
+
+          },
+          {
+            "name": "creditId",
+            "in": "path",
+            "description": "credit id",
+            "required": true,
+            "type": "integer"
+
+          },
+          {
+            "name": "carId",
+            "in": "path",
+            "description": "car id",
+            "required": true,
+            "type": "integer"
+
+          },
+          {
+            "name": "creditCarRel",
+            "in": "body",
+            "description": "creditCarRel info",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/creditCarRel"
+            }
+
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "successful operation",
+            "schema": {
+              "type": "object",
+              "items": {
+                "$ref": "#/definitions/ApiResponse"
+              }
+            }
+          },
+          "400": {
+            "description": "Invalid token value or invalid creditCarRel id"
+          }
+        }
+      },
       "delete": {
         "tags": [
           "credit"
