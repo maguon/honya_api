@@ -42,13 +42,21 @@ function addCredit(params,callback){
 }
 
 function getCredit(params,callback) {
-    var query = " select ct.*,e.entrust_type,e.short_name,lrcr.repayment_id from credit_info ct " +
-        " left join entrust_info e on ct.entrust_id = e.id " +
-        " left join loan_rep_credit_rel lrcr on ct.id = lrcr.credit_id " +
-        " left join credit_car_rel ccr on ct.id = ccr.credit_id " +
-        " left join car_info c on ccr.car_id = c.id " +
-        " where ct.id is not null ";
+    var query = " select ct.*,e.entrust_type,e.short_name " +
+        " from credit_info ct " +
+        " left join entrust_info e on ct.entrust_id = e.id " ;
     var paramsArray=[],i=0;
+    if(params.vin){
+        paramsArray[i++] = params.vin;
+        query = query + " inner join credit_car_rel ccr on ct.id = ccr.credit_id " +
+            " inner join car_info c on ccr.car_id = c.id and c.vin = ? ";
+    }
+    if(params.repaymentId){
+        paramsArray[i++] = params.repaymentId;
+        query = query + " inner join loan_rep_credit_rel lrcr on ct.id = lrcr.credit_id and lrcr.repayment_id = ? ";
+    }
+    query = query + " where ct.id is not null ";
+
     if(params.creditId){
         paramsArray[i++] = params.creditId;
         query = query + " and ct.id = ? ";
@@ -56,14 +64,6 @@ function getCredit(params,callback) {
     if(params.creditNumber){
         paramsArray[i++] = params.creditNumber;
         query = query + " and ct.credit_number = ? ";
-    }
-    if(params.vin){
-        paramsArray[i++] = params.vin;
-        query = query + " and c.vin = ? ";
-    }
-    if(params.repaymentId){
-        paramsArray[i++] = params.repaymentId;
-        query = query + " and lrcr.repayment_id = ? ";
     }
     if(params.entrustId){
         paramsArray[i++] = params.entrustId;
