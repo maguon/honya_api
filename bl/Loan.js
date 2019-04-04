@@ -223,8 +223,8 @@ function updateLoanStatus(req,res,next){
 
 function getLoanCsv(req,res,next){
     var csvString = "";
-    var header = "贷出编号" + ',' + "委托方" + ',' + "抵押车辆" + ','+ "抵押车值" + ','+ "定金"+ ','+ "购买车辆数" + ','+ "贷出金额" + ',' + "贷出时间" + ',' + "未还金额"
-    + ','+ "完结时间" + ','+ "状态"+ ','+ "备注";
+    var header = "贷出编号" + ',' + "委托方" + ',' + "抵押车辆" + ','+ "抵押车值" + ','+ "合同编号" + ','+ "定金"
+        + ','+ "购买车辆数" + ','+ "贷出金额" + ',' + "贷出时间" + ',' + "未还金额" + ','+ "完结时间" + ','+ "状态"+ ','+ "备注";
     csvString = header + '\r\n'+csvString;
     var params = req.params ;
     var parkObj = {};
@@ -242,6 +242,7 @@ function getLoanCsv(req,res,next){
                 }else{
                     parkObj.mortgageValuation = rows[i].mortgage_valuation;
                 }
+                parkObj.contractNum = rows[i].contract_num;
                 parkObj.deposit = rows[i].deposit;
                 parkObj.buyCarCount = rows[i].buy_car_count;
                 parkObj.loanMoney = rows[i].loan_money;
@@ -270,8 +271,8 @@ function getLoanCsv(req,res,next){
                 }else{
                     parkObj.remark = rows[i].remark.replace(/[\r\n]/g, '');
                 }
-                csvString = csvString+parkObj.id+","+parkObj.shortName+","+parkObj.mortgageCarCount+","+parkObj.mortgageValuation+","+parkObj.deposit
-                    +","+parkObj.buyCarCount+","+parkObj.loanMoney+","+parkObj.loanStartDate+","+parkObj.notRepaymentMoney +","+parkObj.loanEndDate
+                csvString = csvString+parkObj.id+","+parkObj.shortName+","+parkObj.mortgageCarCount+","+parkObj.mortgageValuation+","+parkObj.contractNum
+                    +","+parkObj.deposit +","+parkObj.buyCarCount+","+parkObj.loanMoney+","+parkObj.loanStartDate+","+parkObj.notRepaymentMoney +","+parkObj.loanEndDate
                     +","+parkObj.loanStatus+","+parkObj.remark + '\r\n';
             }
             var csvBuffer = new Buffer(csvString,'utf8');
