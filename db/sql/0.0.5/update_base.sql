@@ -128,3 +128,8 @@ ALTER TABLE `loan_rep_credit_rel`
 DROP INDEX `credit_id`;
 ALTER TABLE `loan_rep_credit_rel`
 ADD UNIQUE INDEX `credit_id` (`repayment_id`, `credit_id`) USING BTREE ;
+-- ----------------------------
+-- 2019-04-04 更新
+-- ----------------------------
+ALTER TABLE `loan_info`
+ADD COLUMN `contract_num`  varchar(50) NULL COMMENT '合同编号' AFTER `entrust_id`;

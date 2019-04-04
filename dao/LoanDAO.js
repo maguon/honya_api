@@ -7,9 +7,11 @@ var serverLogger = require('../util/ServerLogger.js');
 var logger = serverLogger.createLogger('LoanDAO.js');
 
 function addLoan(params,callback){
-    var query = " insert into loan_info (entrust_id,deposit,loan_money,not_repayment_money,remark) values ( ? , ? , ? , ? , ? ) ";
+    var query = " insert into loan_info (entrust_id,contract_num,deposit,loan_money,not_repayment_money,remark) " +
+        " values ( ? , ? , ? , ? , ? , ? ) ";
     var paramsArray=[],i=0;
     paramsArray[i++]=params.entrustId;
+    paramsArray[i++]=params.contractNum;
     paramsArray[i++]=params.deposit;
     paramsArray[i++]=params.loanMoney;
     paramsArray[i++]=params.notRepaymentMoney;
@@ -118,8 +120,9 @@ function getLoanStatDate(params,callback) {
 }
 
 function updateLoan(params,callback){
-    var query = " update loan_info set deposit = ? , loan_money = ? , not_repayment_money = ? , remark = ? where id = ? " ;
+    var query = " update loan_info set contract_num = ? , deposit = ? , loan_money = ? , not_repayment_money = ? , remark = ? where id = ? " ;
     var paramsArray=[],i=0;
+    paramsArray[i++]=params.contractNum;
     paramsArray[i++]=params.deposit;
     paramsArray[i++]=params.loanMoney;
     paramsArray[i++]=params.notRepaymentMoney;

@@ -14228,6 +14228,9 @@
         "entrustId": {
           "type": "integer"
         },
+        "contractNum": {
+          "type": "string"
+        },
         "deposit": {
           "type": "integer"
         },
