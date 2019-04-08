@@ -13,7 +13,7 @@
       "url": "https://github.com/maguon/honya_api/blob/master/LICENSE"
     }
   },
-  "host": "stg.myxxjs.com:8001",
+  "host": "stg.myxxjs.com:9001",
   "basePath": "/api",
   "tags": [
     {
@@ -12100,6 +12100,82 @@
         }
       }
     },
+    "/creditBase": {
+      "get": {
+        "tags": [
+          "credit"
+        ],
+        "summary": "query credit base",
+        "description": "query creditBase",
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "creditId",
+            "in": "query",
+            "description": "credit id",
+            "required": false,
+            "type": "integer"
+
+          },
+          {
+            "name": "entrustId",
+            "in": "query",
+            "description": "entrust id",
+            "required": false,
+            "type": "integer"
+
+          },
+          {
+            "name": "creditStatus",
+            "in": "query",
+            "description": "credit status",
+            "required": false,
+            "type": "integer"
+
+          },
+          {
+            "name": "loanId",
+            "in": "query",
+            "description": "loan id",
+            "required": false,
+            "type": "integer"
+
+          },
+          {
+            "name": "start",
+            "in": "query",
+            "description": " list start pos",
+            "required": false,
+            "type": "integer"
+
+          },
+          {
+            "name": "size",
+            "in": "query",
+            "description": "list size for pagination",
+            "required": false,
+            "type": "integer"
+
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "successful operation",
+            "schema": {
+              "type": "object",
+              "items": {
+                "$ref": "#/definitions/credit"
+              }
+            }
+          },
+          "400": {
+            "description": "Invalid token value or invalid credit id"
+          }
+        }
+      }
+    },
     "/credit.csv": {
       "get": {
         "tags": [
@@ -14460,9 +14536,6 @@
           "type": "integer"
         },
         "interestMoney": {
-          "type": "integer"
-        },
-        "fee": {
           "type": "integer"
         },
         "repaymentTotalMoney": {

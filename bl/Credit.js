@@ -42,6 +42,20 @@ function queryCredit(req,res,next){
     })
 }
 
+function queryCreditBase(req,res,next){
+    var params = req.params ;
+    creditDAO.getCreditBase(params,function(error,result){
+        if (error) {
+            logger.error(' queryCreditBase ' + error.message);
+            throw sysError.InternalError(error.message,sysMsg.SYS_INTERNAL_ERROR_MSG);
+        } else {
+            logger.info(' queryCreditBase ' + 'success');
+            resUtil.resetQueryRes(res,result,null);
+            return next();
+        }
+    })
+}
+
 function queryCreditRepMoney(req,res,next){
     var params = req.params ;
     creditDAO.getCreditRepMoney(params,function(error,result){
@@ -242,6 +256,7 @@ function getCreditCsv(req,res,next){
 module.exports = {
     createCredit : createCredit,
     queryCredit : queryCredit,
+    queryCreditBase : queryCreditBase,
     queryCreditRepMoney : queryCreditRepMoney,
     updateCredit : updateCredit,
     updateCreditStatus : updateCreditStatus,

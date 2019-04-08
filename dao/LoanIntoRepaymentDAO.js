@@ -7,14 +7,13 @@ var serverLogger = require('../util/ServerLogger.js');
 var logger = serverLogger.createLogger('LoanIntoRepaymentDAO.js');
 
 function addLoanIntoRepayment(params,callback){
-    var query = " insert into loan_into_repayment (loan_into_id,repayment_money,rate,day_count,interest_money,fee,repayment_total_money,remark) values ( ? , ? , ? , ? , ? , ? , ? , ? )";
+    var query = " insert into loan_into_repayment (loan_into_id,repayment_money,rate,day_count,interest_money,repayment_total_money,remark) values ( ? , ? , ? , ? , ? , ? , ? , ? )";
     var paramsArray=[],i=0;
     paramsArray[i++]=params.loanIntoId;
     paramsArray[i++]=params.repaymentMoney;
     paramsArray[i++]=params.rate;
     paramsArray[i++]=params.dayCount;
     paramsArray[i++]=params.interestMoney;
-    paramsArray[i++]=params.fee;
     paramsArray[i++]=params.repaymentTotalMoney;
     paramsArray[i++]=params.remark;
     db.dbQuery(query,paramsArray,function(error,rows){
@@ -69,13 +68,12 @@ function getLoanIntoRepayment(params,callback) {
 
 function updateLoanIntoRepayment(params,callback){
     var query = " update loan_into_repayment set repayment_money = ? , rate = ? , day_count = ? , interest_money = ? , " +
-        " fee = ? , repayment_total_money = ? , remark = ? where id = ? " ;
+        " repayment_total_money = ? , remark = ? where id = ? " ;
     var paramsArray=[],i=0;
     paramsArray[i++]=params.repaymentMoney;
     paramsArray[i++]=params.rate;
     paramsArray[i++]=params.dayCount;
     paramsArray[i++]=params.interestMoney;
-    paramsArray[i++]=params.fee;
     paramsArray[i++]=params.repaymentTotalMoney;
     paramsArray[i++]=params.remark;
     paramsArray[i]=params.repaymentId;

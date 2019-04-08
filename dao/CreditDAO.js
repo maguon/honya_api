@@ -101,6 +101,42 @@ function getCredit(params,callback) {
     });
 }
 
+function getCreditBase(params,callback) {
+    var query = " select ct.*,e.entrust_type,e.short_name " +
+        " from credit_info ct " +
+        " left join entrust_info e on ct.entrust_id = e.id " +
+        " left join credit_car_rel ccr on ct.id = ccr.credit_id " +
+        " inner join loan_buy_car_rel lbcr on ccr.car_id = lbcr.car_id " +
+        " where ct.id is not null " ;
+    var paramsArray=[],i=0;
+    if(params.creditId){
+        paramsArray[i++] = params.creditId;
+        query = query + " and ct.id = ? ";
+    }
+    if(params.entrustId){
+        paramsArray[i++] = params.entrustId;
+        query = query + " and ct.entrust_id = ? ";
+    }
+    if(params.creditStatus){
+        paramsArray[i++] = params.creditStatus;
+        query = query + " and ct.credit_status = ? ";
+    }
+    if(params.loanId){
+        paramsArray[i++] = params.loanId;
+        query = query + " and lbcr.loan_id = ? ";
+    }
+    query = query + " order by ct.id desc ";
+    if (params.start && params.size) {
+        paramsArray[i++] = parseInt(params.start);
+        paramsArray[i++] = parseInt(params.size);
+        query += " limit ? , ? "
+    }
+    db.dbQuery(query,paramsArray,function(error,rows){
+        logger.debug(' getCreditBase ');
+        return callback(error,rows);
+    });
+}
+
 function getCreditRepMoney(params,callback) {
     var query = " select sum(ct.actual_money) credit_rep_money from credit_info ct " +
         " left join loan_rep_credit_rel lrcr on ct.id = lrcr.credit_id " +
@@ -168,6 +204,7 @@ function updateCreditStatus(params,callback){
 module.exports ={
     addCredit : addCredit,
     getCredit : getCredit,
+    getCreditBase : getCreditBase,
     getCreditRepMoney : getCreditRepMoney,
     updateCredit : updateCredit,
     updateCreditStatus : updateCreditStatus

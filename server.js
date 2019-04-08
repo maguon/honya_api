@@ -498,6 +498,7 @@ function createServer() {
      * Credit Module
      */
     server.get('/api/credit',credit.queryCredit);
+    server.get('/api/creditBase',credit.queryCreditBase);
     server.get('/api/credit.csv',credit.getCreditCsv);
     server.get('/api/repayment/:repaymentId/creditRepMoney',credit.queryCreditRepMoney);
     server.post({path:'/api/user/:userId/credit',contentType: 'application/json'},credit.createCredit);
