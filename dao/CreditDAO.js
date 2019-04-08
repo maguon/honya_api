@@ -125,6 +125,7 @@ function getCreditBase(params,callback) {
         paramsArray[i++] = params.loanId;
         query = query + " and lbcr.loan_id = ? ";
     }
+    query = query + " group by ct.id ";
     query = query + " order by ct.id desc ";
     if (params.start && params.size) {
         paramsArray[i++] = parseInt(params.start);
