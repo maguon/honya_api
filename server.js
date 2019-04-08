@@ -511,6 +511,7 @@ function createServer() {
     server.get('/api/creditCarRel',creditCarRel.queryCreditCarRel);
     server.post({path:'/api/user/:userId/creditCarRel',contentType: 'application/json'},creditCarRel.createCreditCarRel);
     server.put({path:'/api/user/:userId/credit/:creditId/car/:carId',contentType: 'application/json'} ,creditCarRel.updateCreditCarRel);
+    server.put({path:'/api/user/:userId/credit/:creditId/car/:carId/creditCarRepRel',contentType: 'application/json'} ,creditCarRel.updateCreditCarRepRel);
     server.del('/api/user/:userId/credit/:creditId/car/:carId' , creditCarRel.removeCreditCarRel);
 
     /**

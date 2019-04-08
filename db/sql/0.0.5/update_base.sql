@@ -139,3 +139,8 @@ ADD COLUMN `contract_num`  varchar(50) NULL COMMENT '合同编号' AFTER `entrus
 ALTER TABLE `credit_car_rel`
 ADD COLUMN `lc_handling_fee`  decimal(10,2) NULL DEFAULT 0 COMMENT '手续费' AFTER `car_id`,
 ADD COLUMN `bank_services_fee`  decimal(10,2) NULL DEFAULT 0 COMMENT '银行服务费' AFTER `lc_handling_fee`;
+-- ----------------------------
+-- 2019-04-08 更新
+-- ----------------------------
+ALTER TABLE `credit_car_rel`
+ADD COLUMN `repayment_id`  int(10) NULL DEFAULT 0 COMMENT '还款ID' AFTER `bank_services_fee`;

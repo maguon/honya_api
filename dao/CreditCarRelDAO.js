@@ -101,6 +101,18 @@ function updateCreditCarRel(params,callback){
     });
 }
 
+function updateCreditCarRepRel(params,callback){
+    var query = " update credit_car_rel set repayment_id = ? where credit_id = ? and car_id = ? " ;
+    var paramsArray=[],i=0;
+    paramsArray[i++]=params.repaymentId;
+    paramsArray[i++]=params.creditId;
+    paramsArray[i]=params.carId;
+    db.dbQuery(query,paramsArray,function(error,rows){
+        logger.debug(' updateCreditCarRepRel ');
+        return callback(error,rows);
+    });
+}
+
 function deleteCreditCarRel(params,callback){
     var query = " delete from credit_car_rel where credit_id = ? and car_id = ? ";
     var paramsArray=[],i=0;
@@ -117,5 +129,6 @@ module.exports ={
     addCreditCarRel : addCreditCarRel,
     getCreditCarRel : getCreditCarRel,
     updateCreditCarRel : updateCreditCarRel,
+    updateCreditCarRepRel : updateCreditCarRepRel,
     deleteCreditCarRel : deleteCreditCarRel
 }

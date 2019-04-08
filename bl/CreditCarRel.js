@@ -60,6 +60,20 @@ function updateCreditCarRel(req,res,next){
     })
 }
 
+function updateCreditCarRepRel(req,res,next){
+    var params = req.params ;
+    creditCarRelDAO.updateCreditCarRepRel(params,function(error,result){
+        if (error) {
+            logger.error(' updateCreditCarRepRel ' + error.message);
+            throw sysError.InternalError(error.message,sysMsg.SYS_INTERNAL_ERROR_MSG);
+        } else {
+            logger.info(' updateCreditCarRepRel ' + 'success');
+            resUtil.resetUpdateRes(res,result,null);
+            return next();
+        }
+    })
+}
+
 function removeCreditCarRel(req,res,next){
     var params = req.params;
     creditCarRelDAO.deleteCreditCarRel(params,function(error,result){
@@ -79,5 +93,6 @@ module.exports = {
     createCreditCarRel : createCreditCarRel,
     queryCreditCarRel : queryCreditCarRel,
     updateCreditCarRel : updateCreditCarRel,
+    updateCreditCarRepRel: updateCreditCarRepRel,
     removeCreditCarRel : removeCreditCarRel
 }
