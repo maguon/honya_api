@@ -85,7 +85,12 @@ function updateCreditCarRepRel(req,res,next){
             }
         })
     }).seq(function () {
-        params.valuationFee = parkObj.valuation-(parkObj.lcHandlingFee+parkObj.bankServicesFee);
+        if(params.repaymentId>0){
+            params.valuationFee = parkObj.valuation-(parkObj.lcHandlingFee+parkObj.bankServicesFee);
+        }else{
+            params.valuationFee = 0;
+        }
+
         creditCarRelDAO.updateCreditCarRepRel(params,function(error,result){
             if (error) {
                 logger.error(' updateCreditCarRepRel ' + error.message);
