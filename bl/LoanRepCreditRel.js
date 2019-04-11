@@ -8,6 +8,7 @@ var resUtil = require('../util/ResponseUtil.js');
 var encrypt = require('../util/Encrypt.js');
 var listOfValue = require('../util/ListOfValue.js');
 var loanRepCreditRelDAO = require('../dao/LoanRepCreditRelDAO.js');
+var creditCarRelDAO = require('../dao/CreditCarRelDAO.js');
 var oAuthUtil = require('../util/OAuthUtil.js');
 var Seq = require('seq');
 var serverLogger = require('../util/ServerLogger.js');
@@ -48,15 +49,33 @@ function queryLoanRepCreditRel(req,res,next){
 
 function removeLoanRepCreditRel(req,res,next){
     var params = req.params;
-    loanRepCreditRelDAO.deleteLoanRepCreditRel(params,function(error,result){
-        if (error) {
-            logger.error(' removeLoanRepCreditRel ' + error.message);
-            throw sysError.InternalError(error.message,sysMsg.SYS_INTERNAL_ERROR_MSG);
-        } else {
-            logger.info(' removeLoanRepCreditRel ' + 'success');
-            resUtil.resetUpdateRes(res,result,null);
-            return next();
-        }
+    Seq().seq(function(){
+        var that = this;
+        creditCarRelDAO.getCreditCarRelBase({creditId:params.creditId},function(error,rows){
+            if (error) {
+                logger.error(' getCreditCarRelBase ' + error.message);
+                throw sysError.InternalError(error.message,sysMsg.SYS_INTERNAL_ERROR_MSG);
+            } else{
+                if(rows&&rows.length >0){
+                    logger.warn(' getCreditCarRelBase ' + 'failed');
+                    resUtil.resetFailedRes(res," 请先解除信用证下的还款 ");
+                    return next();
+                }else{
+                    that();
+                }
+            }
+        })
+    }).seq(function () {
+        loanRepCreditRelDAO.deleteLoanRepCreditRel(params,function(error,result){
+            if (error) {
+                logger.error(' removeLoanRepCreditRel ' + error.message);
+                throw sysError.InternalError(error.message,sysMsg.SYS_INTERNAL_ERROR_MSG);
+            } else {
+                logger.info(' removeLoanRepCreditRel ' + 'success');
+                resUtil.resetUpdateRes(res,result,null);
+                return next();
+            }
+        })
     })
 }
 

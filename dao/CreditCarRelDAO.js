@@ -88,6 +88,28 @@ function getCreditCarRel(params,callback) {
     });
 }
 
+function getCreditCarRelBase(params,callback) {
+    var query = " select ccr.* from credit_car_rel ccr where ccr.id is not null ";
+    var paramsArray=[],i=0;
+    if(params.creditId){
+        paramsArray[i++] = params.creditId;
+        query = query + " and ccr.credit_id = ? ";
+    }
+    if(params.repaymentId){
+        paramsArray[i++] = params.repaymentId;
+        query = query + " and ccr.repayment_id > 0 ";
+    }
+    if (params.start && params.size) {
+        paramsArray[i++] = parseInt(params.start);
+        paramsArray[i++] = parseInt(params.size);
+        query += " limit ? , ? "
+    }
+    db.dbQuery(query,paramsArray,function(error,rows){
+        logger.debug(' getCreditCarRelBase ');
+        return callback(error,rows);
+    });
+}
+
 function updateCreditCarRel(params,callback){
     var query = " update credit_car_rel set lc_handling_fee = ? , bank_services_fee = ? , valuation_fee = ? " +
         " where credit_id = ? and car_id = ? " ;
@@ -130,6 +152,7 @@ function deleteCreditCarRel(params,callback){
 module.exports ={
     addCreditCarRel : addCreditCarRel,
     getCreditCarRel : getCreditCarRel,
+    getCreditCarRelBase : getCreditCarRelBase,
     updateCreditCarRel : updateCreditCarRel,
     updateCreditCarRepRel : updateCreditCarRepRel,
     deleteCreditCarRel : deleteCreditCarRel
