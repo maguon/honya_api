@@ -8,6 +8,7 @@ var resUtil = require('../util/ResponseUtil.js');
 var encrypt = require('../util/Encrypt.js');
 var listOfValue = require('../util/ListOfValue.js');
 var creditCarRelDAO = require('../dao/CreditCarRelDAO.js');
+var carDAO = require('../dao/CarDAO.js');
 var oAuthUtil = require('../util/OAuthUtil.js');
 var Seq = require('seq');
 var serverLogger = require('../util/ServerLogger.js');
@@ -48,15 +49,37 @@ function queryCreditCarRel(req,res,next){
 
 function updateCreditCarRel(req,res,next){
     var params = req.params ;
-    creditCarRelDAO.updateCreditCarRel(params,function(error,result){
-        if (error) {
-            logger.error(' updateCreditCarRel ' + error.message);
-            throw sysError.InternalError(error.message,sysMsg.SYS_INTERNAL_ERROR_MSG);
-        } else {
-            logger.info(' updateCreditCarRel ' + 'success');
-            resUtil.resetUpdateRes(res,result,null);
-            return next();
-        }
+    var parkObj = {};
+    Seq().seq(function(){
+        var that = this;
+        carDAO.getCarList({carId:params.carId},function(error,rows){
+            if (error) {
+                logger.error(' getCarList ' + error.message);
+                throw sysError.InternalError(error.message,sysMsg.SYS_INTERNAL_ERROR_MSG);
+            } else{
+                if(rows&&rows.length >0){
+                    parkObj.valuation=rows[0].valuation;
+                    that();
+                }else{
+                    logger.warn(' getCarList ' + 'failed');
+                    resUtil.resetFailedRes(res," 商品车不存在 ");
+                    return next();
+
+                }
+            }
+        })
+    }).seq(function () {
+        params.valuationFee = parkObj.valuation-(params.lcHandlingFee+params.bankServicesFee);
+        creditCarRelDAO.updateCreditCarRel(params,function(error,result){
+            if (error) {
+                logger.error(' updateCreditCarRel ' + error.message);
+                throw sysError.InternalError(error.message,sysMsg.SYS_INTERNAL_ERROR_MSG);
+            } else {
+                logger.info(' updateCreditCarRel ' + 'success');
+                resUtil.resetUpdateRes(res,result,null);
+                return next();
+            }
+        })
     })
 }
 

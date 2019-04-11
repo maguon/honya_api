@@ -139,9 +139,9 @@ function getCreditBase(params,callback) {
 }
 
 function getCreditRepMoney(params,callback) {
-    var query = " select sum(ct.actual_money) credit_rep_money from credit_info ct " +
-        " left join loan_rep_credit_rel lrcr on ct.id = lrcr.credit_id " +
-        " where ct.id is not null ";
+    var query = " select sum(ccr.valuation_fee) credit_rep_money from credit_car_rel ccr " +
+        " left join loan_rep_credit_rel lrcr on ccr.credit_id = lrcr.credit_id " +
+        " where ccr.id is not null ";
     var paramsArray=[],i=0;
     if(params.repaymentId){
         paramsArray[i++] = params.repaymentId;
