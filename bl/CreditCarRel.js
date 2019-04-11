@@ -49,15 +49,37 @@ function queryCreditCarRel(req,res,next){
 
 function updateCreditCarRel(req,res,next){
     var params = req.params ;
-    creditCarRelDAO.updateCreditCarRel(params,function(error,result){
-        if (error) {
-            logger.error(' updateCreditCarRel ' + error.message);
-            throw sysError.InternalError(error.message,sysMsg.SYS_INTERNAL_ERROR_MSG);
-        } else {
-            logger.info(' updateCreditCarRel ' + 'success');
-            resUtil.resetUpdateRes(res,result,null);
-            return next();
-        }
+    var parkObj = {};
+    Seq().seq(function(){
+        var that = this;
+        creditCarRelDAO.getCreditCarRelBase(params,function(error,rows){
+            if (error) {
+                logger.error(' getCarList ' + error.message);
+                throw sysError.InternalError(error.message,sysMsg.SYS_INTERNAL_ERROR_MSG);
+            } else{
+                if(rows&&rows.length >0){
+                    parkObj.valuation=rows[0].valuation;
+                    that();
+                }else{
+                    logger.warn(' getCarList ' + 'failed');
+                    resUtil.resetFailedRes(res," 商品车不存在 ");
+                    return next();
+
+                }
+            }
+        })
+    }).seq(function () {
+        params.valuationFee = parkObj.valuation-(params.lcHandlingFee+params.bankServicesFee);
+        creditCarRelDAO.updateCreditCarRel(params,function(error,result){
+            if (error) {
+                logger.error(' updateCreditCarRel ' + error.message);
+                throw sysError.InternalError(error.message,sysMsg.SYS_INTERNAL_ERROR_MSG);
+            } else {
+                logger.info(' updateCreditCarRel ' + 'success');
+                resUtil.resetUpdateRes(res,result,null);
+                return next();
+            }
+        })
     })
 }
 
@@ -66,7 +88,7 @@ function updateCreditCarRepRel(req,res,next){
     var parkObj = {};
     Seq().seq(function(){
         var that = this;
-        creditCarRelDAO.getCreditCarRelBase({carId:params.carId},function(error,rows){
+        creditCarRelDAO.getCreditCarRelBase(params,function(error,rows){
             if (error) {
                 logger.error(' getCarList ' + error.message);
                 throw sysError.InternalError(error.message,sysMsg.SYS_INTERNAL_ERROR_MSG);
@@ -90,7 +112,6 @@ function updateCreditCarRepRel(req,res,next){
         }else{
             params.valuationFee = 0;
         }
-
         creditCarRelDAO.updateCreditCarRepRel(params,function(error,result){
             if (error) {
                 logger.error(' updateCreditCarRepRel ' + error.message);
@@ -102,7 +123,6 @@ function updateCreditCarRepRel(req,res,next){
             }
         })
     })
-
 }
 
 function removeCreditCarRel(req,res,next){

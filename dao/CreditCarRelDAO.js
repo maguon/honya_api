@@ -118,11 +118,12 @@ function getCreditCarRelBase(params,callback) {
 }
 
 function updateCreditCarRel(params,callback){
-    var query = " update credit_car_rel set lc_handling_fee = ? , bank_services_fee = ? " +
+    var query = " update credit_car_rel set lc_handling_fee = ? , bank_services_fee = ? , valuation_fee = ? " +
         " where credit_id = ? and car_id = ? " ;
     var paramsArray=[],i=0;
     paramsArray[i++]=params.lcHandlingFee;
     paramsArray[i++]=params.bankServicesFee;
+    paramsArray[i++]=params.valuationFee;
     paramsArray[i++]=params.creditId;
     paramsArray[i]=params.carId;
     db.dbQuery(query,paramsArray,function(error,rows){
