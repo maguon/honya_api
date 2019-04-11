@@ -52,7 +52,11 @@ function updateCreditCarRel(req,res,next){
     var parkObj = {};
     Seq().seq(function(){
         var that = this;
-        creditCarRelDAO.getCreditCarRelBase(params,function(error,rows){
+        var subParams ={
+            creditId : params.creditId,
+            carId : params.carId
+        }
+        creditCarRelDAO.getCreditCarRelBase(subParams,function(error,rows){
             if (error) {
                 logger.error(' getCarList ' + error.message);
                 throw sysError.InternalError(error.message,sysMsg.SYS_INTERNAL_ERROR_MSG);
@@ -88,7 +92,11 @@ function updateCreditCarRepRel(req,res,next){
     var parkObj = {};
     Seq().seq(function(){
         var that = this;
-        creditCarRelDAO.getCreditCarRelBase(params,function(error,rows){
+        var subParams ={
+            creditId : params.creditId,
+            carId : params.carId
+        }
+        creditCarRelDAO.getCreditCarRelBase(subParams,function(error,rows){
             if (error) {
                 logger.error(' getCarList ' + error.message);
                 throw sysError.InternalError(error.message,sysMsg.SYS_INTERNAL_ERROR_MSG);
