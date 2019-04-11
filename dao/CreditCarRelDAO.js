@@ -89,15 +89,22 @@ function getCreditCarRel(params,callback) {
 }
 
 function getCreditCarRelBase(params,callback) {
-    var query = " select ccr.* from credit_car_rel ccr where ccr.id is not null ";
+    var query = " select ccr.*,c.vin,c.make_name,c.model_name,pro_date,c.colour,c.valuation,c.purchase_type,c.remark as car_remark " +
+        " from credit_car_rel ccr " +
+        " left join car_info c on ccr.car_id = c.id " +
+        " where ccr.id is not null ";
     var paramsArray=[],i=0;
     if(params.creditId){
         paramsArray[i++] = params.creditId;
         query = query + " and ccr.credit_id = ? ";
     }
+    if(params.carId){
+        paramsArray[i++] = params.carId;
+        query = query + " and ccr.car_id = ? ";
+    }
     if(params.repaymentId){
         paramsArray[i++] = params.repaymentId;
-        query = query + " and ccr.repayment_id > 0 ";
+        query = query + " and ccr.repayment_id = ? ";
     }
     if (params.start && params.size) {
         paramsArray[i++] = parseInt(params.start);
@@ -111,12 +118,11 @@ function getCreditCarRelBase(params,callback) {
 }
 
 function updateCreditCarRel(params,callback){
-    var query = " update credit_car_rel set lc_handling_fee = ? , bank_services_fee = ? , valuation_fee = ? " +
+    var query = " update credit_car_rel set lc_handling_fee = ? , bank_services_fee = ? " +
         " where credit_id = ? and car_id = ? " ;
     var paramsArray=[],i=0;
     paramsArray[i++]=params.lcHandlingFee;
     paramsArray[i++]=params.bankServicesFee;
-    paramsArray[i++]=params.valuationFee;
     paramsArray[i++]=params.creditId;
     paramsArray[i]=params.carId;
     db.dbQuery(query,paramsArray,function(error,rows){
@@ -126,9 +132,11 @@ function updateCreditCarRel(params,callback){
 }
 
 function updateCreditCarRepRel(params,callback){
-    var query = " update credit_car_rel set repayment_id = ? where credit_id = ? and car_id = ? " ;
+    var query = " update credit_car_rel set repayment_id = ? , valuation_fee = ? " +
+        " where credit_id = ? and car_id = ? " ;
     var paramsArray=[],i=0;
     paramsArray[i++]=params.repaymentId;
+    paramsArray[i++]=params.valuationFee;
     paramsArray[i++]=params.creditId;
     paramsArray[i]=params.carId;
     db.dbQuery(query,paramsArray,function(error,rows){

@@ -51,7 +51,7 @@ function removeLoanRepCreditRel(req,res,next){
     var params = req.params;
     Seq().seq(function(){
         var that = this;
-        creditCarRelDAO.getCreditCarRelBase({creditId:params.creditId},function(error,rows){
+        creditCarRelDAO.getCreditCarRelBase(params,function(error,rows){
             if (error) {
                 logger.error(' getCreditCarRelBase ' + error.message);
                 throw sysError.InternalError(error.message,sysMsg.SYS_INTERNAL_ERROR_MSG);

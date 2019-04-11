@@ -49,16 +49,32 @@ function queryCreditCarRel(req,res,next){
 
 function updateCreditCarRel(req,res,next){
     var params = req.params ;
+    creditCarRelDAO.updateCreditCarRel(params,function(error,result){
+        if (error) {
+            logger.error(' updateCreditCarRel ' + error.message);
+            throw sysError.InternalError(error.message,sysMsg.SYS_INTERNAL_ERROR_MSG);
+        } else {
+            logger.info(' updateCreditCarRel ' + 'success');
+            resUtil.resetUpdateRes(res,result,null);
+            return next();
+        }
+    })
+}
+
+function updateCreditCarRepRel(req,res,next){
+    var params = req.params ;
     var parkObj = {};
     Seq().seq(function(){
         var that = this;
-        carDAO.getCarList({carId:params.carId},function(error,rows){
+        creditCarRelDAO.getCreditCarRelBase({carId:params.carId},function(error,rows){
             if (error) {
                 logger.error(' getCarList ' + error.message);
                 throw sysError.InternalError(error.message,sysMsg.SYS_INTERNAL_ERROR_MSG);
             } else{
                 if(rows&&rows.length >0){
                     parkObj.valuation=rows[0].valuation;
+                    parkObj.lcHandlingFee=rows[0].lc_handling_fee;
+                    parkObj.bankServicesFee=rows[0].bank_services_fee;
                     that();
                 }else{
                     logger.warn(' getCarList ' + 'failed');
@@ -69,32 +85,19 @@ function updateCreditCarRel(req,res,next){
             }
         })
     }).seq(function () {
-        params.valuationFee = parkObj.valuation-(params.lcHandlingFee+params.bankServicesFee);
-        creditCarRelDAO.updateCreditCarRel(params,function(error,result){
+        params.valuationFee = parkObj.valuation-(parkObj.lcHandlingFee+parkObj.bankServicesFee);
+        creditCarRelDAO.updateCreditCarRepRel(params,function(error,result){
             if (error) {
-                logger.error(' updateCreditCarRel ' + error.message);
+                logger.error(' updateCreditCarRepRel ' + error.message);
                 throw sysError.InternalError(error.message,sysMsg.SYS_INTERNAL_ERROR_MSG);
             } else {
-                logger.info(' updateCreditCarRel ' + 'success');
+                logger.info(' updateCreditCarRepRel ' + 'success');
                 resUtil.resetUpdateRes(res,result,null);
                 return next();
             }
         })
     })
-}
 
-function updateCreditCarRepRel(req,res,next){
-    var params = req.params ;
-    creditCarRelDAO.updateCreditCarRepRel(params,function(error,result){
-        if (error) {
-            logger.error(' updateCreditCarRepRel ' + error.message);
-            throw sysError.InternalError(error.message,sysMsg.SYS_INTERNAL_ERROR_MSG);
-        } else {
-            logger.info(' updateCreditCarRepRel ' + 'success');
-            resUtil.resetUpdateRes(res,result,null);
-            return next();
-        }
-    })
 }
 
 function removeCreditCarRel(req,res,next){
