@@ -58,14 +58,14 @@ function updateCreditCarRel(req,res,next){
         }
         creditCarRelDAO.getCreditCarRelBase(subParams,function(error,rows){
             if (error) {
-                logger.error(' getCarList ' + error.message);
+                logger.error(' getCreditCarRelBase ' + error.message);
                 throw sysError.InternalError(error.message,sysMsg.SYS_INTERNAL_ERROR_MSG);
             } else{
                 if(rows&&rows.length >0){
                     parkObj.valuation=rows[0].valuation;
                     that();
                 }else{
-                    logger.warn(' getCarList ' + 'failed');
+                    logger.warn(' getCreditCarRelBase ' + 'failed');
                     resUtil.resetFailedRes(res," 商品车不存在 ");
                     return next();
 
@@ -98,7 +98,7 @@ function updateCreditCarRepRel(req,res,next){
         }
         creditCarRelDAO.getCreditCarRelBase(subParams,function(error,rows){
             if (error) {
-                logger.error(' getCarList ' + error.message);
+                logger.error(' getCreditCarRelBase ' + error.message);
                 throw sysError.InternalError(error.message,sysMsg.SYS_INTERNAL_ERROR_MSG);
             } else{
                 if(rows&&rows.length >0){
@@ -107,7 +107,7 @@ function updateCreditCarRepRel(req,res,next){
                     parkObj.bankServicesFee=rows[0].bank_services_fee;
                     that();
                 }else{
-                    logger.warn(' getCarList ' + 'failed');
+                    logger.warn(' getCreditCarRelBase ' + 'failed');
                     resUtil.resetFailedRes(res," 商品车不存在 ");
                     return next();
 
