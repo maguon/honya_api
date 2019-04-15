@@ -121,15 +121,46 @@ function queryLoanRepayment(req,res,next){
 
 function updateLoanRepayment(req,res,next){
     var params = req.params;
-    loanRepaymentDAO.updateLoanRepayment(params,function(error,result){
-        if (error) {
-            logger.error(' updateLoanRepayment ' + error.message);
-            throw sysError.InternalError(error.message,sysMsg.SYS_INTERNAL_ERROR_MSG);
-        } else {
-            logger.info(' updateLoanRepayment ' + 'success');
-            resUtil.resetUpdateRes(res,result,null);
-            return next();
-        }
+    Seq().seq(function() {
+        var that = this;
+        var carIds = params.carIds;
+        var rowArray = [] ;
+        rowArray.length= carIds.length;
+        Seq(rowArray).seqEach(function(rowObj,i){
+            var that = this;
+            var subParams ={
+                repaymentId : params.repaymentId,
+                loanId : params.loanId,
+                carId : carIds[i],
+                row : i+1,
+            }
+            loanBuyCarRelDAO.updateLoanBuyCarRel(subParams,function(err,result){
+                if (err) {
+                    logger.error(' updateLoanBuyCarRel ' + err.message);
+                    throw sysError.InternalError(err.message,sysMsg.SYS_INTERNAL_ERROR_MSG);
+                } else {
+                    if(result&&result.insertId>0){
+                        logger.info(' updateLoanBuyCarRel ' + 'success');
+                    }else{
+                        logger.warn(' updateLoanBuyCarRel ' + 'failed');
+                    }
+                    that(null,i);
+                }
+            })
+        }).seq(function(){
+            that();
+        })
+    }).seq(function(){
+        loanRepaymentDAO.updateLoanRepayment(params,function(error,result){
+            if (error) {
+                logger.error(' updateLoanRepayment ' + error.message);
+                throw sysError.InternalError(error.message,sysMsg.SYS_INTERNAL_ERROR_MSG);
+            } else {
+                logger.info(' updateLoanRepayment ' + 'success');
+                resUtil.resetUpdateRes(res,result,null);
+                return next();
+            }
+        })
     })
 }
 
