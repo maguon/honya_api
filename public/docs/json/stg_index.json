@@ -10289,6 +10289,66 @@
       }
     },
     "/user/{userId}/loan/{loanId}/car/{carId}/loanBuyCarRel": {
+      "put": {
+        "tags": [
+          "loan"
+        ],
+        "summary": "update loanBuyCarRel info",
+        "description": "update loanBuyCarRel info",
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "userId",
+            "in": "path",
+            "description": "user id",
+            "required": true,
+            "type": "integer"
+
+          },
+          {
+            "name": "loanId",
+            "in": "path",
+            "description": "loan id",
+            "required": true,
+            "type": "integer"
+
+          },
+          {
+            "name": "carId",
+            "in": "path",
+            "description": "car id",
+            "required": true,
+            "type": "integer"
+
+          },
+          {
+            "name": "loanBuyCarRel",
+            "in": "body",
+            "description": "loanBuyCarRel info",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/loanBuyCarRel"
+            }
+
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "successful operation",
+            "schema": {
+              "type": "object",
+              "items": {
+                "$ref": "#/definitions/ApiResponse"
+              }
+            }
+          },
+          "400": {
+            "description": "Invalid token value or invalid loanBuyCarRel id"
+          }
+        }
+      },
       "delete": {
         "tags": [
           "loan"
@@ -14466,6 +14526,9 @@
           "type": "integer"
         },
         "carId": {
+          "type": "integer"
+        },
+        "repaymentId": {
           "type": "integer"
         }
       },

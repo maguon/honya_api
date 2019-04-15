@@ -440,6 +440,7 @@ function createServer() {
      */
     server.get('/api/loanBuyCarRel',loanBuyCarRel.queryLoanBuyCarRel);
     server.post({path:'/api/user/:userId/loanBuyCarRel',contentType: 'application/json'},loanBuyCarRel.createLoanBuyCarRel);
+    server.put({path:'/api/user/:userId/loan/:loanId/car/:carId/loanBuyCarRel',contentType: 'application/json'} ,loanBuyCarRel.updateLoanBuyCarRel);
     server.del('/api/user/:userId/loan/:loanId/car/:carId/loanBuyCarRel' , loanBuyCarRel.removeLoanBuyCarRel);
 
     /**

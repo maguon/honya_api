@@ -75,6 +75,20 @@ function queryLoanBuyCarRel(req,res,next){
     })
 }
 
+function updateLoanBuyCarRel(req,res,next){
+    var params = req.params ;
+    loanBuyCarRelDAO.updateLoanBuyCarRel(params,function(error,result){
+        if (error) {
+            logger.error(' updateLoanBuyCarRel ' + error.message);
+            throw sysError.InternalError(error.message,sysMsg.SYS_INTERNAL_ERROR_MSG);
+        } else {
+            logger.info(' updateLoanBuyCarRel ' + 'success');
+            resUtil.resetUpdateRes(res,result,null);
+            return next();
+        }
+    })
+}
+
 function removeLoanBuyCarRel(req,res,next){
     var params = req.params;
     Seq().seq(function(){
@@ -112,5 +126,6 @@ function removeLoanBuyCarRel(req,res,next){
 module.exports = {
     createLoanBuyCarRel : createLoanBuyCarRel,
     queryLoanBuyCarRel : queryLoanBuyCarRel,
+    updateLoanBuyCarRel : updateLoanBuyCarRel,
     removeLoanBuyCarRel : removeLoanBuyCarRel
 }
