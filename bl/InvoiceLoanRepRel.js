@@ -77,6 +77,20 @@ function queryInvoiceLoanRepRel(req,res,next){
     })
 }
 
+function queryInvoiceLoanRepRelList(req,res,next){
+    var params = req.params ;
+    invoiceLoanRepRelDAO.getInvoiceLoanRepRelList(params,function(error,result){
+        if (error) {
+            logger.error(' queryInvoiceLoanRepRelList ' + error.message);
+            throw sysError.InternalError(error.message,sysMsg.SYS_INTERNAL_ERROR_MSG);
+        } else {
+            logger.info(' queryInvoiceLoanRepRelList ' + 'success');
+            resUtil.resetQueryRes(res,result,null);
+            return next();
+        }
+    })
+}
+
 function removeInvoiceLoanRepRel(req,res,next){
     var params = req.params;
     Seq().seq(function(){
@@ -115,5 +129,6 @@ function removeInvoiceLoanRepRel(req,res,next){
 module.exports = {
     createInvoiceLoanRepRel : createInvoiceLoanRepRel,
     queryInvoiceLoanRepRel : queryInvoiceLoanRepRel,
+    queryInvoiceLoanRepRelList : queryInvoiceLoanRepRelList,
     removeInvoiceLoanRepRel : removeInvoiceLoanRepRel
 }

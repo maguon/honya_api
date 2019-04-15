@@ -13390,6 +13390,42 @@
         }
       }
     },
+    "/invoiceLoanRepRelList": {
+      "get": {
+        "tags": [
+          "invoice"
+        ],
+        "summary": "query  invoiceLoanRepRel list",
+        "description": "query invoiceLoanRepRel",
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "invoiceId",
+            "in": "query",
+            "description": "invoice id",
+            "required": false,
+            "type": "integer"
+
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "successful operation",
+            "schema": {
+              "type": "object",
+              "items": {
+                "$ref": "#/definitions/invoiceLoanRepRel"
+              }
+            }
+          },
+          "400": {
+            "description": "Invalid token value or invalid invoiceLoanRepRel id"
+          }
+        }
+      }
+    },
     "/user/{userId}/invoiceLoanRepRel": {
       "post": {
         "tags": [
