@@ -10,6 +10,7 @@ var listOfValue = require('../util/ListOfValue.js');
 var sysConst = require('../util/SysConst.js');
 var loanRepaymentDAO = require('../dao/LoanRepaymentDAO.js');
 var loanDAO = require('../dao/LoanDAO.js');
+var loanBuyCarRelDAO = require('../dao/LoanBuyCarRelDAO.js');
 var oAuthUtil = require('../util/OAuthUtil.js');
 var Seq = require('seq');
 var serverLogger = require('../util/ServerLogger.js');
@@ -50,6 +51,35 @@ function createLoanRepayment(req,res,next){
                 }
                 that();
             }
+        })
+    }).seq(function() {
+        var that = this;
+        var carIds = params.carIds;
+        var rowArray = [] ;
+        rowArray.length= carIds.length;
+        Seq(rowArray).seqEach(function(rowObj,i){
+            var that = this;
+            var subParams ={
+                repaymentId : repaymentId,
+                loanId : params.loanId,
+                carId : carIds[i],
+                row : i+1,
+            }
+            loanBuyCarRelDAO.updateLoanBuyCarRel(subParams,function(err,result){
+                if (err) {
+                    logger.error(' updateLoanBuyCarRel ' + err.message);
+                    throw sysError.InternalError(err.message,sysMsg.SYS_INTERNAL_ERROR_MSG);
+                } else {
+                    if(result&&result.insertId>0){
+                        logger.info(' updateLoanBuyCarRel ' + 'success');
+                    }else{
+                        logger.warn(' updateLoanBuyCarRel ' + 'failed');
+                    }
+                    that(null,i);
+                }
+            })
+        }).seq(function(){
+            that();
         })
     }).seq(function () {
         var that = this;

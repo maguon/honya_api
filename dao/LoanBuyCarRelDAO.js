@@ -41,6 +41,18 @@ function getLoanBuyCarRel(params,callback) {
     });
 }
 
+function updateLoanBuyCarRel(params,callback){
+    var query = " update loan_buy_car_rel set repayment_id = ? where loan_id = ? and car_id = ? " ;
+    var paramsArray=[],i=0;
+    paramsArray[i++]=params.repaymentId;
+    paramsArray[i++]=params.loanId;
+    paramsArray[i++]=params.carId;
+    db.dbQuery(query,paramsArray,function(error,rows){
+        logger.debug(' updateLoanBuyCarRel ');
+        return callback(error,rows);
+    });
+}
+
 function deleteLoanBuyCarRel(params,callback){
     var query = " delete from loan_buy_car_rel where loan_id = ? and car_id = ? ";
     var paramsArray=[],i=0;
@@ -56,5 +68,6 @@ function deleteLoanBuyCarRel(params,callback){
 module.exports ={
     addLoanBuyCarRel : addLoanBuyCarRel,
     getLoanBuyCarRel : getLoanBuyCarRel,
+    updateLoanBuyCarRel : updateLoanBuyCarRel,
     deleteLoanBuyCarRel : deleteLoanBuyCarRel
 }

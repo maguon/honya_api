@@ -14500,6 +14500,9 @@
         },
         "remark": {
           "type": "string"
+        },
+        "carIds": {
+          "type": "integer"
         }
       },
       "xml": {

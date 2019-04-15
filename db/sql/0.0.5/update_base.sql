@@ -145,7 +145,12 @@ ADD COLUMN `bank_services_fee`  decimal(10,2) NULL DEFAULT 0 COMMENT '银行服�
 ALTER TABLE `credit_car_rel`
 ADD COLUMN `repayment_id`  int(10) NULL DEFAULT 0 COMMENT '还款ID' AFTER `bank_services_fee`;
 -- ----------------------------
--- 2019-04-11新
+-- 2019-04-11 更新
 -- ----------------------------
 ALTER TABLE `credit_car_rel`
 ADD COLUMN `valuation_fee`  decimal(10,2) NULL DEFAULT 0 COMMENT '商品车差额估值' AFTER `bank_services_fee`;
+-- ----------------------------
+-- 2019-04-15 更新
+-- ----------------------------
+ALTER TABLE `loan_buy_car_rel`
+ADD COLUMN `repayment_id`  int(10) NULL DEFAULT 0 COMMENT '还款ID' AFTER `car_id`;
