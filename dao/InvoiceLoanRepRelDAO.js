@@ -19,7 +19,8 @@ function addInvoiceLoanRepRel(params,callback){
 
 function getInvoiceLoanRepRel(params,callback) {
     var query = " select ilrr.*,l.loan_money,l.loan_start_date,lr.created_on as repayment_date, " +
-        " lr.create_interest_money,lr.rate,lr.day_count,lr.interest_money,lr.fee,lr.repayment_money " +
+        " lr.create_interest_money,lr.rate,lr.day_count,lr.interest_money,lr.fee,lr.repayment_money," +
+        " lr.lc_handling_fee_total,lr.bank_services_fee_total " +
         " from invoice_loan_rep_rel ilrr " +
         " left join loan_repayment lr on ilrr.repayment_id = lr.id " +
         " left join loan_info l on lr.loan_id = l.id " +

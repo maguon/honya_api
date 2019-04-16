@@ -154,3 +154,10 @@ ADD COLUMN `valuation_fee`  decimal(10,2) NULL DEFAULT 0 COMMENT '商品车差�
 -- ----------------------------
 ALTER TABLE `loan_buy_car_rel`
 ADD COLUMN `repayment_id`  int(10) NULL DEFAULT 0 COMMENT '还款ID' AFTER `car_id`;
+-- ----------------------------
+-- 2019-04-16 更新
+-- ----------------------------
+ALTER TABLE `loan_repayment`
+ADD COLUMN `lc_handling_fee_total`  decimal(10,2) NULL DEFAULT 0.00 COMMENT '手续费' AFTER `interest_money`,
+ADD COLUMN `bank_services_fee_total`  decimal(10,2) NULL DEFAULT 0.00 COMMENT '银行服务费' AFTER `lc_handling_fee`;
+
