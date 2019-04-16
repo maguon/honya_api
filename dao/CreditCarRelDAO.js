@@ -123,7 +123,8 @@ function getCreditCarRelBase(params,callback) {
 }
 
 function getCreditCarRelFeeCount(params,callback) {
-    var query = " select sum(ccr.lc_handling_fee) as lc_handling_fee_total,sum(ccr.bank_services_fee) as bank_services_fee_total " +
+    var query = " select if(isnull(sum(ccr.lc_handling_fee)),0,sum(ccr.lc_handling_fee)) as lc_handling_fee_total, " +
+        " if(isnull(sum(ccr.bank_services_fee)),0,sum(ccr.bank_services_fee)) as bank_services_fee_total " +
         " from credit_car_rel ccr where ccr.id is not null ";
     var paramsArray=[],i=0;
     if(params.repaymentId){
