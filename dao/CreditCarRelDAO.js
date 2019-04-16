@@ -122,6 +122,20 @@ function getCreditCarRelBase(params,callback) {
     });
 }
 
+function getCreditCarRelFeeCount(params,callback) {
+    var query = " select sum(ccr.lc_handling_fee) as lc_handling_fee_total,sum(ccr.bank_services_fee) as bank_services_fee_total " +
+        " from credit_car_rel ccr where ccr.id is not null ";
+    var paramsArray=[],i=0;
+    if(params.repaymentId){
+        paramsArray[i++] = params.repaymentId;
+        query = query + " and ccr.repayment_id = ? ";
+    }
+    db.dbQuery(query,paramsArray,function(error,rows){
+        logger.debug(' getCreditCarRelFeeCount ');
+        return callback(error,rows);
+    });
+}
+
 function updateCreditCarRel(params,callback){
     var query = " update credit_car_rel set lc_handling_fee = ? , bank_services_fee = ? , valuation_fee = ? " +
         " where credit_id = ? and car_id = ? " ;
@@ -167,6 +181,7 @@ module.exports ={
     addCreditCarRel : addCreditCarRel,
     getCreditCarRel : getCreditCarRel,
     getCreditCarRelBase : getCreditCarRelBase,
+    getCreditCarRelFeeCount : getCreditCarRelFeeCount,
     updateCreditCarRel : updateCreditCarRel,
     updateCreditCarRepRel : updateCreditCarRepRel,
     deleteCreditCarRel : deleteCreditCarRel

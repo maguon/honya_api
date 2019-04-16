@@ -8,6 +8,7 @@ var resUtil = require('../util/ResponseUtil.js');
 var encrypt = require('../util/Encrypt.js');
 var listOfValue = require('../util/ListOfValue.js');
 var creditCarRelDAO = require('../dao/CreditCarRelDAO.js');
+var loanRepaymentDAO = require('../dao/LoanRepaymentDAO.js');
 var carDAO = require('../dao/CarDAO.js');
 var oAuthUtil = require('../util/OAuthUtil.js');
 var Seq = require('seq');
@@ -104,6 +105,7 @@ function updateCreditCarRel(req,res,next){
 function updateCreditCarRepRel(req,res,next){
     var params = req.params ;
     var parkObj = {};
+    var repaymentId = 0;
     Seq().seq(function(){
         var that = this;
         var subParams ={
@@ -119,6 +121,7 @@ function updateCreditCarRepRel(req,res,next){
                     parkObj.valuation=rows[0].valuation;
                     parkObj.lcHandlingFee=rows[0].lc_handling_fee;
                     parkObj.bankServicesFee=rows[0].bank_services_fee;
+                    parkObj.repaymentId=rows[0].repayment_id;
                     that();
                 }else{
                     logger.warn(' getCreditCarRelBase ' + 'failed');
@@ -129,6 +132,7 @@ function updateCreditCarRepRel(req,res,next){
             }
         })
     }).seq(function () {
+        var that = this;
         if(params.repaymentId>0){
             params.valuationFee = parkObj.valuation-(parkObj.lcHandlingFee+parkObj.bankServicesFee);
         }else{
@@ -139,7 +143,48 @@ function updateCreditCarRepRel(req,res,next){
                 logger.error(' updateCreditCarRepRel ' + error.message);
                 throw sysError.InternalError(error.message,sysMsg.SYS_INTERNAL_ERROR_MSG);
             } else {
-                logger.info(' updateCreditCarRepRel ' + 'success');
+                if(result&&result.affectedRows>0){
+                    logger.info(' updateCreditCarRepRel ' + 'success');
+                }else{
+                    logger.warn(' updateCreditCarRepRel ' + 'failed');
+                }
+                that();
+            }
+        })
+    }).seq(function(){
+        var that = this;
+        if(params.repaymentId>0){
+            repaymentId = params.repaymentId;
+        }else{
+            repaymentId = parkObj.repaymentId;
+        }
+        creditCarRelDAO.getCreditCarRelFeeCount({repaymentId:repaymentId},function(error,rows){
+            if (error) {
+                logger.error(' getCreditCarRelFeeCount ' + error.message);
+                throw sysError.InternalError(error.message,sysMsg.SYS_INTERNAL_ERROR_MSG);
+            } else{
+                if(rows&&rows.length >0){
+                    parkObj.lcHandlingFeeTotal=rows[0].lc_handling_fee_total;
+                    parkObj.bankServicesFeeTotal=rows[0].bank_services_fee_total;
+                    that();
+                }else{
+                    logger.warn(' getCreditCarRelFeeCount ' + 'failed');
+                    that();
+                }
+            }
+        })
+    }).seq(function () {
+        var subParams ={
+            lcHandlingFeeTotal : parkObj.lcHandlingFeeTotal,
+            bankServicesFeeTotal : parkObj.bankServicesFeeTotal,
+            repaymentId : repaymentId
+        }
+        loanRepaymentDAO.updateLoanRepaymentFee(subParams,function(error,result){
+            if (error) {
+                logger.error(' updateLoanRepaymentFee ' + error.message);
+                throw sysError.InternalError(error.message,sysMsg.SYS_INTERNAL_ERROR_MSG);
+            } else {
+                logger.info(' updateLoanRepaymentFee ' + 'success');
                 resUtil.resetUpdateRes(res,result,null);
                 return next();
             }
