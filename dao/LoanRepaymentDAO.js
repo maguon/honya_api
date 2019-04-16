@@ -101,11 +101,14 @@ function updateLoanRepayment(params,callback){
 }
 
 function updateLoanRepaymentFee(params,callback){
-    var query = " update loan_repayment set lc_handling_fee_total = ? , bank_services_fee_total = ? where id = ? " ;
+    var query = " update loan_repayment inner join " +
+        " (select if(isnull(sum(ccr.lc_handling_fee)),0,sum(ccr.lc_handling_fee)) as lc_handling_fee_total, " +
+        " if(isnull(sum(ccr.bank_services_fee)),0,sum(ccr.bank_services_fee)) as bank_services_fee_total " +
+        " from credit_car_rel ccr where ccr.id is not null and ccr.repayment_id = "+params.repaymentId+") c " +
+        " set loan_repayment.lc_handling_fee_total = c.lc_handling_fee_total, " +
+        " loan_repayment.bank_services_fee_total = c.bank_services_fee_total " +
+        " where loan_repayment.id = "+params.repaymentId ;
     var paramsArray=[],i=0;
-    paramsArray[i++]=params.lcHandlingFeeTotal;
-    paramsArray[i++]=params.bankServicesFeeTotal;
-    paramsArray[i]=params.repaymentId;
     db.dbQuery(query,paramsArray,function(error,rows){
         logger.debug(' updateLoanRepaymentFee ');
         return callback(error,rows);
