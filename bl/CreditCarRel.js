@@ -47,6 +47,20 @@ function queryCreditCarRel(req,res,next){
     })
 }
 
+function queryCreditCarRelBase(req,res,next){
+    var params = req.params ;
+    creditCarRelDAO.getCreditCarRelBase(params,function(error,result){
+        if (error) {
+            logger.error(' queryCreditCarRelBase ' + error.message);
+            throw sysError.InternalError(error.message,sysMsg.SYS_INTERNAL_ERROR_MSG);
+        } else {
+            logger.info(' queryCreditCarRelBase ' + 'success');
+            resUtil.resetQueryRes(res,result,null);
+            return next();
+        }
+    })
+}
+
 function updateCreditCarRel(req,res,next){
     var params = req.params ;
     var parkObj = {};
@@ -151,6 +165,7 @@ function removeCreditCarRel(req,res,next){
 module.exports = {
     createCreditCarRel : createCreditCarRel,
     queryCreditCarRel : queryCreditCarRel,
+    queryCreditCarRelBase : queryCreditCarRelBase,
     updateCreditCarRel : updateCreditCarRel,
     updateCreditCarRepRel: updateCreditCarRepRel,
     removeCreditCarRel : removeCreditCarRel

@@ -92,6 +92,7 @@ function getCreditCarRelBase(params,callback) {
     var query = " select ccr.*,c.vin,c.make_name,c.model_name,pro_date,c.colour,c.valuation,c.purchase_type,c.remark as car_remark " +
         " from credit_car_rel ccr " +
         " left join car_info c on ccr.car_id = c.id " +
+        " left join invoice_loan_rep_rel ilrr on ccr.repayment_id = ilrr.repayment_id " +
         " where ccr.id is not null ";
     var paramsArray=[],i=0;
     if(params.creditId){
@@ -105,6 +106,10 @@ function getCreditCarRelBase(params,callback) {
     if(params.repaymentId){
         paramsArray[i++] = params.repaymentId;
         query = query + " and ccr.repayment_id = ? ";
+    }
+    if(params.invoiceId){
+        paramsArray[i++] = params.invoiceId;
+        query = query + " and ilrr.invoice_id = ? ";
     }
     if (params.start && params.size) {
         paramsArray[i++] = parseInt(params.start);

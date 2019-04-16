@@ -12583,6 +12583,66 @@
         }
       }
     },
+    "/creditCarRelBase": {
+      "get": {
+        "tags": [
+          "credit"
+        ],
+        "summary": "query  creditCarRel base",
+        "description": "query creditCarRelBase",
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "creditId",
+            "in": "query",
+            "description": "credit id",
+            "required": false,
+            "type": "integer"
+
+          },
+          {
+            "name": "invoiceId",
+            "in": "query",
+            "description": "invoice id",
+            "required": false,
+            "type": "integer"
+
+          },
+          {
+            "name": "start",
+            "in": "query",
+            "description": " list start pos",
+            "required": false,
+            "type": "integer"
+
+          },
+          {
+            "name": "size",
+            "in": "query",
+            "description": "list size for pagination",
+            "required": false,
+            "type": "integer"
+
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "successful operation",
+            "schema": {
+              "type": "object",
+              "items": {
+                "$ref": "#/definitions/creditCarRel"
+              }
+            }
+          },
+          "400": {
+            "description": "Invalid token value or invalid creditCarRel id"
+          }
+        }
+      }
+    },
     "/user/{userId}/creditCarRel": {
       "post": {
         "tags": [
