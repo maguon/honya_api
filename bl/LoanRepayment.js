@@ -151,8 +151,8 @@ function updateLoanRepaymentStatus(req,res,next){
 
 function getLoanRepaymentCsv(req,res,next){
     var csvString = "";
-    var header = "贷出还款编号" + ',' + "委托方" + ',' + "贷出编号" + ','+ "还款金额" + ','+ "利率(%)"+ ','+ "计息天数"+ ','+ "利息" + ','+ "手续费" + ',' + "还款时间"
-        + ',' + "状态" + ',' + "备注";
+    var header = "贷出还款编号" + ',' + "委托方" + ',' + "贷出编号" + ','+ "还款金额" + ','+ "利率(%)"+ ','+ "计息天数"+ ','+ "利息"
+        + ','+ "手续费合计" + ',' + "银行服务费合计" + ',' + "还款时间" + ',' + "状态" + ',' + "备注";
     csvString = header + '\r\n'+csvString;
     var params = req.params ;
     var parkObj = {};
@@ -169,7 +169,8 @@ function getLoanRepaymentCsv(req,res,next){
                 parkObj.rate = rows[i].rate;
                 parkObj.dayCount = rows[i].day_count;
                 parkObj.interestMoney = rows[i].interest_money;
-                parkObj.fee = rows[i].fee;
+                parkObj.lcHandlingFeeTotal = rows[i].lc_handling_fee_total;
+                parkObj.bankServicesFeeTotal = rows[i].bank_services_fee_total;
                 parkObj.createdOn = new Date(rows[i].created_on).toLocaleDateString();
                 if(rows[i].repayment_status == 1){
                     parkObj.repaymentStatus = "未完结";
@@ -182,7 +183,8 @@ function getLoanRepaymentCsv(req,res,next){
                     parkObj.remark = rows[i].remark;
                 }
                 csvString = csvString+parkObj.id+","+parkObj.shortName+","+parkObj.loanId+","+parkObj.repaymentMoney+","+parkObj.rate+","+parkObj.dayCount
-                    +","+parkObj.interestMoney+","+parkObj.fee+","+parkObj.createdOn +","+parkObj.repaymentStatus+","+parkObj.remark + '\r\n';
+                    +","+parkObj.interestMoney+","+parkObj.lcHandlingFeeTotal+","+parkObj.bankServicesFeeTotal
+                    +","+parkObj.createdOn +","+parkObj.repaymentStatus+","+parkObj.remark + '\r\n';
             }
             var csvBuffer = new Buffer(csvString,'utf8');
             res.set('content-type', 'application/csv');
