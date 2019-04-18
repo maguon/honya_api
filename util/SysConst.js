@@ -81,6 +81,11 @@ var PAY_TYPE  ={ //付费项目类别
     other : 12 //其他
 };
 
+var PURCHASE_TYPE  ={ //是否金融车
+    no : 0,  //不是
+    yes : 1 //是
+};
+
 
 module.exports = {
     USER_TYPE : USER_TYPE,
@@ -95,5 +100,6 @@ module.exports = {
     LOAN_STATUS : LOAN_STATUS,
     LOAN_INTO_STATUS : LOAN_INTO_STATUS,
     INVOICE_STATUS : INVOICE_STATUS,
-    PAY_TYPE : PAY_TYPE
+    PAY_TYPE : PAY_TYPE,
+    PURCHASE_TYPE : PURCHASE_TYPE
 }

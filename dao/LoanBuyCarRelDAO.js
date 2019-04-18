@@ -29,6 +29,10 @@ function getLoanBuyCarRel(params,callback) {
         paramsArray[i++] = params.loanId;
         query = query + " and lbc.loan_id = ? ";
     }
+    if(params.repaymentId){
+        paramsArray[i++] = params.repaymentId;
+        query = query + " and lbc.repayment_id = ? ";
+    }
     query = query + ' group by lbc.id ';
     if (params.start && params.size) {
         paramsArray[i++] = parseInt(params.start);

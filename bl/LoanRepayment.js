@@ -11,6 +11,7 @@ var sysConst = require('../util/SysConst.js');
 var loanRepaymentDAO = require('../dao/LoanRepaymentDAO.js');
 var loanDAO = require('../dao/LoanDAO.js');
 var loanBuyCarRelDAO = require('../dao/LoanBuyCarRelDAO.js');
+var carDAO = require('../dao/CarDAO.js');
 var oAuthUtil = require('../util/OAuthUtil.js');
 var Seq = require('seq');
 var serverLogger = require('../util/ServerLogger.js');
@@ -135,17 +136,65 @@ function updateLoanRepayment(req,res,next){
 
 function updateLoanRepaymentStatus(req,res,next){
     var params = req.params ;
-    var myDate = new Date();
-    params.repaymentEndDate = myDate;
-    loanRepaymentDAO.updateLoanRepaymentStatus(params,function(error,result){
-        if (error) {
-            logger.error(' updateLoanRepaymentStatus ' + error.message);
-            throw sysError.InternalError(error.message,sysMsg.SYS_INTERNAL_ERROR_MSG);
-        } else {
-            logger.info(' updateLoanRepaymentStatus ' + 'success');
-            resUtil.resetUpdateRes(res,result,null);
-            return next();
-        }
+    var carIds = [];
+    Seq().seq(function(){
+        var that = this;
+        loanBuyCarRelDAO.getLoanBuyCarRel({repaymentId:params.repaymentId},function(error,rows){
+            if (error) {
+                logger.error(' getLoanBuyCarRel ' + error.message);
+                throw sysError.InternalError(error.message,sysMsg.SYS_INTERNAL_ERROR_MSG);
+            } else{
+                if(rows&&rows.length>0){
+                    for(var i=0;i<rows.length;i++){
+                        carIds[i] = rows[i].car_id;
+                    }
+                    that();
+                }else{
+                    logger.warn(' getLoanBuyCarRel ' + 'failed');
+                    that();
+                }
+            }
+        })
+    }).seq(function() {
+        var that = this;
+        var rowArray = [] ;
+        rowArray.length= carIds.length;
+        Seq(rowArray).seqEach(function(rowObj,i){
+            var that = this;
+            var subParams ={
+                purchaseType : sysConst.PURCHASE_TYPE.no,
+                carId : carIds[i],
+                row : i+1,
+            }
+            carDAO.updateCarPurchaseType(subParams,function(err,result){
+                if (err) {
+                    logger.error(' updateCarPurchaseType ' + err.message);
+                    throw sysError.InternalError(err.message,sysMsg.SYS_INTERNAL_ERROR_MSG);
+                } else {
+                    if(result&&result.insertId>0){
+                        logger.info(' updateCarPurchaseType ' + 'success');
+                    }else{
+                        logger.warn(' updateCarPurchaseType ' + 'failed');
+                    }
+                    that(null,i);
+                }
+            })
+        }).seq(function(){
+            that();
+        })
+    }).seq(function () {
+        var myDate = new Date();
+        params.repaymentEndDate = myDate;
+        loanRepaymentDAO.updateLoanRepaymentStatus(params,function(error,result){
+            if (error) {
+                logger.error(' updateLoanRepaymentStatus ' + error.message);
+                throw sysError.InternalError(error.message,sysMsg.SYS_INTERNAL_ERROR_MSG);
+            } else {
+                logger.info(' updateLoanRepaymentStatus ' + 'success');
+                resUtil.resetUpdateRes(res,result,null);
+                return next();
+            }
+        })
     })
 }
 

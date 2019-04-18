@@ -369,6 +369,17 @@ function updateCarVin(params,callback){
     });
 }
 
+function updateCarPurchaseType(params,callback){
+    var query = " update car_info set purchase_type = ? where id = ? " ;
+    var paramsArray=[],i=0;
+    paramsArray[i++]=params.purchaseType;
+    paramsArray[i]=params.carId;
+    db.dbQuery(query,paramsArray,function(error,rows){
+        logger.debug(' updateCarPurchaseType ');
+        return callback(error,rows);
+    });
+}
+
 function getCarEntrustStat(params,callback) {
     var query = " select e.id,e.short_name,count(case when csr.active = 1 and csr.rel_status = "+params.relStatus+" then c.id end) as car_count " +
         " from entrust_info e " +
@@ -396,5 +407,6 @@ module.exports ={
     updateCar : updateCar,
     updateCarValuationMso : updateCarValuationMso,
     updateCarVin : updateCarVin,
+    updateCarPurchaseType : updateCarPurchaseType,
     getCarEntrustStat : getCarEntrustStat
 }
