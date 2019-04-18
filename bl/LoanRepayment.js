@@ -136,51 +136,20 @@ function updateLoanRepayment(req,res,next){
 
 function updateLoanRepaymentStatus(req,res,next){
     var params = req.params ;
-    var carIds = [];
-    Seq().seq(function(){
+    Seq().seq(function () {
         var that = this;
-        loanBuyCarRelDAO.getLoanBuyCarRel({repaymentId:params.repaymentId},function(error,rows){
-            if (error) {
-                logger.error(' getLoanBuyCarRel ' + error.message);
-                throw sysError.InternalError(error.message,sysMsg.SYS_INTERNAL_ERROR_MSG);
-            } else{
-                if(rows&&rows.length>0){
-                    for(var i=0;i<rows.length;i++){
-                        carIds[i] = rows[i].car_id;
-                    }
-                    that();
+        carDAO.updateCarPurchaseType(params,function(err,result){
+            if (err) {
+                logger.error(' updateCarPurchaseType ' + err.message);
+                throw sysError.InternalError(err.message,sysMsg.SYS_INTERNAL_ERROR_MSG);
+            } else {
+                if(result&&result.affectedRows>0){
+                    logger.info(' updateCarPurchaseType ' + 'success');
                 }else{
-                    logger.warn(' getLoanBuyCarRel ' + 'failed');
-                    that();
+                    logger.warn(' updateCarPurchaseType ' + 'failed');
                 }
+                that();
             }
-        })
-    }).seq(function() {
-        var that = this;
-        var rowArray = [] ;
-        rowArray.length= carIds.length;
-        Seq(rowArray).seqEach(function(rowObj,i){
-            var that = this;
-            var subParams ={
-                purchaseType : sysConst.PURCHASE_TYPE.no,
-                carId : carIds[i],
-                row : i+1,
-            }
-            carDAO.updateCarPurchaseType(subParams,function(err,result){
-                if (err) {
-                    logger.error(' updateCarPurchaseType ' + err.message);
-                    throw sysError.InternalError(err.message,sysMsg.SYS_INTERNAL_ERROR_MSG);
-                } else {
-                    if(result&&result.insertId>0){
-                        logger.info(' updateCarPurchaseType ' + 'success');
-                    }else{
-                        logger.warn(' updateCarPurchaseType ' + 'failed');
-                    }
-                    that(null,i);
-                }
-            })
-        }).seq(function(){
-            that();
         })
     }).seq(function () {
         var myDate = new Date();

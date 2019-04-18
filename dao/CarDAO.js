@@ -370,10 +370,9 @@ function updateCarVin(params,callback){
 }
 
 function updateCarPurchaseType(params,callback){
-    var query = " update car_info set purchase_type = ? where id = ? " ;
+    var query = " update car_info set purchase_type = 0 where id in (select car_id from loan_buy_car_rel where repayment_id = ?) " ;
     var paramsArray=[],i=0;
-    paramsArray[i++]=params.purchaseType;
-    paramsArray[i]=params.carId;
+    paramsArray[i++]=params.repaymentId;
     db.dbQuery(query,paramsArray,function(error,rows){
         logger.debug(' updateCarPurchaseType ');
         return callback(error,rows);
