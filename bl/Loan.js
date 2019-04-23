@@ -223,25 +223,21 @@ function updateLoanStatus(req,res,next){
 
 function getLoanCsv(req,res,next){
     var csvString = "";
-    var header = "贷出编号" + ',' + "委托方" + ',' + "抵押车辆" + ','+ "抵押车值" + ','+ "合同编号" + ','+ "定金"
-        + ','+ "购买车辆数" + ','+ "贷出金额" + ',' + "贷出时间" + ',' + "未还金额" + ','+ "完结时间" + ','+ "状态"+ ','+ "备注";
+    var header = "贷出编号" + ',' + "委托方" + ','+ "合同编号" + ','+ "定金" + ','+ "购买车辆数" + ','+
+        "贷出金额" + ',' + "贷出时间" + ',' + "未还金额" + ','+ "完结时间" + ','+ "状态"+ ','+ "备注" + ','+
+        "VIN" + ',' + "品牌" + ',' + "型号" + ','+ "估值" + ','+ "信用证编号"+ ','+ "手续费" + ','+ "银行服务费" + ',' +
+        "仓储订单编号" + ',' + "入库时间" + ','+ "出库时间" + ','+ "合计天数"+ ','+ "实际应付" + ','+ "海运订单编号" + ',' + "海运费用";
     csvString = header + '\r\n'+csvString;
     var params = req.params ;
     var parkObj = {};
-    loanDAO.getLoan(params,function(error,rows){
+    loanDAO.getLoanList(params,function(error,rows){
         if (error) {
-            logger.error(' getLoan ' + error.message);
+            logger.error(' getLoanList ' + error.message);
             throw sysError.InternalError(error.message,sysMsg.SYS_INTERNAL_ERROR_MSG);
         } else {
             for(var i=0;i<rows.length;i++){
                 parkObj.id = rows[i].id;
                 parkObj.shortName = rows[i].short_name;
-                parkObj.mortgageCarCount = rows[i].mortgage_car_count;
-                if(rows[i].mortgage_valuation == null){
-                    parkObj.mortgageValuation = "";
-                }else{
-                    parkObj.mortgageValuation = rows[i].mortgage_valuation;
-                }
                 parkObj.contractNum = rows[i].contract_num;
                 parkObj.deposit = rows[i].deposit;
                 parkObj.buyCarCount = rows[i].buy_car_count;
@@ -271,9 +267,80 @@ function getLoanCsv(req,res,next){
                 }else{
                     parkObj.remark = rows[i].remark.replace(/[\r\n]/g, '');
                 }
-                csvString = csvString+parkObj.id+","+parkObj.shortName+","+parkObj.mortgageCarCount+","+parkObj.mortgageValuation+","+parkObj.contractNum
-                    +","+parkObj.deposit +","+parkObj.buyCarCount+","+parkObj.loanMoney+","+parkObj.loanStartDate+","+parkObj.notRepaymentMoney +","+parkObj.loanEndDate
-                    +","+parkObj.loanStatus+","+parkObj.remark + '\r\n';
+                if(rows[i].vin == null){
+                    parkObj.vin = "";
+                }else{
+                    parkObj.vin = rows[i].vin;
+                }
+                if(rows[i].make_name == null){
+                    parkObj.makeName = "";
+                }else{
+                    parkObj.makeName = rows[i].make_name;
+                }
+                if(rows[i].model_name == null){
+                    parkObj.modelName = "";
+                }else{
+                    parkObj.modelName = rows[i].model_name;
+                }
+                if(rows[i].valuation == null){
+                    parkObj.valuation = "";
+                }else{
+                    parkObj.valuation = rows[i].valuation;
+                }
+                if(rows[i].credit_number == null){
+                    parkObj.creditNumber = "";
+                }else{
+                    parkObj.creditNumber = rows[i].credit_number;
+                }
+                if(rows[i].lc_handling_fee == null){
+                    parkObj.lcHandlingFee = "";
+                }else{
+                    parkObj.lcHandlingFee = rows[i].lc_handling_fee;
+                }
+                if(rows[i].bank_services_fee == null){
+                    parkObj.bankServicesFee = "";
+                }else{
+                    parkObj.bankServicesFee = rows[i].bank_services_fee;
+                }
+                if(rows[i].storage_order_id == null){
+                    parkObj.storageOrderId = "";
+                }else{
+                    parkObj.storageOrderId = rows[i].storage_order_id;
+                }
+                if(rows[i].enter_time == null){
+                    parkObj.enterTime = "";
+                }else{
+                    parkObj.enterTime = new Date(rows[i].enter_time).toLocaleDateString();
+                }
+                if(rows[i].real_out_time == null){
+                    parkObj.realOutTime = "";
+                }else{
+                    parkObj.realOutTime = new Date(rows[i].real_out_time).toLocaleDateString();
+                }
+                if(rows[i].day_count == null){
+                    parkObj.dayCount = "";
+                }else{
+                    parkObj.dayCount = rows[i].day_count;
+                }
+                if(rows[i].actual_fee == null){
+                    parkObj.actualFee = "";
+                }else{
+                    parkObj.actualFee = rows[i].actual_fee;
+                }
+                if(rows[i].ship_trans_order_id == null){
+                    parkObj.shipTransOrderId = "";
+                }else{
+                    parkObj.shipTransOrderId = rows[i].ship_trans_order_id;
+                }
+                if(rows[i].total_fee == null){
+                    parkObj.totalFee = "";
+                }else{
+                    parkObj.totalFee = rows[i].total_fee;
+                }
+                csvString = csvString+parkObj.id+","+parkObj.shortName+","+parkObj.contractNum+","+parkObj.deposit +","+parkObj.buyCarCount+","+
+                    parkObj.loanMoney+","+parkObj.loanStartDate+","+parkObj.notRepaymentMoney +","+parkObj.loanEndDate+","+parkObj.loanStatus+","+parkObj.remark+","+
+                    parkObj.vin+","+parkObj.makeName+","+parkObj.modelName +","+parkObj.valuation+","+parkObj.creditNumber+","+parkObj.lcHandlingFee+","+ parkObj.bankServicesFee+","+
+                    parkObj.storageOrderId+","+parkObj.enterTime +","+parkObj.realOutTime+","+parkObj.dayCount+","+parkObj.actualFee+","+parkObj.shipTransOrderId+","+parkObj.totalFee+ '\r\n';
             }
             var csvBuffer = new Buffer(csvString,'utf8');
             res.set('content-type', 'application/csv');

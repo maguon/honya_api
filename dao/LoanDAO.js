@@ -77,6 +77,70 @@ function getLoan(params,callback) {
     });
 }
 
+function getLoanList(params,callback) {
+    var query = " select l.*,e.short_name,c.vin,c.make_name,c.model_name,c.valuation, " +
+        " ci.credit_number,ccr.lc_handling_fee,ccr.bank_services_fee,ccr.valuation_fee, " +
+        " so.id as storage_order_id,csr.enter_time,csr.real_out_time,so.day_count,so.actual_fee, " +
+        " sto.id as ship_trans_order_id,sto.total_fee " +
+        " from loan_info l " +
+        " left join entrust_info e on l.entrust_id = e.id " +
+        " left join loan_buy_car_rel lbcr on l.id = lbcr.loan_id " +
+        " left join car_info c on lbcr.car_id = c.id " +
+        " left join credit_car_rel ccr on lbcr.car_id = ccr.car_id " +
+        " left join credit_info ci on ccr.credit_id = ci.id " +
+        " left join storage_order so on lbcr.car_id = so.car_id " +
+        " left join car_storage_rel csr on so.car_storage_rel_id = csr.id " +
+        " left join ship_trans_order sto on lbcr.car_id = sto.car_id " +
+        " left join ship_trans_info st on sto.ship_trans_id = st.id " +
+        " where l.id is not null ";
+    var paramsArray=[],i=0;
+    if(params.loanId){
+        paramsArray[i++] = params.loanId;
+        query = query + " and l.id = ? ";
+    }
+    if(params.entrustType){
+        paramsArray[i++] = params.entrustType;
+        query = query + " and e.entrust_type = ? ";
+    }
+    if(params.entrustId){
+        paramsArray[i++] = params.entrustId;
+        query = query + " and l.entrust_id = ? ";
+    }
+    if(params.loanStatus){
+        paramsArray[i++] = params.loanStatus;
+        query = query + " and l.loan_status = ? ";
+    }
+    if(params.loanStatusArr){
+        query = query + " and l.loan_status in ("+params.loanStatusArr + ") "
+    }
+    if(params.loanStartDateStart){
+        paramsArray[i++] = params.loanStartDateStart +" 00:00:00";
+        query = query + " and l.loan_start_date >= ? ";
+    }
+    if(params.loanStartDateEnd){
+        paramsArray[i++] = params.loanStartDateEnd +" 23:59:59";
+        query = query + " and l.loan_start_date <= ? ";
+    }
+    if(params.loanEndDateStart){
+        paramsArray[i++] = params.loanEndDateStart +" 00:00:00";
+        query = query + " and l.loan_end_date >= ? ";
+    }
+    if(params.loanEndDateEnd){
+        paramsArray[i++] = params.loanEndDateEnd +" 23:59:59";
+        query = query + " and l.loan_end_date <= ? ";
+    }
+    query = query + " order by l.id desc ";
+    if (params.start && params.size) {
+        paramsArray[i++] = parseInt(params.start);
+        paramsArray[i++] = parseInt(params.size);
+        query += " limit ? , ? "
+    }
+    db.dbQuery(query,paramsArray,function(error,rows){
+        logger.debug(' getLoanList ');
+        return callback(error,rows);
+    });
+}
+
 function getLoanNotCount(params,callback) {
     var query = " select sum(l.not_repayment_money) as not_repayment_money,count(l.id) as loan_count " +
         " from loan_info l where l.id is not null ";
@@ -213,6 +277,7 @@ function updateLoanStatus(params,callback){
 module.exports ={
     addLoan : addLoan,
     getLoan : getLoan,
+    getLoanList : getLoanList,
     getLoanNotCount : getLoanNotCount,
     getLoanStatDate : getLoanStatDate,
     updateLoan : updateLoan,
