@@ -17,6 +17,12 @@ var logger = serverLogger.createLogger('CreditCarRel.js');
 
 function createCreditCarRel(req,res,next){
     var params = req.params ;
+    if(params.lcHandlingFee==null ||params.lcHandlingFee==""){
+        params.lcHandlingFee = 0;
+    }
+    if(params.bankServicesFee==null ||params.bankServicesFee==""){
+        params.bankServicesFee = 0;
+    }
     creditCarRelDAO.addCreditCarRel(params,function(error,result){
         if (error) {
             if(error.message.indexOf("Duplicate") > 0) {
