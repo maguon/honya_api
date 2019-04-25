@@ -159,5 +159,5 @@ ADD COLUMN `repayment_id`  int(10) NULL DEFAULT 0 COMMENT '还款ID' AFTER `car_
 -- ----------------------------
 ALTER TABLE `loan_repayment`
 ADD COLUMN `lc_handling_fee_total`  decimal(10,2) NULL DEFAULT 0.00 COMMENT '手续费' AFTER `interest_money`,
-ADD COLUMN `bank_services_fee_total`  decimal(10,2) NULL DEFAULT 0.00 COMMENT '银行服务费' AFTER `lc_handling_fee`;
+ADD COLUMN `bank_services_fee_total`  decimal(10,2) NULL DEFAULT 0.00 COMMENT '银行服务费' AFTER `lc_handling_fee_total`;
 
